@@ -4,9 +4,6 @@ export default function LoginBtn() {
   if (session?.user) {
     return (
       <>
-        <p className=" absolute left-5 hidden text-base font-semibold sm:inline ">
-          You are signed in as {session.user.name}
-        </p>
         <button className="btn" onClick={() => signOut()}>
           Sign out
         </button>
@@ -15,10 +12,7 @@ export default function LoginBtn() {
   }
   return (
     <>
-      <button
-        className="btn-primary btn-active btn mr-2"
-        onClick={() => signIn()}
-      >
+      <button className="btn-primary btn mr-2" onClick={() => signIn()}>
         Sign in
       </button>
     </>
