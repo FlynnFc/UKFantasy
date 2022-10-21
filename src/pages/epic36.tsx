@@ -30,9 +30,9 @@ const Epic36 = () => {
             </ul>
           </div>
         </section>
-        <section className="my-5 text-base-content">
+        <section className="my-5 flex justify-center bg-base-300 p-10  text-base-content">
           <div className=" overflow-x-auto">
-            <table className="table rounded-lg border-2 border-primary font-semibold shadow-2xl">
+            <table className="table font-semibold">
               <thead>
                 <tr>
                   <th></th>
