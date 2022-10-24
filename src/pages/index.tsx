@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { Player } from "../components/Player";
 
 const Home: NextPage = () => {
   return (
