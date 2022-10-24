@@ -18,17 +18,11 @@ const Epic36 = () => {
           <h2 className="text-2xl font-bold">Live Matches</h2>
 
           <div>
-            <ul>
-              <li>mvt</li>
-              <li>mvt</li>
-              <li>mvt</li>
-              <li>mvt</li>
-              <li>mvt</li>
-              <li>mvt</li>
-              <li>mvt</li>
-              <li>mvt</li>
-              <li>mvt</li>
-              <li>mvt</li>
+            <ul className="mt-3 flex flex-col items-center justify-center">
+              <li>PSG vs C9</li>
+              <li>PSG vs C9</li>
+              <li>PSG vs C9</li> <li>PSG vs C9</li> <li>PSG vs C9</li>
+              <li>PSG vs C9</li> <li>PSG vs C9</li> <li>PSG vs C9</li>
             </ul>
           </div>
         </section>
