@@ -1,5 +1,4 @@
 import React from "react";
-import { Player } from "../components/Player";
 
 const Epic36 = () => {
   return (
