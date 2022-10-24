@@ -3,16 +3,17 @@ import React, { useState } from "react";
 export const Player = () => {
   const [stats, setStats] = useState(false);
   return (
-    <div id="player" className="z-0 h-96 w-72 overflow-hidden bg-orange-500">
+    <div
+      id="player"
+      className="z-0 h-96 w-72 overflow-hidden rounded-xl border-2 border-black bg-orange-500"
+      onMouseEnter={() => {
+        setTimeout(() => setStats(true), 100);
+      }}
+      onMouseLeave={() => {
+        setTimeout(() => setStats(false), 100);
+      }}
+    >
       <div
-        onMouseEnter={() => {
-          console.log(stats);
-          setStats(true);
-        }}
-        onMouseLeave={() => {
-          console.log(stats);
-          setStats(false);
-        }}
         id="image"
         className="z-10 flex h-72 items-center justify-center bg-green-500"
       >
@@ -28,8 +29,8 @@ export const Player = () => {
       <div
         id="stats"
         className={`${
-          stats ? "-translate-y-[100%]" : "translate-y-[105%]"
-        }h-full w-full transition-transform`}
+          stats && "-translate-y-[100%]"
+        } h-full w-full transition-transform`}
       >
         test
       </div>
