@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 import { Player } from "../components/Player";
 
 const Home: NextPage = () => {
@@ -14,7 +15,6 @@ const Home: NextPage = () => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
-        <Player />
       </main>
     </>
   );
