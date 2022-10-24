@@ -1,4 +1,5 @@
 import React from "react";
+import { Player } from "../components/Player";
 
 const Epic36 = () => {
   return (
@@ -15,6 +16,7 @@ const Epic36 = () => {
       <div className="flex flex-row space-x-4">
         <section className="my-5 w-auto rounded-lg bg-base-300 p-10 text-base-content shadow-lg">
           <h2 className="text-2xl font-bold">Live Matches</h2>
+
           <div>
             <ul>
               <li>mvt</li>

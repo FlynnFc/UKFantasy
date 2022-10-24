@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { Player } from "../components/Player";
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
+        <Player />
       </main>
     </>
   );

@@ -5,3 +5,12 @@
 table tr {
   background-color: green /* 8px */;
 }
+
+#stats {
+  transform: translate(0, 105%);
+  background: rgba(210, 67, 67, 0.446);
+}
+
+#player:hover #stats {
+  transform: translate(0, -72%);
+}
