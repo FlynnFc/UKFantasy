@@ -5,7 +5,7 @@ export const Player = () => {
   return (
     <div
       id="player"
-      className="z-0 h-96 w-72 overflow-hidden rounded-xl border-2 border-black bg-orange-500"
+      className="z-0 h-96 w-72 overflow-hidden rounded-xl bg-orange-500 shadow-lg"
       onMouseEnter={() => {
         setTimeout(() => setStats(true), 100);
       }}
