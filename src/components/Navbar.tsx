@@ -9,7 +9,12 @@ const Navbar = () => {
         <Link href="./">
           <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
         </Link>
-        <LoginBtn />
+        <div className="space-x-2">
+          <Link href="/epic36">
+            <button className="btn-warning btn">Epic36</button>
+          </Link>
+          <LoginBtn />
+        </div>
       </div>
     </div>
   );
