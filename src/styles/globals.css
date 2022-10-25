@@ -7,5 +7,16 @@ table tr {
 }
 
 #stats {
-  background: rgba(210, 67, 67, 0.446);
+  background: rgba(0, 0, 0, 0.612);
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+}
+#nameplate {
+  background: rgb(252, 190, 68);
+  background: linear-gradient(
+    130deg,
+    rgba(252, 190, 68, 1) 26%,
+    rgba(149, 117, 56, 1) 100%
+  );
 }
