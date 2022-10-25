@@ -4,7 +4,7 @@ import LoginBtn from "./LoginBtn";
 
 const Navbar = () => {
   return (
-    <div className="navbar">
+    <div className="navbar absolute">
       <div className="flex w-full justify-between">
         <Link href="./">
           <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
