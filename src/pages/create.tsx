@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import NotSignedin from "../components/NotSignedin";
 import { Player } from "../components/Player";
 import PlayerGroup from "../components/playerGroup";
+import PlayerGroupSkeleton from "../components/playerGroupSkeleton";
 
 const Create = () => {
   const [introModal, setIntroModal] = useState(true);
   const session = useSession();
   console.log(session.data);
   return (
-    <main className="min-w-screen container  mx-auto mt-20 flex max-h-screen flex-col items-end justify-start  p-4">
+    <main className="min-w-screen container mx-auto  mt-20 flex max-h-screen max-w-7xl flex-col items-end justify-start  p-4">
       {introModal && (
         <div className="createModal fixed top-0 left-0 z-20 my-2 flex min-h-screen w-full items-start justify-center bg-info">
           <div className="mt-32 w-[80%] rounded-lg bg-neutral p-10">
@@ -51,9 +52,36 @@ const Create = () => {
             illo voluptate dignissimos accusantium eius maxime, natus dolor
             velit! Accusantium, ea!
           </p>
+          <div>
+            <PlayerGroupSkeleton>
+              <Player rareity="gold" name="Smooya" price="35,000" img="test" />
+              <Player rareity="silver" name="StayX" price="22,000" img="test" />
+              <Player rareity="bronze" name="Dweg" price="5,000" img="test" />
+            </PlayerGroupSkeleton>
+          </div>
           <div className="space-y-6">
-            <PlayerGroup />
-            <PlayerGroup />
+            <PlayerGroup team="God Squad">
+              <Player rareity="gold" name="Smooya" price="35,000" img="test" />
+              <Player
+                rareity="silver"
+                name="Stay X"
+                price="22,000"
+                img="test"
+              />
+              <Player rareity="bronze" name="Dweg" price="5,000" img="test" />
+              <Player
+                rareity="silver"
+                name="Ralphy"
+                price="20,000"
+                img="test"
+              />
+              <Player
+                rareity="silver"
+                name="Klon"
+                price="1,000,000"
+                img="test"
+              />
+            </PlayerGroup>
           </div>
         </div>
       ) : (
