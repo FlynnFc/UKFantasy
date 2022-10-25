@@ -36,3 +36,7 @@ table tr {
     rgba(122, 91, 9, 1) 91%
   );
 }
+
+.createModal {
+  background-color: rgba(0, 0, 0, 0.478);
+}
