@@ -12,7 +12,7 @@ const Epic36 = () => {
           dolorum unde assumenda!
         </p>
       </div>
-      <div className="flex w-full flex-row justify-between space-x-4">
+      <div className="flex w-full flex-col justify-between lg:flex-row lg:space-x-4">
         <section className="my-5 h-max w-full rounded-lg bg-base-300 py-5 px-10 text-base-content shadow-lg">
           <h2 className="text-center text-2xl font-bold leading-none">
             Live Matches
