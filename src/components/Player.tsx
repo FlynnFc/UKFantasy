@@ -6,7 +6,7 @@ type player = {
   name: string;
   price: string;
   rareity: string;
-  img: string;
+  img?: string;
 };
 
 export const Player = (props: player) => {
@@ -19,11 +19,11 @@ export const Player = (props: player) => {
   return (
     <div
       id="player"
-      className="z-0 h-96 w-72 overflow-hidden rounded-xl bg-neutral shadow-lg"
+      className="z-0 h-72 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg"
     >
       <div
         id="image"
-        className="z-10  h-72 cursor-pointer justify-center overflow-hidden"
+        className="z-10  h-52 cursor-pointer justify-center overflow-hidden"
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -34,20 +34,24 @@ export const Player = (props: player) => {
         <Image alt="portrait" src={test} />
         <div
           id="stats"
-          className={`${stats && "-translate-y-[106%]"} h-full w-full p-2`}
+          className={`${
+            stats && "h-full  w-full -translate-y-[115%] p-2"
+          } "h-full p-2" w-full`}
         >
           test
         </div>
       </div>
       <div
         id={rareity}
-        className="flex h-[6rem] cursor-grab select-none flex-col items-center justify-evenly "
+        className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg "
       >
-        <h2 className=" pt-2 text-center text-3xl font-bold leading-none">
+        <h2 className=" pt-2 text-center text-2xl font-bold leading-none text-neutral">
           {props.name}
         </h2>
         <div>
-          <p className="pb-2 text-center text-2xl">£{props.price}</p>
+          <p className="pb-2 text-center text-2xl text-neutral">
+            £{props.price}
+          </p>
         </div>
       </div>
     </div>
