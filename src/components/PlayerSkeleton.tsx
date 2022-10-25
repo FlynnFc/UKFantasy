@@ -1,6 +1,4 @@
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import test from "../images/smooya.webp";
+import React, { useState } from "react";
 
 const PlayerSkeleton = () => {
   const [stats, setStats] = useState(false);

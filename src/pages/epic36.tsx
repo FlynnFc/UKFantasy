@@ -1,7 +1,6 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
-import NotSignedin from "../components/NotSignedin";
 
 const Epic36 = () => {
   const session = useSession();

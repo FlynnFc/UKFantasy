@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Player } from "./Player";
+import React from "react";
+
 import PlayerSkeleton from "./PlayerSkeleton";
 
 const PlayerGroupSkeleton = (props: { children: any }) => {
