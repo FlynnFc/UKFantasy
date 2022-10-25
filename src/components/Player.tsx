@@ -6,12 +6,13 @@ type player = {
   name: string;
   price: string;
   rareity: string;
-  img?: string;
+  img?: any;
 };
 
 export const Player = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
+  console.log(props.img);
 
   useEffect(() => {
     setRareity(props.rareity);
@@ -19,7 +20,7 @@ export const Player = (props: player) => {
   return (
     <div
       id="player"
-      className="z-0 h-72 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg"
+      className="z-0 h-72 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg "
     >
       <div
         id="image"
@@ -31,11 +32,11 @@ export const Player = (props: player) => {
           setTimeout(() => setStats(false), 100);
         }}
       >
-        <Image alt="portrait" src={test} />
+        <Image alt="portrait" height={300} width={300} src={props.img} />
         <div
           id="stats"
           className={`${
-            stats && "h-full  w-full -translate-y-[115%] p-2"
+            stats && "h-full  w-full -translate-y-[111%] p-2"
           } "h-full p-2" w-full`}
         >
           test
@@ -43,7 +44,7 @@ export const Player = (props: player) => {
       </div>
       <div
         id={rareity}
-        className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg "
+        className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg  "
       >
         <h2 className=" pt-2 text-center text-2xl font-bold leading-none text-neutral">
           {props.name}
