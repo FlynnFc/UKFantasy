@@ -3,7 +3,7 @@ import React from "react";
 const Epic36 = () => {
   return (
     <main className="container mx-auto flex max-h-screen flex-col items-start justify-start p-4">
-      <div className="flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
+      <div className="mt-12 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
         <h1 className="my-8 text-4xl font-bold">Epic36 Tournement center</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
@@ -12,8 +12,8 @@ const Epic36 = () => {
           dolorum unde assumenda!
         </p>
       </div>
-      <div className="flex flex-row space-x-4">
-        <section className="my-5 w-auto rounded-lg bg-base-300 p-10 text-base-content shadow-lg">
+      <div className="flex w-full flex-row justify-between space-x-4">
+        <section className="my-5 rounded-lg bg-base-300 p-10 text-base-content shadow-lg">
           <h2 className="text-2xl font-bold">Live Matches</h2>
 
           <div>
@@ -25,9 +25,9 @@ const Epic36 = () => {
             </ul>
           </div>
         </section>
-        <section className="my-5 flex justify-center bg-base-300 p-10  text-base-content">
+        <section className="flexjustify-center my-5 rounded-lg bg-base-300  p-10 text-base-content">
           <div className=" overflow-x-auto">
-            <table className="table font-semibold">
+            <table className="table w-full font-semibold">
               <thead>
                 <tr>
                   <th></th>
