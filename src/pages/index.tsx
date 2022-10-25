@@ -5,7 +5,7 @@ const Home: NextPage = () => {
   return (
     <>
       <main className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">
-        <h1 className="my-8 text-4xl font-bold">
+        <h1 className="my-2 mt-[20%] text-4xl font-bold">
           Welcome to the UK CS Fantasy League!
         </h1>
         <p>
