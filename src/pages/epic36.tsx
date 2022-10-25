@@ -13,15 +13,43 @@ const Epic36 = () => {
         </p>
       </div>
       <div className="flex w-full flex-row justify-between space-x-4">
-        <section className="my-5 rounded-lg bg-base-300 p-10 text-base-content shadow-lg">
-          <h2 className="text-2xl font-bold">Live Matches</h2>
+        <section className="my-5 h-max w-full rounded-lg bg-base-300 py-5 px-10 text-base-content shadow-lg">
+          <h2 className="text-center text-2xl font-bold leading-none">
+            Live Matches
+          </h2>
 
           <div>
-            <ul className="mt-3 flex flex-col items-center justify-center">
-              <li>PSG vs C9</li>
-              <li>PSG vs C9</li>
-              <li>PSG vs C9</li> <li>PSG vs C9</li> <li>PSG vs C9</li>
-              <li>PSG vs C9</li> <li>PSG vs C9</li> <li>PSG vs C9</li>
+            <ul className="mt-3 flex w-full flex-col items-center justify-center">
+              <li className="flex w-full flex-row items-center justify-between">
+                <span className="text-2xl">PSG</span>
+                <span className="font-bold">vs</span>
+                <span className="text-2xl">C9</span>
+              </li>
+              <li className="flex w-full flex-row items-center justify-between">
+                <span className="text-2xl">PSG</span>
+                <span className="font-bold">vs</span>
+                <span className="text-2xl">C9</span>
+              </li>{" "}
+              <li className="flex w-full flex-row items-center justify-between">
+                <span className="text-2xl">PSG</span>
+                <span className="font-bold">vs</span>
+                <span className="text-2xl">C9</span>
+              </li>{" "}
+              <li className="flex w-full flex-row items-center justify-between">
+                <span className="text-2xl">PSG</span>
+                <span className="font-bold">vs</span>
+                <span className="text-2xl">C9</span>
+              </li>{" "}
+              <li className="flex w-full flex-row items-center justify-between">
+                <span className="text-2xl">PSG</span>
+                <span className="font-bold">vs</span>
+                <span className="text-2xl">C9</span>
+              </li>{" "}
+              <li className="flex w-full flex-row items-center justify-between">
+                <span className="text-2xl">PSG</span>
+                <span className="font-bold">vs</span>
+                <span className="text-2xl">C9</span>
+              </li>
             </ul>
           </div>
         </section>
