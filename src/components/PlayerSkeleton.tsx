@@ -8,10 +8,7 @@ const PlayerSkeleton = () => {
   useEffect(() => {
     const handleNavigation = (e: any) => {
       const window = e.currentTarget;
-      if (y > window.scrollY) {
-        console.log("scrolling up");
-      } else if (y < window.scrollY) {
-        console.log("scrolling down");
+      if (y < window.scrollY) {
         setScroll(true);
       }
       setY(window.scrollY);
@@ -19,8 +16,6 @@ const PlayerSkeleton = () => {
     setY(window.scrollY);
     window.addEventListener("scroll", (e) => handleNavigation(e));
   }, [y]);
-
-  console.log(y);
 
   return (
     <div
