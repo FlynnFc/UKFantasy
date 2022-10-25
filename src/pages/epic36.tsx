@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
 const Epic36 = () => {
   const session = useSession();
@@ -13,9 +14,9 @@ const Epic36 = () => {
           <div className="relative rounded-lg bg-base-100">
             <div
               onClick={() => setCreateModal(false)}
-              className="absolute right-0 cursor-pointer px-2"
+              className="absolute right-0 cursor-pointer p-2"
             >
-              x
+              <AiOutlineClose />
             </div>
             <h2 className="px-10 pt-5 pb-2 text-xl font-semibold">
               You have not registered a team for this League!
@@ -39,6 +40,9 @@ const Epic36 = () => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
+        <Link href="/create">
+          <button className="btn mt-4 w-max">Create team</button>
+        </Link>
       </div>
 
       <div className="flex w-full flex-col justify-between lg:flex-row lg:space-x-4">
