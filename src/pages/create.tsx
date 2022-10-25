@@ -31,7 +31,6 @@ const Create = () => {
   ]);
   const [money, setMoney] = useState(100000);
   const session = useSession();
-  console.log(session.data);
 
   const minusMoney = (price: number) => {
     setMoney((prev) => prev - price);
