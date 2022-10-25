@@ -1,13 +1,16 @@
-import React from "react";
-
+import { stat } from "fs";
+import React, { useState } from "react";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 const PlayerGroup = (props: { team: string; children: any[] }) => {
+  const [stats, setStats] = useState(false);
+
   return (
     <div className="flex w-full flex-col items-center justify-evenly rounded-lg bg-base-300 pb-4">
       <div
-        className="tooltip"
-        data-tip="ESEA League: Advanced, Average Elo: 3500"
+        className="tooltip relative my-2"
+        data-tip="ESEA League: Advanced, Avg ELO: 3900"
       >
-        <button className="py-4 text-2xl font-bold">{props.team}</button>
+        <span className="py-4 text-2xl font-bold">{props.team}</span>
       </div>
 
       <div className="flex w-full flex-row justify-evenly">
