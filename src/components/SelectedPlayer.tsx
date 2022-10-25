@@ -18,10 +18,7 @@ const SelectedPlayer = (props: player) => {
   useEffect(() => {
     const handleNavigation = (e: any) => {
       const window = e.currentTarget;
-      if (y > window.scrollY) {
-        console.log("scrolling up");
-      } else if (y < window.scrollY) {
-        console.log("scrolling down");
+      if (y < window.scrollY) {
         setScroll(true);
       }
       if (y === 0) {
@@ -58,10 +55,19 @@ const SelectedPlayer = (props: player) => {
           <div
             id="stats"
             className={`${
-              stats && "h-full  w-full -translate-y-[111%] p-2"
+              stats && "h-full  w-full -translate-y-[110.5%] p-2"
             } "h-full p-2" w-full`}
           >
-            test
+            <ul className="flex h-full flex-col justify-between">
+              <div>
+                <li>HLTV: N/A</li>
+                <li>Faceit Elo: 3400 </li>
+                <li>HS%: 54.3%</li>
+                <li>Entry Rounds: 10.4%</li>
+                <li>Clutch Rounds: 0.4%</li>
+              </div>
+              <button className="btn">Detailed Stats</button>
+            </ul>
           </div>
         </div>
       )}
