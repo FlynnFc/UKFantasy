@@ -1,8 +1,21 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import test from "../images/smooya.webp";
-export const Player = () => {
+
+type player = {
+  name: string;
+  price: string;
+  rareity: string;
+  img: string;
+};
+
+export const Player = (props: player) => {
   const [stats, setStats] = useState(false);
+  const [rareity, setRareity] = useState("");
+
+  useEffect(() => {
+    setRareity(props.rareity);
+  }, [props.rareity]);
   return (
     <div
       id="player"
@@ -27,14 +40,14 @@ export const Player = () => {
         </div>
       </div>
       <div
-        id="nameplate"
+        id={rareity}
         className="flex h-[6rem] cursor-grab select-none flex-col items-center justify-evenly "
       >
         <h2 className=" pt-2 text-center text-3xl font-bold leading-none">
-          Smooya
+          {props.name}
         </h2>
         <div>
-          <p className="pb-2 text-center text-2xl">£34,000</p>
+          <p className="pb-2 text-center text-2xl">£{props.price}</p>
         </div>
       </div>
     </div>
