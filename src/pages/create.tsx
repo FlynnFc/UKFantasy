@@ -9,6 +9,11 @@ const Create = () => {
   const [introModal, setIntroModal] = useState(true);
   const session = useSession();
   console.log(session.data);
+  const test = [
+    <Player rareity="bronze" name="Dweg" price="5,000" img="test" key={0} />,
+    <Player rareity="bronze" name="Dweg" price="5,000" img="test" key={0} />,
+  ];
+
   return (
     <main className="min-w-screen container mx-auto  mt-20 flex max-h-screen max-w-7xl flex-col items-end justify-start  p-4">
       {introModal && (
@@ -45,21 +50,40 @@ const Create = () => {
       )}
       {session.data ? (
         <div className="w-full">
-          <h1>TEST TITLE</h1>
+          <h1 className="text-3xl leading-snug">Making your team</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
             alias cupiditate est nam in nihil eaque laboriosam delectus repellat
             illo voluptate dignissimos accusantium eius maxime, natus dolor
             velit! Accusantium, ea!
           </p>
-          <div>
-            <PlayerGroupSkeleton>
-              <Player rareity="gold" name="Smooya" price="35,000" img="test" />
-              <Player rareity="silver" name="StayX" price="22,000" img="test" />
-            </PlayerGroupSkeleton>
+          <div className="my-4">
+            <PlayerGroupSkeleton>{test}</PlayerGroupSkeleton>
           </div>
           <div className="space-y-6">
             <PlayerGroup team="God Squad">
+              <Player rareity="gold" name="Smooya" price="35,000" img="test" />
+              <Player
+                rareity="silver"
+                name="Stay X"
+                price="22,000"
+                img="test"
+              />
+              <Player rareity="bronze" name="Dweg" price="5,000" img="test" />
+              <Player
+                rareity="silver"
+                name="Ralphy"
+                price="20,000"
+                img="test"
+              />
+              <Player
+                rareity="silver"
+                name="Klon"
+                price="1,000,000"
+                img="test"
+              />
+            </PlayerGroup>
+            <PlayerGroup team="Legates">
               <Player rareity="gold" name="Smooya" price="35,000" img="test" />
               <Player
                 rareity="silver"
