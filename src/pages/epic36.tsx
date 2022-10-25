@@ -1,9 +1,38 @@
-import React from "react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import React, { useState } from "react";
+import NotSignedin from "../components/NotSignedin";
 
 const Epic36 = () => {
+  const session = useSession();
+  const [createModal, setCreateModal] = useState(true);
+
   return (
     <main className="container mx-auto flex max-h-screen flex-col items-start justify-start p-4">
-      <div className="mt-12 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
+      {!session.data ? null : createModal ? (
+        <div className="createModal fixed top-0 left-0 z-20 my-2 flex min-h-screen w-full items-center justify-center bg-info">
+          <div className="relative rounded-lg bg-base-100">
+            <div
+              onClick={() => setCreateModal(false)}
+              className="absolute right-0 cursor-pointer px-2"
+            >
+              x
+            </div>
+            <h2 className="px-10 pt-5 pb-2 text-xl font-semibold">
+              You have not registered a team for this League!
+            </h2>
+            <p className="px-10 font-semibold">
+              To enter this league you need to create a team
+            </p>
+            <div className="mx-5  flex w-full flex-row justify-start p-4">
+              <Link href="/create">
+                <button className="btn-success btn">Create Team</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
         <h1 className="my-8 text-4xl font-bold">Epic36 Tournement center</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
@@ -12,8 +41,9 @@ const Epic36 = () => {
           dolorum unde assumenda!
         </p>
       </div>
+
       <div className="flex w-full flex-col justify-between lg:flex-row lg:space-x-4">
-        <section className="my-5 h-max w-full rounded-lg bg-base-300 py-5 px-10 text-base-content shadow-lg">
+        <section className="my-2 mt-5 h-max w-full rounded-lg bg-base-300 py-5 px-10 text-base-content shadow-lg">
           <h2 className="text-center text-2xl font-bold leading-none">
             Live Matches
           </h2>
@@ -53,7 +83,7 @@ const Epic36 = () => {
             </ul>
           </div>
         </section>
-        <section className="flexjustify-center my-5 rounded-lg bg-base-300  p-10 text-base-content">
+        <section className="flexjustify-center my-2 mt-5 rounded-lg bg-base-300  p-10 text-base-content">
           <div className=" overflow-x-auto">
             <table className="table w-full font-semibold">
               <thead>
