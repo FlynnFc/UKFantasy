@@ -1,13 +1,15 @@
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import NotSignedin from "../components/NotSignedin";
+import { Player } from "../components/Player";
+import PlayerGroup from "../components/playerGroup";
 
 const Create = () => {
   const [introModal, setIntroModal] = useState(true);
   const session = useSession();
   console.log(session.data);
   return (
-    <main className="container mt-2 flex max-h-screen flex-col items-start justify-start p-4">
+    <main className="min-w-screen container  mx-auto mt-20 flex max-h-screen flex-col items-end justify-start  p-4">
       {introModal && (
         <div className="createModal fixed top-0 left-0 z-20 my-2 flex min-h-screen w-full items-start justify-center bg-info">
           <div className="mt-32 w-[80%] rounded-lg bg-neutral p-10">
@@ -41,7 +43,7 @@ const Create = () => {
         </div>
       )}
       {session.data ? (
-        <div className="mt-20">
+        <div className="w-full">
           <h1>TEST TITLE</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
@@ -49,6 +51,10 @@ const Create = () => {
             illo voluptate dignissimos accusantium eius maxime, natus dolor
             velit! Accusantium, ea!
           </p>
+          <div className="space-y-6">
+            <PlayerGroup />
+            <PlayerGroup />
+          </div>
         </div>
       ) : (
         <NotSignedin />
