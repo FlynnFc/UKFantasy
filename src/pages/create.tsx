@@ -56,7 +56,6 @@ const Create = () => {
             <PlayerGroupSkeleton>
               <Player rareity="gold" name="Smooya" price="35,000" img="test" />
               <Player rareity="silver" name="StayX" price="22,000" img="test" />
-              <Player rareity="bronze" name="Dweg" price="5,000" img="test" />
             </PlayerGroupSkeleton>
           </div>
           <div className="space-y-6">
