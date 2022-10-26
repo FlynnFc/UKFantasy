@@ -37,5 +37,9 @@ table tr {
 }
 
 .createModal {
-  background-color: rgba(0, 0, 0, 0.478);
+  background-color: rgba(0, 0, 0, 0.676);
+}
+
+#stats {
+  background-color: rgba(0, 0, 0, 0.676);
 }

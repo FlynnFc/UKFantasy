@@ -21,13 +21,13 @@ const Create = () => {
       img={smooya}
       key={0}
     />,
-    <SelectedPlayer
-      rareity="bronze"
-      name="Dweg"
-      price={5000}
-      img={dweg}
-      key={1}
-    />,
+    // <SelectedPlayer
+    //   rareity="bronze"
+    //   name="Dweg"
+    //   price={5000}
+    //   img={dweg}
+    //   key={1}
+    // />,
   ]);
   const [money, setMoney] = useState(100000);
   const [firstRender, setFirstRender] = useState(true);
@@ -39,7 +39,11 @@ const Create = () => {
     } else {
       for (let i = 0; i < myTeam.length; i++) {
         console.log(myTeam[i]?.props.price);
-        setMoney((prev) => prev - myTeam[i]?.props.price);
+        setMoney((prev) => {
+          if (prev - myTeam[i]?.props.price >= 0) {
+            return prev - myTeam[i]?.props.price;
+          } else return 0;
+        });
       }
     }
   }, [firstRender, myTeam]);
@@ -75,7 +79,7 @@ const Create = () => {
               itaque est repellendus libero neque, culpa distinctio aliquam
               dolor atque natus esse non nisi!
             </p>
-            <div className="flex justify-end">
+            <div className="mr-8 flex justify-end">
               <button
                 onClick={() => setIntroModal(false)}
                 className="btn-outline btn"
@@ -104,6 +108,80 @@ const Create = () => {
             <PlayerGroupSkeleton money={money}>{myTeam}</PlayerGroupSkeleton>
           </div>
           <div className="space-y-6">
+            <PlayerGroup team="God Squad">
+              <Player
+                moneyLeft={money}
+                rareity="gold"
+                name="Smooya"
+                price={35000}
+                img={smooya}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="silver"
+                name="LVN"
+                price={22000}
+                img={lvn}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="bronze"
+                name="Dweg"
+                price={3.4}
+                img={dweg}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="gold"
+                name="Thomas"
+                price={27000}
+                img={thomas}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="gold"
+                name="Vacancey"
+                price={55000}
+                img={vacancey}
+              />
+            </PlayerGroup>
+            <PlayerGroup team="God Squad">
+              <Player
+                moneyLeft={money}
+                rareity="gold"
+                name="Smooya"
+                price={35000}
+                img={smooya}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="silver"
+                name="LVN"
+                price={22000}
+                img={lvn}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="bronze"
+                name="Dweg"
+                price={3.4}
+                img={dweg}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="gold"
+                name="Thomas"
+                price={27000}
+                img={thomas}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="gold"
+                name="Vacancey"
+                price={55000}
+                img={vacancey}
+              />
+            </PlayerGroup>
             <PlayerGroup team="God Squad">
               <Player
                 moneyLeft={money}

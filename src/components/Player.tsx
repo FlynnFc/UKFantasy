@@ -38,7 +38,7 @@ export const Player = (props: player) => {
       )}
       <div
         id="image"
-        className="z-10  hidden h-52 cursor-pointer justify-center overflow-hidden lg:block"
+        className="z-10 hidden h-52 cursor-pointer justify-center overflow-hidden lg:block"
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -50,7 +50,7 @@ export const Player = (props: player) => {
         <div
           id="stats"
           className={`${
-            stats && "h-full  w-full -translate-y-[110.5%] p-2"
+            stats && "h-full w-full -translate-y-[110.5%] p-2"
           } "h-full p-2" w-full `}
         >
           <ul className="flex h-full flex-col justify-between">
