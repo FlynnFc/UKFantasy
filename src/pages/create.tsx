@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NotSignedin from "../components/NotSignedin";
 import { Player } from "../components/Player";
 import PlayerGroup from "../components/playerGroup";
@@ -17,23 +17,39 @@ const Create = () => {
     <SelectedPlayer
       rareity="gold"
       name="Smooya"
-      price="35,000"
+      price={35000}
       img={smooya}
       key={0}
     />,
     <SelectedPlayer
       rareity="bronze"
       name="Dweg"
-      price="3.30"
+      price={5000}
       img={dweg}
       key={1}
     />,
   ]);
   const [money, setMoney] = useState(100000);
+  const [firstRender, setFirstRender] = useState(true);
   const session = useSession();
-
+  useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    } else {
+      for (let i = 0; i < myTeam.length; i++) {
+        console.log(myTeam[i]?.props.price);
+        setMoney((prev) => prev - myTeam[i]?.props.price);
+      }
+    }
+  }, [firstRender, myTeam]);
   const minusMoney = (price: number) => {
-    setMoney((prev) => prev - price);
+    setMoney((prev) => {
+      if (prev - price >= 0) {
+        const total = prev - price;
+        return total;
+      } else return 0;
+    });
   };
 
   return (
@@ -90,67 +106,38 @@ const Create = () => {
           <div className="space-y-6">
             <PlayerGroup team="God Squad">
               <Player
+                moneyLeft={money}
                 rareity="gold"
                 name="Smooya"
-                price="35,000"
+                price={35000}
                 img={smooya}
               />
-              <Player rareity="silver" name="LVN" price="22,000" img={lvn} />
-              <Player rareity="bronze" name="Dweg" price="3.30" img={dweg} />
               <Player
+                moneyLeft={money}
+                rareity="silver"
+                name="LVN"
+                price={22000}
+                img={lvn}
+              />
+              <Player
+                moneyLeft={money}
+                rareity="bronze"
+                name="Dweg"
+                price={3.4}
+                img={dweg}
+              />
+              <Player
+                moneyLeft={money}
                 rareity="gold"
                 name="Thomas"
-                price="27,000"
+                price={27000}
                 img={thomas}
               />
               <Player
+                moneyLeft={money}
                 rareity="gold"
                 name="Vacancey"
-                price="23,000"
-                img={vacancey}
-              />
-            </PlayerGroup>
-            <PlayerGroup team="God Squad">
-              <Player
-                rareity="gold"
-                name="Smooya"
-                price="35,000"
-                img={smooya}
-              />
-              <Player rareity="silver" name="LVN" price="22,000" img={lvn} />
-              <Player rareity="bronze" name="Dweg" price="3.30" img={dweg} />
-              <Player
-                rareity="gold"
-                name="Thomas"
-                price="27,000"
-                img={thomas}
-              />
-              <Player
-                rareity="gold"
-                name="Vacancey"
-                price="23,000"
-                img={vacancey}
-              />
-            </PlayerGroup>
-            <PlayerGroup team="God Squad">
-              <Player
-                rareity="gold"
-                name="Smooya"
-                price="35,000"
-                img={smooya}
-              />
-              <Player rareity="silver" name="LVN" price="22,000" img={lvn} />
-              <Player rareity="bronze" name="Dweg" price="3.30" img={dweg} />
-              <Player
-                rareity="gold"
-                name="Thomas"
-                price="27,000"
-                img={thomas}
-              />
-              <Player
-                rareity="gold"
-                name="Vacancey"
-                price="23,000"
+                price={55000}
                 img={vacancey}
               />
             </PlayerGroup>

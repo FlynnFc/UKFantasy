@@ -4,23 +4,38 @@ import test from "../images/smooya.webp";
 
 type player = {
   name: string;
-  price: string;
+  price: number;
   rareity: string;
   img?: any;
+  moneyLeft: number;
 };
 
 export const Player = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
-
+  const [disable, setDisabled] = useState(false);
   useEffect(() => {
     setRareity(props.rareity);
   }, [props.rareity]);
+
+  useEffect(() => {
+    if (props.moneyLeft < props.price) {
+      setDisabled(true);
+    } else if (props.moneyLeft > props.price) {
+      setDisabled(false);
+    } else return;
+  }, [props.moneyLeft, props.price]);
+
   return (
     <div
       id="player"
-      className="z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72 "
+      className="relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72"
     >
+      {disable && (
+        <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center text-xl font-bold">
+          <p className="p-4 text-center">You cant afford this player!</p>
+        </div>
+      )}
       <div
         id="image"
         className="z-10  hidden h-52 cursor-pointer justify-center overflow-hidden lg:block"

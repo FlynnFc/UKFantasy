@@ -4,7 +4,7 @@ import test from "../images/smooya.webp";
 
 type player = {
   name: string;
-  price: string;
+  price: number;
   rareity: string;
   img?: any;
 };
@@ -80,7 +80,7 @@ const SelectedPlayer = (props: player) => {
         </h2>
         <div>
           <p className="pb-2 text-center text-2xl text-neutral">
-            £{props.price}
+            £{props.price.toLocaleString("en-US")}
           </p>
         </div>
       </div>

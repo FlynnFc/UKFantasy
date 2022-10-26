@@ -5,13 +5,16 @@
 table tr {
   background-color: green /* 8px */;
 }
+.disabledPlayer {
+  background: rgba(77, 1, 1, 0.726);
+}
 
 #stats {
-  background: rgba(0, 0, 0, 0.726);
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 250ms;
 }
+
 #gold {
   background: rgb(252, 190, 68);
   background: linear-gradient(
