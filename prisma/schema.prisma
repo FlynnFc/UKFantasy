@@ -71,4 +71,17 @@ model Player {
   price   Int
   Image   String
   Rareity String
+  Stats   Stats  @relation(fields: [statsId], references: [id])
+  statsId String
+}
+
+model Stats {
+  id           String   @id @default(cuid())
+  hltv         String
+  faceitElo    Int
+  HS           Int
+  EntryRounds  Int
+  ClutchRounds Int
+  link         String
+  Player       Player[]
 }
