@@ -4,7 +4,7 @@ export default function SignIn(props: { providers: any }) {
   console.log(props.providers);
   return (
     <div
-      className="mt-[20%] flex items-center justify-center"
+      className="flex h-screen items-center justify-center"
       style={{ overflow: "hidden", position: "relative" }}
     >
       <div className="flex w-96 items-center justify-center rounded-md bg-primary p-6 shadow-md">

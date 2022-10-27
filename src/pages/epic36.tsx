@@ -8,7 +8,7 @@ const Epic36 = () => {
   const [createModal, setCreateModal] = useState(true);
 
   return (
-    <main className="container mx-auto flex max-h-screen flex-col items-start justify-start p-4">
+    <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
       {!session.data ? null : createModal ? (
         <div className="createModal fixed top-0 left-0 z-20 my-2 flex min-h-screen w-full items-center justify-center bg-info">
           <div className="relative rounded-lg bg-base-100">
@@ -34,7 +34,7 @@ const Epic36 = () => {
       ) : null}
       <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
         <h1 className="my-8 text-4xl font-bold">Epic36 Tournement center</h1>
-        <p>
+        <p className="text-lg">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
           soluta quo qui atque natus et impedit maxime, explicabo libero
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore

@@ -21,13 +21,13 @@ const Create = () => {
       img={smooya}
       key={0}
     />,
-    // <SelectedPlayer
-    //   rareity="bronze"
-    //   name="Dweg"
-    //   price={5000}
-    //   img={dweg}
-    //   key={1}
-    // />,
+    <SelectedPlayer
+      rareity="bronze"
+      name="Dweg"
+      price={5000}
+      img={dweg}
+      key={1}
+    />,
   ]);
   const [money, setMoney] = useState(100000);
   const [firstRender, setFirstRender] = useState(true);

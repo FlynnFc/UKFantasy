@@ -6,7 +6,7 @@ table tr {
   background-color: green /* 8px */;
 }
 .disabledPlayer {
-  background: rgba(77, 1, 1, 0.726);
+  background: rgba(60, 59, 59, 0.776);
 }
 
 #stats {
