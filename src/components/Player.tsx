@@ -1,8 +1,9 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import test from "../images/smooya.webp";
 
 type player = {
+  PlayerSelect: (data: any) => void;
   name: string;
   price: number;
   rareity: string;
@@ -30,6 +31,10 @@ export const Player = (props: player) => {
     <div
       id="player"
       className="relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72"
+      onClick={() => {
+        console.log(props);
+        props.PlayerSelect(props);
+      }}
     >
       {disable && (
         <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center text-xl font-bold">
