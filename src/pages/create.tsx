@@ -41,12 +41,18 @@ const Create = () => {
       } else return 0;
     });
   };
+  const PlayerRemove = (data: any) => {
+    const temp = myTeam;
+    const newArray = temp.filter((el) => el.props.name !== data.name);
+    console.log(newArray);
+  };
 
   const PlayerSelect = (data: any) => {
     if (myTeam.length < 5) {
       setMyTeam((prev) => [
         ...prev,
         <SelectedPlayer
+          PlayerRemove={PlayerRemove}
           rareity={data.rareity}
           name={data.name}
           price={data.price}

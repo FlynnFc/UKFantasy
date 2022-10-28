@@ -1,12 +1,12 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import test from "../images/smooya.webp";
 
 type player = {
   name: string;
   price: number;
   rareity: string;
   img?: any;
+  PlayerRemove: (data: player) => void;
 };
 
 const SelectedPlayer = (props: player) => {
@@ -39,6 +39,7 @@ const SelectedPlayer = (props: player) => {
       className={`z-0 ${
         !scroll && "h-72"
       } w-56 overflow-hidden rounded-xl bg-neutral shadow-lg`}
+      onClick={() => props.PlayerRemove(props)}
     >
       {!scroll && (
         <div

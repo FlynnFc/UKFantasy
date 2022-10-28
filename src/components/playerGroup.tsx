@@ -1,6 +1,5 @@
-import { stat } from "fs";
 import React, { useState } from "react";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+
 const PlayerGroup = (props: { team: string; children: any[] }) => {
   const [stats, setStats] = useState(false);
 

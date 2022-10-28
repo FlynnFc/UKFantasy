@@ -32,7 +32,6 @@ export const Player = (props: player) => {
       id="player"
       className="relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72"
       onClick={() => {
-        console.log(props);
         props.PlayerSelect(props);
       }}
     >
