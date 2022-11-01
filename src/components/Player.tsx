@@ -1,6 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import test from "../images/smooya.webp";
+import React, { useEffect, useState } from "react";
 
 type player = {
   PlayerSelect: (data: any) => void;
@@ -9,12 +8,14 @@ type player = {
   rareity: string;
   img?: any;
   moneyLeft: number;
+  teamFull: boolean;
 };
 
 export const Player = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
   const [disable, setDisabled] = useState(false);
+  const [picked, SetPicked] = useState(false);
   useEffect(() => {
     setRareity(props.rareity);
   }, [props.rareity]);
@@ -30,16 +31,30 @@ export const Player = (props: player) => {
   return (
     <div
       id="player"
-      className="relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72"
+      className={`relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72`}
       onClick={() => {
-        props.PlayerSelect(props);
+        if (!disable && !picked) {
+          props.PlayerSelect(props);
+          SetPicked(true);
+        }
       }}
     >
-      {disable && (
+      {picked ? (
+        <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center text-xl font-bold">
+          <p className="p-4 text-center">Already Picked</p>
+        </div>
+      ) : props.teamFull ? (
+        <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center text-xl font-bold">
+          <p className="p-4 text-center">No more slots</p>
+        </div>
+      ) : disable ? (
         <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center text-xl font-bold">
           <p className="p-4 text-center">You cant afford this player!</p>
         </div>
+      ) : (
+        ""
       )}
+
       <div
         id="image"
         className="z-10 hidden h-52 cursor-pointer justify-center overflow-hidden lg:block"
