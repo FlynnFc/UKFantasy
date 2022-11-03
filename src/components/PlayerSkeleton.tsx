@@ -5,17 +5,17 @@ const PlayerSkeleton = () => {
   const [scroll, setScroll] = useState(false);
   const [y, setY] = useState(0);
 
-  useEffect(() => {
-    const handleNavigation = (e: any) => {
-      const window = e.currentTarget;
-      if (y < window.scrollY) {
-        setScroll(true);
-      }
-      setY(window.scrollY);
-    };
-    setY(window.scrollY);
-    window.addEventListener("scroll", (e) => handleNavigation(e));
-  }, [y]);
+  // useEffect(() => {
+  //   const handleNavigation = (e: any) => {
+  //     const window = e.currentTarget;
+  //     if (y < window.scrollY) {
+  //       setScroll(true);
+  //     }
+  //     setY(window.scrollY);
+  //   };
+  //   setY(window.scrollY);
+  //   window.addEventListener("scroll", (e) => handleNavigation(e));
+  // }, [y]);
 
   return (
     <div

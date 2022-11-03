@@ -6,14 +6,14 @@ type player = {
   price: number;
   rareity: string;
   img?: any;
-  PlayerRemove: (data: player) => void;
+  PlayerRemove: (data: any) => void;
 };
 
 const SelectedPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
   const [scroll, setScroll] = useState(false);
-  const [y, setY] = useState(0);
+  // const [y, setY] = useState(0);
 
   // useEffect(() => {
   //   const handleNavigation = (e: any) => {
@@ -40,7 +40,6 @@ const SelectedPlayer = (props: player) => {
       className={`z-0 ${
         !scroll && "h-72"
       } w-56 overflow-hidden rounded-xl bg-neutral shadow-lg`}
-      onClick={() => props.PlayerRemove(props)}
     >
       {!scroll && (
         <div
@@ -75,7 +74,7 @@ const SelectedPlayer = (props: player) => {
       )}
       <div
         id={rareity}
-        className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg "
+        className="flex h-[5rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg "
       >
         <h2 className=" pt-2 text-center text-2xl font-bold leading-none text-neutral">
           {props.name}

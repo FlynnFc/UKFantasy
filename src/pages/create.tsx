@@ -30,6 +30,7 @@ const Create = () => {
       });
     }
   }, [myTeam]);
+
   const minusMoney = (price: number) => {
     setMoney((prev) => {
       if (prev - price >= 0) {
@@ -38,11 +39,12 @@ const Create = () => {
       } else return 0;
     });
   };
-  const PlayerRemove = (data: any) => {
-    const temp = myTeam;
-    const newArray = temp.filter((el) => el.props.name !== data.name);
-    console.log(newArray);
+
+  const PlayerRemove = () => {
+    console.log("ss");
   };
+
+  console.log(myTeam);
 
   const PlayerSelect = (data: any) => {
     if (myTeam.length < 5) {
@@ -117,100 +119,6 @@ const Create = () => {
             <PlayerGroupSkeleton money={money}>{myTeam}</PlayerGroupSkeleton>
           </div>
           <div className="space-y-6">
-            <PlayerGroup team="God Squad">
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Smooya"
-                price={20000}
-                img={smooya}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="silver"
-                name="LVN"
-                price={22000}
-                img={lvn}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="bronze"
-                name="Dweg"
-                price={3.4}
-                img={dweg}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Thomas"
-                price={27000}
-                img={thomas}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Vacancey"
-                price={25000}
-                img={vacancey}
-              />
-            </PlayerGroup>
-            <PlayerGroup team="God Squad">
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Smooya"
-                price={20000}
-                img={smooya}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="silver"
-                name="LVN"
-                price={22000}
-                img={lvn}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="bronze"
-                name="Dweg"
-                price={3.4}
-                img={dweg}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Thomas"
-                price={27000}
-                img={thomas}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Vacancey"
-                price={25000}
-                img={vacancey}
-              />
-            </PlayerGroup>
             <PlayerGroup team="God Squad">
               <Player
                 teamFull={teamFull}
