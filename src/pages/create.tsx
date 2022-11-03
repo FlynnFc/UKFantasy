@@ -113,10 +113,57 @@ const Create = () => {
             illo voluptate dignissimos accusantium eius maxime, natus dolor
             velit! Accusantium, ea!
           </p>
-          <div className="sticky top-0 z-10 my-4 ">
+          <div className="z-10 my-4 ">
             <PlayerGroupSkeleton money={money}>{myTeam}</PlayerGroupSkeleton>
           </div>
           <div className="space-y-6">
+            <PlayerGroup team="God Squad">
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="gold"
+                name="Smooya"
+                price={20000}
+                img={smooya}
+              />
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="silver"
+                name="LVN"
+                price={22000}
+                img={lvn}
+              />
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="bronze"
+                name="Dweg"
+                price={3.4}
+                img={dweg}
+              />
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="gold"
+                name="Thomas"
+                price={27000}
+                img={thomas}
+              />
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="gold"
+                name="Vacancey"
+                price={25000}
+                img={vacancey}
+              />
+            </PlayerGroup>
             <PlayerGroup team="God Squad">
               <Player
                 teamFull={teamFull}
