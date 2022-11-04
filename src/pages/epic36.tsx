@@ -6,15 +6,16 @@ import { AiOutlineClose } from "react-icons/ai";
 const Epic36 = () => {
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
+  const userHasTeam = true;
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
       {!session.data ? null : createModal ? (
         <div className="createModal fixed top-0 left-0 z-20 my-2 flex min-h-screen w-full items-center justify-center bg-info">
-          <div className="relative rounded-lg bg-base-100">
+          <div className="relative rounded-lg bg-base-100 p-2">
             <div
               onClick={() => setCreateModal(false)}
-              className="absolute right-0 cursor-pointer p-2"
+              className="absolute right-0 cursor-pointer px-2"
             >
               <AiOutlineClose />
             </div>
@@ -24,7 +25,7 @@ const Epic36 = () => {
             <p className="px-10 font-semibold">
               To enter this league you need to create a team
             </p>
-            <div className="mx-5  flex w-full flex-row justify-start p-4">
+            <div className="mx-5  flex w-full flex-row justify-start p-6">
               <Link href="/create">
                 <button className="btn-success btn">Create Team</button>
               </Link>
@@ -40,9 +41,17 @@ const Epic36 = () => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
-        <Link href="/create">
-          <button className="btn mt-4 w-max">Create team</button>
-        </Link>
+        {!userHasTeam ? (
+          <Link href="/create">
+            <button className="btn mt-4 w-max">Create team</button>
+          </Link>
+        ) : (
+          <Link href="/test">
+            <button className="btn-primary btn mt-4 w-max outline">
+              View Team
+            </button>
+          </Link>
+        )}
       </div>
 
       <div className="flex w-full flex-col justify-between lg:flex-row lg:space-x-4">
