@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { Player } from "../../components/Player";
+import PlayerGroup from "../../components/playerGroup";
+import PlayerGroupSkeleton from "../../components/playerGroupSkeleton";
 
-const index = () => {
-  return <div>index</div>;
+const Index = () => {
+  const money = 100000;
+  const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
+  return (
+    <div className="mx-5 flex h-screen items-center justify-center">
+      <PlayerGroupSkeleton money={money}>{myTeam}</PlayerGroupSkeleton>
+    </div>
+  );
 };
 
-export default index;
+export default Index;
