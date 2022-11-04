@@ -47,6 +47,40 @@ CREATE TABLE "VerificationToken" (
     "expires" DATETIME NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "Player" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "price" INTEGER NOT NULL,
+    "Image" TEXT NOT NULL,
+    "Rareity" TEXT NOT NULL,
+    "statsId" TEXT NOT NULL,
+    CONSTRAINT "Player_statsId_fkey" FOREIGN KEY ("statsId") REFERENCES "Stats" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Stats" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "hltv" TEXT NOT NULL,
+    "faceitElo" INTEGER NOT NULL,
+    "HS" INTEGER NOT NULL,
+    "EntryRounds" INTEGER NOT NULL,
+    "ClutchRounds" INTEGER NOT NULL,
+    "link" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "PlayerTeam" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "teamName" TEXT NOT NULL,
+    "points" TEXT NOT NULL,
+    "rolePoints" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "playerId" TEXT NOT NULL,
+    CONSTRAINT "PlayerTeam_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "PlayerTeam_playerId_fkey" FOREIGN KEY ("playerId") REFERENCES "Player" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
