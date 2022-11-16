@@ -6,6 +6,7 @@ type player = {
   price: number;
   rareity: string;
   img?: any;
+  team: any;
   PlayerRemove: (data: any) => void;
 };
 
@@ -74,7 +75,7 @@ const SelectedPlayer = (props: player) => {
       )}
       <div
         id={rareity}
-        className="flex h-[5rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg "
+        className="relative flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg"
       >
         <h2 className=" pt-2 text-center text-2xl font-bold leading-none text-neutral">
           {props.name}
@@ -83,6 +84,12 @@ const SelectedPlayer = (props: player) => {
           <p className="pb-2 text-center text-2xl text-neutral">
             £{props.price.toLocaleString("en-US")}
           </p>
+        </div>
+        <div
+          className="absolute bottom-1 right-1 w-6 cursor-pointer rounded-full bg-red-600 text-center"
+          onClick={() => props.PlayerRemove(props)}
+        >
+          X
         </div>
       </div>
     </div>

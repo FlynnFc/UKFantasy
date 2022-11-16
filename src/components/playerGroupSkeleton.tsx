@@ -14,7 +14,7 @@ const PlayerGroupSkeleton = (props: { children: any; money: number }) => {
           placeholder="Team name"
           className="input my-2 w-full max-w-xs text-2xl"
         />
-        <span className="py-2 text-2xl font-bold">
+        <span className="py-4 text-2xl font-bold">
           Money Left: {props.money.toLocaleString("en-US")}
         </span>
       </div>

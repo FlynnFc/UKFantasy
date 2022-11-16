@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import NotSignedin from "../components/NotSignedin";
 import { Player } from "../components/Player";
 import PlayerGroup from "../components/playerGroup";
@@ -13,16 +13,15 @@ import vacancey from "../images/vacancey.webp";
 
 const Create = () => {
   const [introModal, setIntroModal] = useState(true);
-  const testRef = useRef(null);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);
   const [teamFull, setTeamFull] = useState(false);
+  const [deletes, setDeletes] = useState("");
   const session = useSession();
   useEffect(() => {
     let count = 100000;
     for (let i = 0; i < myTeam.length; i++) {
       count = count - myTeam[i]?.props.price;
-      console.log(myTeam[i]?.props.price);
       setMoney((prev) => {
         if (prev - myTeam[i]?.props.price >= 0) {
           return count;
@@ -39,12 +38,21 @@ const Create = () => {
       } else return 0;
     });
   };
+  useEffect(() => {
+    console.log(myTeam, deletes);
+    const tempTeam = myTeam;
+    for (let index = 0; index < tempTeam.length; index++) {
+      const element = tempTeam[index]?.key;
+      if (element === deletes) {
+        tempTeam.splice(index, 1);
+      }
+    }
+    setMyTeam([...tempTeam]);
+  }, [deletes, myTeam]);
 
-  const PlayerRemove = () => {
-    console.log("ss");
+  const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
+    setDeletes(data.name);
   };
-
-  console.log(myTeam);
 
   const PlayerSelect = (data: any) => {
     if (myTeam.length < 5) {
@@ -60,6 +68,7 @@ const Create = () => {
           price={data.price}
           img={data.img}
           key={data.name}
+          team={myTeam}
         />,
       ]);
 
@@ -119,6 +128,53 @@ const Create = () => {
             <PlayerGroupSkeleton money={money}>{myTeam}</PlayerGroupSkeleton>
           </div>
           <div className="space-y-6">
+            <PlayerGroup team="God Squad">
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="gold"
+                name="Smooya"
+                price={20000}
+                img={smooya}
+              />
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="silver"
+                name="LVN"
+                price={22000}
+                img={lvn}
+              />
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="bronze"
+                name="Dweg"
+                price={3.4}
+                img={dweg}
+              />
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="gold"
+                name="Thomas"
+                price={27000}
+                img={thomas}
+              />
+              <Player
+                teamFull={teamFull}
+                PlayerSelect={PlayerSelect}
+                moneyLeft={money}
+                rareity="gold"
+                name="Vacancey"
+                price={25000}
+                img={vacancey}
+              />
+            </PlayerGroup>
             <PlayerGroup team="God Squad">
               <Player
                 teamFull={teamFull}
