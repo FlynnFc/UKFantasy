@@ -20,7 +20,11 @@ const Create = () => {
   const session = useSession();
   useEffect(() => {
     let count = 100000;
-    for (let i = 0; i < myTeam.length - 1; i++) {
+    if (myTeam.length === 0) {
+      setMoney(count);
+      return;
+    }
+    for (let i = 0; i < myTeam.length; i++) {
       count = count - myTeam[i]?.props.price;
       setMoney((prev) => {
         if (prev - myTeam[i]?.props.price >= 0) {
