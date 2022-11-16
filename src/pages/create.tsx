@@ -20,7 +20,7 @@ const Create = () => {
   const session = useSession();
   useEffect(() => {
     let count = 100000;
-    for (let i = 0; i < myTeam.length; i++) {
+    for (let i = 0; i < myTeam.length - 1; i++) {
       count = count - myTeam[i]?.props.price;
       setMoney((prev) => {
         if (prev - myTeam[i]?.props.price >= 0) {
@@ -47,7 +47,11 @@ const Create = () => {
         tempTeam.splice(index, 1);
       }
     }
+
     setMyTeam([...tempTeam]);
+    if (tempTeam.length < 5) {
+      setTeamFull(false);
+    }
   }, [deletes, myTeam]);
 
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
