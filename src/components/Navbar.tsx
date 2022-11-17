@@ -13,7 +13,7 @@ const Navbar = () => {
         </div>
         <div className="space-x-2">
           <Link href="/epic36">
-            <button className="btn bg-primary">Epic36</button>
+            <button className="btn bg-primary">Epic36 </button>
           </Link>
           <LoginBtn />
         </div>
