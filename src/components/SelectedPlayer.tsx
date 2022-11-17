@@ -14,33 +14,17 @@ const SelectedPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
   const [scroll, setScroll] = useState(false);
-  // const [y, setY] = useState(0);
-
-  // useEffect(() => {
-  //   const handleNavigation = (e: any) => {
-  //     const window = e.currentTarget;
-  //     console.log(window);
-  //     if (y < window.scrollY) {
-  //       setScroll(true);
-  //     }
-  //     if (y === 0) {
-  //       setScroll(false);
-  //     }
-  //     setY(window.scrollY);
-  //   };
-  //   setY(window.scrollY);
-  //   window.addEventListener("scroll", (e) => handleNavigation(e));
-  // }, [y]);
 
   useEffect(() => {
     setRareity(props.rareity);
   }, [props.rareity]);
+
   return (
     <div
       id="selectedPlayer"
       className={`z-0 ${
         !scroll && "h-72"
-      } w-56 overflow-hidden rounded-xl bg-neutral shadow-lg`}
+      } relative w-56 overflow-hidden rounded-xl bg-neutral shadow-lg`}
     >
       {!scroll && (
         <div
@@ -75,7 +59,7 @@ const SelectedPlayer = (props: player) => {
       )}
       <div
         id={rareity}
-        className="relative flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg"
+        className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg"
       >
         <h2 className=" pt-2 text-center text-2xl font-bold leading-none text-neutral">
           {props.name}
@@ -85,12 +69,12 @@ const SelectedPlayer = (props: player) => {
             £{props.price.toLocaleString("en-US")}
           </p>
         </div>
-        <div
-          className="absolute bottom-1 right-1 w-6 cursor-pointer rounded-full bg-red-600 text-center"
-          onClick={() => props.PlayerRemove(props)}
-        >
-          X
-        </div>
+      </div>
+      <div
+        onClick={() => props.PlayerRemove(props)}
+        className="absolute top-1 right-2 cursor-pointer"
+      >
+        X
       </div>
     </div>
   );
