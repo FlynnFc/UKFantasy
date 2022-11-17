@@ -18,12 +18,15 @@ const Create = () => {
   const [teamFull, setTeamFull] = useState(false);
   const [deletes, setDeletes] = useState("");
   const session = useSession();
+
+  //Updates total money as user changes players
   useEffect(() => {
     let count = 100000;
     if (myTeam.length === 0) {
       setMoney(count);
       return;
     }
+    //Loops through team, player prices take away from total.
     for (let i = 0; i < myTeam.length; i++) {
       count = count - myTeam[i]?.props.price;
       setMoney((prev) => {
@@ -34,14 +37,7 @@ const Create = () => {
     }
   }, [myTeam]);
 
-  const minusMoney = (price: number) => {
-    setMoney((prev) => {
-      if (prev - price >= 0) {
-        const total = prev - price;
-        return total;
-      } else return 0;
-    });
-  };
+  //Using this to update on delete I have no idea why react doesnt allow me to access the most recent state when onClick from different component
   useEffect(() => {
     console.log(myTeam, deletes);
     const tempTeam = myTeam;
@@ -58,10 +54,12 @@ const Create = () => {
     }
   }, [deletes, myTeam]);
 
+  //Sets name to deletes so I know which player to delete
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
     setDeletes(data.name);
   };
 
+  //Adding player to myTeam
   const PlayerSelect = (data: any) => {
     if (myTeam.length < 5) {
       if (myTeam.length === 4) {
@@ -79,8 +77,6 @@ const Create = () => {
           team={myTeam}
         />,
       ]);
-
-      console.log("added player", myTeam);
     }
   };
 
@@ -120,12 +116,7 @@ const Create = () => {
       )}
       {session.data ? (
         <div className="w-full">
-          <h1
-            onClick={() => minusMoney(20000)}
-            className="text-5xl leading-snug"
-          >
-            Making your team
-          </h1>
+          <h1 className="text-5xl leading-snug">Making your team</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
             alias cupiditate est nam in nihil eaque laboriosam delectus repellat
@@ -151,7 +142,7 @@ const Create = () => {
                 PlayerSelect={PlayerSelect}
                 moneyLeft={money}
                 rareity="silver"
-                name="LVN"
+                name="LVN &#128163;"
                 price={22000}
                 img={lvn}
               />
