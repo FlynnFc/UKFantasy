@@ -80,9 +80,12 @@ const Create = () => {
   };
 
   const teamSubmitHandler = async () => {
+    const test = { teamName: "Test", points: 0, rolePoints: 0 };
+    const body = await JSON.stringify(test);
     console.log(myTeam);
     const response = await fetch("/api/submitTeam", {
       method: "POST",
+      body: body,
     });
     return response.json;
   };
