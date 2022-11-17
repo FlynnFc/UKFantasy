@@ -39,7 +39,6 @@ const Create = () => {
 
   //Using this to update on delete I have no idea why react doesnt allow me to access the most recent state when onClick from different component
   useEffect(() => {
-    console.log(myTeam, deletes);
     const tempTeam = myTeam;
     for (let index = 0; index < tempTeam.length; index++) {
       const element = tempTeam[index]?.key;
@@ -52,7 +51,7 @@ const Create = () => {
     if (tempTeam.length < 5) {
       setTeamFull(false);
     }
-  }, [deletes, myTeam]);
+  }, [deletes]);
 
   //Sets name to deletes so I know which player to delete
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
@@ -78,6 +77,14 @@ const Create = () => {
         />,
       ]);
     }
+  };
+
+  const teamSubmitHandler = async () => {
+    console.log(myTeam);
+    const response = await fetch("/api/submitTeam", {
+      method: "POST",
+    });
+    return response.json;
   };
 
   return (
@@ -116,13 +123,24 @@ const Create = () => {
       )}
       {session.data ? (
         <div className="w-full">
-          <h1 className="text-5xl leading-snug">Making your team</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-            alias cupiditate est nam in nihil eaque laboriosam delectus repellat
-            illo voluptate dignissimos accusantium eius maxime, natus dolor
-            velit! Accusantium, ea!
-          </p>
+          <div className="flex items-end justify-center">
+            <div>
+              <h1 className="text-5xl leading-snug">Making your team</h1>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Aspernatur alias cupiditate est nam in nihil eaque laboriosam
+                delectus repellat illo voluptate dignissimos accusantium eius
+                maxime, natus dolor velit! Accusantium, ea!
+              </p>
+            </div>
+            <button
+              disabled={!teamFull}
+              onClick={teamSubmitHandler}
+              className="btn-info btn"
+            >
+              Submit Team
+            </button>
+          </div>
           <div className="z-10 my-4 ">
             <PlayerGroupSkeleton money={money}>{myTeam}</PlayerGroupSkeleton>
           </div>
