@@ -127,7 +127,7 @@ const Create = () => {
       {session.data ? (
         <div className="w-full">
           <div className="flex items-end justify-center">
-            <div>
+            <div className="text-base-content">
               <h1 className="text-5xl leading-snug">Making your team</h1>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.

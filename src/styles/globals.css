@@ -35,8 +35,7 @@ table tr {
   );
 }
 #bronze {
-  background: rgb(205, 127, 50);
-  background: linear-gradient(130deg, rgb(119, 83, 13) 8%, rgb(63, 48, 4) 91%);
+  background: linear-gradient(130deg, rgb(104, 70, 4) 8%, rgb(102, 84, 30) 91%);
 }
 
 .createModal {
