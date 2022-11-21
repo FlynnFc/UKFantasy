@@ -9,13 +9,14 @@ type player = {
   img?: any;
   moneyLeft: number;
   teamFull: boolean;
+  team: any[];
 };
 
 export const Player = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
   const [disable, setDisabled] = useState(false);
-  const [picked, SetPicked] = useState(false);
+  const [picked, setPicked] = useState(false);
   useEffect(() => {
     setRareity(props.rareity);
   }, [props.rareity]);
@@ -36,7 +37,7 @@ export const Player = (props: player) => {
         //Check if team is full already
         if (!disable && !picked) {
           props.PlayerSelect(props);
-          SetPicked(true);
+          setPicked(true);
         }
       }}
     >

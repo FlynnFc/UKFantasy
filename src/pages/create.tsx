@@ -60,7 +60,7 @@ const Create = () => {
 
   //Adding player to myTeam
   const PlayerSelect = (data: any) => {
-    if (myTeam.length < 5) {
+    if (!teamFull) {
       if (myTeam.length === 4) {
         setTeamFull(true);
       }
@@ -157,6 +157,7 @@ const Create = () => {
                 name="Smooya"
                 price={20000}
                 img={smooya}
+                team={myTeam}
               />
               <Player
                 teamFull={teamFull}
@@ -166,6 +167,7 @@ const Create = () => {
                 name="LVN &#128163;"
                 price={22000}
                 img={lvn}
+                team={myTeam}
               />
               <Player
                 teamFull={teamFull}
@@ -175,6 +177,7 @@ const Create = () => {
                 name="Dweg"
                 price={3.4}
                 img={dweg}
+                team={myTeam}
               />
               <Player
                 teamFull={teamFull}
@@ -184,6 +187,7 @@ const Create = () => {
                 name="Thomas"
                 price={27000}
                 img={thomas}
+                team={myTeam}
               />
               <Player
                 teamFull={teamFull}
@@ -193,53 +197,7 @@ const Create = () => {
                 name="Vacancey"
                 price={25000}
                 img={vacancey}
-              />
-            </PlayerGroup>
-            <PlayerGroup team="God Squad">
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Smooya"
-                price={20000}
-                img={smooya}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="silver"
-                name="LVN"
-                price={22000}
-                img={lvn}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="bronze"
-                name="Dweg"
-                price={3.4}
-                img={dweg}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Thomas"
-                price={27000}
-                img={thomas}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Vacancey"
-                price={25000}
-                img={vacancey}
+                team={myTeam}
               />
             </PlayerGroup>
           </div>
