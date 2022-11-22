@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: "Poppins", sans-serif;
+}
 table tr {
   background-color: green /* 8px */;
 }

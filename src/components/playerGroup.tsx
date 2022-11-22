@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
 const PlayerGroup = (props: { team: string; children: any[] }) => {
-  const [stats, setStats] = useState(false);
-
   return (
     <div className="flex w-full flex-col items-center justify-evenly rounded-lg bg-base-300 pb-4">
       <div
