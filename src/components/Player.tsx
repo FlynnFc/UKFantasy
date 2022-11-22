@@ -22,7 +22,7 @@ export const Player = (props: player) => {
       return props.name === name;
     };
     const updatedPick = props.team.find((el) => nameCheck(el.key));
-    console.log(updatedPick);
+
     setPicked(updatedPick);
   }, [props.name, props.team]);
 
@@ -40,7 +40,6 @@ export const Player = (props: player) => {
 
   return (
     <div
-      id="player"
       className={`relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72`}
       onClick={() => {
         //Check if team is full already
@@ -51,15 +50,15 @@ export const Player = (props: player) => {
       }}
     >
       {picked ? (
-        <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center text-xl font-bold">
+        <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
           <p className="p-4 text-center">Already Picked</p>
         </div>
       ) : props.teamFull ? (
-        <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center text-xl font-bold">
+        <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center  font-bold lg:text-xl">
           <p className="p-4 text-center">No more slots</p>
         </div>
       ) : disable ? (
-        <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center text-xl font-bold">
+        <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
           <p className="p-4 text-center">You cant afford this player!</p>
         </div>
       ) : (
@@ -99,11 +98,11 @@ export const Player = (props: player) => {
         id={rareity}
         className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg  "
       >
-        <h2 className=" pt-2 text-center text-2xl font-bold leading-none text-neutral">
+        <h2 className=" pt-2 text-center font-bold leading-none text-neutral lg:text-2xl">
           {props.name}
         </h2>
         <div>
-          <p className="pb-2 text-center text-2xl text-neutral">
+          <p className="pb-2 text-center text-neutral lg:text-2xl">
             £{props.price}
           </p>
         </div>

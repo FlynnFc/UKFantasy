@@ -12,7 +12,7 @@ const PlayerGroup = (props: { team: string; children: any[] }) => {
         <span className="py-4 text-2xl font-bold">{props.team}</span>
       </div>
 
-      <div className="flex w-full flex-row justify-evenly">
+      <div className="flex w-[98%] flex-row justify-evenly space-x-1 lg:w-full">
         {props.children.map((child: JSX.Element) => {
           return child;
         })}
