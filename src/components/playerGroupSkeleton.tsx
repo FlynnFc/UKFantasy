@@ -1,8 +1,26 @@
-import React from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import PlayerSkeleton from "./PlayerSkeleton";
 
-const PlayerGroupSkeleton = (props: { children: any; money: number }) => {
+const PlayerGroupSkeleton = (props: {
+  children: any;
+  money: number;
+  setTeamName: Dispatch<SetStateAction<string>>;
+}) => {
+  const [timer, setTimer] = useState<any>(null);
+
+  //Delays setting state until user stops typing
+  const inputHandler = (e: string) => {
+    if (timer) {
+      clearTimeout(timer);
+      setTimer(null);
+    }
+    setTimer(
+      setTimeout(() => {
+        props.setTeamName(e);
+      }, 500)
+    );
+  };
   return (
     <div
       className="my-2 flex w-full flex-col items-center justify-evenly rounded-lg bg-primary
@@ -12,13 +30,16 @@ const PlayerGroupSkeleton = (props: { children: any; money: number }) => {
         <input
           type="text"
           placeholder="Team name"
-          className="input my-2 w-full max-w-xs text-2xl"
+          className="input input-sm my-2 w-auto max-w-xs md:input-md lg:text-2xl"
+          onChange={(e) => {
+            inputHandler(e.target.value);
+          }}
         />
-        <span className="py-4 text-2xl font-bold">
+        <span className="py-4 font-bold md:text-lg lg:text-2xl">
           Money Left: {props.money.toLocaleString("en-US")}
         </span>
       </div>
-      <div className="flex w-full flex-row justify-evenly">
+      <div className=" flex w-[95%] flex-row justify-evenly space-x-2 lg:w-full">
         {props.children[0] ? props.children[0] : <PlayerSkeleton />}
         {props.children[1] ? props.children[1] : <PlayerSkeleton />}
         {props.children[2] ? props.children[2] : <PlayerSkeleton />}

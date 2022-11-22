@@ -18,6 +18,14 @@ const Create = () => {
   const [teamFull, setTeamFull] = useState(false);
   const [deletes, setDeletes] = useState("");
   const session = useSession();
+  const [teamName, setTeamName] = useState("Your Team");
+
+  //Ensures Team name is never empty string
+  useEffect(() => {
+    if (teamName.length < 1) {
+      setTeamName("Your Team");
+    }
+  }, [teamName.length]);
 
   //Updates total money as user changes players
   useEffect(() => {
@@ -78,11 +86,16 @@ const Create = () => {
       ]);
     }
   };
+
   //Submits people in myTeam to DB
   const teamSubmitHandler = async () => {
-    const test = { teamName: "Test", points: 0, rolePoints: 0 };
+    const test = {
+      teamName: "Test",
+      points: 0,
+      rolePoints: 0,
+      userId: session.data?.user?.id,
+    };
     const body = await JSON.stringify(test);
-    console.log(myTeam);
     const response = await fetch("/api/submitTeam", {
       method: "POST",
       body: body,
@@ -126,26 +139,22 @@ const Create = () => {
       )}
       {session.data ? (
         <div className="w-full">
-          <div className="flex items-end justify-center">
-            <div className="text-base-content">
-              <h1 className="text-5xl leading-snug">Making your team</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Aspernatur alias cupiditate est nam in nihil eaque laboriosam
-                delectus repellat illo voluptate dignissimos accusantium eius
-                maxime, natus dolor velit! Accusantium, ea!
-              </p>
-            </div>
+          <h2 className="text-center text-3xl leading-snug lg:text-5xl">
+            {teamName}
+          </h2>
+          <div className="mt-4 flex items-end justify-center lg:mt-0 lg:justify-end">
             <button
               disabled={!teamFull}
               onClick={teamSubmitHandler}
-              className="btn-info btn"
+              className="btn-outline btn"
             >
               Submit Team
             </button>
           </div>
           <div className="z-10 my-4 ">
-            <PlayerGroupSkeleton money={money}>{myTeam}</PlayerGroupSkeleton>
+            <PlayerGroupSkeleton setTeamName={setTeamName} money={money}>
+              {myTeam}
+            </PlayerGroupSkeleton>
           </div>
           <div className="space-y-6">
             <PlayerGroup team="God Squad">
