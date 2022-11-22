@@ -78,7 +78,7 @@ const Create = () => {
       ]);
     }
   };
-
+  //Submits people in myTeam to DB
   const teamSubmitHandler = async () => {
     const test = { teamName: "Test", points: 0, rolePoints: 0 };
     const body = await JSON.stringify(test);

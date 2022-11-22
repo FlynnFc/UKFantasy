@@ -18,6 +18,15 @@ export const Player = (props: player) => {
   const [disable, setDisabled] = useState(false);
   const [picked, setPicked] = useState(false);
   useEffect(() => {
+    const nameCheck = (name: string) => {
+      return props.name === name;
+    };
+    const updatedPick = props.team.find((el) => nameCheck(el.key));
+    console.log(updatedPick);
+    setPicked(updatedPick);
+  }, [props.name, props.team]);
+
+  useEffect(() => {
     setRareity(props.rareity);
   }, [props.rareity]);
 
