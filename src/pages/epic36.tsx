@@ -3,10 +3,26 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-const Epic36 = () => {
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:3000/api/allTeams");
+  if (!res.ok) {
+    console.error("error");
+  }
+  const data = await res.json();
+
+  return {
+    props: {
+      data: data,
+    },
+  };
+}
+
+const Epic36 = (props: { data: any }) => {
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
   const userHasTeam = true;
+
+  console.log(props);
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
