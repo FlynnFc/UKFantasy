@@ -113,8 +113,8 @@ const Create = () => {
     <main className="min-w-screen container mx-auto  mt-20 flex min-h-screen max-w-7xl flex-col items-end justify-start  p-4">
       <Toaster position="bottom-right" />
       {introModal && (
-        <div className="createModal fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center bg-info">
-          <div className="mt-32 w-[80%] rounded-lg bg-neutral p-10">
+        <div className="createModal fixed top-0 left-0 z-10 flex h-screen w-full items-start justify-center">
+          <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-base-100">
             <h1 className="text-3xl font-bold leading-loose">
               Welcome to team creatation
             </h1>
@@ -134,10 +134,7 @@ const Create = () => {
               dolor atque natus esse non nisi!
             </p>
             <div className="mr-8 flex justify-end">
-              <button
-                onClick={() => setIntroModal(false)}
-                className="btn-outline btn"
-              >
+              <button onClick={() => setIntroModal(false)} className="btn">
                 Got it!
               </button>
             </div>

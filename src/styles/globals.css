@@ -5,46 +5,46 @@
 * {
   font-family: "Poppins", sans-serif;
 }
-table tr {
-  background-color: green /* 8px */;
-}
+
 .disabledPlayer {
   background: rgba(60, 59, 59, 0.852);
 }
 .pickedPlayer {
   background: rgba(5, 7, 5, 0.852);
 }
+.gold-backgrounds {
+  background: rgb(205, 205, 205);
+  background-image: linear-gradient(135deg, #d29f53 10%, #b86f10 100%);
+}
 
-#stats {
+.silver-backgrounds {
+  background: rgb(205, 205, 205);
+  background-image: linear-gradient(135deg, #e4dede 10%, #69635b 100%);
+}
+
+.bronze-backgrounds {
+  background: linear-gradient(to bottom, #452d0dd4 0%, #a5611e 100%);
+}
+
+.stats {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 250ms;
+  background-color: rgba(0, 0, 0, 0.759);
+  border-radius: 0;
 }
 
-#gold {
-  background: rgb(252, 190, 68);
-  background: linear-gradient(
-    130deg,
-    rgba(252, 190, 68, 1) 26%,
-    rgba(149, 117, 56, 1) 100%
-  );
+.gold {
+  background-image: linear-gradient(135deg, #d29f53 10%, #b86f10 100%);
 }
-#silver {
+.silver {
   background: rgb(205, 205, 205);
-  background: linear-gradient(
-    130deg,
-    rgba(205, 205, 205, 1) 23%,
-    rgba(125, 125, 125, 1) 100%
-  );
+  background-image: linear-gradient(135deg, #e4dede 10%, #69635b 100%);
 }
-#bronze {
-  background: linear-gradient(130deg, rgb(104, 70, 4) 8%, rgb(102, 84, 30) 91%);
+.bronze {
+  background: #613f12fe;
 }
 
 .createModal {
-  background-color: rgba(0, 0, 0, 0.676);
-}
-
-#stats {
   background-color: rgba(0, 0, 0, 0.676);
 }

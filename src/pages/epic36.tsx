@@ -25,22 +25,24 @@ const Epic36 = (props: { data: any }) => {
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
       {!session.data ? null : createModal ? (
-        <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-green-900 p-2">
+        <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
             className="cursor-pointerpx-2 absolute right-3"
           >
             <b>X</b>
           </div>
-          <h2 className="px-10 pt-6 pb-2 text-xl font-semibold">
+          <h2 className="px-10 pt-6 pb-2 text-xl font-semibold text-base-100">
             You have not registered a team for this League!
           </h2>
-          <p className="px-10 font-semibold">
+          <p className="px-10 font-semibold text-base-100">
             To enter this league you need to create a team
           </p>
           <div className="mx-5  flex w-full flex-row justify-start p-6">
             <Link href="/create">
-              <button className="btn-success btn">Create Team</button>
+              <button className="btn-primary btn w-max outline">
+                Create Team
+              </button>
             </Link>
           </div>
         </div>
@@ -59,9 +61,7 @@ const Epic36 = (props: { data: any }) => {
           </Link>
         ) : (
           <Link href="/test">
-            <button className="btn-primary btn mt-4 w-max outline">
-              View Team
-            </button>
+            <button className="btn mt-4 w-max ">View Team</button>
           </Link>
         )}
       </div>

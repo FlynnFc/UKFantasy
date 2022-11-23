@@ -35,7 +35,7 @@ const PlayerGroupSkeleton = (props: {
             inputHandler(e.target.value);
           }}
         />
-        <span className="py-4 font-bold md:text-lg lg:text-2xl">
+        <span className="py-4 font-bold text-base-100 md:text-lg lg:text-2xl">
           Money Left: {props.money.toLocaleString("en-US")}
         </span>
       </div>
