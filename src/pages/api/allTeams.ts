@@ -8,7 +8,6 @@ const allTeams = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
   const data = await prisma.playerTeam.findMany();
-  
   res.status(200).json(data);
 };
 

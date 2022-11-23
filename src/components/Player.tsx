@@ -51,23 +51,24 @@ export const Player = (props: player) => {
     >
       {picked ? (
         <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
-          <p className="p-4 text-center">Already Picked</p>
+          <p className="p-4 text-center text-white">Already Picked</p>
         </div>
       ) : props.teamFull ? (
         <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center  font-bold lg:text-xl">
-          <p className="p-4 text-center">No more slots</p>
+          <p className="p-4 text-center text-white">No more slots</p>
         </div>
       ) : disable ? (
         <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
-          <p className="p-4 text-center">You cant afford this player!</p>
+          <p className="p-4 text-center text-white">
+            You cant afford this player!
+          </p>
         </div>
       ) : (
         ""
       )}
 
       <div
-        id="image"
-        className="z-10 hidden h-52 cursor-pointer justify-center overflow-hidden lg:block"
+        className={`z-10 hidden h-52 cursor-pointer justify-center overflow-hidden lg:block`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -75,12 +76,17 @@ export const Player = (props: player) => {
           setTimeout(() => setStats(false), 100);
         }}
       >
-        <Image alt="portrait" height={300} width={300} src={props.img} />
+        <Image
+          className="drop-shadow-2xl"
+          alt="portrait"
+          height={300}
+          width={300}
+          src={props.img}
+        />
         <div
-          id="stats"
           className={`${
-            stats && "h-full w-full -translate-y-[110.5%] p-2"
-          } "h-full p-2" w-full `}
+            stats && "h-full w-full -translate-y-[111%] p-2"
+          } "h-full p-2" stats w-full text-base-content `}
         >
           <ul className="flex h-full flex-col justify-between">
             <div>
@@ -95,8 +101,7 @@ export const Player = (props: player) => {
         </div>
       </div>
       <div
-        id={rareity}
-        className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg  "
+        className={`${rareity} flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg `}
       >
         <h2 className=" pt-2 text-center font-bold leading-none text-neutral lg:text-2xl">
           {props.name}

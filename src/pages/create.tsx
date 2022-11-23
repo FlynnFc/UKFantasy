@@ -10,6 +10,7 @@ import dweg from "../images/dweg.webp";
 import smooya from "../images/smooya.webp";
 import thomas from "../images/thomas.webp";
 import vacancey from "../images/vacancey.webp";
+import toast, { Toaster } from "react-hot-toast";
 
 const Create = () => {
   const [introModal, setIntroModal] = useState(true);
@@ -37,12 +38,8 @@ const Create = () => {
     //Loops through team, player prices take away from total.
     for (let i = 0; i < myTeam.length; i++) {
       count = count - myTeam[i]?.props.price;
-      setMoney((prev) => {
-        if (prev - myTeam[i]?.props.price >= 0) {
-          return count;
-        } else return prev;
-      });
     }
+    setMoney(count);
   }, [myTeam]);
 
   //Using this to update on delete I have no idea why react doesnt allow me to access the most recent state when onClick from different component
@@ -90,24 +87,34 @@ const Create = () => {
   //Submits people in myTeam to DB
   const teamSubmitHandler = async () => {
     const test = {
-      teamName: "Test",
+      teamName: teamName,
       points: 0,
       rolePoints: 0,
       userId: session.data?.user?.id,
+      players: [...myTeam],
     };
-    const body = await JSON.stringify(test);
-    const response = await fetch("/api/submitTeam", {
-      method: "POST",
-      body: body,
-    });
-    return response.json;
+
+    console.log(test);
+    // const body = await JSON.stringify(test);
+    //   const response = await fetch("/api/submitTeam", {
+    //     method: "POST",
+    //     body: body,
+    //   });
   };
 
+  const submit = () => {
+    toast.promise(teamSubmitHandler(), {
+      loading: "Submiting your team...",
+      success: <b>Team Submitted!</b>,
+      error: <b>`We could not add your team`</b>,
+    });
+  };
   return (
     <main className="min-w-screen container mx-auto  mt-20 flex min-h-screen max-w-7xl flex-col items-end justify-start  p-4">
+      <Toaster position="bottom-right" />
       {introModal && (
-        <div className="createModal fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center bg-info">
-          <div className="mt-32 w-[80%] rounded-lg bg-neutral p-10">
+        <div className="createModal fixed top-0 left-0 z-10 flex h-screen w-full items-start justify-center">
+          <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-base-100">
             <h1 className="text-3xl font-bold leading-loose">
               Welcome to team creatation
             </h1>
@@ -127,10 +134,7 @@ const Create = () => {
               dolor atque natus esse non nisi!
             </p>
             <div className="mr-8 flex justify-end">
-              <button
-                onClick={() => setIntroModal(false)}
-                className="btn-outline btn"
-              >
+              <button onClick={() => setIntroModal(false)} className="btn">
                 Got it!
               </button>
             </div>
@@ -145,7 +149,12 @@ const Create = () => {
           <div className="mt-4 flex items-end justify-center lg:mt-0 lg:justify-end">
             <button
               disabled={!teamFull}
-              onClick={teamSubmitHandler}
+              onClick={() => {
+                if (teamName === "Your Team") {
+                  toast.error("Please enter a team name");
+                  return;
+                } else submit();
+              }}
               className="btn-outline btn"
             >
               Submit Team
@@ -164,7 +173,7 @@ const Create = () => {
                 moneyLeft={money}
                 rareity="gold"
                 name="Smooya"
-                price={20000}
+                price={30000}
                 img={smooya}
                 team={myTeam}
               />
@@ -194,7 +203,7 @@ const Create = () => {
                 moneyLeft={money}
                 rareity="gold"
                 name="Thomas"
-                price={27000}
+                price={22000}
                 img={thomas}
                 team={myTeam}
               />

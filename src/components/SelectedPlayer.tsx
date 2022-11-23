@@ -13,7 +13,6 @@ type player = {
 const SelectedPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
-  const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
     setRareity(props.rareity);
@@ -25,7 +24,7 @@ const SelectedPlayer = (props: player) => {
     >
       <div
         id="image"
-        className="z-10  hidden  h-52 cursor-pointer justify-center overflow-hidden  bg-neutral lg:inline-block"
+        className={`z-10 hidden  h-52 cursor-pointer justify-center overflow-hidden  bg-neutral lg:inline-block`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -35,10 +34,9 @@ const SelectedPlayer = (props: player) => {
       >
         <Image alt="portrait" height={300} width={300} src={props.img} />
         <div
-          id="stats"
           className={`${
             stats && "h-full  w-full -translate-y-[110.5%] p-2"
-          } "h-full p-2" w-full`}
+          } stats h-full w-full p-2 text-base-content `}
         >
           <ul className="flex h-full flex-col justify-between">
             <div>
@@ -54,8 +52,7 @@ const SelectedPlayer = (props: player) => {
       </div>
 
       <div
-        id={rareity}
-        className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg"
+        className={`flex ${rareity} h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg`}
       >
         <h2 className=" pt-2 text-center font-bold leading-none text-neutral lg:text-2xl">
           {props.name}
@@ -70,7 +67,7 @@ const SelectedPlayer = (props: player) => {
         onClick={() => props.PlayerRemove(props)}
         className="absolute top-1 right-2 z-10 cursor-pointer"
       >
-        X
+        <b>X</b>
       </div>
     </div>
   );
