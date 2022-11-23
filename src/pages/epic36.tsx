@@ -1,21 +1,6 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
-
-export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/allTeams");
-  if (!res.ok) {
-    console.error("error");
-  }
-  const data = await res.json();
-
-  return {
-    props: {
-      data: data,
-    },
-  };
-}
 
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
