@@ -51,15 +51,17 @@ export const Player = (props: player) => {
     >
       {picked ? (
         <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
-          <p className="p-4 text-center">Already Picked</p>
+          <p className="p-4 text-center text-white">Already Picked</p>
         </div>
       ) : props.teamFull ? (
         <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center  font-bold lg:text-xl">
-          <p className="p-4 text-center">No more slots</p>
+          <p className="p-4 text-center text-white">No more slots</p>
         </div>
       ) : disable ? (
         <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
-          <p className="p-4 text-center">You cant afford this player!</p>
+          <p className="p-4 text-center text-white">
+            You cant afford this player!
+          </p>
         </div>
       ) : (
         ""

@@ -13,29 +13,32 @@ const Navbar = () => {
 
   useEffect(() => {
     themeChange(false);
-    // 👆 false parameter is required for react project
   }, []);
 
   return (
     <div className="navbar absolute top-0">
       <div className="flex w-full justify-between">
         <div className="flex">
+          <Link href="./">
+            <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
+          </Link>
+          <Link href="/epic36">
+            <button className="btn bg-primary">Epic36 </button>
+          </Link>
+        </div>
+        <div className="flex space-x-2">
           <button
             onClick={themeHandler}
             className="btn "
             data-toggle-theme="winter,night"
           >
-            {!darkMode && <FaMoon className="text-xl" />}
-            {darkMode && <FaSun className="text-xl" />}
+            {!darkMode ? (
+              <FaMoon className="text-lg" />
+            ) : (
+              <FaSun className="text-lg" />
+            )}
           </button>
-          <Link href="./">
-            <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
-          </Link>
-        </div>
-        <div className="flex space-x-2">
-          <Link href="/epic36">
-            <button className="btn bg-primary">Epic36 </button>
-          </Link>
+
           <LoginBtn />
         </div>
       </div>
