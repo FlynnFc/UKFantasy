@@ -13,7 +13,6 @@ type player = {
 const SelectedPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
-  const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
     setRareity(props.rareity);
