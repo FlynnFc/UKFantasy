@@ -28,17 +28,17 @@ const Epic36 = (props: { data: any }) => {
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
-            className="cursor-pointerpx-2 absolute right-3"
+            className="absolute right-3 cursor-pointer  text-base-100"
           >
             <b>X</b>
           </div>
-          <h2 className="px-10 pt-6 pb-2 text-xl font-semibold text-base-100">
+          <h2 className="px-7 pt-6 pb-2 text-xl font-semibold text-base-100">
             You have not registered a team for this League!
           </h2>
-          <p className="px-10 font-semibold text-base-100">
+          <p className="px-7 font-semibold text-base-100">
             To enter this league you need to create a team
           </p>
-          <div className="mx-5  flex w-full flex-row justify-start p-6">
+          <div className="mx-3  flex w-full flex-row justify-start p-6">
             <Link href="/create">
               <button className="btn-primary btn w-max outline">
                 Create Team

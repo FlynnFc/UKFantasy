@@ -183,7 +183,7 @@ const Create = () => {
                 moneyLeft={money}
                 rareity="silver"
                 name="LVN &#128163;"
-                price={32000}
+                price={22000}
                 img={lvn}
                 team={myTeam}
               />
@@ -203,7 +203,7 @@ const Create = () => {
                 moneyLeft={money}
                 rareity="gold"
                 name="Thomas"
-                price={27000}
+                price={22000}
                 img={thomas}
                 team={myTeam}
               />
