@@ -23,7 +23,9 @@ const Navbar = () => {
             <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
           </Link>
           <Link href="/epic36">
-            <button className="btn bg-primary">Epic36 </button>
+            <button className="btn bg-primary text-primary-content">
+              Epic36{" "}
+            </button>
           </Link>
         </div>
         <div className="flex space-x-2">
