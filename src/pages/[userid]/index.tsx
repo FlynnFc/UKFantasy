@@ -8,7 +8,7 @@ const Index = () => {
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   return (
     <div className="mx-5 flex h-screen items-center justify-center">
-      <PlayerGroupSkeleton money={money}>{myTeam}</PlayerGroupSkeleton>
+      <PlayerGroupSkeleton money={money}></PlayerGroupSkeleton>
     </div>
   );
 };
