@@ -18,7 +18,7 @@ const PlayerGroupSkeleton = (props: {
     setTimer(
       setTimeout(() => {
         props.setTeamName(e);
-      }, 500)
+      }, 10)
     );
   };
   return (

@@ -19,7 +19,6 @@ const PlayerSkeleton = () => {
 
   return (
     <div
-      id="player"
       className={`z-0 h-min w-56 overflow-hidden rounded-xl bg-neutral text-sm shadow-lg ${
         stats && "animate-pulse"
       }`}
@@ -32,7 +31,7 @@ const PlayerSkeleton = () => {
     >
       <div
         id="image"
-        className="z-10 hidden h-52 justify-center overflow-hidden bg-base-300 lg:inline-block"
+        className="z-10 hidden h-[12.7rem] justify-center overflow-hidden bg-base-300 lg:inline-block"
       ></div>
 
       <div className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg bg-base-100 ">
