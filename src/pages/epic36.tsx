@@ -1,11 +1,24 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { supabase } from "../server/db/client";
 
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
   const userHasTeam = true;
+
+  useEffect(() => {
+    const fetcherTest = async () => {
+      try {
+        const data = await supabase.storage.from("players");
+        console.log(data);
+      } catch (error) {
+        console.log("Error downloading image: ", error);
+      }
+    };
+    fetcherTest();
+  }, []);
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">

@@ -18,6 +18,8 @@ export const serverSchema = z.object({
   ),
   GOOGLE_ID: z.string(),
   GOOGLE_SECRET: z.string(),
+  SUPABASE_PROJECT_URL: z.string(),
+  SUPABASE_KEY: z.string(),
 });
 
 /**
