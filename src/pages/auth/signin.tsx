@@ -11,7 +11,7 @@ export default function SignIn(props: { providers: any }) {
         <h1 className="pb-4 pt-6 text-3xl font-bold text-base-content">
           Sign in
         </h1>
-        <div className="my-2 w-full space-y-2 border-b-2 border-base-100 p-6 pb-4">
+        <div className="my-2 w-full space-y-2 p-6 pb-4">
           <p className="text-error">Email coming soon</p>
           <input
             type="text"
@@ -27,7 +27,7 @@ export default function SignIn(props: { providers: any }) {
             Sign in
           </button>
         </div>
-        <div className="flex w-96 items-center justify-center rounded-md bg-primary p-6 shadow-md">
+        <div className="flex h-full w-96 items-center justify-center rounded-md bg-primary p-6 shadow-md">
           {props.providers &&
             Object.values(props.providers).map((provider: any) => (
               <div
