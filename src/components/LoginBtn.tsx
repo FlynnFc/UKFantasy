@@ -10,6 +10,7 @@ export default function LoginBtn() {
       </>
     );
   }
+
   return (
     <>
       <button className="btn-primary btn mr-2" onClick={() => signIn()}>
