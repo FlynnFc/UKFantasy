@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { useSession } from "@supabase/auth-helpers-react";
 import React, { useEffect, useState } from "react";
 import NotSignedin from "../components/NotSignedin";
 import { Player } from "../components/Player";
@@ -90,7 +90,7 @@ const Create = () => {
       teamName: teamName,
       points: 0,
       rolePoints: 0,
-      userId: session.data?.user?.id,
+      userId: session?.user?.id,
       players: [...myTeam],
     };
 
@@ -141,7 +141,7 @@ const Create = () => {
           </div>
         </div>
       )}
-      {session.data ? (
+      {session ? (
         <div className="w-full">
           <h2 className="text-center text-3xl leading-snug lg:text-5xl">
             {teamName}
