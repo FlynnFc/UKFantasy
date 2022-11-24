@@ -44,6 +44,7 @@ const Home = () => {
                 },
               }}
               providers={["google", "twitter"]}
+              redirectTo={"http://localhost:3000/epic36"}
             />
           </div>
         ) : (

@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <div className="navbar absolute top-0">
       <div className="flex w-full justify-between">
-        <div className="flex">
+        <div className="flex space-x-2">
           <Link href="./">
             <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
           </Link>
