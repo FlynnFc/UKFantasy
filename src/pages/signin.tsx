@@ -13,7 +13,7 @@ const Home = () => {
     <div className="h-screen" style={{ padding: "50px 0 100px 0" }}>
       <div className="mt-16 flex items-center justify-center">
         {!session ? (
-          <div className="w-[30rem] rounded bg-white p-6">
+          <div className="w-[30rem] rounded bg-base-300 p-6 shadow-lg">
             <Auth
               supabaseClient={supabase}
               appearance={{
@@ -23,7 +23,11 @@ const Home = () => {
                     background: "hsl(var(--p) / var(--tw-bg-opacity))",
                     color: "white",
                   },
-                  anchor: { color: "black" },
+                  input: {
+                    backgroundColor: "rgba(5, 7, 5, 0.852)",
+                    color: "white",
+                  },
+                  anchor: { color: "white" },
                   //..
                 },
                 className: {
