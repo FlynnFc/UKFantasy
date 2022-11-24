@@ -13,14 +13,13 @@ const Epic36 = (props: { data: any }) => {
   useEffect(() => {
     const fetcherTest = async () => {
       try {
-        const { data, error } = await supabase.storage
-          .from("images")
-          .download(path);
-        if (error) {
-          throw error;
+        const { data } = await supabase
+          .from("playerS")
+          .select(`id, name, image`)
+          .single();
+        if (data) {
+          console.log(data);
         }
-        const url = URL.createObjectURL(data);
-        console.log(url);
       } catch (error) {
         console.log("Error downloading image: ", error);
       }
