@@ -1,8 +1,9 @@
-import { useSession } from "next-auth/react";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const Epic36 = (props: { data: any }) => {
+  const supabase = useSupabaseClient();
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
   const userHasTeam = false;
@@ -26,7 +27,7 @@ const Epic36 = (props: { data: any }) => {
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-      {!session.data ? null : createModal ? (
+      {!session ? null : createModal ? (
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
