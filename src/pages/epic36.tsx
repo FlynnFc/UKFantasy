@@ -1,22 +1,19 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { supabase } from "../server/client";
 
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
   const userHasTeam = false;
-  const path =
-    "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/images/photo-1628017974670-846f66fc7671%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvcGhvdG8tMTYyODAxNzk3NDY3MC04NDZmNjZmYzc2NzEgKDEpLmpwZyIsImlhdCI6MTY2OTI1MTU0NiwiZXhwIjoxOTg0NjExNTQ2fQ.Yt7zhJwL77pmIoPzjRZBcuaEcTNw7__sk87bEIiZFb4";
+  const url =
+    "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/images/photo-1628017974670-846f66fc7671%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvcGhvdG8tMTYyODAxNzk3NDY3MC04NDZmNjZmYzc2NzEgKDEpLmpwZyIsImlhdCI6MTY2OTI4NDU5NywiZXhwIjoxOTg0NjQ0NTk3fQ.boa9qZu4cMV7V8Xq3Z1JILHosiPUlEY-k6TTIeslPVw";
 
   useEffect(() => {
     const fetcherTest = async () => {
       try {
-        const { data } = await supabase
-          .from("playerS")
-          .select(`id, name, image`)
-          .single();
+        const { data } = await supabase.storage.from("images").download(url);
+
         if (data) {
           console.log(data);
         }

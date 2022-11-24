@@ -1,15 +1,20 @@
 import "../styles/globals.css";
-import type { AppType } from "next/app";
-import type { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+import type { AppProps, AppType } from "next/app";
+
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Session, SessionContextProvider } from "@supabase/auth-helpers-react";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useState } from "react";
 
-const MyApp: AppType<{ session: Session | null }> = ({
+function MyApp({
   Component,
-  pageProps: { session, ...pageProps },
-}) => {
+  pageProps,
+}: AppProps<{
+  initialSession: Session;
+}>) {
+  const [supabase] = useState(() => createBrowserSupabaseClient());
   return (
     <>
       <Head>
@@ -23,13 +28,16 @@ const MyApp: AppType<{ session: Session | null }> = ({
         />
       </Head>
 
-      <SessionProvider session={session}>
+      <SessionContextProvider
+        supabaseClient={supabase}
+        initialSession={pageProps.initialSession}
+      >
         <Navbar />
         <Component {...pageProps} />
         <Footer />
-      </SessionProvider>
+      </SessionContextProvider>
     </>
   );
-};
+}
 
 export default MyApp;

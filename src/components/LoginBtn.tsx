@@ -1,21 +1,23 @@
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession } from "@supabase/auth-helpers-react";
+import Link from "next/link";
 export default function LoginBtn() {
-  const { data: session } = useSession();
+  const session = useSession();
+
   if (session?.user) {
     return (
       <>
-        <button className="btn" onClick={() => signOut()}>
-          Sign out
-        </button>
+        <Link href={"./authtest"}>
+          <button className=" btn mr-2">Sign out</button>
+        </Link>
       </>
     );
   }
 
   return (
     <>
-      <button className="btn-primary btn mr-2" onClick={() => signIn()}>
-        Sign in
-      </button>
+      <Link href={"./authtest"}>
+        <button className="btn-primary btn mr-2">Sign in</button>
+      </Link>
     </>
   );
 }
