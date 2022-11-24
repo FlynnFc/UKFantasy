@@ -15,5 +15,6 @@ module.exports = {
     rtl: false,
     prefix: "",
     darkTheme: "night",
+    lightTheme: "winter",
   },
 };

@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import { useSession } from "@supabase/auth-helpers-react";
 import React, { useEffect, useState } from "react";
 import NotSignedin from "../components/NotSignedin";
 import { Player } from "../components/Player";
@@ -90,7 +90,7 @@ const Create = () => {
       teamName: teamName,
       points: 0,
       rolePoints: 0,
-      userId: session.data?.user?.id,
+      userId: session?.user?.id,
       players: [...myTeam],
     };
 
@@ -111,7 +111,6 @@ const Create = () => {
   };
   return (
     <main className="min-w-screen container mx-auto  mt-20 flex min-h-screen max-w-7xl flex-col items-end justify-start  p-4">
-      <Toaster position="bottom-right" />
       {introModal && (
         <div className="createModal fixed top-0 left-0 z-10 flex h-screen w-full items-start justify-center">
           <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-base-100">
@@ -141,7 +140,7 @@ const Create = () => {
           </div>
         </div>
       )}
-      {session.data ? (
+      {session ? (
         <div className="w-full">
           <h2 className="text-center text-3xl leading-snug lg:text-5xl">
             {teamName}

@@ -1,15 +1,18 @@
-import { useSession } from "next-auth/react";
+import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Epic36 = (props: { data: any }) => {
+const Epic36 = () => {
+  const supabase = useSupabaseClient();
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
-  const userHasTeam = true;
+  const userHasTeam = false;
+  const url =
+    "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/images/photo-1628017974670-846f66fc7671%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvcGhvdG8tMTYyODAxNzk3NDY3MC04NDZmNjZmYzc2NzEgKDEpLmpwZyIsImlhdCI6MTY2OTI4NDU5NywiZXhwIjoxOTg0NjQ0NTk3fQ.boa9qZu4cMV7V8Xq3Z1JILHosiPUlEY-k6TTIeslPVw";
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-      {!session.data ? null : createModal ? (
+      {!session?.user ? null : createModal ? (
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
@@ -40,15 +43,17 @@ const Epic36 = (props: { data: any }) => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
-        {!userHasTeam ? (
-          <Link href="/create">
-            <button className="btn mt-4 w-max">Create team</button>
+        {!session?.user ? (
+          <Link href="/signin">
+            <button className="btn mt-4 w-max">Sign in</button>
+          </Link>
+        ) : userHasTeam ? (
+          <Link href="/test">
+            <button className="btn mt-4 w-max ">View Team</button>
           </Link>
         ) : (
-          <Link href="/test">
-            <button disabled className="btn mt-4 w-max ">
-              View Team
-            </button>
+          <Link href="/create">
+            <button className="btn mt-4 w-max">Create team</button>
           </Link>
         )}
       </div>
