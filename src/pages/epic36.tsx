@@ -6,13 +6,21 @@ import { supabase } from "../server/db/client";
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
-  const userHasTeam = true;
+  const userHasTeam = false;
+  const path =
+    "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/images/photo-1628017974670-846f66fc7671%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvcGhvdG8tMTYyODAxNzk3NDY3MC04NDZmNjZmYzc2NzEgKDEpLmpwZyIsImlhdCI6MTY2OTI1MTU0NiwiZXhwIjoxOTg0NjExNTQ2fQ.Yt7zhJwL77pmIoPzjRZBcuaEcTNw7__sk87bEIiZFb4";
 
   useEffect(() => {
     const fetcherTest = async () => {
       try {
-        const data = await supabase.storage.from("players");
-        console.log(data);
+        const { data, error } = await supabase.storage
+          .from("images")
+          .download(path);
+        if (error) {
+          throw error;
+        }
+        const url = URL.createObjectURL(data);
+        console.log(url);
       } catch (error) {
         console.log("Error downloading image: ", error);
       }
@@ -59,9 +67,7 @@ const Epic36 = (props: { data: any }) => {
           </Link>
         ) : (
           <Link href="/test">
-            <button disabled className="btn mt-4 w-max ">
-              View Team
-            </button>
+            <button className="btn mt-4 w-max ">View Team</button>
           </Link>
         )}
       </div>
