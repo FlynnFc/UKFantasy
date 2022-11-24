@@ -12,7 +12,7 @@ const Epic36 = () => {
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-      {!session ? null : createModal ? (
+      {!session?.user ? null : createModal ? (
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
@@ -43,13 +43,17 @@ const Epic36 = () => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
-        {!userHasTeam ? (
-          <Link href="/create">
-            <button className="btn mt-4 w-max">Create team</button>
+        {!session?.user ? (
+          <Link href="/signin">
+            <button className="btn mt-4 w-max">Sign in</button>
           </Link>
-        ) : (
+        ) : userHasTeam ? (
           <Link href="/test">
             <button className="btn mt-4 w-max ">View Team</button>
+          </Link>
+        ) : (
+          <Link href="/create">
+            <button className="btn mt-4 w-max">Create team</button>
           </Link>
         )}
       </div>
