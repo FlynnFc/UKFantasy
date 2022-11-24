@@ -10,21 +10,6 @@ const Epic36 = (props: { data: any }) => {
   const url =
     "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/images/photo-1628017974670-846f66fc7671%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvcGhvdG8tMTYyODAxNzk3NDY3MC04NDZmNjZmYzc2NzEgKDEpLmpwZyIsImlhdCI6MTY2OTI4NDU5NywiZXhwIjoxOTg0NjQ0NTk3fQ.boa9qZu4cMV7V8Xq3Z1JILHosiPUlEY-k6TTIeslPVw";
 
-  useEffect(() => {
-    const fetcherTest = async () => {
-      try {
-        const { data } = await supabase.storage.from("images").download(url);
-
-        if (data) {
-          console.log(data);
-        }
-      } catch (error) {
-        console.log("Error downloading image: ", error);
-      }
-    };
-    fetcherTest();
-  }, []);
-
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
       {!session ? null : createModal ? (
