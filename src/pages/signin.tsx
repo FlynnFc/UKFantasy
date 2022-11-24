@@ -13,11 +13,26 @@ const Home = () => {
     <div className="h-screen" style={{ padding: "50px 0 100px 0" }}>
       <div className="mt-16 flex items-center justify-center">
         {!session ? (
-          <div className="w-[30rem] rounded bg-primary p-6">
+          <div className="w-[30rem] rounded bg-white p-6">
             <Auth
               supabaseClient={supabase}
-              appearance={{ theme: ThemeSupa }}
-              theme="dark"
+              appearance={{
+                theme: ThemeSupa,
+                style: {
+                  button: {
+                    background: "hsl(var(--p) / var(--tw-bg-opacity))",
+                    color: "white",
+                  },
+                  anchor: { color: "black" },
+                  //..
+                },
+                className: {
+                  anchor: "text-base-content",
+                  button: "btn",
+                  input: "input",
+                  //..
+                },
+              }}
               providers={["google", "twitter"]}
             />
           </div>

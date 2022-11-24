@@ -20,7 +20,7 @@ export default function LoginBtn() {
 
   return (
     <>
-      <Link href={"./authtest"}>
+      <Link href={"./signin"}>
         <button className="btn-primary btn mr-2">Sign in</button>
       </Link>
     </>
