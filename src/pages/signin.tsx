@@ -27,7 +27,7 @@ const Home = () => {
                   },
                   input: {
                     backgroundColor: "hsl(var(--b1) / var(--tw-bg-opacity))",
-                    color: "white",
+                    color: "hsl(var(--bc) / var(--tw-text-opacity))",
                     border: "none",
                   },
                   label: {
