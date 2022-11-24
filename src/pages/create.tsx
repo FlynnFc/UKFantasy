@@ -111,7 +111,6 @@ const Create = () => {
   };
   return (
     <main className="min-w-screen container mx-auto  mt-20 flex min-h-screen max-w-7xl flex-col items-end justify-start  p-4">
-      <Toaster position="bottom-right" />
       {introModal && (
         <div className="createModal fixed top-0 left-0 z-10 flex h-screen w-full items-start justify-center">
           <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-base-100">

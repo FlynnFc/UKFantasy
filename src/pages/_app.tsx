@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import { Session, SessionContextProvider } from "@supabase/auth-helpers-react";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 function MyApp({
   Component,
@@ -33,6 +34,7 @@ function MyApp({
         initialSession={pageProps.initialSession}
       >
         <Navbar />
+        <Toaster position="bottom-right" />
         <Component {...pageProps} />
         <Footer />
       </SessionContextProvider>
