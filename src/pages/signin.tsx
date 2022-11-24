@@ -13,7 +13,12 @@ const Home = () => {
     <div className="h-screen w-auto" style={{ padding: "50px 0 100px 0" }}>
       <div className="flex items-center justify-center">
         {!session ? (
-          <Auth supabaseClient={supabase} />
+          <Auth
+            supabaseClient={supabase}
+            appearance={{ theme: ThemeSupa }}
+            theme="dark"
+            providers={[]}
+          />
         ) : (
           <>
             <button className="btn" onClick={signOutHandler}>
