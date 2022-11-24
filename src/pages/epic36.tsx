@@ -2,7 +2,7 @@ import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Epic36 = (props: { data: any }) => {
+const Epic36 = () => {
   const supabase = useSupabaseClient();
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
