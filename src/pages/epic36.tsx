@@ -85,7 +85,7 @@ const Epic36 = () => {
                   <th></th>
                   <th>Name</th>
                   <th>Team</th>
-                  <th>Rol</th>
+                  <th>Role points</th>
                   <th>Points</th>
                   <th>Total Points</th>
                 </tr>
@@ -93,11 +93,11 @@ const Epic36 = () => {
               <tbody>
                 <tr>
                   <th>1</th>
-                  <td>Cy Ganderton</td>
-                  <td>Quality Control Specialist</td>
-                  <td>Littel, Schaden and Vandervort</td>
-                  <td>Canada</td>
-                  <td>12/16/2020</td>
+                  <td>Harry Haznoodle</td>
+                  <td>Nonce Inc</td>
+                  <td>90</td>
+                  <td>60</td>
+                  <td>150</td>
                 </tr>
                 <tr>
                   <th>2</th>

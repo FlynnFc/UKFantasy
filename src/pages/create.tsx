@@ -159,10 +159,19 @@ const Create = () => {
               Submit Team
             </button>
           </div>
-          <div className="z-10 my-4 ">
+          <div className="z-10 mt-4 ">
             <PlayerGroupSkeleton setTeamName={setTeamName} money={money}>
               {myTeam}
             </PlayerGroupSkeleton>
+          </div>
+          <div className="flex w-full justify-end">
+            <select className="select-bordered select mb-3 mt-1 w-min lg:max-w-xs">
+              <option disabled selected>
+                Sort by
+              </option>
+              <option>Team</option>
+              <option>Price</option>
+            </select>
           </div>
           <div className="space-y-6">
             <PlayerGroup team="God Squad">
