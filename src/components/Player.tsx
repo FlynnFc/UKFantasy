@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { IoMdAdd } from "react-icons/io";
 type player = {
   PlayerSelect: (data: any) => void;
   name: string;
