@@ -16,7 +16,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className="navbar absolute top-0">
+    <div className="navbar static top-0 p-2">
       <div className="flex w-full justify-between">
         <div className="flex">
           <Link href="./">

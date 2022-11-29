@@ -45,10 +45,8 @@ const Epic36 = (props: { data: any }) => {
             <button className="btn mt-4 w-max">Create team</button>
           </Link>
         ) : (
-          <Link href="/test">
-            <button disabled className="btn mt-4 w-max ">
-              View Team
-            </button>
+          <Link href="/myteam">
+            <button className="btn mt-4 w-max ">View Team</button>
           </Link>
         )}
       </div>

@@ -2,9 +2,12 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer bottom-0 items-center bg-neutral p-4 text-neutral-content">
+    <footer className="footer bottom-0 h-[5vh] grid-cols-3 items-center bg-neutral p-4 text-neutral-content">
       <div className="grid-flow-col items-center">
-        <p>Copyright © 2022 - All right reserved</p>
+        <p>Copyright © 2022</p>
+      </div>
+      <div className="flex w-full items-center justify-center">
+        <p className="text-center">Made with &#10084; by Flynn</p>
       </div>
       <div className="grid-flow-col md:place-self-center md:justify-self-end">
         <a
