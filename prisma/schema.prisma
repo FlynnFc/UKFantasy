@@ -48,14 +48,15 @@ model Session {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   name          String?
-  email         String?      @unique
+  email         String?     @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  PlayerTeam    PlayerTeam[]
+  PlayerTeam    PlayerTeam? @relation(fields: [playerTeamId], references: [id])
+  playerTeamId  String?
 }
 
 model VerificationToken {
@@ -67,15 +68,17 @@ model VerificationToken {
 }
 
 model Player {
-  id           String      @id @default(cuid())
-  name         String
-  price        Int
-  Image        String
-  Rareity      String
-  Stats        Stats       @relation(fields: [statsId], references: [id])
-  statsId      String
-  PlayerTeam   PlayerTeam? @relation(fields: [playerTeamId], references: [id])
-  playerTeamId String?
+  id         String       @id @default(cuid())
+  name       String
+  price      Int
+  Image      String
+  Rareity    String
+  Stats      Stats        @relation(fields: [statsId], references: [id])
+  statsId    String
+  PlayerTeam PlayerTeam[]
+
+  team   Team   @relation(fields: [teamId], references: [id])
+  teamId String
 }
 
 model Stats {
@@ -94,7 +97,13 @@ model PlayerTeam {
   teamName   String
   points     String
   rolePoints String
-  user       User     @relation(fields: [userId], references: [id])
-  userId     String
   Player     Player[]
+
+  User User[]
+}
+
+model Team {
+  id       String   @id @default(cuid())
+  teamName String
+  Player   Player[]
 }
