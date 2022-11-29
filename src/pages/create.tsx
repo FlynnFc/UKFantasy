@@ -61,6 +61,7 @@ const Create = () => {
   //Sets name to deletes so I know which player to delete
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
     setDeletes(data.name);
+    console.log("Deleted player", data.name);
   };
 
   //Adding player to myTeam
@@ -165,6 +166,11 @@ const Create = () => {
               {myTeam}
             </PlayerGroupSkeleton>
           </div>
+          <select className="select-bordered select mb-3 w-full max-w-xs">
+            <option disabled>Sort by</option>
+            <option selected>Teams</option>
+            <option>Price</option>
+          </select>
           <div className="space-y-6">
             <PlayerGroup team="God Squad">
               <Player

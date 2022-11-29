@@ -53,7 +53,7 @@ const Epic36 = (props: { data: any }) => {
         )}
       </div>
 
-      <div className="flex w-full flex-col justify-between lg:flex-row lg:space-x-4">
+      <div className="flex w-full flex-col justify-between lg:space-x-4 2xl:flex-row">
         <section className="my-2 mt-5 h-max w-full rounded-lg bg-base-300 py-5 px-0 text-base-content shadow-lg">
           <h2 className="text-center text-xl font-bold leading-none">
             Top Performers

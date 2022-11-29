@@ -41,13 +41,6 @@ export const Player = (props: player) => {
   return (
     <div
       className={`relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72`}
-      onClick={() => {
-        //Check if team is full already
-        if (!disable && !picked) {
-          props.PlayerSelect(props);
-          setPicked(true);
-        }
-      }}
     >
       {picked ? (
         <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
@@ -68,7 +61,7 @@ export const Player = (props: player) => {
       )}
 
       <div
-        className={`z-10 hidden h-52 cursor-pointer justify-center overflow-hidden lg:block`}
+        className={`z-10 hidden h-52 cursor-auto justify-center overflow-hidden lg:block`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -101,7 +94,15 @@ export const Player = (props: player) => {
         </div>
       </div>
       <div
-        className={`${rareity} flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg `}
+        className={`${rareity} tooltip flex h-[5rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg `}
+        data-tip="Add player"
+        onClick={() => {
+          //Check if team is full already
+          if (!disable && !picked) {
+            props.PlayerSelect(props);
+            setPicked(true);
+          }
+        }}
       >
         <h2 className=" pt-2 text-center font-bold leading-none text-neutral lg:text-2xl">
           {props.name}

@@ -28,6 +28,14 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.sercet,  
 
   // Include user.id on session
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
