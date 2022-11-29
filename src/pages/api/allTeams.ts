@@ -1,4 +1,4 @@
-// src/pages/api/examples.ts
+
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
 
@@ -7,7 +7,8 @@ const allTeams = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(500).json("Method not authorised")
     return
   }
-  const data = await prisma.playerTeam.findMany();
+  const data = await prisma.playerTeam.findMany()
+  console.log(data)
   res.status(200).json(data);
 };
 

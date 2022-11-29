@@ -29,13 +29,13 @@ export const MyPlayer = (props: myPlayer) => {
           setTimeout(() => setStats(false), 100);
         }}
       >
-        <Image
+        {/* <Image
           className="drop-shadow-2xl"
           alt="portrait"
           height={300}
           width={300}
           src={props.img}
-        />
+        /> */}
         <div
           className={`${
             stats && "h-full w-full -translate-y-[111%] p-2"

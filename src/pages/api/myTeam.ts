@@ -1,0 +1,30 @@
+
+
+
+export default async function assetHandler(req:any, res:any) {
+    const { method } = req
+    const {headers} = req
+    const id = headers.id
+    switch (method) {
+      case 'GET':
+        try {
+          const myTeam = await prisma?.user.findUnique({
+            where: {
+              id: id,
+            },
+            include: {
+              PlayerTeam:{include:{Player:true}},
+            },
+          })
+          res.status(200).json(myTeam)
+        } catch (e) {
+          console.error('Request error', e)
+          res.status(500).json({ error: 'Error fetching players' })
+        }
+        break
+      default:
+        res.setHeader('Allow', ['GET'])
+        res.status(405).end(`Method ${method} Not Allowed`)
+        break
+    }
+  }
