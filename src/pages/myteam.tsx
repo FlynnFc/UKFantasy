@@ -52,6 +52,7 @@ const Myteam = () => {
     console.log("running");
   }, [session]);
 
+  console.log(team);
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <h1 className=" mb-2 text-4xl sm:mb-10">{team?.PlayerTeam.teamName}</h1>
