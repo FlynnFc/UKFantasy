@@ -1,6 +1,8 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import LoginBtn from "../components/LoginBtn";
+import SignIn from "./auth/signin";
 
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
@@ -40,7 +42,9 @@ const Epic36 = (props: { data: any }) => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
-        {!userHasTeam ? (
+        {!session ? (
+          <LoginBtn />
+        ) : !userHasTeam ? (
           <Link href="/create">
             <button className="btn mt-4 w-max">Create team</button>
           </Link>
