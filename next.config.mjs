@@ -21,4 +21,14 @@ export default defineNextConfig({
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "wosipkxcwhwqrtnbwdxx.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/sign/players/**",
+      },
+    ],
+  },
 });
