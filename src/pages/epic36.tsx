@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import LoginBtn from "../components/LoginBtn";
-import SignIn from "./auth/signin";
 
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
@@ -43,7 +42,9 @@ const Epic36 = (props: { data: any }) => {
           dolorum unde assumenda!
         </p>
         {!session.data ? (
-          <LoginBtn />
+          <div className="">
+            <LoginBtn primary={false} />
+          </div>
         ) : !userHasTeam ? (
           <Link href="/create">
             <button className="btn mt-4 w-max">Create team</button>
