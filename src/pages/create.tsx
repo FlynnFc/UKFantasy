@@ -123,6 +123,8 @@ const Create = (props: {
       error: <b>`We could not add your team`</b>,
     });
   };
+  console.log(props.data);
+
   return (
     <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl flex-col items-end justify-start p-4  sm:mx-auto">
       <Toaster position="bottom-right" />
@@ -142,7 +144,7 @@ const Create = (props: {
               How do points work?
             </h2>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero
+              Lorem, ipsm dolor sit amet consectetur adipisicing elit. Vero
               accusamus expedita facere ex voluptatem exercitationem veniam
               itaque est repellendus libero neque, culpa distinctio aliquam
               dolor atque natus esse non nisi!
@@ -190,7 +192,6 @@ const Create = (props: {
               return (
                 <PlayerGroup team={el.teamName} key={el.teamName}>
                   {el.Player?.map((els) => {
-                    console.log(els);
                     return (
                       <Player
                         key={els.id}
