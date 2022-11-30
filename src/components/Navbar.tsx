@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar static top-0 p-2">
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-evenly sm:justify-between">
         <div className="flex">
           <Link href="./">
             <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className="flex space-x-2">
           <button
             onClick={themeHandler}
-            className="btn "
+            className="btn"
             data-toggle-theme="winter,night"
           >
             {!darkMode ? (
