@@ -1,6 +1,6 @@
 import React from "react";
 
-const PlayerGroup = (props: { team: string; children: any[] }) => {
+const PlayerGroup = (props: { team: string; children: any }) => {
   return (
     <div className="flex w-full flex-col items-center justify-evenly rounded-lg bg-base-300 pb-4">
       <div
@@ -11,7 +11,7 @@ const PlayerGroup = (props: { team: string; children: any[] }) => {
       </div>
 
       <div className="flex w-[98%] flex-row justify-evenly space-x-1 lg:w-full">
-        {props.children.map((child: JSX.Element) => {
+        {props.children?.map((child: JSX.Element) => {
           return child;
         })}
       </div>
