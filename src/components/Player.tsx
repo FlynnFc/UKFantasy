@@ -33,7 +33,7 @@ export const Player = (props: player) => {
   useEffect(() => {
     if (props.moneyLeft < props.price) {
       setDisabled(true);
-    } else if (props.moneyLeft > props.price) {
+    } else if (props.moneyLeft >= props.price) {
       setDisabled(false);
     } else return;
   }, [props.moneyLeft, props.price]);
