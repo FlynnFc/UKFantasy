@@ -10,6 +10,7 @@ type player = {
   Rareity: string;
   teamId: string;
   statsId: string;
+  Image: string;
 };
 
 type playerTeam = {
@@ -28,7 +29,6 @@ type teamProps = {
 const Myteam = () => {
   const { data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
-  const [renders, setRenders] = useState(0);
 
   useEffect(() => {
     const fetcher = async () => {
@@ -46,16 +46,11 @@ const Myteam = () => {
         setTeam(data);
       } else return "error";
     };
-    if (renders > 0) {
-      return;
-    } else {
-      setRenders(1);
-      console.log("fetching team");
-      fetcher();
-    }
+
+    fetcher();
 
     console.log("running");
-  }, [renders, session]);
+  }, [session]);
 
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
@@ -69,6 +64,7 @@ const Myteam = () => {
                 name={el.name}
                 price={el.price}
                 rareity={el.Rareity}
+                img={el.Image}
               />
             );
           })}
