@@ -190,60 +190,8 @@ const Create = (props: {
             <option>Price</option>
           </select>
           <div className="space-y-6">
-            {/* <PlayerGroup team="God Squad">
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Smooya"
-                price={30000}
-                img={smooya}
-                team={myTeam}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="silver"
-                name="LVN &#128163;"
-                price={22000}
-                img={lvn}
-                team={myTeam}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="bronze"
-                name="Dweg"
-                price={3.4}
-                img={dweg}
-                team={myTeam}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Thomas"
-                price={22000}
-                img={thomas}
-                team={myTeam}
-              />
-              <Player
-                teamFull={teamFull}
-                PlayerSelect={PlayerSelect}
-                moneyLeft={money}
-                rareity="gold"
-                name="Vacancey"
-                price={25000}
-                img={vacancey}
-                team={myTeam}
-              />
-            </PlayerGroup> */}
+            {/* Maps all teams found in DB then inside each team maps all players found in team */}
             {props.data.map((el) => {
-              console.log(el);
               return (
                 <PlayerGroup team={el.teamName} key={el.teamName}>
                   {el.Player?.map((els) => {
@@ -275,12 +223,9 @@ const Create = (props: {
 export default Create;
 
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  const res = await fetch("http://localhost:3000/api/allTeams");
+  const res = await fetch("/api/allTeams");
   const data = await res.json();
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+
   return {
     props: {
       data,
