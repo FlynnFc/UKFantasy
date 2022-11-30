@@ -1,5 +1,6 @@
 
-
+import type { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../server/db/client";
 
 export default async function assetHandler(req:any, res:any) {
     const { method } = req
