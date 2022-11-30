@@ -74,7 +74,7 @@ model Player {
   id         String       @id @default(cuid())
   name       String
   price      Int
-  Image      String
+  Image      String       @db.Text
   Rareity    String
   Stats      Stats        @relation(fields: [statsId], references: [id])
   statsId    String
