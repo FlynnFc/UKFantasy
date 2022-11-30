@@ -1,12 +1,11 @@
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
-
+import Image from "next/image";
 type player = {
   PlayerSelect: (data: any) => void;
   name: string;
   price: number;
   rareity: string;
-  img?: any;
+  img?: { src: string | any };
   moneyLeft: number;
   teamFull: boolean;
   team: any[];
@@ -17,6 +16,7 @@ export const Player = (props: player) => {
   const [rareity, setRareity] = useState("");
   const [disable, setDisabled] = useState(false);
   const [picked, setPicked] = useState(false);
+
   useEffect(() => {
     const nameCheck = (name: string) => {
       return props.name === name;
@@ -74,7 +74,7 @@ export const Player = (props: player) => {
           alt="portrait"
           height={300}
           width={300}
-          src={props.img}
+          src={props.img?.src}
         />
         <div
           className={`${
