@@ -1,5 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-export default function LoginBtn() {
+export default function LoginBtn(props: { primary: boolean }) {
   const { data: session } = useSession();
   if (session?.user) {
     return (
@@ -12,7 +12,12 @@ export default function LoginBtn() {
   }
   return (
     <>
-      <button className="btn-primary btn mr-2" onClick={() => signIn()}>
+      <button
+        className={`${
+          props.primary ? "btn-primary" : "btn mt-4 w-max"
+        } btn mr-2`}
+        onClick={() => signIn()}
+      >
         Sign in
       </button>
     </>
