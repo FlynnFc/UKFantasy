@@ -25,16 +25,17 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?
+  id_token          String? @db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -43,6 +44,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {
@@ -55,6 +58,8 @@ model User {
   sessions      Session[]
   PlayerTeam    PlayerTeam? @relation(fields: [playerTeamId], references: [id])
   playerTeamId  String?
+
+  @@index([playerTeamId])
 }
 
 model VerificationToken {
@@ -77,6 +82,9 @@ model Player {
 
   team   Team   @relation(fields: [teamId], references: [id])
   teamId String
+
+  @@index([statsId])
+  @@index([teamId])
 }
 
 model Stats {
