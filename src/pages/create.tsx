@@ -227,7 +227,6 @@ export async function getServerSideProps() {
     "uk-fantasy-84p45eerd-flynnfc.vercel.app/api/allTeams"
   );
   const data = await res.json();
-
   return {
     props: {
       data,
