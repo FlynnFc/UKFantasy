@@ -79,7 +79,7 @@ export const Player = (props: player) => {
         <div
           className={`${
             stats && "h-full w-full -translate-y-[111%] p-2"
-          } "h-full p-2" stats w-full text-base-content `}
+          } "h-full p-2" stats w-full text-white `}
         >
           <ul className="flex h-full flex-col justify-between">
             <div>
