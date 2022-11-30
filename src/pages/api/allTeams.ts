@@ -3,13 +3,22 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
 
 const allTeams = async (req: NextApiRequest, res: NextApiResponse) => {
-  if(req.method !== "GET") {
-    res.status(500).json("Method not authorised")
-    return
+  const { method } = req
+  switch (method) {
+    case 'GET':
+      try {
+        const myTeam = await prisma?.team.findMany({include:{Player:true}})
+        res.status(200).json(myTeam)
+      } catch (e) {
+        console.error('Request error', e)
+        res.status(500).json({ error: 'Error fetching players' })
+      }
+      break
+    default:
+      res.setHeader('Allow', ['GET'])
+      res.status(405).end(`Method ${method} Not Allowed`)
+      break
   }
-  const data = await prisma.playerTeam.findMany()
-  console.log(data)
-  res.status(200).json(data);
 };
 
 export default allTeams;
