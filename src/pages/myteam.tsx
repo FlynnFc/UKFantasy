@@ -1,32 +1,38 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import { string } from "zod";
+
 import { MyPlayer } from "../components/myPlayer";
 
 type player = {
   id: string;
   name: string;
   price: number;
-  Image: string;
   Rareity: string;
+  teamId: string;
+  statsId: string;
 };
 
-type teamProps = {
-  PlayerTeam: [];
+type playerTeam = {
   id: string;
   points: string;
-  rolePoints: string;
+  Player: player[];
   teamName: string;
 };
 
+type teamProps = {
+  PlayerTeam: playerTeam;
+  email: string;
+  name: string;
+};
+
 const Myteam = () => {
-  const session = useSession();
+  const { data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const [renders, setRenders] = useState(0);
 
   useEffect(() => {
-    if (session.data?.user.id) {
-      const id = session.data?.user.id;
+    if (session?.user?.id) {
+      const id = session.user.id;
       const fetcher = async () => {
         const res = await fetch("/api/myTeam", {
           method: "GET",
@@ -35,9 +41,9 @@ const Myteam = () => {
         if (!res.ok) {
           console.log("error");
         }
-        const { PlayerTeam } = await res.json();
+        const data = await res.json();
 
-        setTeam(PlayerTeam);
+        setTeam(data);
       };
       if (renders > 0) {
         return;
@@ -48,39 +54,25 @@ const Myteam = () => {
     } else return;
 
     console.log("running");
-  }, [renders, session.data?.user.id]);
+  }, [renders, session]);
 
-  const user = "Flynn";
-  const seed = [
-    { name: "Lvn", price: 22000, rareity: "gold", team: "God Squad" },
-    { name: "Smooya", price: 30000, rareity: "gold", team: "God Squad" },
-    { name: "Haznoodle", price: 20000, rareity: "silver", team: "God Squad" },
-    { name: "Dweg", price: 200, rareity: "bronze", team: "God Squad" },
-    { name: "Edeninho", price: 7.3, rareity: "bronze", team: "God Squad" },
-  ];
-
-  console.log(team);
+  console.log(team?.PlayerTeam.Player);
   return (
-    <main className="min-w-screen container mx-auto flex min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
-      <h1 className="mb-10 text-4xl">{`${user}'s Team`}</h1>
-      <div className="flex w-[70vw] flex-row justify-between space-x-2 bg-base-300 p-6">
+    <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
+      <h1 className=" mb-2 text-4xl sm:mb-10">{team?.PlayerTeam.teamName}</h1>
+      <div className="flex h-auto flex-col items-center justify-between rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4">
         {team &&
-          team.player.map(
-            (el: {
-              name: React.Key | null | undefined;
-              price: number;
-              rareity: string;
-            }) => {
-              return (
-                <MyPlayer
-                  key={el.name}
-                  name={el.name}
-                  price={el.price}
-                  rareity={el.rareity}
-                />
-              );
-            }
-          )}
+          team.PlayerTeam.Player?.map((el) => {
+            console.log(el);
+            return (
+              <MyPlayer
+                key={el.id}
+                name={el.name}
+                price={el.price}
+                rareity={el.Rareity}
+              />
+            );
+          })}
       </div>
     </main>
   );
