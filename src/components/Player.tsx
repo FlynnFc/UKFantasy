@@ -5,7 +5,7 @@ type player = {
   name: string;
   price: number;
   rareity: string;
-  img?: { src: string | any };
+  img?: string | any;
   moneyLeft: number;
   teamFull: boolean;
   team: any[];
@@ -16,7 +16,7 @@ export const Player = (props: player) => {
   const [rareity, setRareity] = useState("");
   const [disable, setDisabled] = useState(false);
   const [picked, setPicked] = useState(false);
-
+  console.log(props.img);
   useEffect(() => {
     const nameCheck = (name: string) => {
       return props.name === name;
@@ -61,7 +61,7 @@ export const Player = (props: player) => {
       )}
 
       <div
-        className={`z-10 hidden h-52 cursor-auto justify-center overflow-hidden lg:block`}
+        className={`z-10 hidden h-52 cursor-auto justify-center lg:block`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -70,18 +70,17 @@ export const Player = (props: player) => {
         }}
       >
         <Image
-          className="drop-shadow-2xl"
-          alt="portrait"
-          height={300}
-          width={300}
-          src={props.img?.src}
+          className="overflow-hidden text-center drop-shadow-2xl"
+          alt="player portrait"
+          layout="fill"
+          src={props.img}
         />
         <div
           className={`${
-            stats && "h-full w-full -translate-y-[111%] p-2"
-          } "h-full p-2" stats w-full text-white `}
+            stats && "bottom-1 w-full  p-2 py-2"
+          } stats absolute bottom-full h-full w-full p-2 text-white `}
         >
-          <ul className="flex h-full flex-col justify-between">
+          <ul className="flex h-full flex-col justify-start space-y-4">
             <div>
               <li>HLTV: N/A</li>
               <li>Faceit Elo: 3400 </li>
