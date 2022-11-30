@@ -9,7 +9,7 @@ const NotSignedin = () => {
           Oi Bruv you are not signed in you need to sign in to view this page
         </p>
         <div className="flex justify-start py-2">
-          <LoginBtn></LoginBtn>
+          <LoginBtn primary={true}></LoginBtn>
         </div>
       </div>
     </div>
