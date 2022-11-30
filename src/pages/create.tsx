@@ -191,7 +191,7 @@ const Create = (props: {
           </select>
           <div className="space-y-6">
             {/* Maps all teams found in DB then inside each team maps all players found in team */}
-            {props.data.map((el) => {
+            {props.data?.map((el) => {
               return (
                 <PlayerGroup team={el.teamName} key={el.teamName}>
                   {el.Player?.map((els) => {
@@ -223,7 +223,7 @@ const Create = (props: {
 export default Create;
 
 export async function getServerSideProps() {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
+  const res = await fetch("http://localhost:3000/api/allTeams");
   const data = await res.json();
   return {
     props: {
