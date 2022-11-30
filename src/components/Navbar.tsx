@@ -41,7 +41,7 @@ const Navbar = () => {
             )}
           </button>
 
-          <LoginBtn />
+          <LoginBtn primary={true} />
         </div>
       </div>
     </div>
