@@ -5,11 +5,6 @@ import { Player } from "../components/Player";
 import PlayerGroup from "../components/playerGroup";
 import PlayerGroupSkeleton from "../components/playerGroupSkeleton";
 import SelectedPlayer from "../components/SelectedPlayer";
-import lvn from "../images/lvn.webp";
-import dweg from "../images/dweg.webp";
-import smooya from "../images/smooya.webp";
-import thomas from "../images/thomas.webp";
-import vacancey from "../images/vacancey.webp";
 import toast, { Toaster } from "react-hot-toast";
 
 type player = {
@@ -20,6 +15,7 @@ type player = {
   Rareity: string;
   teamId: string;
   statsId: string;
+  image: string;
 };
 
 const Create = (props: {
@@ -194,6 +190,7 @@ const Create = (props: {
               return (
                 <PlayerGroup team={el.teamName} key={el.teamName}>
                   {el.Player?.map((els) => {
+                    console.log(els);
                     return (
                       <Player
                         key={els.id}
@@ -203,7 +200,7 @@ const Create = (props: {
                         rareity={els.Rareity}
                         name={els.name}
                         price={els.price}
-                        img={lvn}
+                        img={els.Image}
                         team={myTeam}
                       />
                     );
