@@ -223,9 +223,7 @@ const Create = (props: {
 export default Create;
 
 export async function getServerSideProps() {
-  const res = await fetch(
-    "uk-fantasy-84p45eerd-flynnfc.vercel.app/api/allTeams"
-  );
+  const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
   const data = await res.json();
   return {
     props: {
