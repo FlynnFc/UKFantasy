@@ -223,7 +223,7 @@ const Create = (props: {
 export default Create;
 
 export async function getStaticProps() {
-  const res = await fetch("/api/allTeams");
+  const res = await fetch("./api/allTeams");
   const data = await res.json();
 
   return {
