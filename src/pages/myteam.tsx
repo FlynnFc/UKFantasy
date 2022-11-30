@@ -31,9 +31,9 @@ const Myteam = () => {
   const [renders, setRenders] = useState(0);
 
   useEffect(() => {
-    if (session?.user?.id) {
-      const id = session.user.id;
-      const fetcher = async () => {
+    const fetcher = async () => {
+      if (session?.user?.id) {
+        const id = session.user.id;
         const res = await fetch("/api/myTeam", {
           method: "GET",
           headers: { id: id },
@@ -44,14 +44,15 @@ const Myteam = () => {
         const data = await res.json();
 
         setTeam(data);
-      };
-      if (renders > 0) {
-        return;
-      } else {
-        setRenders(1);
-        fetcher();
-      }
-    } else return;
+      } else return "error";
+    };
+    if (renders > 0) {
+      return;
+    } else {
+      setRenders(1);
+      console.log("fetching team");
+      fetcher();
+    }
 
     console.log("running");
   }, [renders, session]);
