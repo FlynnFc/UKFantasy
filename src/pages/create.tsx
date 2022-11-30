@@ -12,7 +12,25 @@ import thomas from "../images/thomas.webp";
 import vacancey from "../images/vacancey.webp";
 import toast, { Toaster } from "react-hot-toast";
 
-const Create = () => {
+type player = {
+  map(arg0: (el: any) => JSX.Element): unknown;
+  id: string;
+  name: string;
+  price: number;
+  Rareity: string;
+  teamId: string;
+  statsId: string;
+};
+
+const Create = (props: {
+  data: {
+    map(
+      arg0: (el: { teamName: string; Player: player }) => void
+    ): React.ReactNode;
+    player: player[];
+  };
+}) => {
+  console.log(props.data);
   const [introModal, setIntroModal] = useState(true);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);
@@ -111,10 +129,10 @@ const Create = () => {
     });
   };
   return (
-    <main className="min-w-screen container mx-auto flex  min-h-[88.3vh] max-w-7xl flex-col items-end justify-start  p-4">
+    <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl flex-col items-end justify-start p-4  sm:mx-auto">
       <Toaster position="bottom-right" />
       {introModal && (
-        <div className="createModal fixed top-0 left-0 z-10 flex h-screen w-full items-start justify-center">
+        <div className="createModal fixed top-0 left-0 z-10 flex h-screen w-full items-start justify-center overflow-auto">
           <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-base-100">
             <h1 className="text-3xl font-bold leading-loose">
               Welcome to team creatation
@@ -172,7 +190,7 @@ const Create = () => {
             <option>Price</option>
           </select>
           <div className="space-y-6">
-            <PlayerGroup team="God Squad">
+            {/* <PlayerGroup team="God Squad">
               <Player
                 teamFull={teamFull}
                 PlayerSelect={PlayerSelect}
@@ -223,7 +241,29 @@ const Create = () => {
                 img={vacancey}
                 team={myTeam}
               />
-            </PlayerGroup>
+            </PlayerGroup> */}
+            {props.data.map((el) => {
+              console.log(el);
+              return (
+                <PlayerGroup team={el.teamName} key={el.teamName}>
+                  {el.Player?.map((els) => {
+                    return (
+                      <Player
+                        key={els.id}
+                        teamFull={teamFull}
+                        PlayerSelect={PlayerSelect}
+                        moneyLeft={money}
+                        rareity={els.Rareity}
+                        name={els.name}
+                        price={els.price}
+                        img={lvn}
+                        team={myTeam}
+                      />
+                    );
+                  })}
+                </PlayerGroup>
+              );
+            })}
           </div>
         </div>
       ) : (
@@ -233,3 +273,17 @@ const Create = () => {
   );
 };
 export default Create;
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch("http://localhost:3000/api/allTeams");
+  const data = await res.json();
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      data,
+    },
+  };
+}
