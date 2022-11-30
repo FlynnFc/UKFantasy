@@ -69,12 +69,16 @@ export const Player = (props: player) => {
           setTimeout(() => setStats(false), 100);
         }}
       >
-        <Image
-          className="overflow-hidden text-center drop-shadow-2xl"
-          alt="player portrait"
-          layout="fill"
-          src={props.img}
-        />
+        {props.img ? (
+          <Image
+            className="overflow-hidden text-center drop-shadow-2xl"
+            alt="player portrait"
+            layout="fill"
+            src={props.img}
+          />
+        ) : (
+          <div></div>
+        )}
         <div
           className={`${
             stats && "bottom-1 w-full  p-2 py-2"
