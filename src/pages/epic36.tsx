@@ -1,11 +1,13 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Loading from "../components/loading";
 import LoginBtn from "../components/LoginBtn";
 
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
+  const [loading, setLoading] = useState(false);
   const userHasTeam = true;
 
   return (
@@ -26,13 +28,17 @@ const Epic36 = (props: { data: any }) => {
           </p>
           <div className="mx-3  flex w-full flex-row justify-start p-6">
             <Link href="/create">
-              <button className="btn-primary btn w-max outline">
+              <button
+                onClick={() => setLoading(true)}
+                className="btn-primary btn w-max outline"
+              >
                 Create Team
               </button>
             </Link>
           </div>
         </div>
       ) : null}
+      {loading && <Loading />}
       <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
         <h1 className="my-8 text-4xl font-bold">Epic36 Tournement center</h1>
         <p className="text-lg">
