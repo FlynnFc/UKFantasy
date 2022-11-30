@@ -42,7 +42,7 @@ const Epic36 = (props: { data: any }) => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
-        {!session ? (
+        {!session.data ? (
           <LoginBtn />
         ) : !userHasTeam ? (
           <Link href="/create">
