@@ -5,46 +5,35 @@ type myPlayer = {
   name: string;
   price: number;
   rareity: string;
-  img?: string;
+  img?: string | any;
 };
 
 export const MyPlayer = (props: myPlayer) => {
-  const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
-
   useEffect(() => {
     setRareity(props.rareity);
   }, [props.rareity]);
 
   return (
     <div
-      className={`relative z-0 h-auto w-[18.7rem] overflow-hidden rounded-xl bg-neutral shadow-lg`}
+      className={`relative z-0  w-[16rem] overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72`}
     >
-      <div
-        className={`z-10 m-0 hidden h-auto cursor-auto justify-center overflow-hidden lg:flex`}
-        onMouseEnter={() => {
-          setTimeout(() => setStats(true), 100);
-        }}
-        onMouseLeave={() => {
-          setTimeout(() => setStats(false), 100);
-        }}
-      >
+      <div className={`z-10 hidden h-52 cursor-auto justify-center lg:block`}>
         <Image
-          className="drop-shadow-2xl"
-          alt="portrait"
-          height={300}
-          width={300}
-          src="/_next/static/media/dweg.0d76dcc6.webp"
+          className="overflow-hidden text-center drop-shadow-2xl"
+          alt="player portrait"
+          layout="fill"
+          src={props.img}
         />
       </div>
       <div
-        className={`${rareity} flex h-auto select-none flex-col items-center justify-evenly rounded-b-lg `}
+        className={`${rareity} tooltip flex h-[5rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg `}
       >
-        <h2 className="pt-2 text-center font-bold leading-none text-neutral md:text-xl xl:text-3xl">
+        <h2 className=" pt-2 text-center font-bold leading-none text-neutral lg:text-2xl xl:text-4xl">
           {props.name}
         </h2>
         <div>
-          <p className="pb-2 text-center text-neutral lg:text-3xl">
+          <p className="pb-2 text-center text-neutral xl:text-3xl">
             £{props.price}
           </p>
         </div>
