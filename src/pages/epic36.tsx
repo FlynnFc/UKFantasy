@@ -3,12 +3,32 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import LoginBtn from "../components/LoginBtn";
+import Table from "../components/Table";
+
+export async function getServerSideProps() {
+  const path = "http://localhost:3000";
+  const res = await fetch(`${path}/api/allUserTeams`);
+  if (!res.ok) {
+    console.error("error");
+    return;
+  }
+  const data = await res.json();
+  return {
+    props: {
+      data,
+    },
+  };
+}
 
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
   const [loading, setLoading] = useState(false);
   const userHasTeam = true;
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    return setData(props.data);
+  }, [props.data]);
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
@@ -62,8 +82,8 @@ const Epic36 = (props: { data: any }) => {
         )}
       </div>
 
-      <div className="flex w-full flex-col justify-between lg:space-x-4 2xl:flex-row">
-        <section className="my-2 mt-5 h-max w-full rounded-lg bg-base-300 py-5 px-0 text-base-content shadow-lg">
+      <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
+        <section className="my-2 mt-5 h-max rounded-lg bg-base-300 py-5 px-0 text-base-content shadow-lg 2xl:w-[25%]">
           <h2 className="text-center text-xl font-bold leading-none">
             Top Performers
           </h2>
@@ -81,9 +101,9 @@ const Epic36 = (props: { data: any }) => {
             </li>
           </ul>
         </section>
-        <section className="flexjustify-center my-2 mt-5 rounded-lg bg-base-300  p-10 text-base-content">
-          <div className=" overflow-x-auto">
-            <table className="table w-full font-semibold">
+        <section className="my-2 mt-5 flex justify-center rounded-lg bg-base-300 px-10 pb-10 text-base-content  2xl:w-[75%]">
+          <div className=" w-full overflow-x-auto">
+            {/* <table className="table w-full font-semibold">
               <thead>
                 <tr>
                   <th></th>
@@ -169,7 +189,11 @@ const Epic36 = (props: { data: any }) => {
                   <td>6/23/2020</td>
                 </tr>
               </tbody>
-            </table>
+            </table> */}
+            <h2 className="mb-4 mt-4 text-center text-2xl font-bold">
+              Scoreboard
+            </h2>
+            {data && <Table data={data} />}
           </div>
         </section>
       </div>
