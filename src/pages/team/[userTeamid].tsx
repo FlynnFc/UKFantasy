@@ -17,6 +17,7 @@ type player = {
 };
 
 type playerTeam = {
+  User: any;
   map(arg0: (el: any) => JSX.Element): React.ReactNode;
   id: string;
   points: string;
@@ -55,19 +56,23 @@ const UserTeam = () => {
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       {team ? (
-        <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
-          {team.Player.map((el) => {
-            console.log(el);
-            return (
-              <MyPlayer
-                key={el.id}
-                name={el.name}
-                price={el.price}
-                rareity={el.Rareity}
-                img={el.Image}
-              />
-            );
-          })}
+        <div className="flex flex-col">
+          <h1 className="mb-4 text-center text-4xl">{team.teamName}</h1>
+          <h2 className="m-2 mx-2 text-center text-lg">{`${team.User[0].name}'s team`}</h2>
+          <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
+            {team.Player.map((el) => {
+              console.log(el);
+              return (
+                <MyPlayer
+                  key={el.id}
+                  name={el.name}
+                  price={el.price}
+                  rareity={el.Rareity}
+                  img={el.Image}
+                />
+              );
+            })}
+          </div>
         </div>
       ) : (
         <Loading />
