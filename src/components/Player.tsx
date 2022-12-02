@@ -86,16 +86,16 @@ export const Player = (props: player) => {
               : "stats absolute top-full h-full w-full p-2 text-white"
           }
         >
-          <ul className="flex h-full flex-col justify-start space-y-4">
-            <div>
+          <div className="flex h-full flex-col justify-start space-y-4">
+            <ul>
               <li>HLTV: N/A</li>
               <li>Faceit Elo: 3400 </li>
               <li>HS%: 54.3%</li>
               <li>Entry Rounds: 10.4%</li>
               <li>Clutch Rounds: 0.4%</li>
-            </div>
+            </ul>
             <button className="btn">Detailed Stats</button>
-          </ul>
+          </div>
         </div>
       </div>
       <div

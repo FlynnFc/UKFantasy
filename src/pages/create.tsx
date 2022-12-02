@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import NotSignedin from "../components/NotSignedin";
 import { Player } from "../components/Player";
 import PlayerGroup from "../components/playerGroup";
