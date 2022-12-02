@@ -7,6 +7,7 @@ type player = {
   rareity: string;
   img?: any;
   team: any;
+  id: string;
   PlayerRemove: (data: any) => void;
 };
 
@@ -23,8 +24,7 @@ const SelectedPlayer = (props: player) => {
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
     >
       <div
-        id="image"
-        className={`z-10 hidden  h-52 cursor-pointer justify-center overflow-hidden  bg-neutral lg:inline-block`}
+        className={`hidden h-52 justify-center overflow-hidden bg-neutral lg:inline-block`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -32,13 +32,22 @@ const SelectedPlayer = (props: player) => {
           setTimeout(() => setStats(false), 100);
         }}
       >
-        <Image alt="portrait" height={300} width={300} src={props.img} />
+        {props.img && (
+          <Image
+            className="text-center drop-shadow-2xl"
+            alt="player portrait"
+            layout="fill"
+            src={props.img}
+          />
+        )}
         <div
-          className={`${
-            stats && "h-full  w-full -translate-y-[110.5%] p-2"
-          } stats h-full w-full p-2 text-base-content `}
+          className={
+            stats
+              ? "stats absolute top-0 h-full w-full p-2 text-white"
+              : "stats absolute top-full h-full w-full p-2 text-white"
+          }
         >
-          <ul className="flex h-full flex-col justify-between">
+          <ul className="flex h-full flex-col justify-start space-y-4">
             <div>
               <li>HLTV: N/A</li>
               <li>Faceit Elo: 3400 </li>
@@ -52,7 +61,7 @@ const SelectedPlayer = (props: player) => {
       </div>
 
       <div
-        className={`flex ${rareity} h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg`}
+        className={`flex ${rareity} z-10 h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg`}
       >
         <h2 className=" pt-2 text-center font-bold leading-none text-neutral lg:text-2xl">
           {props.name}

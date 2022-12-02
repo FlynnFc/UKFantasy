@@ -9,6 +9,7 @@ type player = {
   moneyLeft: number;
   teamFull: boolean;
   team: any[];
+  id: string;
 };
 
 export const Player = (props: player) => {
@@ -16,7 +17,6 @@ export const Player = (props: player) => {
   const [rareity, setRareity] = useState("");
   const [disable, setDisabled] = useState(false);
   const [picked, setPicked] = useState(false);
-  console.log(props.img);
   useEffect(() => {
     const nameCheck = (name: string) => {
       return props.name === name;
@@ -61,7 +61,7 @@ export const Player = (props: player) => {
       )}
 
       <div
-        className={`z-10 hidden h-52 cursor-auto justify-center lg:block`}
+        className={`hidden h-52 cursor-auto justify-center lg:block`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -80,9 +80,11 @@ export const Player = (props: player) => {
           <div></div>
         )}
         <div
-          className={`${
-            stats && "bottom-1 w-full  p-2 py-2"
-          } stats absolute bottom-full h-full w-full p-2 text-white `}
+          className={
+            stats
+              ? "stats absolute top-0 h-full w-full p-2 text-white"
+              : "stats absolute top-full h-full w-full p-2 text-white"
+          }
         >
           <ul className="flex h-full flex-col justify-start space-y-4">
             <div>
@@ -102,6 +104,7 @@ export const Player = (props: player) => {
         onClick={() => {
           //Check if team is full already
           if (!disable && !picked) {
+            console.log(props);
             props.PlayerSelect(props);
             setPicked(true);
           }

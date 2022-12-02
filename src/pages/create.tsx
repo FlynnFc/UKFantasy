@@ -92,6 +92,7 @@ const Create = (props: {
           price={data.price}
           img={data.img}
           key={data.name}
+          id={data.id}
           team={myTeam}
         />,
       ]);
@@ -100,30 +101,32 @@ const Create = (props: {
 
   //Submits people in myTeam to DB
   const teamSubmitHandler = async () => {
-    const test = {
+    const playerIds: any[] = await myTeam.map((el) => {
+      return el.props.id;
+    });
+    console.log(playerIds);
+    const body = await {
       teamName: teamName,
-      points: 0,
-      rolePoints: 0,
       userId: session.data?.user?.id,
-      players: [...myTeam],
+      players: playerIds,
     };
 
-    console.log(test);
-    // const body = await JSON.stringify(test);
-    //   const response = await fetch("/api/submitTeam", {
-    //     method: "POST",
-    //     body: body,
-    //   });
+    console.log(body);
+    const JSONbody = await JSON.stringify(body);
+    const response = await fetch("/api/submitTeam", {
+      method: "POST",
+      body: JSONbody,
+    });
+    return response;
   };
 
   const submit = () => {
     toast.promise(teamSubmitHandler(), {
       loading: "Submiting your team...",
       success: <b>Team Submitted!</b>,
-      error: <b>`We could not add your team`</b>,
+      error: <b>We could not add your team</b>,
     });
   };
-  console.log(props.data);
 
   return (
     <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl flex-col items-end justify-start p-4  sm:mx-auto">
@@ -169,6 +172,10 @@ const Create = (props: {
                 if (teamName === "Your Team") {
                   toast.error("Please enter a team name");
                   return;
+                } else if (teamName.length < 5) {
+                  toast.error(
+                    "The team name needs to be at least 5 characters"
+                  );
                 } else submit();
               }}
               className="btn-outline btn"
@@ -195,6 +202,7 @@ const Create = (props: {
                     return (
                       <Player
                         key={els.id}
+                        id={els.id}
                         teamFull={teamFull}
                         PlayerSelect={PlayerSelect}
                         moneyLeft={money}
