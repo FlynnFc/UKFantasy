@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import Loading from "../components/Loading";
-
+import { FiShare } from "react-icons/fi";
 import { MyPlayer } from "../components/myPlayer";
 
 type player = {
@@ -57,10 +57,14 @@ const Myteam = () => {
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       {team ? (
-        <>
-          <h1 className=" mb-2 text-4xl sm:mb-10">
-            {team?.PlayerTeam.teamName}
-          </h1>
+        <div className="flex flex-col items-center justify-center ">
+          <div className="flex flex-row items-center space-x-2 sm:mb-10">
+            <h1 className=" mb-2 text-4xl ">{team?.PlayerTeam.teamName}</h1>
+            <button className="btn-primary rounded-full p-2 text-3xl text-primary-content">
+              <FiShare />
+            </button>
+          </div>
+
           <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
             {team &&
               team.PlayerTeam.Player?.map((el) => {
@@ -75,7 +79,7 @@ const Myteam = () => {
                 );
               })}
           </div>
-        </>
+        </div>
       ) : (
         <Loading />
       )}
