@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
+import Loading from "../components/Loading";
 
 import { MyPlayer } from "../components/myPlayer";
 
@@ -76,7 +77,7 @@ const Myteam = () => {
           </div>
         </>
       ) : (
-        <h1 className="text-3xl">No Team found</h1>
+        <Loading />
       )}
     </main>
   );
