@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import { FiShare } from "react-icons/fi";
 import { MyPlayer } from "../components/myPlayer";
+import toast, { Toaster } from "react-hot-toast";
 
 type player = {
   id: string;
@@ -30,6 +31,7 @@ type teamProps = {
 const Myteam = () => {
   const { data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
+  const [link, setLink] = useState("");
 
   useEffect(() => {
     const fetcher = async () => {
@@ -53,14 +55,25 @@ const Myteam = () => {
     console.log("running");
   }, [session]);
 
-  console.log(team);
+  const linkSetter = () => {
+    const path: string | any = team?.PlayerTeam.id;
+    const host = "https://uk-fantasy.vercel.app/team/";
+    setLink(() => host + path);
+    navigator.clipboard.writeText(link);
+    toast.success("added link to clipboard");
+  };
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
+      <Toaster />
       {team ? (
         <div className="flex flex-col items-center justify-center ">
           <div className="flex flex-row items-center space-x-2 sm:mb-10">
             <h1 className=" mb-2 text-4xl ">{team?.PlayerTeam.teamName}</h1>
-            <button className="btn-primary rounded-full p-2 text-3xl text-primary-content">
+
+            <button
+              onClick={linkSetter}
+              className="btn-primary btn m-1 text-2xl"
+            >
               <FiShare />
             </button>
           </div>
