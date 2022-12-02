@@ -123,7 +123,7 @@ const Create = (props: {
   };
 
   const submitSuccess = () => {
-    setSubmitted(true);
+    setTimeout(() => setSubmitted(true), 200);
     return <b>Team Submitted!</b>;
   };
 
@@ -153,7 +153,7 @@ const Create = (props: {
         } else setSubmitted(true);
       } else return "error";
 
-      setTimeout(() => setLoading(false), 500);
+      setTimeout(() => setLoading(false), 400);
     };
     teamChecker();
   }, [session.data?.user?.id]);
