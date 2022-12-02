@@ -19,7 +19,7 @@ const Navbar = () => {
     <div className="navbar static top-0 p-2">
       <div className="flex w-full justify-evenly sm:justify-between">
         <div className="flex">
-          <Link href="./">
+          <Link href="/">
             <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
           </Link>
           <Link href="/epic36">
