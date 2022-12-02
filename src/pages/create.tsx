@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import NotSignedin from "../components/NotSignedin";
 import { Player } from "../components/Player";
 import PlayerGroup from "../components/playerGroup";
@@ -35,6 +35,7 @@ const Create = (props: {
   const session = useSession();
   const [submitted, setSubmitted] = useState(false);
   const [teamName, setTeamName] = useState("Your Team");
+  const [loading, setLoading] = useState(false);
 
   //Ensures Team name is never empty string
   useEffect(() => {
@@ -134,6 +135,29 @@ const Create = (props: {
     });
   };
 
+  useEffect(() => {
+    const teamChecker = async () => {
+      setLoading(true);
+      if (session.data?.user?.id) {
+        const id = session.data?.user?.id;
+        const res = await fetch("/api/myTeam", {
+          method: "GET",
+          headers: { id: id },
+        });
+        if (!res.ok) {
+          setSubmitted(false);
+        }
+        const data = await res.json();
+        if (!data.playerTeamId) {
+          setSubmitted(false);
+        } else setSubmitted(true);
+      } else return "error";
+
+      setTimeout(() => setLoading(false), 500);
+    };
+    teamChecker();
+  }, [session.data?.user?.id]);
+
   return (
     <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl flex-col items-end justify-start p-4  sm:mx-auto">
       <Toaster position="bottom-right" />
@@ -190,6 +214,14 @@ const Create = (props: {
                 <button className="btn">Take me home</button>
               </Link>
             </div>
+          </div>
+        </div>
+      )}
+
+      {loading && (
+        <div className="fixed top-0 left-0 z-10 flex h-screen w-full items-center justify-center overflow-auto bg-base-100">
+          <div className="animate-bounce rounded-lg bg-base-300 p-5 text-base-content">
+            <h1 className=" text-3xl font-bold leading-loose">{`Loading`}</h1>
           </div>
         </div>
       )}
