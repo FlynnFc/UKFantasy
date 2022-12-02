@@ -29,7 +29,7 @@ export const MyPlayer = (props: myPlayer) => {
         )}
       </div>
       <div
-        className={`${rareity} tooltip flex h-[6rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg `}
+        className={`${rareity} flex h-[6rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg `}
       >
         <h2 className=" pt-3 text-center font-bold leading-none text-base-200 lg:text-2xl xl:text-4xl">
           {props.name}
