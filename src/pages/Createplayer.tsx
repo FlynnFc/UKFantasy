@@ -17,7 +17,7 @@ const Createplayer = (props: { data: any[] }) => {
   const [rareity, setRareity] = useState("");
   const [team, setTeam] = useState("");
   const submit = (e: any) => {
-    console.log(name, price, rareity, team);
+    console.log(name, price, rareity);
   };
 
   return (
