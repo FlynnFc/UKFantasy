@@ -34,7 +34,7 @@ const PlayerSkeleton = () => {
         className="z-10 hidden h-[12.7rem] justify-center overflow-hidden bg-base-300 lg:inline-block"
       ></div>
 
-      <div className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg bg-base-content">
+      <div className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg bg-base-200">
         <h2 className=" pt-2 text-center text-2xl font-bold leading-none"></h2>
         <div>
           <p className="pb-2 text-center text-2xl"></p>

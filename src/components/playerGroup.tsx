@@ -1,4 +1,5 @@
 import React from "react";
+import PlayerSkeleton from "./PlayerSkeleton";
 
 const PlayerGroup = (props: { team: string; children: any }) => {
   return (
@@ -11,9 +12,11 @@ const PlayerGroup = (props: { team: string; children: any }) => {
       </div>
 
       <div className="flex w-[98%] flex-row justify-evenly space-x-1 lg:w-full">
-        {props.children?.map((child: JSX.Element) => {
-          return child;
-        })}
+        {props.children[0] ? props.children[0] : <PlayerSkeleton />}
+        {props.children[1] ? props.children[1] : <PlayerSkeleton />}
+        {props.children[2] ? props.children[2] : <PlayerSkeleton />}
+        {props.children[3] ? props.children[3] : <PlayerSkeleton />}
+        {props.children[4] ? props.children[4] : <PlayerSkeleton />}
       </div>
     </div>
   );

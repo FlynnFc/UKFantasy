@@ -53,7 +53,7 @@ const Epic36 = (props: { data: any }) => {
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-      {!userHasTeam && (
+      {!userHasTeam && session.data ? (
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
@@ -78,7 +78,7 @@ const Epic36 = (props: { data: any }) => {
             </Link>
           </div>
         </div>
-      )}
+      ) : null}
       {loading && <Loading />}
       <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
         <h1 className="my-8 text-4xl font-bold">Epic36 Tournement center</h1>
