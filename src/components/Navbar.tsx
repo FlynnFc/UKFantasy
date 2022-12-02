@@ -29,9 +29,8 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex space-x-2">
-          <label htmlFor="theme" className="swap swap-rotate">
+          <label className="swap-rotate swap">
             <input
-              name="theme"
               onClick={themeHandler}
               data-toggle-theme="winter,night"
               type="checkbox"
