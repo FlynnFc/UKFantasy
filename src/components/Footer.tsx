@@ -14,6 +14,7 @@ const Footer = () => {
           target="_blank"
           href="https://twitter.com/lutafatootoo"
           rel="noreferrer"
+          aria-label="Link to social media"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
