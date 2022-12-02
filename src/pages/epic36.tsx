@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { string } from "zod";
 import Loading from "../components/Loading";
 import LoginBtn from "../components/LoginBtn";
 import Table from "../components/Table";
@@ -21,19 +22,38 @@ export async function getServerSideProps() {
   };
 }
 
+type UserProps = {
+  User: [{ id: string }];
+};
+
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
   const [createModal, setCreateModal] = useState(true);
   const [loading, setLoading] = useState(false);
-  const userHasTeam = true;
+  const [userHasTeam, setUserHasTeam] = useState(false);
   const [data, setData] = useState([]);
+
   useEffect(() => {
     return setData(props.data);
   }, [props.data]);
 
+  useEffect(() => {
+    if (data) {
+      for (let index = 0; index < data.length; index++) {
+        const element: UserProps | any = data[index];
+        if (element?.User[0].id === session.data?.user?.id) {
+          setUserHasTeam(true);
+          return;
+        }
+      }
+
+      setUserHasTeam(false);
+    }
+  }, [data, session.data?.user?.id]);
+
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-      {!session.data ? null : createModal ? (
+      {!userHasTeam && (
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
@@ -58,7 +78,7 @@ const Epic36 = (props: { data: any }) => {
             </Link>
           </div>
         </div>
-      ) : null}
+      )}
       {loading && <Loading />}
       <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
         <h1 className="my-8 text-4xl font-bold">Epic36 Tournement center</h1>
