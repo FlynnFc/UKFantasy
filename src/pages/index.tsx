@@ -13,7 +13,7 @@ const Home: NextPage = () => {
           <a
             target="_blank"
             href="https://twitter.com/lutafatootoo"
-            className="font-semibold"
+            className="link font-semibold"
             rel="noreferrer"
           >
             here
