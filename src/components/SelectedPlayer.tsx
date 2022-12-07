@@ -24,7 +24,7 @@ const SelectedPlayer = (props: player) => {
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
     >
       <div
-        className={`hidden h-52 justify-center overflow-hidden bg-neutral lg:inline-block`}
+        className={`h-0 justify-center overflow-hidden bg-neutral transition-all lg:inline-block lg:h-52`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}

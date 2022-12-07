@@ -7,6 +7,7 @@ import PlayerGroupSkeleton from "../components/playerGroupSkeleton";
 import SelectedPlayer from "../components/SelectedPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
+import { off } from "process";
 
 type player = {
   map(arg0: (el: any) => JSX.Element): unknown;
@@ -36,6 +37,24 @@ const Create = (props: {
   const [submitted, setSubmitted] = useState(false);
   const [teamName, setTeamName] = useState("Your Team");
   const [loading, setLoading] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => setOffset(window.pageYOffset);
+    // clean up code
+    window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (offset > 100) {
+      setScrolled(true);
+    } else setScrolled(false);
+  }, [offset]);
+
+  console.log(offset, scrolled);
 
   //Ensures Team name is never empty string
   useEffect(() => {
@@ -162,7 +181,7 @@ const Create = (props: {
     <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl flex-col items-end justify-start p-4  sm:mx-auto">
       <Toaster position="bottom-right" />
       {introModal && (
-        <div className="createModal fixed top-0 left-0 z-10 flex h-screen w-full items-start justify-center overflow-auto">
+        <div className="createModal fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
           <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-base-100">
             <h1 className="text-3xl font-bold leading-loose">
               Welcome to team creatation
@@ -250,7 +269,7 @@ const Create = (props: {
               </button>
             )}
           </div>
-          <div className="z-10 my-4 ">
+          <div id="stickyContainer" className="sticky top-5 z-10 my-4">
             <PlayerGroupSkeleton setTeamName={setTeamName} money={money}>
               {myTeam}
             </PlayerGroupSkeleton>

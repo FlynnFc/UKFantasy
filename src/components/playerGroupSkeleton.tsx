@@ -23,8 +23,8 @@ const PlayerGroupSkeleton = (props: {
   };
   return (
     <div
-      className="my-2 flex w-full flex-col items-center justify-evenly rounded-lg bg-primary
- pb-4"
+      className=" mt-5 flex w-full flex-col items-center justify-evenly rounded-lg bg-primary
+ px-3 pb-4"
     >
       <div className="flex w-full justify-between  px-5">
         <input
