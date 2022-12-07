@@ -21,10 +21,7 @@ export const authOptions: NextAuthOptions = {
         response_type: "code"
       }
     },
-  })   ,  FaceItProvider({
-    clientId: process.env.FACEIT_CLIENT_ID,
-    clientSecret: process.env.FACEIT_CLIENT_SECRET
-  })],
+  }),],
   pages:{
     signIn: "/auth/signin"
   },
