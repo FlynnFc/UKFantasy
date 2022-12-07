@@ -18,21 +18,13 @@ export default function SignIn(props: { providers: any }) {
                 style={{ marginBottom: 0 }}
               >
                 <div
-                  className={`btn-lg btn flex w-[20rem] justify-center border-none ${
-                    provider.id === "faceit"
-                      ? "bg-[#FF5500] text-white hover:bg-[#e75f1b]"
-                      : ""
-                  }`}
+                  className={`btn-lg btn flex w-[20rem] justify-center border-none text-xl `}
                   onClick={() =>
                     signIn(provider.id, { callbackUrl: "/epic36" })
                   }
                 >
                   Sign in with {provider.name}
-                  {provider.id === "google" ? (
-                    <FcGoogle className="mx-4 inline" />
-                  ) : provider.id === "faceit" ? (
-                    <SiFaceit className="mx-4 inline" />
-                  ) : null}
+                  <FcGoogle className="mx-4 inline" />
                 </div>
               </div>
             ))}
