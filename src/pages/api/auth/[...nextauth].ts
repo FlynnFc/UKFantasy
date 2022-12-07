@@ -4,14 +4,14 @@ import NextAuth, { type NextAuthOptions } from "next-auth";
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma} from "../../../server/db/client";
-import GoogleProvider from "next-auth/providers/google";
-import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google"
+import FaceItProvider from "next-auth/providers/faceit";
 
 export const authOptions: NextAuthOptions = {
 
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
-  providers: [   GoogleProvider({
+  providers: [GoogleProvider({
     clientId: process.env.GOOGLE_ID!,
     clientSecret: process.env.GOOGLE_SECRET!,
     authorization: {
@@ -21,9 +21,9 @@ export const authOptions: NextAuthOptions = {
         response_type: "code"
       }
     },
-  }),  DiscordProvider({
-    clientId: process.env.DISCORD_CLIENT_ID!,
-    clientSecret: process.env.DISCORD_CLIENT_SECRET!
+  })   ,  FaceItProvider({
+    clientId: process.env.FACEIT_CLIENT_ID,
+    clientSecret: process.env.FACEIT_CLIENT_SECRET
   })],
   pages:{
     signIn: "/auth/signin"
@@ -42,3 +42,6 @@ export const authOptions: NextAuthOptions = {
 };
 
 export default NextAuth(authOptions);
+
+
+

@@ -1,5 +1,5 @@
 import { getProviders, signIn } from "next-auth/react";
-import { FaDiscord } from "react-icons/fa";
+import { SiFaceit } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
 export default function SignIn(props: { providers: any }) {
   console.log(props.providers);
@@ -19,19 +19,19 @@ export default function SignIn(props: { providers: any }) {
               >
                 <div
                   className={`btn-lg btn border-none ${
-                    provider.name === "Discord"
-                      ? "bg-[#5865F2] hover:bg-[#4550c6]"
-                      : null
+                    provider.id === "faceit"
+                      ? "bg-[#FF5500] text-white hover:bg-[#e75f1b]"
+                      : ""
                   }`}
                   onClick={() =>
                     signIn(provider.id, { callbackUrl: "/epic36" })
                   }
                 >
                   Sign in with {provider.name}
-                  {provider.name === "Google" ? (
+                  {provider.id === "google" ? (
                     <FcGoogle className="mx-4 inline" />
-                  ) : provider.name === "Discord" ? (
-                    <FaDiscord className="mx-3 inline" />
+                  ) : provider.id === "faceit" ? (
+                    <SiFaceit className="mx-3 inline" />
                   ) : null}
                 </div>
               </div>
