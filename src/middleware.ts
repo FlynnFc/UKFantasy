@@ -13,6 +13,10 @@ export default async function middleware(
 ): Promise<Response | undefined> {
   const ip = request.ip ?? "127.0.0.1";
 
+  if (request.nextUrl.pathname === '/api/blocked') {
+    return NextResponse.next(request)
+  }
+
   const { success, pending, limit, reset, remaining } = await ratelimit.limit(
     `mw_${ip}`,
   );
