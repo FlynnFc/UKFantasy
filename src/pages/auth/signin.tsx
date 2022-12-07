@@ -18,7 +18,11 @@ export default function SignIn(props: { providers: any }) {
                 style={{ marginBottom: 0 }}
               >
                 <div
-                  className="btn-lg btn"
+                  className={`btn-lg btn border-none ${
+                    provider.name === "Discord"
+                      ? "bg-[#5865F2] hover:bg-[#4550c6]"
+                      : null
+                  }`}
                   onClick={() =>
                     signIn(provider.id, { callbackUrl: "/epic36" })
                   }
