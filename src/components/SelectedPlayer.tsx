@@ -14,6 +14,22 @@ type player = {
 const SelectedPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => setOffset(window.pageYOffset);
+    // clean up code
+    window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (offset < 50) {
+      setScrolled(true);
+    } else setScrolled(false);
+  }, [offset]);
 
   useEffect(() => {
     setRareity(props.rareity);
@@ -24,7 +40,9 @@ const SelectedPlayer = (props: player) => {
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
     >
       <div
-        className={`h-0 justify-center overflow-hidden bg-neutral transition-all lg:inline-block lg:h-52`}
+        className={`image h-0 justify-center overflow-hidden bg-base-300 ${
+          !scrolled ? null : "scrolled"
+        }`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}

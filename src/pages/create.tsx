@@ -37,24 +37,6 @@ const Create = (props: {
   const [submitted, setSubmitted] = useState(false);
   const [teamName, setTeamName] = useState("Your Team");
   const [loading, setLoading] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => setOffset(window.pageYOffset);
-    // clean up code
-    window.removeEventListener("scroll", onScroll);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    if (offset > 100) {
-      setScrolled(true);
-    } else setScrolled(false);
-  }, [offset]);
-
-  console.log(offset, scrolled);
 
   //Ensures Team name is never empty string
   useEffect(() => {

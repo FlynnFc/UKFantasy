@@ -1,21 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const PlayerSkeleton = () => {
   const [stats, setStats] = useState(false);
-  const [scroll, setScroll] = useState(false);
-  const [y, setY] = useState(0);
-
-  // useEffect(() => {
-  //   const handleNavigation = (e: any) => {
-  //     const window = e.currentTarget;
-  //     if (y < window.scrollY) {
-  //       setScroll(true);
-  //     }
-  //     setY(window.scrollY);
-  //   };
-  //   setY(window.scrollY);
-  //   window.addEventListener("scroll", (e) => handleNavigation(e));
-  // }, [y]);
 
   return (
     <div
@@ -31,7 +17,7 @@ const PlayerSkeleton = () => {
     >
       <div
         id="image"
-        className="z-10 hidden h-[12.7rem] justify-center overflow-hidden bg-base-300 lg:inline-block"
+        className={` z-10  h-[12.7rem] justify-center overflow-hidden bg-base-300`}
       ></div>
 
       <div className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg bg-base-200">
