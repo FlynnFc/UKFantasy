@@ -1,18 +1,18 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import NextAuth, { type NextAuthOptions } from "next-auth";
 
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma} from "../../../server/db/client";
 import GoogleProvider from "next-auth/providers/google";
+import DiscordProvider from "next-auth/providers/discord";
 
 export const authOptions: NextAuthOptions = {
 
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [   GoogleProvider({
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     clientId: process.env.GOOGLE_ID!,
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     clientSecret: process.env.GOOGLE_SECRET!,
     authorization: {
       params: {
@@ -21,7 +21,10 @@ export const authOptions: NextAuthOptions = {
         response_type: "code"
       }
     },
-  }),],
+  }),  DiscordProvider({
+    clientId: process.env.DISCORD_CLIENT_ID!,
+    clientSecret: process.env.DISCORD_CLIENT_SECRET!
+  })],
   pages:{
     signIn: "/auth/signin"
   },

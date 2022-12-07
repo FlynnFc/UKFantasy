@@ -1,4 +1,5 @@
 import { getProviders, signIn } from "next-auth/react";
+import { FaDiscord } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 export default function SignIn(props: { providers: any }) {
   console.log(props.providers);
@@ -8,6 +9,30 @@ export default function SignIn(props: { providers: any }) {
       style={{ overflow: "hidden", position: "relative" }}
     >
       <div className="mb-10 flex w-96 flex-col items-center rounded-md bg-base-300 shadow-lg shadow-base-300">
+        <div className="flex h-full w-96 flex-col items-stretch  justify-center space-y-2 rounded-md bg-primary p-6 shadow-md">
+          {props.providers &&
+            Object.values(props.providers).map((provider: any) => (
+              <div
+                className="flex justify-center"
+                key={provider.name}
+                style={{ marginBottom: 0 }}
+              >
+                <div
+                  className="btn-lg btn"
+                  onClick={() =>
+                    signIn(provider.id, { callbackUrl: "/epic36" })
+                  }
+                >
+                  Sign in with {provider.name}
+                  {provider.name === "Google" ? (
+                    <FcGoogle className="mx-4 inline" />
+                  ) : provider.name === "Discord" ? (
+                    <FaDiscord className="mx-3 inline" />
+                  ) : null}
+                </div>
+              </div>
+            ))}
+        </div>
         <h1 className="pb-4 pt-6 text-3xl font-bold text-base-content">
           Sign in
         </h1>
@@ -26,26 +51,6 @@ export default function SignIn(props: { providers: any }) {
           <button className="btn-outline btn w-full" disabled>
             Sign in
           </button>
-        </div>
-        <div className="flex w-96 items-center justify-center rounded-md bg-primary p-6 shadow-md">
-          {props.providers &&
-            Object.values(props.providers).map((provider: any) => (
-              <div
-                className="flex justify-center"
-                key={provider.name}
-                style={{ marginBottom: 0 }}
-              >
-                <div
-                  className="btn-lg btn"
-                  onClick={() =>
-                    signIn(provider.id, { callbackUrl: "/epic36" })
-                  }
-                >
-                  Sign in with {provider.name}
-                  <FcGoogle className="mx-4 inline" />
-                </div>
-              </div>
-            ))}
         </div>
       </div>
     </div>
