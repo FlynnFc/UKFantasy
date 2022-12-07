@@ -8,7 +8,7 @@ export default function LoginBtn(props: { primary: boolean }) {
         <div className="dropdown-end dropdown">
           <label
             tabIndex={0}
-            className="btn m-1 border-none bg-base-100 p-1 px-2 text-3xl"
+            className="btn m-1 border-none bg-base-100 p-1 px-2 text-4xl text-base-content"
           >
             <IoIosArrowDropdown />
           </label>
