@@ -27,7 +27,7 @@ type UserProps = {
 
 const Epic36 = (props: { data: any }) => {
   const session = useSession();
-  const [createModal, setCreateModal] = useState(true);
+  const [, setCreateModal] = useState(true);
   const [loading, setLoading] = useState(false);
   const [userHasTeam, setUserHasTeam] = useState(false);
   const [data, setData] = useState([]);
