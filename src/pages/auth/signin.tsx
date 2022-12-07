@@ -9,7 +9,7 @@ export default function SignIn(props: { providers: any }) {
       style={{ overflow: "hidden", position: "relative" }}
     >
       <div className="mb-10 flex w-96 flex-col items-center rounded-md bg-base-300 shadow-lg shadow-base-300">
-        <div className="flex h-full w-96 flex-col items-stretch  justify-center space-y-2 rounded-md bg-primary p-6 shadow-md">
+        <div className="flex h-full w-96 flex-col items-stretch justify-center space-y-2 rounded-md bg-primary p-6 shadow-md">
           {props.providers &&
             Object.values(props.providers).map((provider: any) => (
               <div
@@ -18,7 +18,7 @@ export default function SignIn(props: { providers: any }) {
                 style={{ marginBottom: 0 }}
               >
                 <div
-                  className={`btn-lg btn border-none ${
+                  className={`btn-lg btn flex w-[20rem] justify-center border-none ${
                     provider.id === "faceit"
                       ? "bg-[#FF5500] text-white hover:bg-[#e75f1b]"
                       : ""
@@ -31,7 +31,7 @@ export default function SignIn(props: { providers: any }) {
                   {provider.id === "google" ? (
                     <FcGoogle className="mx-4 inline" />
                   ) : provider.id === "faceit" ? (
-                    <SiFaceit className="mx-3 inline" />
+                    <SiFaceit className="mx-4 inline" />
                   ) : null}
                 </div>
               </div>
