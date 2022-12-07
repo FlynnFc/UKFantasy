@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 import PlayerSkeleton from "./PlayerSkeleton";
-import SelectedPlayerSkeleton from "./SelectedPlayerSkeleton";
 
 const PlayerGroupSkeleton = (props: {
   children: any;
@@ -41,11 +40,11 @@ const PlayerGroupSkeleton = (props: {
         </span>
       </div>
       <div className=" flex w-[95%] flex-row justify-evenly space-x-2 lg:w-full">
-        {props.children[0] ? props.children[0] : <SelectedPlayerSkeleton />}
-        {props.children[1] ? props.children[1] : <SelectedPlayerSkeleton />}
-        {props.children[2] ? props.children[2] : <SelectedPlayerSkeleton />}
-        {props.children[3] ? props.children[3] : <SelectedPlayerSkeleton />}
-        {props.children[4] ? props.children[4] : <SelectedPlayerSkeleton />}
+        {props.children[0] ? props.children[0] : <PlayerSkeleton />}
+        {props.children[1] ? props.children[1] : <PlayerSkeleton />}
+        {props.children[2] ? props.children[2] : <PlayerSkeleton />}
+        {props.children[3] ? props.children[3] : <PlayerSkeleton />}
+        {props.children[4] ? props.children[4] : <PlayerSkeleton />}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { off } from "process";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 type player = {
   name: string;
@@ -17,16 +18,15 @@ const SelectedPlayer = (props: player) => {
   const [scrolled, setScrolled] = useState(false);
   const [offset, setOffset] = useState(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const onScroll = () => setOffset(window.pageYOffset);
-    // clean up code
     window.removeEventListener("scroll", onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    if (offset < 50) {
+    if (offset > 50) {
       setScrolled(true);
     } else setScrolled(false);
   }, [offset]);
@@ -35,13 +35,15 @@ const SelectedPlayer = (props: player) => {
     setRareity(props.rareity);
   }, [props.rareity]);
 
+  console.log(props.name, scrolled);
+
   return (
     <div
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
     >
       <div
         className={`image h-0 justify-center overflow-hidden bg-base-300 ${
-          !scrolled ? null : "scrolled"
+          !scrolled && "scrolled"
         }`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
@@ -61,8 +63,8 @@ const SelectedPlayer = (props: player) => {
         <div
           className={
             stats
-              ? "stats absolute top-0 h-full w-full p-2 text-white"
-              : "stats absolute top-full h-full w-full p-2 text-white"
+              ? "stats absolute top-0 h-full w-full overflow-hidden p-2 text-white"
+              : "stats absolute top-full h-full w-full overflow-hidden p-2 text-white"
           }
         >
           <ul className="flex h-full flex-col justify-start space-y-4">

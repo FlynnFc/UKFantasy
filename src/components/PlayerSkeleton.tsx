@@ -5,7 +5,7 @@ const PlayerSkeleton = () => {
 
   return (
     <div
-      className={`z-0 h-min w-56 overflow-hidden rounded-xl bg-neutral text-sm shadow-lg ${
+      className={`z-0 w-56 overflow-hidden rounded-xl bg-neutral text-sm shadow-lg ${
         stats && "animate-pulse"
       }`}
       onMouseEnter={() => {
@@ -16,8 +16,7 @@ const PlayerSkeleton = () => {
       }}
     >
       <div
-        id="image"
-        className={` z-10  h-[12.7rem] justify-center overflow-hidden bg-base-300`}
+        className={` image z-10 h-full justify-center overflow-hidden bg-base-100`}
       ></div>
 
       <div className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg bg-base-200">
