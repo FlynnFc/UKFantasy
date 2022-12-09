@@ -1,4 +1,5 @@
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 import { IoIosArrowDropdown } from "react-icons/io";
 export default function LoginBtn(props: { primary: boolean }) {
   const { data: session } = useSession();
@@ -20,7 +21,9 @@ export default function LoginBtn(props: { primary: boolean }) {
               <a>Profile</a>
             </li>
             <li>
-              <a>Settings</a>
+              <Link href={"./settings"}>
+                <a>Settings</a>
+              </Link>
             </li>
             <li>
               <button className="btn text-white" onClick={() => signOut()}>

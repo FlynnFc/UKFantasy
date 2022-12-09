@@ -61,7 +61,12 @@ const Create = (props: {
 
   //Using this to update on delete I have no idea why react doesnt allow me to access the most recent state when onClick from different component
   useEffect(() => {
+    if (deletes.length < 1) {
+      return;
+    }
+    console.log("running effect");
     const tempTeam = myTeam;
+    console.log("looping to find player");
     for (let index = 0; index < tempTeam.length; index++) {
       const element = tempTeam[index]?.key;
       if (element === deletes) {
@@ -70,15 +75,16 @@ const Create = (props: {
     }
 
     setMyTeam([...tempTeam]);
+    setDeletes("");
     if (tempTeam.length < 5) {
       setTeamFull(false);
     }
-  }, [deletes]);
+  }, [deletes, myTeam]);
 
   //Sets name to deletes so I know which player to delete
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
     setDeletes(data.name);
-    console.log("Deleted player", data.name);
+    console.log("Deleted player", data.name, deletes);
   };
 
   //Adding player to myTeam

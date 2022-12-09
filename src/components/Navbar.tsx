@@ -5,10 +5,10 @@ import { themeChange } from "theme-change";
 import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [, setDarkMode] = useState(true);
 
   const themeHandler = () => {
-    setDarkMode((darkMode) => !darkMode);
+    setDarkMode((prev) => !prev);
   };
 
   useEffect(() => {

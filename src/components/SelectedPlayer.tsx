@@ -26,7 +26,8 @@ const SelectedPlayer = (props: player) => {
   }, []);
 
   useEffect(() => {
-    if (offset > 50) {
+    setScrolled(false);
+    if (offset < 50) {
       setScrolled(true);
     } else setScrolled(false);
   }, [offset]);
@@ -35,15 +36,13 @@ const SelectedPlayer = (props: player) => {
     setRareity(props.rareity);
   }, [props.rareity]);
 
-  console.log(props.name, scrolled);
-
   return (
     <div
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
     >
       <div
         className={`image h-0 justify-center overflow-hidden bg-base-300 ${
-          !scrolled && "scrolled"
+          !scrolled ? null : "scrolled"
         }`}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
