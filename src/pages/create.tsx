@@ -198,7 +198,7 @@ const Create = (props: {
         </div>
       )}
       {submitted && (
-        <div className="createModal fixed top-0 left-0 z-10 flex h-screen w-full items-start justify-center overflow-auto">
+        <div className="createModal fixed top-0 left-0 z-30 flex h-screen w-full items-start justify-center overflow-auto">
           <div className="mt-32 w-[80%] rounded-lg bg-base-100 p-10 text-base-content">
             <h1 className="text-3xl font-bold leading-loose">
               {`You've submitted your team!`}
