@@ -7,7 +7,6 @@ import PlayerGroupSkeleton from "../components/playerGroupSkeleton";
 import SelectedPlayer from "../components/SelectedPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
-import { off } from "process";
 
 type player = {
   map(arg0: (el: any) => JSX.Element): unknown;
