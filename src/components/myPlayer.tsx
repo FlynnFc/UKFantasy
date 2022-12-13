@@ -16,12 +16,14 @@ export const MyPlayer = (props: myPlayer) => {
 
   return (
     <div
-      className={`relative z-0  w-[16rem] overflow-hidden rounded-xl bg-base-200 shadow-lg lg:h-[19rem]`}
+      className={`w-[16rem] flex-col rounded-xl bg-base-200 shadow-lg lg:h-[24rem]`}
     >
-      <div className={`z-10 hidden h-52 cursor-auto justify-center lg:block`}>
+      <div
+        className={`relative hidden h-72 cursor-auto justify-center lg:block`}
+      >
         {props.img && (
           <Image
-            className="overflow-hidden text-center drop-shadow-2xl"
+            className="text-center drop-shadow-2xl"
             alt="player portrait"
             layout="fill"
             src={props.img}
@@ -29,9 +31,9 @@ export const MyPlayer = (props: myPlayer) => {
         )}
       </div>
       <div
-        className={`${rareity} flex h-[6rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg `}
+        className={`${rareity} flex h-[6rem] select-none flex-col items-center justify-evenly rounded-lg lg:rounded-none lg:rounded-b-lg `}
       >
-        <h2 className=" pt-3 text-center font-bold leading-none text-base-200 lg:text-2xl xl:text-4xl">
+        <h2 className="pt-3 text-center font-bold leading-none text-base-200 lg:text-2xl xl:text-4xl">
           {props.name}
         </h2>
         <div>
