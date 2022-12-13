@@ -1,5 +1,4 @@
 import { getProviders, signIn } from "next-auth/react";
-import { SiFaceit } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
 export default function SignIn(props: { providers: any }) {
   console.log(props.providers);
