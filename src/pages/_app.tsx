@@ -5,7 +5,6 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Provider } from "react-redux";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
