@@ -1,3 +1,55 @@
+
+<h1 align="center">
+  UK Fantasy
+</h1>
+
+* Make a team out of players competing in the UK Esports scene.
+* Use your funds wisely.
+
+## Key Features
+
+* Create Team
+  -compete against others
+* Share teams
+* Create Leagues
+  
+This app is still in development. The first event it will cover is EpicLan which is in mid January 2023.
+
+### Feature Roadmap
+
+* Different color themes (Ready for release)
+* Player Stats
+ -Advanced Stats
+* Live game coverage
+* Automatic points
+
+
+
+## How To Use
+
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/FlynnFc/TicketTracker.io
+
+# Go into the repository
+$ cd electron-markdownify
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm start
+```
+
+
+
+
+
+
+
+
 # Create T3 App
 
 This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.
