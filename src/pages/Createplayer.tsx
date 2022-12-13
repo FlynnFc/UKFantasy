@@ -64,13 +64,13 @@ const Createplayer = (props: { data: any[] }) => {
           name="team"
           id="team"
         >
-          {props.data.map((el: any) => {
+          {/* {props.data.map((el: any) => {
             return (
               <option key={el.id} value={el.id}>
                 {el.teamName}
               </option>
             );
-          })}
+          })} */}
         </select>
         <button onClick={submit} className="btn w-full">
           Submit
