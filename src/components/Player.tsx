@@ -71,9 +71,10 @@ export const Player = (props: player) => {
       >
         {props.img ? (
           <Image
-            className="overflow-hidden text-center drop-shadow-2xl"
+            className="text-center drop-shadow-2xl"
             alt="player portrait"
-            layout="fill"
+            height={500}
+            width={500}
             src={props.img}
           />
         ) : (
