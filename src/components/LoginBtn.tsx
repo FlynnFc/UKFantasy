@@ -21,7 +21,7 @@ export default function LoginBtn(props: { primary: boolean }) {
               <a>Profile</a>
             </li>
             <li>
-              <Link href={"./settings"}>
+              <Link href={"/settings"}>
                 <a>Settings</a>
               </Link>
             </li>

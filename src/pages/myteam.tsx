@@ -70,10 +70,7 @@ const Myteam = () => {
           <div className="flex flex-row items-center space-x-2 sm:mb-10">
             <h1 className=" mb-2 text-4xl ">{team?.PlayerTeam.teamName}</h1>
 
-            <button
-              onClick={linkSetter}
-              className="btn-primary btn m-1 text-2xl"
-            >
+            <button onClick={linkSetter} className="mb-1 p-2 text-2xl">
               <FiShare />
             </button>
           </div>
