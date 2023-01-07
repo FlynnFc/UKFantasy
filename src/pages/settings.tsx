@@ -50,7 +50,7 @@ const Settings = () => {
         <Toaster position="bottom-left" />
         <form className="form" onSubmit={(e) => submitHandler(e)}>
           <label className="label text-xl" htmlFor="name">
-            Display Name
+            Change Display Name
           </label>
           <input
             type="text"
