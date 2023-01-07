@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import LoginBtn from "./LoginBtn";
-import logo from "../images/mininewlogo.png";
+// import logo from "../images/mininewlogo.png";
+import { IoIosArrowDropdown } from "react-icons/io";
 const Navbar = () => {
   const [darkmode, setDarkMode] = useState(true);
   const [theme, setTheme] = useState(["black", "lofi"]);
@@ -23,17 +24,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar static top-0 p-2">
-      <div className="flex w-full justify-evenly sm:justify-between">
+    <nav className="navbar static top-0  p-2 ">
+      <div className=" hidden w-full justify-evenly sm:flex sm:justify-between">
         <div className="flex space-x-4">
           <Link href="/">
             <a className="btn flex text-xl normal-case">
               <span className="mb-3">UKFantasy</span>
-              <Image src={logo} width={60} height={60} alt="logo" />
+              {/* <Image src={logo} width={60} height={60} alt="logo" /> */}
             </a>
           </Link>
           <Link href="/epic36">
-            <button className="btn bg-primary text-primary-content hover:text-primary">
+            <button className="btn bg-primary text-lg text-primary-content hover:text-primary">
               Epic36
             </button>
           </Link>
@@ -65,6 +66,24 @@ const Navbar = () => {
           <LoginBtn primary={true} />
         </div>
       </div>
+      {/* <div className="flex w-full justify-end">
+        <div className="dropdown-end dropdown sm:hidden">
+          <label tabIndex={0} className="btn m-1 p-2 text-3xl">
+            <IoIosArrowDropdown />
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu rounded-box w-52 bg-primary p-2 text-primary-content shadow"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Item 2</a>
+            </li>
+          </ul>
+        </div>
+      </div> */}
     </nav>
   );
 };
