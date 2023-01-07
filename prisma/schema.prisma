@@ -58,6 +58,7 @@ model User {
   sessions      Session[]
   PlayerTeam    PlayerTeam? @relation(fields: [playerTeamId], references: [id])
   playerTeamId  String?
+  league        League[]
 
   @@index([playerTeamId])
 }
@@ -112,4 +113,16 @@ model Team {
   id       String   @id @default(cuid())
   teamName String
   Player   Player[]
+  league   League[]
+}
+
+model League {
+  id          String   @id @default(cuid())
+  name        String
+  description String   @db.Text
+  Teams       Team[]
+  User        User[]
+  start       DateTime @default(now())
+  end         String
+  offical     Boolean  @default(false)
 }

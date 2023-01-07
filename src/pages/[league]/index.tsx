@@ -1,9 +1,17 @@
+// TODO
+// Create team goes to [league]/create
+// Fetch teams and players registered in that league
+// Fetch Leaderboard of users that have teams in this league
+// New Team page would be [league]/team/[teamid]
+// User profile page shows what leagues they are in current/past/upcoming use the https://daisyui.com/components/tab/ component
+
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import Loading from "../components/Loading";
-import LoginBtn from "../components/LoginBtn";
-import Table from "../components/Table";
+import Loading from "../../components/Loading";
+import LoginBtn from "../../components/LoginBtn";
+import Table from "../../components/Table";
 
 export async function getServerSideProps() {
   // const path = "http://localhost:3000";
@@ -25,13 +33,14 @@ type UserProps = {
   User: [{ id: string }];
 };
 
-const Epic36 = (props: { data: any }) => {
+const LeaguePage = (props: { data: any }) => {
   const session = useSession();
+  const { query } = useRouter();
   const [createModal, setCreateModal] = useState(true);
   const [loading, setLoading] = useState(false);
   const [userHasTeam, setUserHasTeam] = useState(false);
   const [data, setData] = useState([]);
-
+  console.log(query);
   useEffect(() => {
     return setData(props.data);
   }, [props.data]);
@@ -80,7 +89,9 @@ const Epic36 = (props: { data: any }) => {
       ) : null}
       {loading && <Loading />}
       <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
-        <h1 className="my-8 text-4xl font-bold">Epic36 Tournement center</h1>
+        <h1 className="my-8 text-4xl font-bold">
+          {query.league} Tournement center
+        </h1>
         <p className="text-lg">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
           soluta quo qui atque natus et impedit maxime, explicabo libero
@@ -221,4 +232,4 @@ const Epic36 = (props: { data: any }) => {
   );
 };
 
-export default Epic36;
+export default LeaguePage;
