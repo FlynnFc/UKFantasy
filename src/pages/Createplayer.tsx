@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
   const data = await res.json();
   return {
