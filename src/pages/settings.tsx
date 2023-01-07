@@ -37,6 +37,7 @@ const Settings = () => {
         console.error("woops");
       } else {
         console.log("name submitted!");
+        setName("");
       }
     } catch (error) {
       console.error("woops");
@@ -55,9 +56,14 @@ const Settings = () => {
             type="text"
             className="input w-full max-w-xs"
             placeholder="Display name"
+            value={name}
             onChange={(e) => newName(e.target.value)}
           />
-          <button type="submit" className="btn-success btn-sm btn mx-2">
+          <button
+            disabled={!name}
+            type="submit"
+            className="btn-success btn-sm btn mx-2"
+          >
             Submit
           </button>
         </form>
