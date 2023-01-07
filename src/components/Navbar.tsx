@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import LoginBtn from "./LoginBtn";
-
+import logo from "../images/mininewlogo.png";
 const Navbar = () => {
   const [darkmode, setDarkMode] = useState(true);
   const [theme, setTheme] = useState(["black", "lofi"]);
@@ -24,13 +25,16 @@ const Navbar = () => {
   return (
     <nav className="navbar static top-0 p-2">
       <div className="flex w-full justify-evenly sm:justify-between">
-        <div className="flex">
+        <div className="flex space-x-4">
           <Link href="/">
-            <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
+            <a className="btn flex text-xl normal-case">
+              <span className="mb-3">UKFantasy</span>
+              <Image src={logo} width={60} height={60} alt="logo" />
+            </a>
           </Link>
           <Link href="/epic36">
-            <button className="btn bg-primary text-primary-content">
-              Epic36{" "}
+            <button className="btn bg-primary text-primary-content hover:text-primary">
+              Epic36
             </button>
           </Link>
         </div>
