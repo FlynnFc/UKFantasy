@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import LoginBtn from "./LoginBtn";
-// import logo from "../images/mininewlogo.png";
+import logo from "../images/mininewlogo.png";
 import { IoIosArrowDropdown } from "react-icons/io";
 const Navbar = () => {
   const [darkmode, setDarkMode] = useState(true);
@@ -30,7 +30,7 @@ const Navbar = () => {
           <Link href="/">
             <a className="btn flex text-xl normal-case">
               <span className="mb-3">UKFantasy</span>
-              {/* <Image src={logo} width={60} height={60} alt="logo" /> */}
+              <Image src={logo} width={60} height={60} alt="logo" />
             </a>
           </Link>
           <Link href="/epic36">
