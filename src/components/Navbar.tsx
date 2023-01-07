@@ -1,22 +1,28 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import LoginBtn from "./LoginBtn";
-import { themeChange } from "theme-change";
-import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {
-  const [, setDarkMode] = useState(true);
+  const [darkmode, setDarkMode] = useState(true);
+  const [theme, setTheme] = useState(["black", "lofi"]);
+  useEffect(() => {
+    localStorage.getItem("theme");
+    console.log(localStorage.getItem("theme"));
+    const themes: any = localStorage.getItem("theme")?.split(",");
+    setTheme(themes);
+    const bodyEl = document.querySelector("body");
+    bodyEl?.setAttribute("data-theme", themes[1]);
+  }, []);
 
   const themeHandler = () => {
     setDarkMode((prev) => !prev);
+    const bodyEl = document.querySelector("body");
+    const chosenTheme: any = darkmode ? theme[0] : theme[1];
+    bodyEl?.setAttribute("data-theme", chosenTheme);
   };
 
-  useEffect(() => {
-    themeChange(false);
-  }, []);
-
   return (
-    <div className="navbar static top-0 p-2">
+    <nav className="navbar static top-0 p-2">
       <div className="flex w-full justify-evenly sm:justify-between">
         <div className="flex">
           <Link href="/">
@@ -55,7 +61,7 @@ const Navbar = () => {
           <LoginBtn primary={true} />
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 

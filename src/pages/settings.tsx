@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 const Settings = () => {
   const [themeChosen, setTheme] = useState<string>("");
 
-  useEffect(() => {
+  function themeSubmitter() {
+    localStorage.setItem("theme", themeChosen);
     console.log(themeChosen);
-  }, [themeChosen]);
+  }
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">
@@ -35,9 +36,14 @@ const Settings = () => {
             <option value={"winter,night"}>Default</option>
             <option value={"corporate,business"}>Microsoft</option>
             <option value={"lofi,black"}>Minimal</option>
-            <option value={"CyberPunk,Sythnwave"}>{`What's this?`}</option>
+            <option value={"cyberpunk,sythnwave"}>{`What's this?`}</option>
           </select>
-          <button className="btn-success btn-sm btn mx-2">Submit</button>
+          <button
+            onClick={themeSubmitter}
+            className="btn-success btn-sm btn mx-2"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </main>
