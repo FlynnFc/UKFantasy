@@ -13,15 +13,17 @@
 * Share teams
 * Create Leagues
   
-This app is still in development. The first event it will cover is EpicLan which is in mid January 2023.
+This app is still in development. The first event it will cover is EpicLan which is in mid February 2023.
 
 ### Feature Roadmap
 
 * Different color themes (Ready for release)
+* Paid Leagues
 * Player Stats
  -Advanced Stats
 * Live game coverage
 * Automatic points
+
 
 
 
