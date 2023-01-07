@@ -1,11 +1,14 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import Filter from "bad-words";
 
+const filter = new Filter();
 const Settings = () => {
   const [themeChosen, setTheme] = useState<string>("");
   const [name, setName] = useState("");
   const session = useSession();
+
   function themeSubmitter() {
     localStorage.setItem("theme", themeChosen);
     toast.success("Theme changed");
@@ -26,7 +29,10 @@ const Settings = () => {
   async function newNameSubmitter(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log("submitting", name);
-    const reqBody = await { name: name, id: session.data?.user?.id };
+    const reqBody = await {
+      name: filter.clean(name),
+      id: session.data?.user?.id,
+    };
     const JSONbody = await JSON.stringify(reqBody);
     try {
       const res = await fetch(`./api/userNameUpdate`, {

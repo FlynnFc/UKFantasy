@@ -8,7 +8,7 @@ import SelectedPlayer from "../components/SelectedPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import StandaloneSignIn from "../components/StandaloneSignIn";
-
+import Filter from "bad-words";
 type player = {
   map(arg0: (el: any) => JSX.Element): unknown;
   id: string;
@@ -19,6 +19,8 @@ type player = {
   statsId: string;
   image: string;
 };
+
+const filter = new Filter();
 
 const Create = (props: {
   data: {
@@ -114,9 +116,9 @@ const Create = (props: {
     const playerIds: any[] = await myTeam.map((el) => {
       return el.props.id;
     });
-    console.log(playerIds);
+
     const body = await {
-      teamName: teamName,
+      teamName: filter.clean(teamName),
       userId: session.data?.user?.id,
       players: playerIds,
     };
