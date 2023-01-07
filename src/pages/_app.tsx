@@ -13,7 +13,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <>
       <Head>
-        <title>UKFantasy &#127918;</title>
+        <title>UK Fantasy</title>
         <meta name="description" content="UK Fantasy League " />
         <link rel="icon" href="/favicon.ico" />
       </Head>
