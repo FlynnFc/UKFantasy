@@ -45,10 +45,10 @@ const Settings = () => {
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">
-      <div className="h-full w-[60rem] rounded-lg bg-base-300 p-8">
+      <div className="h-full w-[30rem] rounded-lg bg-base-300 p-8">
         <Toaster position="bottom-left" />
         <form className="form" onSubmit={(e) => submitHandler(e)}>
-          <label className="label" htmlFor="name">
+          <label className="label text-xl" htmlFor="name">
             Display Name
           </label>
           <input
@@ -62,7 +62,7 @@ const Settings = () => {
           </button>
         </form>
         <form className="form" action="">
-          <label className="label" htmlFor="name">
+          <label className="label mt-1 text-xl" htmlFor="name">
             Theme
           </label>
           <select

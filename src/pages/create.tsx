@@ -7,6 +7,7 @@ import PlayerGroupSkeleton from "../components/playerGroupSkeleton";
 import SelectedPlayer from "../components/SelectedPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
+import StandaloneSignIn from "../components/StandaloneSignIn";
 
 type player = {
   map(arg0: (el: any) => JSX.Element): unknown;
@@ -227,11 +228,13 @@ const Create = (props: {
       {loading && (
         <div className="fixed top-0 left-0 z-10 flex h-screen w-full items-center justify-center overflow-auto bg-base-100">
           <div className="animate-bounce rounded-lg bg-base-300 p-5 text-base-content">
-            <h1 className=" text-3xl font-bold leading-loose">{`Loading`}</h1>
+            <h1 className=" text-3xl font-bold leading-loose">
+              {session.data ? `Loading` : <StandaloneSignIn />}
+            </h1>
           </div>
         </div>
       )}
-      {session.data ? (
+      {session.data && (
         <div className="w-full">
           <h2 className="text-center text-3xl leading-snug lg:text-5xl">
             {teamName}
@@ -295,8 +298,6 @@ const Create = (props: {
             })}
           </div>
         </div>
-      ) : (
-        <NotSignedin />
       )}
     </main>
   );

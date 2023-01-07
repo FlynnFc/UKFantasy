@@ -15,7 +15,7 @@ export default function LoginBtn(props: { primary: boolean }) {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box w-52 space-y-2 bg-secondary p-2 text-primary-content shadow "
+            className="dropdown-content menu rounded-box w-52 space-y-2 bg-primary p-2 text-primary-content shadow "
           >
             <li>
               <a>Profile</a>
@@ -26,7 +26,7 @@ export default function LoginBtn(props: { primary: boolean }) {
               </Link>
             </li>
             <li>
-              <button className="btn text-white" onClick={() => signOut()}>
+              <button className="btn text-white " onClick={() => signOut()}>
                 Sign out
               </button>
             </li>
