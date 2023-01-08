@@ -105,8 +105,8 @@ model PlayerTeam {
   points     String
   rolePoints String
   Player     Player[]
-
-  User User[]
+  league     League[]
+  User       User[]
 }
 
 model Team {
@@ -117,12 +117,13 @@ model Team {
 }
 
 model League {
-  id          String   @id @default(cuid())
+  id          String       @id @default(cuid())
   name        String
-  description String   @db.Text
+  description String       @db.Text
   Teams       Team[]
   User        User[]
-  start       DateTime @default(now())
+  start       DateTime     @default(now())
   end         String
-  offical     Boolean  @default(false)
+  offical     Boolean      @default(false)
+  playerTeam  PlayerTeam[]
 }

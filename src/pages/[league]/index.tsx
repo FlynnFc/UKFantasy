@@ -1,6 +1,6 @@
 // TODO
 // Create team goes to [league]/create
-// Fetch teams and players registered in that league
+// Fetch teams and players registered in that league --  done
 // Fetch Leaderboard of users that have teams in this league
 // New Team page would be [league]/team/[teamid]
 // User profile page shows what leagues they are in current/past/upcoming use the https://daisyui.com/components/tab/ component
@@ -8,15 +8,15 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
-
 export async function getServerSideProps() {
-  // const path = "http://localhost:3000";
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}/api/allUserTeams`);
+  const path = "http://localhost:3000";
+  // const path = "https://uk-fantasy.vercel.app/";
+  const res = await fetch(`${path}/api/allUserTeams`, { method: "GET" });
   if (!res.ok) {
     console.error("error");
     return;
@@ -40,11 +40,22 @@ const LeaguePage = (props: { data: any }) => {
   const [loading, setLoading] = useState(false);
   const [userHasTeam, setUserHasTeam] = useState(false);
   const [data, setData] = useState([]);
-  console.log(query);
   useEffect(() => {
-    return setData(props.data);
-  }, [props.data]);
+    console.log(props.data);
+    const tempData: any = [];
+    props.data.forEach(
+      (el: { league: { name: { toLowerCase: () => ParsedUrlQuery } }[] }) => {
+        console.log(el.league[0]?.name.toLowerCase());
+        console.log(query.league);
+        if (el.league[0]?.name.toLowerCase() === query.league) {
+          tempData.push(el);
+        } else return;
+      }
+    );
+    return setData(tempData);
+  }, [props.data, query.league]);
 
+  console.log(data);
   useEffect(() => {
     if (data) {
       for (let index = 0; index < data.length; index++) {
@@ -103,7 +114,7 @@ const LeaguePage = (props: { data: any }) => {
             <LoginBtn primary={false} />
           </div>
         ) : !userHasTeam ? (
-          <Link href="/create">
+          <Link href={`./${query.league}/create`}>
             <button className="btn mt-4 w-max">Create team</button>
           </Link>
         ) : (
