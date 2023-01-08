@@ -41,8 +41,10 @@ const leagues = (props: {
                   neque ad nisi commodi totam, dolorem inventore repellat esse
                   beatae accusantium enim minus ipsam libero ab, temporibus
                   aliquam dolor eaque quidem!
-                </p>{" "}
-                <button className="btn">Take a look</button>
+                </p>
+                <Link href={"./epic36"}>
+                  <button className="btn">Take a look</button>
+                </Link>
               </div>
             </div>
           </div>
