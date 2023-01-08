@@ -38,13 +38,15 @@ const Navbar = () => {
               <Image src={logo} width={60} height={60} alt="logo" />
             </a>
           </Link>
-          <Link href="/epic36">
-            <button className="btn bg-primary text-lg text-primary-content hover:text-primary">
-              Epic36
-            </button>
-          </Link>
         </div>
         <div className="flex space-x-2">
+          <div className="mt-1">
+            <Link href="/leagues">
+              <button className="btn bg-primary text-lg text-primary-content hover:text-primary">
+                Leagues
+              </button>
+            </Link>
+          </div>
           <label className="swap-rotate swap">
             <input
               onClick={themeHandler}

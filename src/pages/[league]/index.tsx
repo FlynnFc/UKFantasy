@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Loading from "../../components/Loading";
 import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
@@ -44,6 +44,8 @@ const LeaguePage = (props: { data: any }) => {
   const [loading, setLoading] = useState(false);
   const [userHasTeam, setUserHasTeam] = useState(false);
   const [data, setData] = useState([]);
+
+  //Filters teams so it only shows user submitted teams from this league
   useEffect(() => {
     console.log(props.data);
     const tempData: any = [];
@@ -59,7 +61,20 @@ const LeaguePage = (props: { data: any }) => {
     return setData(tempData);
   }, [props.data, query.league]);
 
-  console.log(data);
+  // const data = useMemo(() => {
+  //   const tempData: any = [];
+  //   props.data.forEach(
+  //     (el: { league: { name: { toLowerCase: () => ParsedUrlQuery } }[] }) => {
+  //       console.log(el.league[0]?.name.toLowerCase());
+  //       console.log(query.league);
+  //       if (el.league[0]?.name.toLowerCase() === query.league) {
+  //         tempData.push(el);
+  //       } else return;
+  //     }
+  //   );
+  //   return tempData;
+  // }, [props.data, query.league]);
+  //Checks is signed in user has already created a team for this league
   useEffect(() => {
     if (data) {
       for (let index = 0; index < data.length; index++) {
