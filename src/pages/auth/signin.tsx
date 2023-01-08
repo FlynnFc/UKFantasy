@@ -18,9 +18,7 @@ export default function SignIn(props: { providers: any }) {
               >
                 <div
                   className={`btn-lg btn flex w-[20rem] justify-center border-none text-xl `}
-                  onClick={() =>
-                    signIn(provider.id, { callbackUrl: "/epic36" })
-                  }
+                  onClick={() => signIn(provider.id, { callbackUrl: "/" })}
                 >
                   Sign in with {provider.name}
                   <FcGoogle className="mx-4 inline" />

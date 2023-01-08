@@ -6,8 +6,8 @@ import Link from "next/link";
 import React from "react";
 
 export async function getServerSideProps() {
-  const path = "http://localhost:3000/";
-  // const path = "https://uk-fantasy.vercel.app/";
+  // const path = "http://localhost:3000/";
+  const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
   if (!res.ok) {
     console.error("error");
