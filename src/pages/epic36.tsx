@@ -81,7 +81,7 @@ const Epic36 = (props: { data: any }) => {
       {loading && <Loading />}
       <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
         <h1 className="my-8 text-4xl font-bold">Epic36 Tournement center</h1>
-        <p className="text-lg">
+        <p className="text-lg leading-relaxed">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
           soluta quo qui atque natus et impedit maxime, explicabo libero
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
@@ -103,7 +103,7 @@ const Epic36 = (props: { data: any }) => {
       </div>
 
       <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
-        <section className="my-2 mt-5 h-max rounded-lg bg-base-300 py-5 px-0 text-base-content shadow-lg 2xl:w-[25%]">
+        <section className="my-2 mt-5 h-max rounded-lg bg-base-300 py-5 px-0 leading-relaxed text-base-content shadow-lg 2xl:w-[25%]">
           <h2 className="text-center text-xl font-bold leading-none">
             Top Performers
           </h2>
