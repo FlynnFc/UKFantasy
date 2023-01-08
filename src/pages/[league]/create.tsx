@@ -219,7 +219,7 @@ const Create = (props: {
               dolor atque natus esse non nisi!
             </p>
             <div className="mr-8 flex justify-end">
-              <Link href={"./epic36"}>
+              <Link href={`/`}>
                 <button className="btn">Take me home</button>
               </Link>
             </div>

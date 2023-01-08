@@ -1,6 +1,10 @@
 // TODO
+// Sign in callback goes to homepage
 // Create team goes to [league]/create
-// Fetch teams and players registered in that league --  done
+// - Teams created are connected to said league
+// Fetch teams and players registered in that league
+// - Fetch player Teams for leaderboard
+// - Fetch Teams for create page
 // Fetch Leaderboard of users that have teams in this league
 // New Team page would be [league]/team/[teamid]
 // User profile page shows what leagues they are in current/past/upcoming use the https://daisyui.com/components/tab/ component
@@ -14,8 +18,8 @@ import Loading from "../../components/Loading";
 import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
 export async function getServerSideProps() {
-  const path = "http://localhost:3000";
-  // const path = "https://uk-fantasy.vercel.app/";
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}/api/allUserTeams`, { method: "GET" });
   if (!res.ok) {
     console.error("error");
