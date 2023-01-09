@@ -86,8 +86,9 @@ const Settings = () => {
             </option>
             <option value={"winter,night"}>Default</option>
             <option value={"corporate,business"}>Microsoft</option>
+            <option value={"bumblebee,halloween"}>Halloween</option>
             <option value={"lofi,black"}>Minimal</option>
-            <option value={"cyberpunk,synthwave"}>{`What's this?`}</option>
+            <option value={"cyberpunk,synthwave"}>{`I'm brave`}</option>
           </select>
           <button
             onClick={themeSubmitter}
