@@ -6,7 +6,7 @@ import logo from "../images/mininewlogo.png";
 import { IoIosArrowDropdown } from "react-icons/io";
 const Navbar = () => {
   const [darkmode, setDarkMode] = useState(true);
-  const [theme, setTheme] = useState<string[]>(["dark", "light"]);
+  const [theme, setTheme] = useState<string[]>(["winter", "night"]);
   useEffect(() => {
     localStorage.getItem("theme");
     if (localStorage.getItem("theme")) {
@@ -14,17 +14,18 @@ const Navbar = () => {
       const themes: any = localStorage.getItem("theme")?.split(",");
       setTheme(themes);
       const bodyEl = document.querySelector("body");
-      bodyEl?.setAttribute("data-theme", themes[1]);
+      bodyEl?.setAttribute("data-theme", themes[!darkmode ? 1 : 0]);
     } else {
       const bodyEl = document.querySelector("body");
-      bodyEl?.setAttribute("data-theme", "dark");
+      bodyEl?.setAttribute("data-theme", "night");
     }
-  }, []);
+  }, [darkmode]);
 
   const themeHandler = () => {
     setDarkMode((prev) => !prev);
     const bodyEl = document.querySelector("body");
-    const chosenTheme: any = darkmode ? theme[0] : theme[1];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const chosenTheme: string = theme[darkmode ? 1 : 0]!;
     bodyEl?.setAttribute("data-theme", chosenTheme);
   };
 
