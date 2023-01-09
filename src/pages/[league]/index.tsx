@@ -17,7 +17,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import Loading from "../../components/Loading";
 import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
-export async function getServerSideProps() {
+
+export async function getStaticProps() {
   // const path = "http://localhost:3000";
   const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}/api/allUserTeams`, { method: "GET" });
@@ -30,7 +31,20 @@ export async function getServerSideProps() {
     props: {
       data,
     },
+    revalidate: 10,
   };
+}
+
+export async function getStaticPaths() {
+  const path = "https://uk-fantasy.vercel.app/";
+  const res = await fetch(`${path}/api/allUserTeams`, { method: "GET" });
+  const data = await res.json();
+  const paths = data.map((league: { name: string }) => {
+    params: {
+      name: league.name;
+    }
+  });
+  return { paths, fallback: "blocking" };
 }
 
 type UserProps = {

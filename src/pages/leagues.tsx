@@ -19,7 +19,6 @@ export async function getStaticProps() {
     props: {
       data,
     },
-    revalidate: 10,
   };
 }
 
@@ -35,17 +34,19 @@ const leagues = (props: {
             <FeaturedLeague />
           </div>
         </div>
-        <h2 className="mt-4 w-full border-b pb-2 text-left text-3xl font-bold">
+        <h2 className="mt-10 w-full border-b pb-2 text-left text-4xl font-bold">
           All leagues
         </h2>
-        <div className="mt-2 flex w-full flex-col items-center space-y-6 lg:grid lg:grid-cols-5 lg:items-baseline">
+        <div className="mt-2 flex w-full flex-wrap items-end space-y-2">
           {props.data.map((el) => {
             return (
-              <LeagueCard key={el.id} title={el.name} offical={el.offical} />
+              <>
+                <LeagueCard key={el.id} title={el.name} offical={el.offical} />
+              </>
             );
           })}
-          <LeagueCard title="epic36" offical={true} />
-          <LeagueCard title="Example" offical={true} />
+          <LeagueCard title="Insomnia 71" offical={true} />
+          <LeagueCard title="Epic 36" offical={true} />
         </div>
       </main>
     </>
@@ -54,7 +55,7 @@ const leagues = (props: {
 
 const LeagueCard = (props: { title: string; offical: boolean }) => {
   return (
-    <div className="m-0 w-[17em] rounded-lg bg-base-content text-base-100 shadow-xl">
+    <div className="mx-1 h-[304px] w-max min-w-[15rem] rounded-lg bg-base-content text-base-100 shadow-xl">
       <div className="h-40 w-full rounded-t-lg bg-slate-600"></div>
       <div className="p-6">
         <div className="flex items-center justify-center space-x-2">
