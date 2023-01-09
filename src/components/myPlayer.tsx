@@ -16,10 +16,10 @@ export const MyPlayer = (props: myPlayer) => {
 
   return (
     <div
-      className={`w-[16rem] flex-col rounded-xl bg-base-200 shadow-lg lg:h-[24rem]`}
+      className={`w-[16rem] flex-col rounded-xl bg-base-200 shadow-lg xl:h-[24rem]`}
     >
       <div
-        className={`relative hidden h-72 cursor-auto justify-center lg:block`}
+        className={`relative hidden h-72 cursor-auto justify-center xl:block`}
       >
         {props.img && (
           <Image
@@ -31,13 +31,13 @@ export const MyPlayer = (props: myPlayer) => {
         )}
       </div>
       <div
-        className={`${rareity} flex h-[6rem] select-none flex-col items-center justify-evenly rounded-lg lg:rounded-none lg:rounded-b-lg `}
+        className={`${rareity} flex h-[6rem] select-none flex-col items-center justify-evenly rounded-lg xl:rounded-none xl:rounded-b-lg `}
       >
-        <h2 className="pt-3 text-center font-bold leading-none text-base-200 lg:text-2xl xl:text-4xl">
+        <h2 className="pt-3 text-center font-bold leading-none text-base-200 lg:text-xl xl:text-3xl">
           {props.name}
         </h2>
         <div>
-          <p className="pb-3 text-center text-base-200 xl:text-3xl">
+          <p className="pb-3 text-center text-base-200 xl:text-2xl">
             £{props.price}
           </p>
         </div>
