@@ -4,8 +4,9 @@
 
 import Link from "next/link";
 import React from "react";
+import FeaturedLeague from "../components/FeaturedLeague";
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   // const path = "http://localhost:3000/";
   const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
@@ -18,7 +19,20 @@ export async function getServerSideProps() {
     props: {
       data,
     },
+    revalidate: 10,
   };
+}
+
+export async function getStaticPaths() {
+  const path = "https://uk-fantasy.vercel.app/";
+  const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
+  const leagues = await res.json();
+
+  const paths = leagues.map((league: { id: string }) => ({
+    params: { id: league.id },
+  }));
+
+  return { paths, fallback: "blocking" };
 }
 
 const leagues = (props: {
