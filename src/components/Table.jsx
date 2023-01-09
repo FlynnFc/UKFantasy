@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTable, useSortBy } from "react-table";
 import Loading from "./Loading";
 import TeamButtonTable from "./TeamButtonTable";
+//Add Global search on table
 
 // type team = {
 //   username: string;
@@ -44,23 +45,9 @@ const Table = (props) => {
     () => [
       {
         username: "flynn",
-        team: "World Weapons under haznoodle",
-        rolepoints: 5,
-        points: 10,
-        totalpoints: 105,
-      },
-      {
-        username: "flynn",
         team: "World",
         rolepoints: 5,
-        points: 20,
-        totalpoints: 105,
-      },
-      {
-        username: "flynn",
-        team: "World",
-        rolepoints: 5,
-        points: 77,
+        points: 44,
         totalpoints: 105,
       },
       {
@@ -108,7 +95,7 @@ const Table = (props) => {
     <>
       <table
         {...getTableProps()}
-        className="table w-full font-semibold shadow-lg"
+        className="table w-full overflow-auto font-semibold shadow-lg"
       >
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -120,7 +107,7 @@ const Table = (props) => {
               {headerGroup.headers.map((column) => (
                 <th
                   key={column.Cell}
-                  className="box-content text-center"
+                  className="sticky -top-1 box-content text-center "
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                 >
                   {column.render("Header")}
@@ -136,12 +123,12 @@ const Table = (props) => {
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
+        <tbody {...getTableBodyProps()} className="overflow-x-auto">
           {rows.map((row) => {
             prepareRow(row);
             return (
               <tr
-                className="transition-all"
+                className="z-10 transition-all"
                 key={row.id}
                 {...row.getRowProps()}
               >
