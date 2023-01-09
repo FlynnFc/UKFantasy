@@ -122,7 +122,7 @@ const Epic36 = (props: { data: any }) => {
           </ul>
         </section>
         <section className="my-2 mt-5 flex justify-center rounded-lg bg-base-300 px-10 pb-10 text-base-content  2xl:w-[75%]">
-          <div className=" w-full overflow-x-auto">
+          <div className="w-full">
             {/* <table className="table w-full font-semibold">
               <thead>
                 <tr>
@@ -213,7 +213,9 @@ const Epic36 = (props: { data: any }) => {
             <h2 className="mb-4 mt-4 text-center text-2xl font-bold">
               Scoreboard
             </h2>
-            {data && <Table data={data} />}
+            <div className="scroll max-h-[43vw] overflow-x-auto">
+              {data && <Table data={data} />}
+            </div>
           </div>
         </section>
       </div>

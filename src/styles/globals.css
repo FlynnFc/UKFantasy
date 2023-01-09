@@ -6,6 +6,20 @@
   font-family: "Poppins", sans-serif;
 }
 
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: hsl(var(--p));
+  border-radius: 20px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: hsl(var(--pc));
+  border-radius: 20px;
+}
+
 .disabledPlayer {
   background: rgba(60, 59, 59, 0.852);
 }
