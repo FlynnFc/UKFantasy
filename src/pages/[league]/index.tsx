@@ -39,9 +39,10 @@ export async function getStaticPaths() {
   const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}/api/allUserTeams`, { method: "GET" });
   const data = await res.json();
-  const paths = data.map((league: { name: string }) => {
+  const paths = data.map((league: { name: string; id: string }) => {
     params: {
       name: league.name;
+      id: league.id;
     }
   });
   return { paths, fallback: "blocking" };
