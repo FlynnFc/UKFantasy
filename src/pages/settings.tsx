@@ -81,7 +81,7 @@ const Settings = () => {
             onChange={(e) => setTheme(e.target.value)}
             className="select w-full max-w-xs"
           >
-            <option disabled selected>
+            <option disabled selected={true}>
               Choose a theme
             </option>
             <option value={"winter,night"}>Default</option>

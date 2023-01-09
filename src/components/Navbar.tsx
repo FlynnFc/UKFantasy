@@ -40,12 +40,10 @@ const Navbar = () => {
             </a>
           </Link>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex items-center space-x-2">
           <div className="mt-1">
             <Link href="/leagues">
-              <button className="btn bg-primary text-base text-primary-content hover:text-primary">
-                Leagues
-              </button>
+              <button className="btn text-white">Leagues</button>
             </Link>
           </div>
           <label className="swap-rotate swap">
