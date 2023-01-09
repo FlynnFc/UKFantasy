@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className=" hidden w-full justify-evenly sm:flex sm:justify-between">
         <div className="flex space-x-4">
           <Link href="/">
-            <a className="btn flex text-xl normal-case">
+            <a className="btn-ghost btn flex items-center text-xl normal-case">
               <span className="mb-3">UKFantasy</span>
               <Image src={logo} width={60} height={60} alt="logo" />
             </a>
@@ -43,7 +43,7 @@ const Navbar = () => {
         <div className="flex space-x-2">
           <div className="mt-1">
             <Link href="/leagues">
-              <button className="btn bg-primary text-lg text-primary-content hover:text-primary">
+              <button className="btn bg-primary text-base text-primary-content hover:text-primary">
                 Leagues
               </button>
             </Link>
