@@ -3,10 +3,11 @@ import Link from "next/link";
 import { IoIosArrowDropdown } from "react-icons/io";
 export default function LoginBtn(props: { primary: boolean }) {
   const { data: session } = useSession();
-  if (session?.user) {
-    return (
-      <>
-        <div className="dropdown-end dropdown">
+
+  return (
+    <>
+      {session?.user ? (
+        <div className="dropdown-end dropdown ">
           <label
             tabIndex={0}
             className="btn m-1 border-none bg-transparent p-1 px-2 text-4xl text-base-content"
@@ -15,7 +16,7 @@ export default function LoginBtn(props: { primary: boolean }) {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box w-52 space-y-2 bg-primary p-2 text-primary-content shadow "
+            className="dropdown-content menu rounded-box w-[13.6rem] space-y-2 bg-primary p-2 text-primary-content shadow"
           >
             <li>
               <a>Profile</a>
@@ -32,19 +33,16 @@ export default function LoginBtn(props: { primary: boolean }) {
             </li>
           </ul>
         </div>
-      </>
-    );
-  }
-  return (
-    <>
-      <button
-        className={`${
-          props.primary ? "btn-primary" : "btn mt-4 w-max"
-        } btn mr-2`}
-        onClick={() => signIn()}
-      >
-        Sign in
-      </button>
+      ) : (
+        <button
+          className={`${
+            props.primary ? "btn-primary" : "btn mt-4 w-max"
+          } btn mr-2`}
+          onClick={() => signIn()}
+        >
+          Sign in
+        </button>
+      )}
     </>
   );
 }
