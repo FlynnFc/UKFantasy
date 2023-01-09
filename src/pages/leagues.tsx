@@ -30,23 +30,7 @@ const leagues = (props: {
       <main className="container mx-auto flex min-h-screen w-[78%] flex-col items-center justify-start p-4">
         <div className="hero rounded-xl">
           <div className="flex-col items-center justify-evenly lg:flex-row">
-            <div>
-              <h1 className="text-5xl font-bold text-base-content">
-                Featured League
-              </h1>
-              <div className="shad mt-4 rounded-xl bg-primary p-6 text-primary-content shadow-lg">
-                <h2 className="py-4 text-4xl font-bold">Epic 36</h2>
-                <p className="py-3">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas
-                  neque ad nisi commodi totam, dolorem inventore repellat esse
-                  beatae accusantium enim minus ipsam libero ab, temporibus
-                  aliquam dolor eaque quidem!
-                </p>
-                <Link href={"./epic36"}>
-                  <button className="btn">Take a look</button>
-                </Link>
-              </div>
-            </div>
+            <FeaturedLeague />
           </div>
         </div>
         <h2 className="mt-4 w-full border-b pb-2 text-left text-3xl font-bold">
