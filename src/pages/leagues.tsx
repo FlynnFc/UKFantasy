@@ -23,18 +23,6 @@ export async function getStaticProps() {
   };
 }
 
-export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
-  const leagues = await res.json();
-
-  const paths = leagues.map((league: { id: string }) => ({
-    params: { id: league.id },
-  }));
-
-  return { paths, fallback: "blocking" };
-}
-
 const leagues = (props: {
   data: [{ id: string; name: string; offical: boolean }];
 }) => {
