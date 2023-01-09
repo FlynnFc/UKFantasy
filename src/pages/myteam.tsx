@@ -31,7 +31,6 @@ type teamProps = {
 const Myteam = () => {
   const { data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
-  const [link, setLink] = useState("");
 
   useEffect(() => {
     const fetcher = async () => {
@@ -58,7 +57,7 @@ const Myteam = () => {
   const linkSetter = () => {
     const path: string | any = team?.PlayerTeam.id;
     const host = "https://uk-fantasy.vercel.app/team/";
-    setLink(() => host + path);
+    const link = host + path;
     navigator.clipboard.writeText(link);
     toast.success("added link to clipboard");
   };
