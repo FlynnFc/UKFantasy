@@ -306,12 +306,13 @@ const Create = (props: {
 };
 export default Create;
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
   const data = await res.json();
   return {
     props: {
       data,
     },
+    revalidate: 1000,
   };
 }
