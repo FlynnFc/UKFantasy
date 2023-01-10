@@ -8,21 +8,28 @@
 
 ## Key Features
 
+### User Features
 * Create Team
   -compete against others
 * Share teams
 * Create Leagues
-  
+* Different color theme
+
+### Tech
+* React, Nextjs
+* Vercel for hosting
+* MySql & PlanetScale for DB hosting
+* Rate Liming with upstash & Reddis
+
 This app is still in development. The first event it will cover is EpicLan which is in mid February 2023.
 
-### Feature Roadmap
+## Feature Roadmap
 
-* Different color themes (Ready for release)
 * Paid Leagues
 * Player Stats
  -Advanced Stats
 * Live game coverage
-* Automatic points
+* Automatic point allocation to players
 
 
 
