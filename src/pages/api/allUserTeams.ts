@@ -8,7 +8,7 @@ const allUserTeams = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       try {
         const userTeams = await prisma.playerTeam.findMany({include:{league:true,User:true,}})
-        console.log(userTeams)
+        console.log("all teams", userTeams)
         res.status(200).json(userTeams)
       } catch (e) {
         console.error('Request error', e)
