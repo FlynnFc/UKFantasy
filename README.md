@@ -4,7 +4,7 @@
 </h1>
 
 * Make a team out of players competing in the UK Esports scene.
-* Use your funds wisely.
+* Use your budget wisely.
 
 ## Key Features
 
