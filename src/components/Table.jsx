@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTable, useSortBy } from "react-table";
 import Loading from "./Loading";
 import TeamButtonTable from "./TeamButtonTable";
+import { useRouter } from "next/router";
 //Add Global search on table
 
 // type team = {
@@ -13,6 +14,8 @@ import TeamButtonTable from "./TeamButtonTable";
 // }
 
 const Table = (props) => {
+  const { query } = useRouter();
+
   const [playerData, setPlayerData] = useState([]);
   const [checker, setChecker] = useState(new Set([]));
 
@@ -28,7 +31,13 @@ const Table = (props) => {
             ...prev,
             {
               username: el.User.name,
-              team: <TeamButtonTable name={el.teamName} id={el.id} />,
+              team: (
+                <TeamButtonTable
+                  name={el.teamName}
+                  id={el.id}
+                  league={query.league}
+                />
+              ),
               points: el.points,
               rolepoints: el.rolePoints,
               totalpoints: parseInt(el.points) + parseInt(el.rolePoints),
