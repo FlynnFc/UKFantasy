@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { off } from "process";
+
 import React, { useEffect, useLayoutEffect, useState } from "react";
 
 type player = {
@@ -41,7 +41,7 @@ const SelectedPlayer = (props: player) => {
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
     >
       <div
-        className={`image h-0 justify-center overflow-hidden bg-base-300 ${
+        className={`image hidden h-52 cursor-auto justify-center overflow-hidden bg-base-300 xl:block ${
           !scrolled ? null : "scrolled"
         }`}
         onMouseEnter={() => {
