@@ -40,12 +40,11 @@ const Navbar = () => {
             </a>
           </Link>
         </div>
-        <div className="flex items-center space-x-2">
-          <div className="mt-1">
-            <Link href="/leagues">
-              <button className="btn text-white">Leagues</button>
-            </Link>
-          </div>
+        <div className="flex items-start space-x-2">
+          <Link href="/leagues">
+            <button className="btn text-white">Leagues</button>
+          </Link>
+
           <label className="swap-rotate swap">
             <input
               onClick={themeHandler}
