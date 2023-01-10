@@ -2,7 +2,7 @@
 // Fetch teams and players registered in that league
 // - Fetch player Teams for leaderboard
 // - Fetch Teams for create page
-
+//TODO line 163 if no res then give user error and prompt back to league screen
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import NotSignedin from "../../components/NotSignedin";
@@ -14,6 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import StandaloneSignIn from "../../components/StandaloneSignIn";
 import Filter from "bad-words";
+import { useRouter } from "next/router";
 type player = {
   map(arg0: (el: any) => JSX.Element): unknown;
   id: string;
@@ -44,7 +45,7 @@ const Create = (props: {
   const [submitted, setSubmitted] = useState(false);
   const [teamName, setTeamName] = useState("Your Team");
   const [loading, setLoading] = useState(false);
-
+  const { query } = useRouter();
   //Ensures Team name is never empty string
   useEffect(() => {
     if (teamName.length < 1) {
@@ -115,7 +116,6 @@ const Create = (props: {
       ]);
     }
   };
-
   //Submits people in myTeam to DB
   const teamSubmitHandler = async () => {
     const playerIds: any[] = await myTeam.map((el) => {
@@ -126,6 +126,7 @@ const Create = (props: {
       teamName: filter.clean(teamName),
       userId: session.data?.user?.id,
       players: playerIds,
+      league: query.league,
     };
 
     const JSONbody = await JSON.stringify(body);
@@ -159,13 +160,38 @@ const Create = (props: {
           headers: { id: id },
         });
         if (!res.ok) {
+          //add error tell user to go back to league page
           setSubmitted(false);
         }
         const data = await res.json();
-        console.log(data);
-        if (!data.playerTeamId) {
+        console.log(data.PlayerTeam);
+        if (!data.PlayerTeam.length) {
           setSubmitted(false);
-        } else setSubmitted(true);
+          console.log(
+            "User has never submitted a team breaking out of checker function"
+          );
+        } else {
+          const leaguesjson = await fetch("/api/allLeagues", {
+            method: "GET",
+            headers: { id: id },
+          });
+          const leagueData = await leaguesjson.json();
+          console.log(leagueData);
+          const userLeagues = new Set();
+          for (let i = 0; i < data.PlayerTeam.length; i++) {
+            const el = data.PlayerTeam[i];
+            userLeagues.add(el.leagueId);
+          }
+
+          for (let i = 0; i < leagueData.length; i++) {
+            const element = leagueData[i];
+            if (userLeagues.has(element.id)) {
+              setSubmitted(true);
+              console.log("found matching id");
+              break;
+            }
+          }
+        }
       } else return "error";
 
       setTimeout(() => setLoading(false), 400);
@@ -225,8 +251,8 @@ const Create = (props: {
               dolor atque natus esse non nisi!
             </p>
             <div className="mr-8 flex justify-end">
-              <Link href={`/`}>
-                <button className="btn">Take me home</button>
+              <Link href={`/${query.league}`}>
+                <button className="btn">Take me back</button>
               </Link>
             </div>
           </div>

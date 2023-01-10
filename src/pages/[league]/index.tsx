@@ -107,7 +107,7 @@ const LeaguePage = (props: { data: any }) => {
             To enter this league you need to create a team
           </p>
           <div className="mx-3  flex w-full flex-row justify-start p-6">
-            <Link href="/create">
+            <Link href={`${query.league}/create`}>
               <button
                 onClick={() => setLoading(true)}
                 className="btn-primary btn w-max outline"
