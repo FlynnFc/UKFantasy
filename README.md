@@ -18,7 +18,7 @@
 ### Tech
 * React, Nextjs
 * Vercel for hosting
-* MySql & PlanetScale for DB hosting
+* MySql & PlanetScale for DB
 * Rate Liming with upstash & Reddis
 
 This app is still in development. The first event it will cover is EpicLan which is in mid February 2023.
