@@ -45,8 +45,7 @@ const leagues = (props: {
               </>
             );
           })}
-          <LeagueCard title="Insomnia 71" offical={true} />
-          <LeagueCard title="Epic 36" offical={true} />
+          <LeagueCard title="Insomnia 71" offical={false} />
         </div>
       </main>
     </>
