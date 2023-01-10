@@ -24,7 +24,7 @@
 This app is still in development. The first event it will cover is EpicLan which is in mid February 2023.
 
 ## Feature Roadmap
-
+* Migrate Auth to Reddis
 * Paid Leagues
 * Player Stats
  -Advanced Stats
