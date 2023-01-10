@@ -45,7 +45,7 @@ const Navbar = () => {
             <button className="btn text-white">Leagues</button>
           </Link>
 
-          <label className="swap-rotate swap">
+          <label className="swap-rotate swap mt-[0.2rem]">
             <input
               onClick={themeHandler}
               data-toggle-theme="winter,night"
