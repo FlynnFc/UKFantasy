@@ -157,6 +157,7 @@ const Create = (props: {
           setSubmitted(false);
         }
         const data = await res.json();
+        console.log(data);
         if (!data.playerTeamId) {
           setSubmitted(false);
         } else setSubmitted(true);

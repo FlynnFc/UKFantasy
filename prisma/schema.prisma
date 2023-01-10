@@ -49,18 +49,15 @@ model Session {
 }
 
 model User {
-  id            String      @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?     @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  PlayerTeam    PlayerTeam? @relation(fields: [playerTeamId], references: [id])
-  playerTeamId  String?
+  PlayerTeam    PlayerTeam[]
   league        League[]
-
-  @@index([playerTeamId])
 }
 
 model VerificationToken {
@@ -106,11 +103,13 @@ model PlayerTeam {
   rolePoints String
   Player     Player[]
   league     League?  @relation(fields: [leagueId], references: [id])
-  User       User[]
+  User       User?    @relation(fields: [userId], references: [id])
 
   leagueId String?
+  userId   String?
 
   @@index([leagueId])
+  @@index([userId])
 }
 
 model Team {
