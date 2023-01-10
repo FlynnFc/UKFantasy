@@ -1,3 +1,8 @@
+// - Teams created are connected to said league
+// Fetch teams and players registered in that league
+// - Fetch player Teams for leaderboard
+// - Fetch Teams for create page
+
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import NotSignedin from "../../components/NotSignedin";
