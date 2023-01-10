@@ -1,6 +1,4 @@
 //Grey out leagues user is already in
-// Fetch all leagues --done
-// using Hero from daisy Add a featured League?
 
 import Link from "next/link";
 import React from "react";
