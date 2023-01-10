@@ -15,6 +15,7 @@ export default async function assetHandler(req:any, res:any) {
             },
             include: {
               PlayerTeam:{include:{Player:true}},
+              
             },
           })
           res.status(200).json(myTeam)
