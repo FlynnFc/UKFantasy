@@ -43,7 +43,6 @@ const leagues = (props: {
               </>
             );
           })}
-          <LeagueCard title="Insomnia 71" offical={false} />
         </div>
       </main>
     </>
