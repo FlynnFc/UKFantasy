@@ -83,7 +83,7 @@ const LeaguePage = (props: { data: any }) => {
     if (data) {
       for (let index = 0; index < data.length; index++) {
         const element: UserProps | any = data[index];
-        console.log(element);
+        console.log(element, session);
         if (element?.User.id === session.data?.user?.id) {
           setUserHasTeam(true);
           return;
@@ -96,7 +96,7 @@ const LeaguePage = (props: { data: any }) => {
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-      {createModal && session.data ? (
+      {createModal && !userHasTeam && session.data ? (
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
@@ -142,7 +142,7 @@ const LeaguePage = (props: { data: any }) => {
             <button className="btn mt-4 w-max">Create team</button>
           </Link>
         ) : (
-          <Link href="/myteam">
+          <Link href={`${query.league}/myteam`}>
             <button className="btn mt-4 w-max ">View Team</button>
           </Link>
         )}
