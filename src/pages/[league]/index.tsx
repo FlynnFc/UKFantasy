@@ -17,14 +17,7 @@ import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
 
 export async function getStaticProps() {
-  // const path = "http://localhost:3000";
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}/api/allUserTeams`, { method: "GET" });
-  console.log(path);
-  if (!res.ok) {
-    console.log("RES NOT OK!");
-    return { props: { data: "no data found" } };
-  }
+  const res = await fetch("https://uk-fantasy.vercel.app/api/allUserTeams");
   const data = await res.json();
   return {
     props: {
