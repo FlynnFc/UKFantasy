@@ -23,7 +23,7 @@ export async function getStaticProps() {
   console.log(path);
   if (!res.ok) {
     console.log("RES NOT OK!");
-    return;
+    return { props: { data: "no data found" } };
   }
   const data = await res.json();
   return {
