@@ -63,7 +63,7 @@ const LeaguePage = (props: { data: any }) => {
   //Filters teams so it only shows user submitted teams from this league
   useEffect(() => {
     const tempData: any = [];
-    props.data.forEach((el: any) => {
+    props.data.forEach((el: { league: { name: string } }) => {
       if (el.league?.name.toLowerCase() === query.league) {
         tempData.push(el);
       } else return;
@@ -89,7 +89,8 @@ const LeaguePage = (props: { data: any }) => {
     if (data) {
       for (let index = 0; index < data.length; index++) {
         const element: UserProps | any = data[index];
-        if (element?.User[0].id === session.data?.user?.id) {
+        console.log(element);
+        if (element?.User.id === session.data?.user?.id) {
           setUserHasTeam(true);
           return;
         }

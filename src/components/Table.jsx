@@ -27,7 +27,7 @@ const Table = (props) => {
           return [
             ...prev,
             {
-              username: el.User[0].name,
+              username: el.User.name,
               team: <TeamButtonTable name={el.teamName} id={el.id} />,
               points: el.points,
               rolepoints: el.rolePoints,
