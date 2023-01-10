@@ -1,6 +1,4 @@
 // TODO
-// Sign in callback goes to homepage
-// Create team goes to [league]/create
 // - Teams created are connected to said league
 // Fetch teams and players registered in that league
 // - Fetch player Teams for leaderboard
@@ -12,8 +10,8 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ParsedUrlQuery } from "querystring";
-import React, { useEffect, useMemo, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
@@ -23,7 +21,8 @@ export async function getStaticProps() {
   const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}/api/allUserTeams`, { method: "GET" });
   if (!res.ok) {
-    console.error("error");
+    console.log("RES NOT OK!");
+    console.error(res);
     return;
   }
   const data = await res.json();
@@ -55,6 +54,7 @@ type UserProps = {
 };
 
 const LeaguePage = (props: { data: any }) => {
+  console.log(props.data);
   const session = useSession();
   const { query } = useRouter();
   const [createModal, setCreateModal] = useState(true);
@@ -66,15 +66,12 @@ const LeaguePage = (props: { data: any }) => {
   useEffect(() => {
     console.log(props.data);
     const tempData: any = [];
-    props.data.forEach(
-      (el: { league: { name: { toLowerCase: () => ParsedUrlQuery } }[] }) => {
-        console.log(el.league[0]?.name.toLowerCase());
-        console.log(query.league);
-        if (el.league[0]?.name.toLowerCase() === query.league) {
-          tempData.push(el);
-        } else return;
-      }
-    );
+    props.data.forEach((el: any) => {
+      console.log(el);
+      if (el.league?.name.toLowerCase() === query.league) {
+        tempData.push(el);
+      } else return;
+    });
     return setData(tempData);
   }, [props.data, query.league]);
 

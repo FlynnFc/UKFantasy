@@ -105,8 +105,12 @@ model PlayerTeam {
   points     String
   rolePoints String
   Player     Player[]
-  league     League[]
+  league     League?  @relation(fields: [leagueId], references: [id])
   User       User[]
+
+  leagueId String?
+
+  @@index([leagueId])
 }
 
 model Team {
