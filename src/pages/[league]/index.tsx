@@ -18,7 +18,7 @@ import Table from "../../components/Table";
 
 export async function getStaticProps() {
   // const path = "http://localhost:3000";
-  const path = "https://uk-fantasy.vercel.app/";
+  const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/allUserTeams`, { method: "GET" });
   if (!res.ok) {
     console.log("RES NOT OK!");
