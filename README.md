@@ -4,25 +4,32 @@
 </h1>
 
 * Make a team out of players competing in the UK Esports scene.
-* Use your funds wisely.
+* Use your budget wisely.
 
 ## Key Features
 
+### User Features
 * Create Team
   -compete against others
 * Share teams
 * Create Leagues
-  
+* Different color theme
+
+### Tech
+* React, Nextjs
+* Vercel for hosting
+* MySql & PlanetScale for DB
+* Rate Liming with upstash & Reddis
+
 This app is still in development. The first event it will cover is EpicLan which is in mid February 2023.
 
-### Feature Roadmap
-
-* Different color themes (Ready for release)
+## Feature Roadmap
+* Migrate Auth to Reddis
 * Paid Leagues
 * Player Stats
  -Advanced Stats
 * Live game coverage
-* Automatic points
+* Automatic point allocation to players
 
 
 
@@ -36,7 +43,6 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 $ git clone https://github.com/FlynnFc/TicketTracker.io
 
 # Go into the repository
-$ cd electron-markdownify
 
 # Install dependencies
 $ npm install
