@@ -9,16 +9,8 @@ const Home: NextPage = () => {
         </h1>
         <p className="text-left text-lg">
           This is an experimental version of the site. If you find any bugs or
-          have ideas of future features shoot me a message{" "}
-          <a
-            target="_blank"
-            href="https://twitter.com/lutafatootoo"
-            className="link font-semibold"
-            rel="noreferrer"
-          >
-            here
-          </a>
-          .
+          have ideas of future features shoot me an email{" "}
+          <i>foleyclarkef@gmail.com</i>.
         </p>
       </main>
     </>
