@@ -14,7 +14,7 @@ export default async function assetHandler(req:any, res:any) {
               id: id,
             },
             include: {
-              PlayerTeam:{include:{Player:true}},
+              PlayerTeam:{include:{Player:true,league:true}},
               
             },
           })
