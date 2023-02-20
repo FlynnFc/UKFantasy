@@ -185,7 +185,8 @@ const Create = (props: {
 
           for (let i = 0; i < leagueData.length; i++) {
             const element = leagueData[i];
-            if (userLeagues.has(element.id)) {
+            if (userLeagues.has(element)) {
+              console.log(element.id);
               setSubmitted(true);
               console.log("found matching id");
               break;
@@ -338,28 +339,28 @@ const Create = (props: {
 };
 export default Create;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
   const data = await res.json();
   return {
     props: {
       data,
     },
-    revalidate: 1000,
+    // revalidate: 1000,
   };
 }
 
-export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-  const data = await res.json();
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
+// export async function getStaticPaths() {
+//   const path = "https://uk-fantasy.vercel.app/";
+//   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+//   const data = await res.json();
+//   const paths = data.map((league: { name: string }) => ({
+//     params: { league: league.name.toLowerCase() },
+//   }));
 
-  console.log(paths);
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   console.log(paths);
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
