@@ -52,7 +52,7 @@ const Myteam = () => {
     fetcher();
 
     console.log("running");
-  }, [session]);
+  }, [query.league, session]);
 
   const linkSetter = () => {
     const path: string | any = team?.id;
@@ -103,7 +103,7 @@ const Myteam = () => {
               <h3 className="text-lg font-bold">
                 Are you sure you want to delete your team?
               </h3>
-
+              <p>After deleting you cant get it back!</p>
               <div className="modal-action flex w-full justify-end">
                 <label
                   htmlFor="my-modal"
