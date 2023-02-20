@@ -41,9 +41,8 @@ const SelectedPlayer = (props: player) => {
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
     >
       <div
-        className={`image hidden h-52 cursor-auto justify-center overflow-hidden bg-base-300 xl:block ${
-          !scrolled ? null : "scrolled"
-        }`}
+        className={`image hidden h-52 cursor-auto justify-center overflow-hidden bg-base-300 xl:block 
+          `}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
