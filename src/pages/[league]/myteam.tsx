@@ -64,10 +64,17 @@ const Myteam = () => {
 
   console.log(team, query.league);
 
-  const teamDeleter = () => {
-    if (session?.user?.id) {
-      const id = session.user.id;
-      console.log("team deleted", id);
+  const teamDeleter = async () => {
+    if (session?.user?.id && team?.id) {
+      console.log("team deleted", team?.id, query.league);
+      const res = await fetch("/api/deleteTeam", {
+        method: "DELETE",
+        headers: { id: team.id },
+      });
+      if (!res.ok) {
+        //add error tell user to go back to league page
+        toast.error("Could not delete");
+      }
     }
   };
   return (
@@ -82,26 +89,10 @@ const Myteam = () => {
             </button>
           </header>
 
-          <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
-            {team &&
-              team.Player?.map((el) => {
-                return (
-                  <MyPlayer
-                    key={el.id}
-                    name={el.name}
-                    price={el.price}
-                    rareity={el.Rareity}
-                    img={el.Image}
-                  />
-                );
-              })}
-          </div>
-
           <label htmlFor="my-modal" className="btn-error btn">
             Delete team
           </label>
 
-          {/* Put this part before </body> tag */}
           <input
             type="checkbox"
             id="my-modal"
@@ -126,6 +117,20 @@ const Myteam = () => {
                 </label>
               </div>
             </div>
+          </div>
+          <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
+            {team &&
+              team.Player?.map((el) => {
+                return (
+                  <MyPlayer
+                    key={el.id}
+                    name={el.name}
+                    price={el.price}
+                    rareity={el.Rareity}
+                    img={el.Image}
+                  />
+                );
+              })}
           </div>
         </div>
       ) : (
