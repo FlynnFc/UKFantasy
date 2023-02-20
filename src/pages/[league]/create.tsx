@@ -177,18 +177,14 @@ const Create = (props: {
           });
           const leagueData = await leaguesjson.json();
           console.log(leagueData);
-          const userLeagues = new Set();
+          console.log(data);
+
           for (let i = 0; i < data.PlayerTeam.length; i++) {
             const el = data.PlayerTeam[i];
-            userLeagues.add(el.leagueId);
-          }
-
-          for (let i = 0; i < leagueData.length; i++) {
-            const element = leagueData[i];
-            if (userLeagues.has(element)) {
-              console.log(element.id);
+            const elLeague = el.league.name.toLowerCase();
+            const currentLeague = query.league?.toString().toLowerCase();
+            if (elLeague === currentLeague) {
               setSubmitted(true);
-              console.log("found matching id");
               break;
             }
           }
@@ -198,7 +194,7 @@ const Create = (props: {
       setTimeout(() => setLoading(false), 400);
     };
     teamChecker();
-  }, [session.data?.user?.id]);
+  }, [query.league, session.data?.user?.id]);
 
   return (
     <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl flex-col items-end justify-start p-4  sm:mx-auto">
