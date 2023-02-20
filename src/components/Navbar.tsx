@@ -16,8 +16,7 @@ const Navbar = () => {
       const bodyEl = document.querySelector("body");
       bodyEl?.setAttribute("data-theme", themes[!darkmode ? 1 : 0]);
     } else {
-      const bodyEl = document.querySelector("body");
-      bodyEl?.setAttribute("data-theme", "night");
+      localStorage.setItem("theme", "night,winter");
     }
   }, [darkmode]);
 
