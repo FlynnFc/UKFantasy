@@ -72,9 +72,9 @@ model Player {
   id      String @id @default(cuid())
   name    String
   price   Int
-  Image   String @db.Text
-  Rareity String
-  Stats   Stats  @relation(fields: [statsId], references: [id])
+  image   String @db.Text
+  rareity String
+  stats   Stats  @relation(fields: [statsId], references: [id])
   statsId String
   team    Team   @relation(fields: [teamId], references: [id])
   teamId  String
@@ -111,11 +111,11 @@ model PlayerTeam {
 
 model SelectedPlayer {
   id           String     @id @default(cuid())
-  name         String?
-  price        Int?
+  name         String
+  price        Int
   image        String?    @db.Text
-  rareity      String?
-  bonus        bonus      @relation(fields: [bonusName], references: [name])
+  rareity      String
+  bonus        bonus?     @relation(fields: [bonusName], references: [name])
   playerTeam   PlayerTeam @relation(fields: [playerTeamId], references: [id])
   playerTeamId String
   bonusName    String
