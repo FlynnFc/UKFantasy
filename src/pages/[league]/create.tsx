@@ -15,7 +15,7 @@ import StandaloneSignIn from "../../components/StandaloneSignIn";
 import Filter from "bad-words";
 import { useRouter } from "next/router";
 type player = {
-  map(arg0: (el: player) => JSX.Element): unknown;
+  map(arg0: (el: any) => JSX.Element): unknown;
   id: string;
   name: string;
   price: number;
@@ -29,9 +29,7 @@ const filter = new Filter();
 
 const Create = (props: {
   data: {
-    map(
-      arg0: (el: { teamName: string; Player: player }) => void
-    ): React.ReactNode;
+    map(arg0: (el: any) => void): React.ReactNode;
     player: player[];
   };
 }) => {
@@ -348,7 +346,7 @@ const Create = (props: {
               {props.data?.map((el) => {
                 return (
                   <PlayerGroup team={el.teamName} key={el.teamName}>
-                    {el.Player?.map((els) => {
+                    {el.Player?.map((els: any) => {
                       return (
                         <Player
                           key={els.id}

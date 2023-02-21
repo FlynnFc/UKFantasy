@@ -15,7 +15,7 @@ try {
   const findPlayerData = await prisma.player.findMany({where:{ id:{ in: [...data.players]}}})
   console.log("Player data", findPlayerData )
   
-  const finalTeam = [
+  const finalTeam: any = [
     {bonusName:'', image:findPlayerData[0]?.Image, name:findPlayerData[0]?.name, price:findPlayerData[0]?.price, rareity:findPlayerData[0]?.Rareity},
     {bonusName:'', image:findPlayerData[1]?.Image, name:findPlayerData[1]?.name, price:findPlayerData[1]?.price, rareity:findPlayerData[1]?.Rareity},
     {bonusName:'', image:findPlayerData[2]?.Image, name:findPlayerData[2]?.name, price:findPlayerData[2]?.price, rareity:findPlayerData[2]?.Rareity},
