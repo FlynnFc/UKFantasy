@@ -2,10 +2,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
 
-const allUserTeams = async (req: NextApiRequest, res: any) => {
+const allUserTeams = async (req: NextApiRequest, res: NextApiResponse) => {
     const { method } = req
     const {headers} = req
-    const id:any = headers.id
+    const id:string = headers.id as string
 
 
   switch (method) {

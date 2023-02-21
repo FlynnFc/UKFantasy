@@ -4,13 +4,11 @@
 datasource db {
   provider             = "mysql"
   url                  = env("DATABASE_URL")
-  //Necessary for PlanetScale
   referentialIntegrity = "prisma"
 }
 
 generator client {
   provider        = "prisma-client-js"
-  //Necessary for PlanetScale
   previewFeatures = ["referentialIntegrity"]
 }
 
@@ -71,16 +69,15 @@ model VerificationToken {
 }
 
 model Player {
-  id         String       @id @default(cuid())
-  name       String
-  price      Int
-  Image      String       @db.Text
-  Rareity    String
-  Stats      Stats        @relation(fields: [statsId], references: [id])
-  statsId    String
-  PlayerTeam PlayerTeam[]
-  team       Team         @relation(fields: [teamId], references: [id])
-  teamId     String
+  id      String @id @default(cuid())
+  name    String
+  price   Int
+  Image   String @db.Text
+  Rareity String
+  Stats   Stats  @relation(fields: [statsId], references: [id])
+  statsId String
+  team    Team   @relation(fields: [teamId], references: [id])
+  teamId  String
 
   @@index([statsId])
   @@index([teamId])
@@ -102,7 +99,6 @@ model PlayerTeam {
   teamName       String
   points         String
   rolePoints     String
-  Player         Player[]
   league         League?          @relation(fields: [leagueId], references: [id])
   User           User?            @relation(fields: [userId], references: [id])
   leagueId       String?
