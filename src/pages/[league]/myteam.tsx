@@ -12,10 +12,10 @@ type player = {
   id: string;
   name: string;
   price: number;
-  Rareity: string;
+  rareity: string;
   teamId: string;
   statsId: string;
-  Image: string;
+  image: string;
 };
 
 type teamProps = {
@@ -23,6 +23,7 @@ type teamProps = {
   points: string;
   Player: player[];
   teamName: string;
+  SelectedPlayer: player[];
 };
 
 const Myteam = () => {
@@ -30,6 +31,7 @@ const Myteam = () => {
   const [team, setTeam] = useState<teamProps>();
   const { query } = useRouter();
   const router = useRouter();
+
   useEffect(() => {
     const fetcher = async () => {
       if (session?.user?.id && query.league) {
@@ -42,6 +44,7 @@ const Myteam = () => {
           console.log("error");
         }
         const data = await res.json();
+        console.log(data);
         for (let i = 0; i < data.PlayerTeam.length; i++) {
           if (data.PlayerTeam[i].league.name.toLowerCase() === query.league) {
             setTeam(data.PlayerTeam[i]);
@@ -133,14 +136,14 @@ const Myteam = () => {
             </label>
             <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
               {team &&
-                team.Player?.map((el) => {
+                team.SelectedPlayer?.map((el) => {
                   return (
                     <MyPlayer
                       key={el.id}
                       name={el.name}
                       price={el.price}
-                      rareity={el.Rareity}
-                      img={el.Image}
+                      rareity={el.rareity}
+                      img={el.image}
                     />
                   );
                 })}

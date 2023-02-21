@@ -4,11 +4,13 @@
 datasource db {
   provider             = "mysql"
   url                  = env("DATABASE_URL")
+  //Necessary for PlanetScale
   referentialIntegrity = "prisma"
 }
 
 generator client {
   provider        = "prisma-client-js"
+  //Necessary for PlanetScale
   previewFeatures = ["referentialIntegrity"]
 }
 
@@ -77,9 +79,8 @@ model Player {
   Stats      Stats        @relation(fields: [statsId], references: [id])
   statsId    String
   PlayerTeam PlayerTeam[]
-
-  team   Team   @relation(fields: [teamId], references: [id])
-  teamId String
+  team       Team         @relation(fields: [teamId], references: [id])
+  teamId     String
 
   @@index([statsId])
   @@index([teamId])
@@ -97,19 +98,34 @@ model Stats {
 }
 
 model PlayerTeam {
-  id         String   @id @default(cuid())
-  teamName   String
-  points     String
-  rolePoints String
-  Player     Player[]
-  league     League?  @relation(fields: [leagueId], references: [id])
-  User       User?    @relation(fields: [userId], references: [id])
-
-  leagueId String?
-  userId   String?
+  id             String           @id @default(cuid())
+  teamName       String
+  points         String
+  rolePoints     String
+  Player         Player[]
+  league         League?          @relation(fields: [leagueId], references: [id])
+  User           User?            @relation(fields: [userId], references: [id])
+  leagueId       String?
+  userId         String?
+  SelectedPlayer SelectedPlayer[]
 
   @@index([leagueId])
   @@index([userId])
+}
+
+model SelectedPlayer {
+  id           String     @id @default(cuid())
+  name         String
+  price        Int
+  image        String     @db.Text
+  rareity      String
+  bonus        bonus      @relation(fields: [bonusName], references: [name])
+  playerTeam   PlayerTeam @relation(fields: [playerTeamId], references: [id])
+  playerTeamId String
+  bonusName    String
+
+  @@index([bonusName])
+  @@index([playerTeamId])
 }
 
 model Team {
@@ -129,4 +145,10 @@ model League {
   end         String
   offical     Boolean      @default(false)
   playerTeam  PlayerTeam[]
+}
+
+model bonus {
+  name           String           @id @unique
+  description    String           @db.Text
+  SelectedPlayer SelectedPlayer[]
 }
