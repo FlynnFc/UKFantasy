@@ -303,7 +303,7 @@ const Create = (props: {
             <option>Teams</option>
             <option>Price</option>
           </select>
-          <section className="space-y-6">
+          <div className="space-y-6">
             {/* Maps all teams found in DB then inside each team maps all players found in team */}
             {props.data?.map((el) => {
               return (
@@ -327,7 +327,7 @@ const Create = (props: {
                 </PlayerGroup>
               );
             })}
-          </section>
+          </div>
         </div>
       )}
     </main>
@@ -335,28 +335,28 @@ const Create = (props: {
 };
 export default Create;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
   const data = await res.json();
   return {
     props: {
       data,
     },
-    revalidate: 1000,
+    // revalidate: 1000,
   };
 }
 
-export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-  const data = await res.json();
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
+// export async function getStaticPaths() {
+//   const path = "https://uk-fantasy.vercel.app/";
+//   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+//   const data = await res.json();
+//   const paths = data.map((league: { name: string }) => ({
+//     params: { league: league.name.toLowerCase() },
+//   }));
 
-  console.log(paths);
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   console.log(paths);
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
