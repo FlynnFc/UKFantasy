@@ -27,7 +27,7 @@ try {
     teamName: data.teamName,
     points:'0',
     rolePoints:'0',
-    User:  {connect:{id:data.userId}}, SelectedPlayer:{createMany:{data:[...finalTeam] }} , league:{connect:{id:findLeagueId[0]?.id}}}});
+    User:  {connect:{id:data.userId}}, SelectedPlayer:{createMany:{data:[...finalTeam]}} , league:{connect:{id:findLeagueId[0]?.id}}}});
   res.status(200).json(examples);
 } catch (error) {
   res.status(500).json('Failed to submit')
