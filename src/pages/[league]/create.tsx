@@ -347,6 +347,7 @@ const Create = (props: {
                 return (
                   <PlayerGroup team={el.teamName} key={el.teamName}>
                     {el.Player?.map((els: any) => {
+                      console.log(els);
                       return (
                         <Player
                           key={els.id}
@@ -354,10 +355,10 @@ const Create = (props: {
                           teamFull={teamFull}
                           PlayerSelect={PlayerSelect}
                           moneyLeft={money}
-                          rareity={els.Rareity}
+                          rareity={els.rareity}
                           name={els.name}
                           price={els.price}
-                          img={els.Image}
+                          img={els.image}
                           team={myTeam}
                         />
                       );
