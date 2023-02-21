@@ -4,8 +4,7 @@
 // - Fetch Teams for create page
 //TODO line 163 if no res then give user error and prompt back to league screen
 import { useSession } from "next-auth/react";
-import React, { useCallback, useEffect, useState } from "react";
-import NotSignedin from "../../components/NotSignedin";
+import React, { useEffect, useState } from "react";
 import { Player } from "../../components/Player";
 import PlayerGroup from "../../components/playerGroup";
 import PlayerGroupSkeleton from "../../components/playerGroupSkeleton";
@@ -16,7 +15,7 @@ import StandaloneSignIn from "../../components/StandaloneSignIn";
 import Filter from "bad-words";
 import { useRouter } from "next/router";
 type player = {
-  map(arg0: (el: any) => JSX.Element): unknown;
+  map(arg0: (el: player) => JSX.Element): unknown;
   id: string;
   name: string;
   price: number;
@@ -61,11 +60,12 @@ const Create = (props: {
       return;
     }
     const allTeams = props.data;
-    let allPlayers: any[] = [];
-    allTeams.map((el: { Player: { id: string } }) => {
+    let allPlayers: player[] = [];
+
+    allTeams.map((el: { Player: player }) => {
       allPlayers = allPlayers.concat(el.Player);
     });
-    console.log("sorter function", allPlayers);
+    console.log(allTeams);
     allPlayers.sort((a, b) => {
       return compare(a, b);
     });
@@ -122,7 +122,13 @@ const Create = (props: {
   };
 
   //Adding player to myTeam
-  const PlayerSelect = (data: any) => {
+  const PlayerSelect = (data: {
+    rareity: string;
+    name: string;
+    price: number;
+    img: string;
+    id: string;
+  }) => {
     if (!teamFull) {
       if (myTeam.length === 4) {
         setTeamFull(true);
@@ -144,7 +150,7 @@ const Create = (props: {
   };
   //Submits people in myTeam to DB
   const teamSubmitHandler = async () => {
-    const playerIds: any[] = await myTeam.map((el) => {
+    const playerIds = await myTeam.map((el) => {
       return el.props.id;
     });
 
@@ -323,12 +329,15 @@ const Create = (props: {
             </PlayerGroupSkeleton>
           </div>
           <select
+            defaultValue={"DEFAULT"}
             onChange={(e) => {
               sorter(e.target.value);
             }}
             className="select-bordered select mb-3 w-full max-w-xs"
           >
-            <option>Sort by</option>
+            <option value={"DEFAULT"} disabled>
+              Sort by
+            </option>
             <option value={"team"}>Teams</option>
             <option value={"ascend"}>Price ascend</option>
             <option value={"descend"}>Price descend</option>
