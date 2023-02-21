@@ -19,10 +19,10 @@ type player = {
   id: string;
   name: string;
   price: number;
-  Rareity: string;
+  rareity: string;
   teamId: string;
   statsId: string;
-  Image: string;
+  image: string;
 };
 
 const filter = new Filter();
@@ -376,10 +376,10 @@ const Create = (props: {
                     teamFull={teamFull}
                     PlayerSelect={PlayerSelect}
                     moneyLeft={money}
-                    rareity={els.Rareity}
+                    rareity={els.rareity}
                     name={els.name}
                     price={els.price}
-                    img={els.Image}
+                    img={els.image}
                     team={myTeam}
                   />
                 );
