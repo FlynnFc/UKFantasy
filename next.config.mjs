@@ -28,6 +28,11 @@ export default defineNextConfig({
         hostname: "wosipkxcwhwqrtnbwdxx.supabase.co",
         pathname: "/storage/v1/object/sign/players/**",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/a/**",
+      },
     ],
   },
 });
