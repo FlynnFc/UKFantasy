@@ -84,29 +84,37 @@ const Profile = () => {
         <section className="flex h-full flex-col justify-start rounded-lg bg-base-100 p-8 md:w-[30rem]">
           <h2 className="text-3xl">All teams</h2>
           {teams &&
-            teams.map((el: any) => {
-              return (
-                <div
-                  key={el.id}
-                  className="my-2 border-b border-primary p-2 py-6 hover:bg-[#00000015]"
-                >
-                  <Link href={`/${el.league.name.toLowerCase()}`}>
-                    <div className="cursor-pointer">
-                      <h2 className="text-3xl">{el.league.name}</h2>
-                      <h3 className="text-2xl font-bold">{el.teamName}</h3>
+            teams.map(
+              (el: {
+                id: string;
+                teamName: string;
+                league: { name: string };
+              }) => {
+                return (
+                  <div
+                    key={el.id}
+                    className="my-2 border-b border-primary p-2 py-6 hover:bg-[#00000015]"
+                  >
+                    <Link href={`/${el.league.name.toLowerCase()}`}>
+                      <div className="cursor-pointer">
+                        <h2 className="text-3xl">{el.league.name}</h2>
+                        <h3 className="text-2xl font-bold">{el.teamName}</h3>
 
-                      <div className="flex flex-row items-start justify-start space-x-1 py-2">
-                        <Link href={`/${el.league.name.toLowerCase()}/myteam`}>
-                          <button className="btn-secondary btn w-full">
-                            See Team
-                          </button>
-                        </Link>
+                        <div className="flex flex-row items-start justify-start space-x-1 py-2">
+                          <Link
+                            href={`/${el.league.name.toLowerCase()}/myteam`}
+                          >
+                            <button className="btn-secondary btn w-full">
+                              See Team
+                            </button>
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
+                    </Link>
+                  </div>
+                );
+              }
+            )}
         </section>
       </main>
       <section className="hidden h-[80vh] w-[25rem] flex-row justify-between rounded-lg bg-base-300 p-8 text-base-content xl:flex ">

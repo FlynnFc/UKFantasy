@@ -5,7 +5,7 @@ type player = {
   name: string;
   price: number;
   rareity: string;
-  img?: string | any;
+  img?: string;
   moneyLeft: number;
   teamFull: boolean;
   team: any[];

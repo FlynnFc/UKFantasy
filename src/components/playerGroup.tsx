@@ -1,7 +1,19 @@
 import React from "react";
 import PlayerSkeleton from "./PlayerSkeleton";
 
-const PlayerGroup = (props: { team: string; children: any }) => {
+const PlayerGroup = (props: {
+  team: string;
+  children: (
+    | string
+    | number
+    | boolean
+    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined
+  )[];
+}) => {
   return (
     <div className="flex w-full flex-col items-center justify-evenly rounded-lg bg-base-300 pb-4">
       <div

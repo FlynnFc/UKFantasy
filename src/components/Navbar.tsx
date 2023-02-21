@@ -3,20 +3,25 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import LoginBtn from "./LoginBtn";
 import logo from "../images/mininewlogo.png";
-import { IoIosArrowDropdown } from "react-icons/io";
+
+type theme = string[];
+
 const Navbar = () => {
   const [darkmode, setDarkMode] = useState(true);
-  const [theme, setTheme] = useState<string[]>(["winter", "night"]);
+  const [theme, setTheme] = useState<theme>(["winter", "night"]);
   useEffect(() => {
-    localStorage.getItem("theme");
-    if (localStorage.getItem("theme")) {
-      console.log(localStorage.getItem("theme"));
-      const themes: any = localStorage.getItem("theme")?.split(",");
+    const localTheme = localStorage.getItem("theme");
+    const bodyEl = document.querySelector("body");
+    if (localTheme) {
+      const themes: theme = localTheme.split(",");
+      console.log(themes);
       setTheme(themes);
-      const bodyEl = document.querySelector("body");
-      bodyEl?.setAttribute("data-theme", themes[!darkmode ? 1 : 0]);
+
+      const selectedTheme: string = themes[!darkmode ? 1 : 0] as string;
+      bodyEl?.setAttribute("data-theme", selectedTheme);
     } else {
       localStorage.setItem("theme", "night,winter");
+      bodyEl?.setAttribute("data-theme", !darkmode ? "night" : "winter");
     }
   }, [darkmode]);
 

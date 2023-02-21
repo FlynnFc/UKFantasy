@@ -3,7 +3,16 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import PlayerSkeleton from "./PlayerSkeleton";
 
 const PlayerGroupSkeleton = (props: {
-  children: any;
+  children: (
+    | string
+    | number
+    | boolean
+    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined
+  )[];
   money: number;
   setTeamName: Dispatch<SetStateAction<string>>;
 }) => {

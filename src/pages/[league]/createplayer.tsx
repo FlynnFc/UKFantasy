@@ -94,7 +94,7 @@ const Createplayer = (props: { data: [] }) => {
               <label className="label">Team</label>
               <select
                 value={team}
-                onChange={(e: any) => setTeam(e.target.value)}
+                onChange={(e) => setTeam(e.target.value)}
                 className="select"
                 name="team"
                 id="team"

@@ -23,7 +23,6 @@ export async function getStaticProps() {
 const leagues = (props: {
   data: [{ id: string; name: string; offical: boolean }];
 }) => {
-  console.log(props.data);
   return (
     <>
       <main className="container mx-auto flex min-h-screen w-[78%] flex-col items-center justify-start p-4">

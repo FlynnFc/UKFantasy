@@ -5,7 +5,7 @@ type myPlayer = {
   name: string;
   price: number;
   rareity: string;
-  img?: string | any;
+  img?: string;
 };
 
 export const MyPlayer = (props: myPlayer) => {

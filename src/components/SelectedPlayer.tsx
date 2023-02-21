@@ -6,7 +6,7 @@ type player = {
   name: string;
   price: number;
   rareity: string;
-  img?: any;
+  img?: string;
   team: any;
   id: string;
   PlayerRemove: (data: any) => void;
@@ -15,7 +15,7 @@ type player = {
 const SelectedPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
-  const [scrolled, setScrolled] = useState(false);
+  const [, setScrolled] = useState(false);
   const [offset, setOffset] = useState(0);
 
   useLayoutEffect(() => {
