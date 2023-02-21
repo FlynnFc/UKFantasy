@@ -19,7 +19,9 @@ export default function LoginBtn(props: { primary: boolean }) {
             className="dropdown-content menu rounded-box w-[13.6rem] space-y-2 bg-primary p-2 text-primary-content shadow"
           >
             <li>
-              <a>Profile</a>
+              <Link href={"/profile"}>
+                <a>Profile</a>
+              </Link>
             </li>
             <li>
               <Link href={"/settings"}>

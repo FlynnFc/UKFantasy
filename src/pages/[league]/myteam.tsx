@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
+import { ImBin } from "react-icons/im";
 import { FiShare } from "react-icons/fi";
 import { MyPlayer } from "../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
@@ -28,6 +29,7 @@ const Myteam = () => {
   const { data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const { query } = useRouter();
+  const router = useRouter();
   useEffect(() => {
     const fetcher = async () => {
       if (session?.user?.id && query.league) {
@@ -74,6 +76,8 @@ const Myteam = () => {
       if (!res.ok) {
         //add error tell user to go back to league page
         toast.error("Could not delete");
+      } else {
+        router.push(`/${query.league}`);
       }
     }
   };
@@ -82,16 +86,17 @@ const Myteam = () => {
       <Toaster />
       {team ? (
         <div className="flex flex-col items-center justify-center ">
-          <header className="flex flex-row items-center space-x-2 sm:mb-10">
-            <h1 className="mb-2 text-4xl">{`${session?.user?.name}'s team`}</h1>
-            <button onClick={linkSetter} className="mb-1 p-2 text-2xl">
-              <FiShare />
-            </button>
+          <header className="flex flex-col items-center space-x-2 sm:mb-10">
+            <div className="flex flex-row ">
+              <h1 className="mb-2 text-4xl">{`${session?.user?.name}'s team`}</h1>
+              <button onClick={linkSetter} className="mb-1 p-2 text-2xl">
+                <FiShare />
+              </button>
+            </div>
+            <div className="flex flex-row items-end justify-center space-y-2">
+              <h2 className="text-3xl">{team.teamName}</h2>
+            </div>
           </header>
-
-          <label htmlFor="my-modal" className="btn-error btn">
-            Delete team
-          </label>
 
           <input
             type="checkbox"
@@ -118,19 +123,28 @@ const Myteam = () => {
               </div>
             </div>
           </div>
-          <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
-            {team &&
-              team.Player?.map((el) => {
-                return (
-                  <MyPlayer
-                    key={el.id}
-                    name={el.name}
-                    price={el.price}
-                    rareity={el.Rareity}
-                    img={el.Image}
-                  />
-                );
-              })}
+
+          <div className="flex flex-col items-end">
+            <label
+              htmlFor="my-modal"
+              className="btn-ghost my-1 w-fit cursor-pointer rounded p-2 text-2xl text-error transition"
+            >
+              <ImBin />
+            </label>
+            <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
+              {team &&
+                team.Player?.map((el) => {
+                  return (
+                    <MyPlayer
+                      key={el.id}
+                      name={el.name}
+                      price={el.price}
+                      rareity={el.Rareity}
+                      img={el.Image}
+                    />
+                  );
+                })}
+            </div>
           </div>
         </div>
       ) : (
