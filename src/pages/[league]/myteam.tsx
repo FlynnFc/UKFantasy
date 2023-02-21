@@ -86,7 +86,7 @@ const Myteam = () => {
       <Toaster />
       {team ? (
         <div className="flex flex-col items-center justify-center ">
-          <header className="flex flex-col items-center space-x-2 sm:mb-10">
+          <header className="flex flex-col items-center space-x-2">
             <div className="flex flex-row ">
               <h1 className="mb-2 text-4xl">{`${session?.user?.name}'s team`}</h1>
               <button onClick={linkSetter} className="mb-1 p-2 text-2xl">
