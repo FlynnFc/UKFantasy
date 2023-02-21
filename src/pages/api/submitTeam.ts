@@ -14,13 +14,15 @@ try {
   const findLeagueId = await prisma.league.findMany({where:{name:data.league}})
   const findPlayerData = await prisma.player.findMany({where:{ id:{ in: [...data.players]}}})
   console.log("Player data", findPlayerData )
+  
   const finalTeam = [
-    {bonusName:'', image:findPlayerData[0]!.Image, name:findPlayerData[0]!.name, price:findPlayerData[0]!.price, rareity:findPlayerData[0]!.Rareity},
-    {bonusName:'', image:findPlayerData[1]!.Image, name:findPlayerData[1]!.name, price:findPlayerData[1]!.price, rareity:findPlayerData[1]!.Rareity},
-    {bonusName:'', image:findPlayerData[2]!.Image, name:findPlayerData[2]!.name, price:findPlayerData[2]!.price, rareity:findPlayerData[2]!.Rareity},
-    {bonusName:'', image:findPlayerData[3]!.Image, name:findPlayerData[3]!.name, price:findPlayerData[3]!.price, rareity:findPlayerData[3]!.Rareity},
-    {bonusName:'', image:findPlayerData[4]!.Image, name:findPlayerData[4]!.name, price:findPlayerData[4]!.price, rareity:findPlayerData[4]!.Rareity},
+    {bonusName:'', image:findPlayerData[0]?.Image, name:findPlayerData[0]?.name, price:findPlayerData[0]?.price, rareity:findPlayerData[0]?.Rareity},
+    {bonusName:'', image:findPlayerData[1]?.Image, name:findPlayerData[1]?.name, price:findPlayerData[1]?.price, rareity:findPlayerData[1]?.Rareity},
+    {bonusName:'', image:findPlayerData[2]?.Image, name:findPlayerData[2]?.name, price:findPlayerData[2]?.price, rareity:findPlayerData[2]?.Rareity},
+    {bonusName:'', image:findPlayerData[3]?.Image, name:findPlayerData[3]?.name, price:findPlayerData[3]?.price, rareity:findPlayerData[3]?.Rareity},
+    {bonusName:'', image:findPlayerData[4]?.Image, name:findPlayerData[4]?.name, price:findPlayerData[4]?.price, rareity:findPlayerData[4]?.Rareity},
   ]
+
   const examples = await prisma.playerTeam.create({
   data:{
     teamName: data.teamName,
