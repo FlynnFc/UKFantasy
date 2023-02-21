@@ -4,7 +4,7 @@
 // - Fetch Teams for create page
 //TODO line 163 if no res then give user error and prompt back to league screen
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import NotSignedin from "../../components/NotSignedin";
 import { Player } from "../../components/Player";
 import PlayerGroup from "../../components/playerGroup";
@@ -23,7 +23,7 @@ type player = {
   Rareity: string;
   teamId: string;
   statsId: string;
-  image: string;
+  Image: string;
 };
 
 const filter = new Filter();
@@ -45,6 +45,8 @@ const Create = (props: {
   const [submitted, setSubmitted] = useState(false);
   const [teamName, setTeamName] = useState("Your Team");
   const [loading, setLoading] = useState(false);
+  const [teamSort, setTeamSort] = useState(true);
+  const [allPlayers, setAllPlayers] = useState<player[]>();
   const { query } = useRouter();
   //Ensures Team name is never empty string
   useEffect(() => {
@@ -52,6 +54,30 @@ const Create = (props: {
       setTeamName("Your Team");
     }
   }, [teamName.length]);
+
+  const sorter = (order: string) => {
+    if (order === "team") {
+      setTeamSort(true);
+      return;
+    }
+    const allTeams = props.data;
+    let allPlayers: any[] = [];
+    allTeams.map((el: { Player: { id: string } }) => {
+      allPlayers = allPlayers.concat(el.Player);
+    });
+    console.log("sorter function", allPlayers);
+    allPlayers.sort((a, b) => {
+      return compare(a, b);
+    });
+
+    function compare(a: { price: number }, b: { price: number }): number {
+      if (order === "ascend") {
+        return a.price < b.price ? 1 : -1;
+      } else return a.price < b.price ? -1 : 1;
+    }
+    setAllPlayers(allPlayers);
+    setTeamSort(false);
+  };
 
   //Updates total money as user changes players
   useEffect(() => {
@@ -150,6 +176,7 @@ const Create = (props: {
     });
   };
 
+  //Checks if user has already submitted a team
   useEffect(() => {
     const teamChecker = async () => {
       setLoading(true);
@@ -296,38 +323,62 @@ const Create = (props: {
             </PlayerGroupSkeleton>
           </div>
           <select
-            disabled
+            onChange={(e) => {
+              sorter(e.target.value);
+            }}
             className="select-bordered select mb-3 w-full max-w-xs"
           >
             <option>Sort by</option>
-            <option>Teams</option>
-            <option>Price</option>
+            <option value={"team"}>Teams</option>
+            <option value={"ascend"}>Price ascend</option>
+            <option value={"descend"}>Price descend</option>
           </select>
-          <div className="space-y-6">
-            {/* Maps all teams found in DB then inside each team maps all players found in team */}
-            {props.data?.map((el) => {
-              return (
-                <PlayerGroup team={el.teamName} key={el.teamName}>
-                  {el.Player?.map((els) => {
-                    return (
-                      <Player
-                        key={els.id}
-                        id={els.id}
-                        teamFull={teamFull}
-                        PlayerSelect={PlayerSelect}
-                        moneyLeft={money}
-                        rareity={els.Rareity}
-                        name={els.name}
-                        price={els.price}
-                        img={els.Image}
-                        team={myTeam}
-                      />
-                    );
-                  })}
-                </PlayerGroup>
-              );
-            })}
-          </div>
+          {teamSort ? (
+            <section className="space-y-6">
+              {/* Maps all teams found in DB then inside each team maps all players found in team */}
+              {props.data?.map((el) => {
+                return (
+                  <PlayerGroup team={el.teamName} key={el.teamName}>
+                    {el.Player?.map((els) => {
+                      return (
+                        <Player
+                          key={els.id}
+                          id={els.id}
+                          teamFull={teamFull}
+                          PlayerSelect={PlayerSelect}
+                          moneyLeft={money}
+                          rareity={els.Rareity}
+                          name={els.name}
+                          price={els.price}
+                          img={els.Image}
+                          team={myTeam}
+                        />
+                      );
+                    })}
+                  </PlayerGroup>
+                );
+              })}
+            </section>
+          ) : (
+            <section className="flex flex-wrap items-start justify-start gap-5 rounded-lg bg-base-300 p-6">
+              {allPlayers?.map((els) => {
+                return (
+                  <Player
+                    key={els.id}
+                    id={els.id}
+                    teamFull={teamFull}
+                    PlayerSelect={PlayerSelect}
+                    moneyLeft={money}
+                    rareity={els.Rareity}
+                    name={els.name}
+                    price={els.price}
+                    img={els.Image}
+                    team={myTeam}
+                  />
+                );
+              })}
+            </section>
+          )}
         </div>
       )}
     </main>
@@ -335,28 +386,28 @@ const Create = (props: {
 };
 export default Create;
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
   const data = await res.json();
   return {
     props: {
       data,
     },
-    // revalidate: 1000,
+    revalidate: 1000,
   };
 }
 
-// export async function getStaticPaths() {
-//   const path = "https://uk-fantasy.vercel.app/";
-//   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-//   const data = await res.json();
-//   const paths = data.map((league: { name: string }) => ({
-//     params: { league: league.name.toLowerCase() },
-//   }));
+export async function getStaticPaths() {
+  const path = "https://uk-fantasy.vercel.app/";
+  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+  const data = await res.json();
+  const paths = data.map((league: { name: string }) => ({
+    params: { league: league.name.toLowerCase() },
+  }));
 
-//   console.log(paths);
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
+  console.log(paths);
+  return {
+    paths,
+    fallback: false,
+  };
+}
