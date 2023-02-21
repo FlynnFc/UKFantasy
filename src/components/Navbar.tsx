@@ -30,7 +30,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar static top-0  p-2 ">
-      <div className=" hidden w-full justify-evenly sm:flex sm:justify-between">
+      <div className="flex w-full justify-between">
         <div className="flex space-x-4">
           <Link href="/">
             <a className="btn-ghost btn flex items-center text-xl normal-case">

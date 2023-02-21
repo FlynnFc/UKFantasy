@@ -16,7 +16,7 @@ export default function LoginBtn(props: { primary: boolean }) {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box w-[13.6rem] space-y-2 bg-primary p-2 text-primary-content shadow"
+            className="dropdown-content menu rounded-btn w-[12.7rem] space-y-2 bg-primary p-2 text-primary-content shadow"
           >
             <li>
               <Link href={"/profile"}>
