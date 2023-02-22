@@ -56,7 +56,7 @@ const UserTeam = () => {
           <h1 className="mb-4 text-center text-4xl">{team.teamName}</h1>
           <h2 className="m-2 mx-2 text-center text-lg">{`${team.User.name}'s team`}</h2>
           <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
-            {team.SelectedPlayer.map((el) => {
+            {team.SelectedPlayer.map((el: player) => {
               return (
                 <MyPlayer
                   key={el.id}
