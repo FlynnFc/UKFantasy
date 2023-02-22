@@ -7,7 +7,6 @@ import { MyPlayer } from "../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import BonusPicker from "../../components/BonusPicker";
-import { AnimatePresence, motion } from "framer-motion";
 
 type player = {
   id: string;
