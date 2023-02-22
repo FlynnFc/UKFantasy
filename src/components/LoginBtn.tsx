@@ -2,15 +2,23 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { IoIosArrowDropdown } from "react-icons/io";
 export default function LoginBtn(props: { primary: boolean }) {
-  const { data: session } = useSession();
+  const { status } = useSession();
 
+  console.log(status);
   return (
     <>
-      {session?.user ? (
-        <div className="dropdown-end dropdown ">
+      {status === "loading" ? (
+        <button
+          disabled
+          className="btn border-none bg-transparent px-2 text-4xl text-base-content"
+        >
+          <IoIosArrowDropdown />
+        </button>
+      ) : status === "authenticated" ? (
+        <div className="dropdown-end dropdown hover:text-primary-content">
           <label
             tabIndex={0}
-            className="btn border-none bg-transparent px-2 text-4xl text-base-content"
+            className="btn border-none bg-transparent px-2 text-4xl text-base-content hover:text-inherit"
           >
             <IoIosArrowDropdown />
           </label>
