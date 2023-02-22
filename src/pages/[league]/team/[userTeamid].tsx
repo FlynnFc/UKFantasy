@@ -32,7 +32,7 @@ const UserTeam = () => {
 
   useEffect(() => {
     const fetcher = async () => {
-      const teamId: string | any = query.userTeamid;
+      const teamId: string = query.userTeamid as string;
       const res = await fetch("/api/UserTeamById", {
         method: "GET",
         headers: { id: teamId },
