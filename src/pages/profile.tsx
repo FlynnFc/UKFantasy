@@ -42,7 +42,7 @@ const Profile = () => {
             <MdHome className="text-3xl md:mr-4" />
             <span className="hidden md:inline"> Main</span>
           </li>
-          <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
+          <li className="btn-disabled rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
             <MdQueryStats className="text-3xl md:mr-4" />
             <span className="hidden md:inline"> Stats</span>
           </li>
