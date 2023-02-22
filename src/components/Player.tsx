@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 type player = {
   PlayerSelect: (data: any) => void;
   name: string;
@@ -39,7 +40,11 @@ export const Player = (props: player) => {
   }, [props.moneyLeft, props.price]);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      layout={true}
       className={`relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72`}
     >
       {picked ? (
@@ -120,6 +125,6 @@ export const Player = (props: player) => {
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

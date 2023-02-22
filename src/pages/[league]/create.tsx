@@ -14,6 +14,7 @@ import Link from "next/link";
 import StandaloneSignIn from "../../components/StandaloneSignIn";
 import Filter from "bad-words";
 import { useRouter } from "next/router";
+import { AnimatePresence } from "framer-motion";
 type player = {
   map(arg0: (el: any) => JSX.Element): unknown;
   id: string;
@@ -228,7 +229,7 @@ const Create = (props: {
   }, [query.league, session.data?.user?.id]);
 
   return (
-    <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl flex-col items-end justify-start p-4  sm:mx-auto">
+    <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl select-none flex-col items-end justify-start  p-4 sm:mx-auto">
       <Toaster position="bottom-right" />
       {introModal && (
         <div className="createModal fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
@@ -340,53 +341,55 @@ const Create = (props: {
             <option value={"ascend"}>Price ascend</option>
             <option value={"descend"}>Price descend</option>
           </select>
-          {teamSort ? (
-            <section className="space-y-6">
-              {/* Maps all teams found in DB then inside each team maps all players found in team */}
-              {props.data?.map((el) => {
-                return (
-                  <PlayerGroup team={el.teamName} key={el.teamName}>
-                    {el.Player?.map((els: any) => {
-                      console.log(els);
-                      return (
-                        <Player
-                          key={els.id}
-                          id={els.id}
-                          teamFull={teamFull}
-                          PlayerSelect={PlayerSelect}
-                          moneyLeft={money}
-                          rareity={els.rareity}
-                          name={els.name}
-                          price={els.price}
-                          img={els.image}
-                          team={myTeam}
-                        />
-                      );
-                    })}
-                  </PlayerGroup>
-                );
-              })}
-            </section>
-          ) : (
-            <section className="flex flex-wrap items-start justify-start gap-5 rounded-lg bg-base-300 p-6">
-              {allPlayers?.map((els) => {
-                return (
-                  <Player
-                    key={els.id}
-                    id={els.id}
-                    teamFull={teamFull}
-                    PlayerSelect={PlayerSelect}
-                    moneyLeft={money}
-                    rareity={els.rareity}
-                    name={els.name}
-                    price={els.price}
-                    img={els.image}
-                    team={myTeam}
-                  />
-                );
-              })}
-            </section>
-          )}
+          <AnimatePresence>
+            {teamSort ? (
+              <section className="space-y-6">
+                {/* Maps all teams found in DB then inside each team maps all players found in team */}
+                {props.data?.map((el) => {
+                  return (
+                    <PlayerGroup team={el.teamName} key={el.teamName}>
+                      {el.Player?.map((els: any) => {
+                        console.log(els);
+                        return (
+                          <Player
+                            key={els.id}
+                            id={els.id}
+                            teamFull={teamFull}
+                            PlayerSelect={PlayerSelect}
+                            moneyLeft={money}
+                            rareity={els.rareity}
+                            name={els.name}
+                            price={els.price}
+                            img={els.image}
+                            team={myTeam}
+                          />
+                        );
+                      })}
+                    </PlayerGroup>
+                  );
+                })}
+              </section>
+            ) : (
+              <section className="flex flex-wrap items-start justify-start gap-5 rounded-lg bg-base-300 p-6">
+                {allPlayers?.map((els) => {
+                  return (
+                    <Player
+                      key={els.id}
+                      id={els.id}
+                      teamFull={teamFull}
+                      PlayerSelect={PlayerSelect}
+                      moneyLeft={money}
+                      rareity={els.rareity}
+                      name={els.name}
+                      price={els.price}
+                      img={els.image}
+                      team={myTeam}
+                    />
+                  );
+                })}
+              </section>
+            )}
+          </AnimatePresence>
         </div>
       )}
     </main>
