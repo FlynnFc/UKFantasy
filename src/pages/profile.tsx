@@ -57,7 +57,7 @@ const Profile = () => {
         </ul>
       </section>
       <main className="">
-        <section className="flex h-full flex-row justify-between rounded-lg bg-primary p-8  md:w-[30rem]">
+        <section className="rounded-btn flex h-full flex-row justify-between bg-primary p-8  md:w-[30rem]">
           <div className="">
             <h1 className="flex flex-row items-end text-3xl text-primary-content">
               {session?.user?.name}
@@ -81,7 +81,7 @@ const Profile = () => {
             ></Image>
           )}
         </section>
-        <section className="flex h-full flex-col justify-start rounded-lg bg-base-100 p-8 md:w-[30rem]">
+        <section className="rounded-btn flex h-full flex-col justify-start bg-base-100 p-8 md:w-[30rem]">
           <h2 className="text-3xl">All teams</h2>
           {teams &&
             teams.map(
@@ -117,7 +117,7 @@ const Profile = () => {
             )}
         </section>
       </main>
-      <section className="hidden h-[80vh] w-[25rem] flex-row justify-between rounded-lg bg-base-300 p-8 text-base-content xl:flex ">
+      <section className="rounded-btn hidden h-[80vh] w-[25rem] flex-row justify-between bg-base-300 p-8 text-base-content xl:flex ">
         <div className="">
           <h1 className="flex flex-row items-end text-3xl">
             Some content in here?

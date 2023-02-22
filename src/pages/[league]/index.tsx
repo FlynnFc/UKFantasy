@@ -12,15 +12,17 @@ import Loading from "../../components/Loading";
 import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
 
-export async function getServerSideProps() {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allUserTeams");
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-  };
-}
+//SSR
+// export async function getServerSideProps() {
+//   const res = await fetch("https://uk-fantasy.vercel.app/api/allUserTeams");
+//   const data = await res.json();
+//   return {
+//     props: {
+//       data,
+//     },
+//     // revalidate: 5,
+//   };
+// }
 
 // export async function getStaticPaths() {
 //   const path = "https://uk-fantasy.vercel.app/";
@@ -40,24 +42,40 @@ type UserProps = {
   User: [{ id: string }];
 };
 
-const LeaguePage = (props: { data: any }) => {
+const LeaguePage = () => {
   const session = useSession();
   const { query } = useRouter();
   const [createModal, setCreateModal] = useState(true);
   const [loading, setLoading] = useState(false);
   const [userHasTeam, setUserHasTeam] = useState(false);
   const [data, setData] = useState([]);
+  const [loadingTable, setLoadingTable] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    const tempData: any = [];
+    fetch("/api/allUserTeams")
+      .then((res) => res.json())
+      .then((data) => {
+        data.forEach((el: { league: { name: string } }) => {
+          if (el.league?.name.toLowerCase() === query.league) {
+            tempData.push(el);
+          } else return;
+        });
+        setLoading(false);
+        return setData(tempData);
+      });
+  }, [query.league]);
 
   //Filters teams so it only shows user submitted teams from this league
-  useEffect(() => {
-    const tempData: any = [];
-    props.data.forEach((el: { league: { name: string } }) => {
-      if (el.league?.name.toLowerCase() === query.league) {
-        tempData.push(el);
-      } else return;
-    });
-    return setData(tempData);
-  }, [props.data, query.league]);
+  // useEffect(() => {
+  //   const tempData: any = [];
+  //   props.data.forEach((el: { league: { name: string } }) => {
+  //     if (el.league?.name.toLowerCase() === query.league) {
+  //       tempData.push(el);
+  //     } else return;
+  //   });
+  //   return setData(tempData);
+  // }, [props.data, query.league]);
 
   // const data = useMemo(() => {
   //   const tempData: any = [];
@@ -253,7 +271,7 @@ const LeaguePage = (props: { data: any }) => {
             <h2 className="mb-4 mt-4 text-center text-2xl font-bold">
               Scoreboard
             </h2>
-            {data && <Table data={data} />}
+            {loadingTable ? <Table data={data} /> : <Loading />}
           </div>
         </section>
       </div>

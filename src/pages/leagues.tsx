@@ -25,7 +25,7 @@ const leagues = (props: {
 }) => {
   return (
     <>
-      <main className="container mx-auto flex min-h-screen w-[78%] flex-col items-center justify-start p-4">
+      <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
         <div className="hero rounded-xl">
           <div className="flex-col items-center justify-evenly lg:flex-row">
             <FeaturedLeague />
@@ -34,7 +34,7 @@ const leagues = (props: {
         <h2 className="mt-10 w-full border-b pb-2 text-left text-4xl font-bold">
           All leagues
         </h2>
-        <div className="mt-2 flex w-full flex-wrap items-end space-y-2">
+        <div className="mt-2 w-full items-end space-y-2 sm:flex sm:flex-wrap">
           {props.data.map((el) => {
             return (
               <>
@@ -50,7 +50,7 @@ const leagues = (props: {
 
 const LeagueCard = (props: { title: string; offical: boolean }) => {
   return (
-    <div className="mx-1 h-[304px] w-max min-w-[15rem] rounded-lg bg-base-content text-base-100 shadow-xl">
+    <div className="mx-1 h-[304px] w-max  rounded-lg bg-base-content text-base-100 shadow-xl sm:min-w-[15rem]">
       <div className="h-40 w-full rounded-t-lg bg-slate-600"></div>
       <div className="p-6">
         <div className="flex items-center justify-center space-x-2">

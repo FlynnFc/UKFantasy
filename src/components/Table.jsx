@@ -46,7 +46,7 @@ const Table = (props) => {
         });
       }
     });
-  }, [checker, props.data]);
+  }, [checker, props.data, query.league]);
   // setTimeout(() => console.log(playerData));
 
   //Seed Data for testing
@@ -104,7 +104,7 @@ const Table = (props) => {
     <>
       <table
         {...getTableProps()}
-        className="table w-full overflow-auto font-semibold shadow-lg"
+        className="table w-full select-none overflow-auto font-semibold shadow-lg"
       >
         <thead>
           {headerGroups.map((headerGroup) => (
