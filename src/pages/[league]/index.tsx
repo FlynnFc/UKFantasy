@@ -19,7 +19,6 @@ export async function getServerSideProps() {
     props: {
       data,
     },
-    revalidate: 5,
   };
 }
 
