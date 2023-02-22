@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 type myPlayer = {
-  bonus: { name: string; description: string };
+  bonus?: { name: string; description: string };
   name: string;
   price: number;
   rareity: string;
