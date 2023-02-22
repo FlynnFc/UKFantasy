@@ -186,7 +186,7 @@ const Myteam = () => {
             for a chance to get one year of subscription to use Wikipedia for
             free!
           </p>
-          <ul></ul>
+          <BonusPicker data={[]} />
           <div className="modal-action">
             <label htmlFor="bonus" className="btn">
               Yay!
