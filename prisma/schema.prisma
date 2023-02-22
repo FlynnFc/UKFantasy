@@ -110,15 +110,15 @@ model PlayerTeam {
 }
 
 model SelectedPlayer {
-  id           String     @id @default(cuid())
+  id           String      @id @default(cuid())
   name         String
   price        Int
-  image        String?    @db.Text
+  image        String?     @db.Text
   rareity      String
-  bonus        bonus?     @relation(fields: [bonusName], references: [name])
-  playerTeamId String
+  bonus        bonus?      @relation(fields: [bonusName], references: [name])
+  playerTeamId String?
   bonusName    String?
-  PlayerTeam   PlayerTeam @relation(fields: [playerTeamId], references: [id])
+  PlayerTeam   PlayerTeam? @relation(fields: [playerTeamId], references: [id], onDelete: Cascade)
 
   @@index([bonusName])
   @@index([playerTeamId])
