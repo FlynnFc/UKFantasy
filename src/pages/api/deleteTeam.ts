@@ -14,6 +14,7 @@ export default async function deleteTeam(req:NextApiRequest, res: NextApiRespons
           const deletedTeam = await prisma.playerTeam.delete({
             where: {
               id: id,
+            
             },
           });
           res.status(200).json(deletedTeam)
