@@ -6,6 +6,7 @@ type myPlayer = {
   price: number;
   rareity: string;
   img?: string;
+  bonus: { name: string; description: string };
 };
 
 export const MyPlayer = (props: myPlayer) => {
@@ -16,11 +17,21 @@ export const MyPlayer = (props: myPlayer) => {
 
   return (
     <div
-      className={`w-[16rem] flex-col rounded-xl bg-base-200 shadow-lg xl:h-[24rem]`}
+      className={`w-[16rem] flex-col rounded-xl  border-amber-400 bg-base-200 shadow-lg  xl:h-[24rem]`}
     >
       <div
         className={`relative hidden h-72 cursor-auto justify-center xl:block`}
       >
+        {props.bonus && (
+          <div
+            className={`tooltip absolute top-0  z-10 w-full rounded-t-lg ${rareity} text-center`}
+            data-tip={props.bonus.description}
+          >
+            <button className="text-lg font-bold text-base-200">
+              {props.bonus.name}
+            </button>
+          </div>
+        )}
         {props.img && (
           <Image
             className="text-center drop-shadow-2xl"

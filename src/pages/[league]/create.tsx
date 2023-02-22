@@ -13,10 +13,19 @@ import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import StandaloneSignIn from "../../components/StandaloneSignIn";
 import Filter from "bad-words";
+
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 type player = {
-  map(arg0: (el: any) => JSX.Element): unknown;
+  map(
+    arg0: (el: {
+      id: string;
+      image: string;
+      name: string;
+      price: number;
+      rareity: string;
+    }) => JSX.Element
+  ): unknown;
   id: string;
   name: string;
   price: number;
@@ -71,8 +80,8 @@ const Create = (props: {
 
     function compare(a: { price: number }, b: { price: number }): number {
       if (order === "ascend") {
-        return a.price < b.price ? 1 : -1;
-      } else return a.price < b.price ? -1 : 1;
+        return a.price < b.price ? -1 : 1;
+      } else return a.price < b.price ? 1 : -1;
     }
     setAllPlayers(allPlayers);
     setTeamSort(false);
@@ -280,7 +289,7 @@ const Create = (props: {
               dolor atque natus esse non nisi!
             </p>
             <div className="mr-8 flex justify-end">
-              <Link href={`/${query.league}`}>
+              <Link href={`/${query.league}/myteam`}>
                 <button className="btn">Take me back</button>
               </Link>
             </div>
@@ -332,14 +341,14 @@ const Create = (props: {
             onChange={(e) => {
               sorter(e.target.value);
             }}
-            className="select-bordered select mb-3 w-full max-w-xs"
+            className="select-bordered select mb-3 w-full max-w-xs text-lg"
           >
             <option value={"DEFAULT"} disabled>
               Sort by
             </option>
             <option value={"team"}>Teams</option>
-            <option value={"ascend"}>Price ascend</option>
-            <option value={"descend"}>Price descend</option>
+            <option value={"ascend"}>Cheapest</option>
+            <option value={"descend"}>Most Expensive</option>
           </select>
           <AnimatePresence>
             {teamSort ? (
@@ -348,23 +357,30 @@ const Create = (props: {
                 {props.data?.map((el) => {
                   return (
                     <PlayerGroup team={el.teamName} key={el.teamName}>
-                      {el.Player?.map((els: any) => {
-                        console.log(els);
-                        return (
-                          <Player
-                            key={els.id}
-                            id={els.id}
-                            teamFull={teamFull}
-                            PlayerSelect={PlayerSelect}
-                            moneyLeft={money}
-                            rareity={els.rareity}
-                            name={els.name}
-                            price={els.price}
-                            img={els.image}
-                            team={myTeam}
-                          />
-                        );
-                      })}
+                      {el.Player?.map(
+                        (els: {
+                          id: string;
+                          image: string;
+                          name: string;
+                          price: number;
+                          rareity: string;
+                        }) => {
+                          return (
+                            <Player
+                              key={els.id}
+                              id={els.id}
+                              teamFull={teamFull}
+                              PlayerSelect={PlayerSelect}
+                              moneyLeft={money}
+                              rareity={els.rareity}
+                              name={els.name}
+                              price={els.price}
+                              img={els.image}
+                              team={myTeam}
+                            />
+                          );
+                        }
+                      )}
                     </PlayerGroup>
                   );
                 })}

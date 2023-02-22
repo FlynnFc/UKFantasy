@@ -7,6 +7,7 @@ import Loading from "../../../components/Loading";
 import { MyPlayer } from "../../../components/myPlayer";
 
 type player = {
+  bonus: { name: string; description: string };
   id: string;
   name: string;
   price: number;
@@ -46,6 +47,8 @@ const UserTeam = () => {
     fetcher();
   }, [query.userTeamid]);
 
+  console.log(team);
+
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       {team ? (
@@ -61,6 +64,7 @@ const UserTeam = () => {
                   price={el.price}
                   rareity={el.rareity}
                   img={el.image}
+                  bonus={el.bonus}
                 />
               );
             })}
