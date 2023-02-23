@@ -143,10 +143,14 @@ const Myteam = () => {
     e.preventDefault();
   };
 
+  const HandleBonusSubmit = () => {
+    toast.error("Editing bonus currnelty disabled!");
+  };
+
   console.log(team);
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
-      <Toaster />
+      <Toaster position="bottom-left" />
       {team ? (
         <div className="flex flex-col items-center justify-center ">
           <header className="flex flex-col items-center space-x-2">
@@ -281,12 +285,7 @@ const Myteam = () => {
               {bonusDesc}
             </p>
             <div className="flex items-center justify-end gap-2">
-              <button
-                onClick={() => {
-                  console.log("Submitted");
-                }}
-                className="btn-success btn"
-              >
+              <button onClick={HandleBonusSubmit} className="btn-success btn">
                 Submit
               </button>
               <div className="modal-action m-0">
