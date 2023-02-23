@@ -272,7 +272,7 @@ const LeaguePage = () => {
             <h2 className="mb-4 mt-4 text-center text-2xl font-bold">
               Scoreboard
             </h2>
-            {!loadingTable ? (
+            {loadingTable ? (
               <Table data={data} />
             ) : (
               <div className="rounded-2 ju rounded-btn flex w-full animate-pulse flex-row justify-between  bg-base-200 p-2 text-center text-xl font-bold text-base-content">
