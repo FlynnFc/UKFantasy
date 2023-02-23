@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import FeaturedLeague from "../components/FeaturedLeague";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // const path = "http://localhost:3000/";
   const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
@@ -56,7 +56,7 @@ const LeagueCard = (props: { title: string; offical: boolean }) => {
         <div className="flex items-center justify-center space-x-2">
           <h2 className="text-2xl font-bold ">{props.title}</h2>
           {props.offical && (
-            <span className="badge-success badge p-3 font-bold">Official</span>
+            <span className="badge badge-success p-3 font-bold">Official</span>
           )}
         </div>
         <div className="flex w-full">
