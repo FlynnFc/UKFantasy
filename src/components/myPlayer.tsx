@@ -34,7 +34,7 @@ export const MyPlayer = (props: myPlayer) => {
         )}
         {props.img && (
           <Image
-            className="text-center drop-shadow-2xl"
+            className="rounded-t-lg text-center drop-shadow-2xl"
             alt="player portrait"
             layout="fill"
             src={props.img}

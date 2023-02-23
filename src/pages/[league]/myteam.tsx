@@ -9,6 +9,11 @@ import { useRouter } from "next/router";
 import BonusPicker from "../../components/BonusPicker";
 import Link from "next/link";
 
+type bonus = {
+  name: string;
+  description: string;
+};
+
 type player = {
   id: string;
   name: string;
@@ -23,16 +28,19 @@ type player = {
 type teamProps = {
   id: string;
   points: string;
-  Player: player[];
   teamName: string;
   SelectedPlayer: player[];
 };
 
 const Myteam = () => {
-  const [editBonuses, setEditBonuses] = useState(false);
   const { data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const { query } = useRouter();
+  const [bonusDesc, setBonusDesc] = useState(
+    "Drag and drop a bonus onto the desired player. Once you have selected 5 you can submit"
+  );
+
+  const [allBonuses, setAllBonuses] = useState<bonus[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -62,6 +70,21 @@ const Myteam = () => {
     console.log("running");
   }, [query.league, session]);
 
+  const bonusFetcher = async () => {
+    if (session?.user?.id && query.league) {
+      const res = await fetch("/api/allBonuses", {
+        method: "GET",
+      });
+      if (!res.ok) {
+        console.log("error");
+      }
+      const data = await res.json();
+      setAllBonuses([...data]);
+    }
+  };
+
+  console.log(allBonuses);
+
   const linkSetter = () => {
     const path: string = team?.id as string;
     const host = `https://uk-fantasy.vercel.app/${query.league}/team/`;
@@ -69,8 +92,6 @@ const Myteam = () => {
     navigator.clipboard.writeText(link);
     toast.success("added link to clipboard");
   };
-
-  console.log(team, query.league);
 
   const teamDeleter = async () => {
     if (session?.user?.id && team?.id) {
@@ -87,6 +108,42 @@ const Myteam = () => {
       }
     }
   };
+  const handleOnDrag = (
+    e: React.DragEvent,
+    Identifier: string,
+    index: number
+  ) => {
+    console.log(e);
+    e.dataTransfer.setData("Identifier", Identifier);
+    e.dataTransfer.setData("BonusIndex", index.toString());
+  };
+
+  const handleOnDrop = (e: React.DragEvent, i: number) => {
+    const Identifier = e.dataTransfer.getData("Identifier");
+    const Index = parseInt(e.dataTransfer.getData("BonusIndex"));
+
+    console.log(team?.SelectedPlayer[i]);
+    console.log("Ident", Identifier, e.currentTarget);
+    const desc = "Test";
+    console.log(allBonuses);
+    console.log("current", team);
+    //TODO Figure out this type error
+    setTeam((prev: any) => {
+      const temp = prev;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      prev!.SelectedPlayer[i]!.bonus = {
+        name: Identifier,
+        description: allBonuses[Index]?.description,
+      };
+      return { ...temp };
+    });
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  console.log(team);
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster />
@@ -139,7 +196,7 @@ const Myteam = () => {
               </Link>
               <div className="tooltip" data-tip="Edit player bonuses">
                 <button className="btn-ghost my-1 w-fit cursor-pointer rounded p-2 text-2xl text-base-content transition">
-                  <label htmlFor="bonus">
+                  <label onClick={bonusFetcher} htmlFor="bonus">
                     <ImDice />
                   </label>
                 </button>
@@ -175,28 +232,70 @@ const Myteam = () => {
 
       <input type="checkbox" id="bonus" className="modal-toggle" />
       <div className="modal ">
-        <div className="modal-box  w-11/12 max-w-full">
-          <h3 className="text-lg font-bold">
-            Congratulations random Internet user!
-          </h3>
-          <p className="py-4">
-            You&apos;ve been selected for a chance to get one year of
-            subscription to use Wikipedia for free! You&apos;ve been selected
-            for a chance to get one year of subscription to use Wikipedia for
-            free! You&apos;ve been selected for a chance to get one year of
-            subscription to use Wikipedia for free! You&apos;ve been selected
-            for a chance to get one year of subscription to use Wikipedia for
-            free! You&apos;ve been selected for a chance to get one year of
-            subscription to use Wikipedia for free! You&apos;ve been selected
-            for a chance to get one year of subscription to use Wikipedia for
-            free!
-          </p>
-          <BonusPicker data={[]} />
-          <div className="modal-action">
-            <label htmlFor="bonus" className="btn">
-              Yay!
-            </label>
+        <div className="modal-box flex h-5/6 max-h-full w-11/12 max-w-full flex-col items-center justify-between">
+          <section className="flex flex-wrap justify-start gap-2 gap-y-8">
+            {allBonuses.map((el, i) => (
+              <div
+                key={el.name}
+                className="tooltip"
+                data-tip="Click for more info, drag to apply"
+              >
+                <label>
+                  <span
+                    draggable
+                    onClick={() => setBonusDesc(el.description)}
+                    onDragStart={(e) => handleOnDrag(e, el.name, i)}
+                    className="rounded-btn cursor-grab bg-secondary p-3 text-primary-content transition-all hover:scale-105"
+                  >
+                    {el.name}
+                  </span>
+                </label>
+              </div>
+            ))}
+          </section>
+
+          <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
+            {team &&
+              team.SelectedPlayer?.map((el, i) => {
+                console.log(i);
+                return (
+                  <div
+                    key={el.id}
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleOnDrop(e, i)}
+                  >
+                    <MyPlayer
+                      name={el.name}
+                      price={el.price}
+                      rareity={el.rareity}
+                      img={el.image}
+                      bonus={el.bonus}
+                    />
+                  </div>
+                );
+              })}
           </div>
+          <section className="rounded-btn w-full bg-primary p-4 text-primary-content ">
+            <p>
+              <span className="text-xl">{`Selected Bonus: `}</span>
+              {bonusDesc}
+            </p>
+            <div className="flex items-center justify-end gap-2">
+              <button
+                onClick={() => {
+                  console.log("Submitted");
+                }}
+                className="btn-success btn"
+              >
+                Submit
+              </button>
+              <div className="modal-action m-0">
+                <label htmlFor="bonus" className="btn-error btn ">
+                  Cancel
+                </label>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </main>
