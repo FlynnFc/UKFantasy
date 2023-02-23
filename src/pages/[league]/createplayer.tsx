@@ -3,30 +3,39 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 
-export async function getStaticProps() {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-  };
-}
+// export async function getStaticProps() {
+//   const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
+//   const data = await res.json();
+//   return {
+//     props: {
+//       data,
+//     },
+//   };
+// }
 
-export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-  const data = await res.json();
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
+// export async function getStaticPaths() {
+//   // const path = "http://localhost:3000/";
+//   const path = "https://uk-fantasy.vercel.app/";
+//   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
 
-  console.log(paths);
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   if (!res.ok) {
+//     console.dir("whoops it threw an error", res);
+//     return {
+//       params: [{ league: "Epic39" }, { league: "Epic38" }],
+//       fallback: false,
+//     };
+//   } else {
+//     const data = await res.json();
+//     const paths = data.map((league: { name: string }) => ({
+//       params: { league: league.name.toLowerCase() },
+//     }));
+
+//     return {
+//       paths,
+//       fallback: false,
+//     };
+//   }
+// }
 
 const Createplayer = (props: { data: [] }) => {
   const admins = useMemo(() => new Set(["mastare.flynn@gmail.com"]), []);
