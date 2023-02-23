@@ -22,7 +22,7 @@ const Profile = () => {
           console.log("error");
         }
         const data = await res.json();
-
+        console.log(data);
         setTeams(data.PlayerTeam);
         console.log(data.PlayerTeam);
       } else return "error";

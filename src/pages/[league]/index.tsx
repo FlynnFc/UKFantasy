@@ -13,30 +13,30 @@ import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
 
 //SSR
-// export async function getServerSideProps() {
-//   const res = await fetch("https://uk-fantasy.vercel.app/api/allUserTeams");
-//   const data = await res.json();
-//   return {
-//     props: {
-//       data,
-//     },
-//     // revalidate: 5,
-//   };
-// }
+export async function getStaticProps() {
+  const res = await fetch("https://uk-fantasy.vercel.app/api/allLeagues");
+  const data = await res.json();
+  return {
+    props: {
+      data,
+    },
+    // revalidate: 5,
+  };
+}
 
-// export async function getStaticPaths() {
-//   const path = "https://uk-fantasy.vercel.app/";
-//   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-//   const data = await res.json();
-//   const paths = data.map((league: { name: string }) => ({
-//     params: { league: league.name.toLowerCase() },
-//   }));
+export async function getStaticPaths() {
+  const path = "https://uk-fantasy.vercel.app/";
+  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+  const data = await res.json();
+  const paths = data.map((league: { name: string }) => ({
+    params: { league: league.name.toLowerCase() },
+  }));
 
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
+  return {
+    paths,
+    fallback: false,
+  };
+}
 
 type UserProps = {
   User: [{ id: string }];
