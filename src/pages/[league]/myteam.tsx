@@ -7,6 +7,7 @@ import { MyPlayer } from "../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import BonusPicker from "../../components/BonusPicker";
+import Link from "next/link";
 
 type player = {
   id: string;
@@ -93,13 +94,13 @@ const Myteam = () => {
         <div className="flex flex-col items-center justify-center ">
           <header className="flex flex-col items-center space-x-2">
             <div className="flex flex-row ">
-              <h1 className="mb-2 text-4xl">{`${session?.user?.name}'s team`}</h1>
+              <h1 className="text-4xl">{team.teamName}</h1>
               <button onClick={linkSetter} className="mb-1 p-2 text-2xl">
                 <FiShare />
               </button>
             </div>
             <div className="flex flex-row items-end justify-center space-y-2">
-              <h2 className="text-3xl">{team.teamName}</h2>
+              <h2 className="mb-2 text-3xl">{`${session?.user?.name}'s team`}</h2>
             </div>
           </header>
 
@@ -131,6 +132,11 @@ const Myteam = () => {
 
           <div className="flex flex-col items-end">
             <div className="flex w-full flex-row items-center justify-end">
+              <Link href={`/${query.league}`}>
+                <button className="btn-ghost my-1 w-fit cursor-pointer rounded p-2 text-2xl text-base-content transition">
+                  {query.league}
+                </button>
+              </Link>
               <div className="tooltip" data-tip="Edit player bonuses">
                 <button className="btn-ghost my-1 w-fit cursor-pointer rounded p-2 text-2xl text-base-content transition">
                   <label htmlFor="bonus">
