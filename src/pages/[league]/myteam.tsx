@@ -35,6 +35,7 @@ type teamProps = {
 const Myteam = () => {
   const { data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
+  const [serverTeam, setServerTeam] = useState<teamProps>();
   const { query } = useRouter();
   const [bonusDesc, setBonusDesc] = useState(
     "Drag and drop a bonus onto the desired player. Once you have selected 5 you can submit"
@@ -59,6 +60,7 @@ const Myteam = () => {
         for (let i = 0; i < data.PlayerTeam.length; i++) {
           if (data.PlayerTeam[i].league.name.toLowerCase() === query.league) {
             setTeam(data.PlayerTeam[i]);
+            setServerTeam(data.PlayerTeam[i]);
             return;
           }
         }
@@ -151,11 +153,11 @@ const Myteam = () => {
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
-      {team ? (
+      {serverTeam ? (
         <div className="flex flex-col items-center justify-center ">
           <header className="flex flex-col items-center space-x-2">
             <div className="flex flex-row ">
-              <h1 className="text-4xl">{team.teamName}</h1>
+              <h1 className="text-4xl">{serverTeam.teamName}</h1>
               <button onClick={linkSetter} className="mb-1 p-2 text-2xl">
                 <FiShare />
               </button>
@@ -214,8 +216,8 @@ const Myteam = () => {
               </div>
             </div>
             <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
-              {team &&
-                team.SelectedPlayer?.map((el) => {
+              {serverTeam &&
+                serverTeam.SelectedPlayer?.map((el) => {
                   return (
                     <MyPlayer
                       key={el.id}
