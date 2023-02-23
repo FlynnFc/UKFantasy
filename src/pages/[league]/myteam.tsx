@@ -38,8 +38,9 @@ const Myteam = () => {
   const [serverTeam, setServerTeam] = useState<teamProps>();
   const { query } = useRouter();
   const [bonusDesc, setBonusDesc] = useState(
-    "Drag and drop a bonus onto the desired player. Once you have selected 5 you can submit"
+    "or you can Drag and drop a bonus onto the desired player. Once you have selected 5 you can submit"
   );
+  const [bonusName, setBonusName] = useState(`Click a bonus for more details`);
 
   const [allBonuses, setAllBonuses] = useState<bonus[]>([]);
   const router = useRouter();
@@ -59,8 +60,10 @@ const Myteam = () => {
         console.log(data);
         for (let i = 0; i < data.PlayerTeam.length; i++) {
           if (data.PlayerTeam[i].league.name.toLowerCase() === query.league) {
-            setTeam(data.PlayerTeam[i]);
-            setServerTeam(data.PlayerTeam[i]);
+            const allPlayers = data.PlayerTeam[i];
+            setServerTeam({ ...allPlayers });
+            setTeam({ ...allPlayers });
+
             return;
           }
         }
@@ -74,6 +77,7 @@ const Myteam = () => {
 
   const bonusFetcher = async () => {
     if (session?.user?.id && query.league) {
+      console.log("Fettching bonuses");
       const res = await fetch("/api/allBonuses", {
         method: "GET",
       });
@@ -84,8 +88,6 @@ const Myteam = () => {
       setAllBonuses([...data]);
     }
   };
-
-  console.log(allBonuses);
 
   const linkSetter = () => {
     const path: string = team?.id as string;
@@ -149,7 +151,7 @@ const Myteam = () => {
     toast.error("Editing bonus currnelty disabled!");
   };
 
-  console.log(team);
+  console.log(team, serverTeam);
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
@@ -220,7 +222,7 @@ const Myteam = () => {
                 serverTeam.SelectedPlayer?.map((el) => {
                   return (
                     <MyPlayer
-                      key={el.id}
+                      key={el.name}
                       name={el.name}
                       price={el.price}
                       rareity={el.rareity}
@@ -238,32 +240,36 @@ const Myteam = () => {
 
       <input type="checkbox" id="bonus" className="modal-toggle" />
       <div className="modal ">
-        <div className="modal-box flex h-5/6 max-h-full w-11/12 max-w-full flex-col items-center justify-between">
-          <section className="flex flex-wrap justify-start gap-2 gap-y-8">
-            {allBonuses.map((el, i) => (
-              <div
-                key={el.name}
-                className="tooltip"
-                data-tip="Click for more info, drag to apply"
-              >
-                <label>
-                  <span
-                    draggable
-                    onClick={() => setBonusDesc(el.description)}
-                    onDragStart={(e) => handleOnDrag(e, el.name, i)}
-                    className="rounded-btn cursor-grab bg-secondary p-3 text-primary-content transition-all hover:scale-105"
-                  >
-                    {el.name}
-                  </span>
-                </label>
-              </div>
-            ))}
-          </section>
+        <div className="modal-box flex h-5/6 max-h-full w-11/12 max-w-full select-none flex-col items-center justify-between">
+          <div className="flex flex-col justify-start space-y-4">
+            <section className="mt-1 flex flex-wrap justify-start gap-2 gap-y-8">
+              {allBonuses.map((el, i) => (
+                <div
+                  key={el.name}
+                  className="tooltip transition-all hover:scale-105"
+                  data-tip="Click for more info, drag to apply"
+                >
+                  <label>
+                    <span
+                      draggable
+                      onClick={() => {
+                        setBonusName(el.name);
+                        setBonusDesc(el.description);
+                      }}
+                      onDragStart={(e) => handleOnDrag(e, el.name, i)}
+                      className="rounded-btn cursor-grab bg-secondary p-3 text-primary-content "
+                    >
+                      {el.name}
+                    </span>
+                  </label>
+                </div>
+              ))}
+            </section>
+          </div>
 
           <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
             {team &&
               team.SelectedPlayer?.map((el, i) => {
-                console.log(i);
                 return (
                   <div
                     key={el.id}
@@ -282,8 +288,8 @@ const Myteam = () => {
               })}
           </div>
           <section className="rounded-btn w-full bg-primary p-4 text-primary-content ">
-            <p>
-              <span className="text-xl">{`Selected Bonus: `}</span>
+            <p className="text-xl font-bold">
+              <span className="text-2xl font-normal">{`${bonusName}: `}</span>
               {bonusDesc}
             </p>
             <div className="flex items-center justify-end gap-2">
