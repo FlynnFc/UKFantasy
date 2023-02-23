@@ -13,16 +13,16 @@ import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
 
 //SSR
-export async function getServerSideProps() {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allLeagues");
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-    // revalidate: 5,
-  };
-}
+// export async function getStaticProps() {
+//   const res = await fetch("https://uk-fantasy.vercel.app/api/allLeagues");
+//   const data = await res.json();
+//   return {
+//     props: {
+//       data,
+//     },
+//     // revalidate: 5,
+//   };
+// }
 
 // export async function getStaticPaths() {
 //   const path = "http://localhost:3000/";
