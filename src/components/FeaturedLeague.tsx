@@ -13,7 +13,7 @@ const FeaturedLeague = () => {
           accusantium enim minus ipsam libero ab, temporibus aliquam dolor eaque
           quidem!
         </p>
-        <Link href={"./epic36"}>
+        <Link href={"./epic39"}>
           <button className="btn">Take a look</button>
         </Link>
       </div>
