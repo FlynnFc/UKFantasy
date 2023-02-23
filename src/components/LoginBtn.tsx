@@ -10,7 +10,7 @@ export default function LoginBtn(props: { primary: boolean }) {
       {status === "loading" ? (
         <button
           disabled
-          className="btn border-none bg-transparent px-2 text-4xl text-base-content"
+          className="btn animate-pulse border-none bg-transparent px-2 text-4xl text-base-content"
         >
           <IoIosArrowDropdown />
         </button>

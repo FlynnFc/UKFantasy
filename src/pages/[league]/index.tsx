@@ -95,7 +95,7 @@ const LeaguePage = () => {
     if (data) {
       for (let index = 0; index < data.length; index++) {
         const element: UserProps | any = data[index];
-        console.log(element, session);
+
         if (element?.User.id === session.data?.user?.id) {
           setUserHasTeam(true);
           return;
@@ -145,6 +145,7 @@ const LeaguePage = () => {
           dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
           dolorum unde assumenda!
         </p>
+
         {!session.data ? (
           <div className="">
             <LoginBtn primary={false} />
@@ -271,7 +272,48 @@ const LeaguePage = () => {
             <h2 className="mb-4 mt-4 text-center text-2xl font-bold">
               Scoreboard
             </h2>
-            {loadingTable ? <Table data={data} /> : <Loading />}
+            {!loadingTable ? (
+              <Table data={data} />
+            ) : (
+              <div className="rounded-2 ju rounded-btn flex w-full animate-pulse flex-row justify-between  bg-base-200 p-2 text-center text-xl font-bold text-base-content">
+                <div
+                  role="status"
+                  className="w-full max-w-md animate-pulse space-y-4 divide-y divide-gray-200 rounded p-4 shadow dark:divide-gray-700 dark:border-gray-700 md:p-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="mb-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                      <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                  </div>
+                </div>
+                <div
+                  role="status"
+                  className="w-full max-w-md animate-pulse space-y-4 divide-y divide-gray-200 rounded p-4 shadow dark:divide-gray-700 dark:border-gray-700 md:p-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="mb-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                      <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                  </div>
+                </div>
+                <div
+                  role="status"
+                  className="w-full max-w-md animate-pulse space-y-4 divide-y divide-gray-200 rounded p-4 shadow dark:divide-gray-700 dark:border-gray-700 md:p-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="mb-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+                      <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                    </div>
+                    <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </div>
