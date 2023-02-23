@@ -137,9 +137,6 @@ model League {
   description String       @db.Text
   Teams       Team[]
   User        User[]
-  open        DateTime?    @default(now())
-  live        DateTime?    @default(now())
-  ended       DateTime?    @default(now())
   offical     Boolean      @default(false)
   playerTeam  PlayerTeam[]
 }

@@ -5,11 +5,9 @@ import React from "react";
 import FeaturedLeague from "../components/FeaturedLeague";
 
 export async function getStaticProps() {
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
   if (!res.ok) {
-    console.error("error");
+    console.error("error", res);
     return;
   }
   const data = await res.json();
