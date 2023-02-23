@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import FeaturedLeague from "../components/FeaturedLeague";
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   // const path = "http://localhost:3000/";
   const path = "https://uk-fantasy.vercel.app/";
   const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
