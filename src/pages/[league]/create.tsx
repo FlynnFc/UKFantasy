@@ -420,21 +420,21 @@ export async function getStaticProps() {
     props: {
       data,
     },
-    revalidate: 1000,
+    // revalidate: 1000,
   };
 }
 
-export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-  const data = await res.json();
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
+// export async function getStaticPaths() {
+//   const path = "https://uk-fantasy.vercel.app/";
+//   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+//   const data = await res.json();
+//   const paths = data.map((league: { name: string }) => ({
+//     params: { league: league.name.toLowerCase() },
+//   }));
 
-  console.log(paths);
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   console.log(paths);
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
