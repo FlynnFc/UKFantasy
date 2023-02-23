@@ -124,7 +124,7 @@ const Myteam = () => {
 
     console.log(team?.SelectedPlayer[i]);
     console.log("Ident", Identifier, e.currentTarget);
-    const desc = "Test";
+
     console.log(allBonuses);
     console.log("current", team);
     //TODO Figure out this type error
