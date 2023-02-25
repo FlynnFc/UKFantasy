@@ -244,25 +244,18 @@ const Myteam = () => {
           <div className="flex flex-col justify-start space-y-4">
             <section className="mt-1 flex flex-wrap justify-start gap-2 gap-y-8">
               {allBonuses.map((el, i) => (
-                <div
+                <span
                   key={el.name}
-                  className="tooltip transition-all hover:scale-105"
-                  data-tip="Click for more info, drag to apply"
+                  draggable
+                  onClick={() => {
+                    setBonusName(el.name);
+                    setBonusDesc(el.description);
+                  }}
+                  onDragStart={(e) => handleOnDrag(e, el.name, i)}
+                  className="rounded-btn cursor-grab bg-secondary p-3 text-primary-content transition-all hover:scale-105 "
                 >
-                  <label>
-                    <span
-                      draggable
-                      onClick={() => {
-                        setBonusName(el.name);
-                        setBonusDesc(el.description);
-                      }}
-                      onDragStart={(e) => handleOnDrag(e, el.name, i)}
-                      className="rounded-btn cursor-grab bg-secondary p-3 text-primary-content "
-                    >
-                      {el.name}
-                    </span>
-                  </label>
-                </div>
+                  {el.name}
+                </span>
               ))}
             </section>
           </div>
