@@ -1,6 +1,15 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import { useEffect } from "react";
 
+type theme = string[];
 export default function Document() {
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    if (!localTheme) {
+      localStorage.setItem("theme", "night,winter");
+    }
+    return;
+  }, []);
   return (
     <Html lang="en">
       <Head>

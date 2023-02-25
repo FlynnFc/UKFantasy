@@ -12,17 +12,12 @@ const Navbar = () => {
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
     const bodyEl = document.querySelector("body");
-    if (localTheme) {
-      const themes: theme = localTheme.split(",");
-      console.log(themes);
-      setTheme(themes);
+    const themes: theme = localTheme!.split(",");
+    console.log(themes);
+    setTheme(themes);
 
-      const selectedTheme: string = themes[!darkmode ? 1 : 0] as string;
-      bodyEl?.setAttribute("data-theme", selectedTheme);
-    } else {
-      localStorage.setItem("theme", "night,winter");
-      bodyEl?.setAttribute("data-theme", !darkmode ? "night" : "winter");
-    }
+    const selectedTheme: string = themes[!darkmode ? 1 : 0] as string;
+    bodyEl?.setAttribute("data-theme", selectedTheme);
   }, [darkmode]);
 
   const themeHandler = () => {
