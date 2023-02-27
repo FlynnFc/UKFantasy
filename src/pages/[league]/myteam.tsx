@@ -6,7 +6,6 @@ import { FiShare } from "react-icons/fi";
 import { MyPlayer } from "../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
-import BonusPicker from "../../components/BonusPicker";
 import Link from "next/link";
 
 type bonus = {
@@ -32,7 +31,38 @@ type teamProps = {
   SelectedPlayer: player[];
 };
 
-const Myteam = () => {
+export async function getStaticProps() {
+  // const path = "http://localhost:3000/";
+  const path = "https://uk-fantasy.vercel.app/";
+  const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
+  if (!res.ok) {
+    console.error("error", res);
+    return;
+  }
+  const data = await res.json();
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  const path = "https://uk-fantasy.vercel.app/";
+  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+  const data = await res.json();
+  const paths = data.map((league: { name: string }) => ({
+    params: { league: league.name.toLowerCase() },
+  }));
+
+  console.log(paths);
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+const Myteam = (props: { data: bonus[] }) => {
   const { data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const [serverTeam, setServerTeam] = useState<teamProps>();
@@ -61,7 +91,7 @@ const Myteam = () => {
         for (let i = 0; i < data.PlayerTeam.length; i++) {
           if (data.PlayerTeam[i].league.name.toLowerCase() === query.league) {
             const allPlayers = data.PlayerTeam[i];
-            setServerTeam({ ...allPlayers });
+            setServerTeam(structuredClone(allPlayers));
             setTeam(structuredClone(allPlayers));
 
             return;
@@ -75,19 +105,12 @@ const Myteam = () => {
     console.log("running");
   }, [query.league, session]);
 
-  const bonusFetcher = async () => {
+  useEffect(() => {
+    console.log(props.data);
     if (session?.user?.id && query.league) {
-      console.log("Fettching bonuses");
-      const res = await fetch("/api/allBonuses", {
-        method: "GET",
-      });
-      if (!res.ok) {
-        console.log("error");
-      }
-      const data = await res.json();
-      setAllBonuses([...data]);
+      setAllBonuses([...props.data]);
     }
-  };
+  }, [props.data, query.league, session?.user?.id]);
 
   const linkSetter = () => {
     const path: string = team?.id as string;
@@ -204,7 +227,7 @@ const Myteam = () => {
               </Link>
               <div className="tooltip" data-tip="Edit player bonuses">
                 <button className="btn-ghost my-1 w-fit cursor-pointer rounded p-2 text-2xl text-base-content transition">
-                  <label onClick={bonusFetcher} htmlFor="bonus">
+                  <label htmlFor="bonus">
                     <ImDice />
                   </label>
                 </button>

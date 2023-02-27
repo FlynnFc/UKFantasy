@@ -37,9 +37,7 @@ const leagues = (props: {
         <div className="mt-2 w-full items-end space-y-2 sm:flex sm:flex-wrap">
           {props.data.map((el) => {
             return (
-              <>
-                <LeagueCard key={el.id} title={el.name} offical={el.offical} />
-              </>
+              <LeagueCard key={el.id} title={el.name} offical={el.offical} />
             );
           })}
         </div>
@@ -56,7 +54,7 @@ const LeagueCard = (props: { title: string; offical: boolean }) => {
         <div className="flex items-center justify-center space-x-2">
           <h2 className="text-2xl font-bold ">{props.title}</h2>
           {props.offical && (
-            <span className="badge badge-success p-3 font-bold">Official</span>
+            <span className="badge-success badge p-3 font-bold">Official</span>
           )}
         </div>
         <div className="flex w-full">
