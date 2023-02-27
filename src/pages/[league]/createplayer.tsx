@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
   const data = await res.json();
   return {
@@ -11,30 +11,6 @@ export async function getStaticProps() {
       data,
     },
   };
-}
-
-export async function getStaticPaths() {
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-
-  if (!res.ok) {
-    console.dir("whoops it threw an error", res);
-    return {
-      params: [{ league: "Epic39" }, { league: "Epic38" }],
-      fallback: false,
-    };
-  } else {
-    const data = await res.json();
-    const paths = data.map((league: { name: string }) => ({
-      params: { league: league.name.toLowerCase() },
-    }));
-
-    return {
-      paths,
-      fallback: false,
-    };
-  }
 }
 
 const Createplayer = (props: { data: [] }) => {
