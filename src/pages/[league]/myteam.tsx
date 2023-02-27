@@ -62,7 +62,7 @@ const Myteam = () => {
           if (data.PlayerTeam[i].league.name.toLowerCase() === query.league) {
             const allPlayers = data.PlayerTeam[i];
             setServerTeam({ ...allPlayers });
-            setTeam({ ...allPlayers });
+            setTeam(structuredClone(allPlayers));
 
             return;
           }
