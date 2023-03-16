@@ -71,10 +71,12 @@ const Myteam = (props: { data: bonus[] }) => {
     "or you can Drag and drop a bonus onto the desired player. Once you have selected 5 you can submit"
   );
   const [bonusName, setBonusName] = useState(`Click a bonus for more details`);
+  const [bonusCheck, setBonusCheck] = useState(new Set());
 
   const [allBonuses, setAllBonuses] = useState<bonus[]>([]);
   const router = useRouter();
 
+  console.log(bonusCheck);
   useEffect(() => {
     const fetcher = async () => {
       if (session?.user?.id && query.league) {
@@ -149,19 +151,16 @@ const Myteam = (props: { data: bonus[] }) => {
     const Identifier = e.dataTransfer.getData("Identifier");
     const Index = parseInt(e.dataTransfer.getData("BonusIndex"));
 
-    console.log(team?.SelectedPlayer[i]);
-    console.log("Ident", Identifier, e.currentTarget);
-
-    console.log(allBonuses);
-    console.log("current", team);
     //TODO Figure out this type error
     setTeam((prev: any) => {
       const temp = prev;
+
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      prev!.SelectedPlayer[i]!.bonus = {
+      temp.SelectedPlayer[i]!.bonus = {
         name: Identifier,
         description: allBonuses[Index]?.description,
       };
+
       return { ...temp };
     });
   };
@@ -266,20 +265,26 @@ const Myteam = (props: { data: bonus[] }) => {
         <div className="modal-box flex h-5/6 max-h-full w-11/12 max-w-full select-none flex-col items-center justify-between">
           <div className="flex flex-col justify-start space-y-4">
             <section className="mt-1 flex flex-wrap justify-start gap-2 gap-y-8">
-              {allBonuses.map((el, i) => (
-                <span
-                  key={el.name}
-                  draggable
-                  onClick={() => {
-                    setBonusName(el.name);
-                    setBonusDesc(el.description);
-                  }}
-                  onDragStart={(e) => handleOnDrag(e, el.name, i)}
-                  className="rounded-btn cursor-grab bg-secondary p-3 text-primary-content transition-all hover:scale-105 "
-                >
-                  {el.name}
-                </span>
-              ))}
+              {allBonuses.map((el, i) => {
+                return (
+                  <span
+                    key={el.name}
+                    draggable={!bonusCheck.has(el.name)}
+                    onClick={() => {
+                      setBonusName(el.name);
+                      setBonusDesc(el.description);
+                    }}
+                    onDragStart={(e) => handleOnDrag(e, el.name, i)}
+                    className={`  ${
+                      bonusCheck.has(el.name)
+                        ? `btn-disabled rounded-btn cursor-not-allowed bg-base-content p-3 text-primary-content `
+                        : `rounded-btn cursor-grab bg-secondary p-3 text-primary-content transition-all hover:scale-105`
+                    }`}
+                  >
+                    {el.name}
+                  </span>
+                );
+              })}
             </section>
           </div>
 
