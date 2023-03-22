@@ -65,6 +65,10 @@ const UserTeam = () => {
                   rareity={el.rareity}
                   img={el.image}
                   bonus={el.bonus}
+                  index={0}
+                  deleteBonus={function (i: number): void {
+                    throw new Error("Function not implemented.");
+                  }}
                 />
               );
             })}
