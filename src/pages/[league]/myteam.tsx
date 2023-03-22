@@ -259,6 +259,7 @@ const Myteam = (props: { data: bonus[] }) => {
                       bonus={el.bonus}
                       index={0}
                       deleteBonus={handleBonusDelete}
+                      bonusEdit={false}
                     />
                   );
                 })}
@@ -335,6 +336,7 @@ const Myteam = (props: { data: bonus[] }) => {
                       rareity={el.rareity}
                       img={el.image}
                       bonus={el.bonus}
+                      bonusEdit={true}
                     />
                   </div>
                 );

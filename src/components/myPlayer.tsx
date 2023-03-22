@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 type myPlayer = {
   bonus?: { name: string; description: string };
+  bonusEdit: boolean;
   name: string;
   price: number;
   rareity: string;
@@ -32,12 +33,14 @@ export const MyPlayer = (props: myPlayer) => {
             <button className="text-lg font-bold text-base-200">
               {props.bonus.name}
             </button>
-            <button
-              onClick={() => props.deleteBonus(props.index)}
-              className="absolute right-0 mr-2 mt-[0.1rem] font-bold text-error"
-            >
-              X
-            </button>
+            {props.bonusEdit && (
+              <button
+                onClick={() => props.deleteBonus(props.index)}
+                className="absolute right-0 mr-2 mt-[0.1rem] font-bold text-error"
+              >
+                X
+              </button>
+            )}
           </div>
         )}
         {props.img && (

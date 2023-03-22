@@ -69,6 +69,7 @@ const UserTeam = () => {
                   deleteBonus={function (i: number): void {
                     throw new Error("Function not implemented.");
                   }}
+                  bonusEdit={false}
                 />
               );
             })}
