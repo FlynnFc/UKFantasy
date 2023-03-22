@@ -33,7 +33,7 @@ type teamProps = {
 
 export async function getStaticProps() {
   // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
+  const path = "https://esportsfantasy.app/";
   const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
@@ -48,7 +48,7 @@ export async function getStaticProps() {
 }
 
 export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app/";
+  const path = "https://esportsfantasy.app/";
   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
   const data = await res.json();
   const paths = data.map((league: { name: string }) => ({

@@ -13,7 +13,7 @@ import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
 
 export async function getStaticProps() {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allLeagues");
+  const res = await fetch("https://esportsfantasy.app/api/allLeagues");
   const data = await res.json();
   return {
     props: {
@@ -25,7 +25,7 @@ export async function getStaticProps() {
 
 export async function getStaticPaths() {
   // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
+  const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
   const data = await res.json();
 
