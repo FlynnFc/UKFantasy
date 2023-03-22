@@ -55,7 +55,6 @@ export async function getStaticPaths() {
     params: { league: league.name.toLowerCase() },
   }));
 
-  console.log(paths);
   return {
     paths,
     fallback: false,
