@@ -177,6 +177,7 @@ const Myteam = (props: { data: bonus[] }) => {
 
   const HandleBonusSubmit = () => {
     toast.error("Editing bonus currnelty disabled!");
+    console.dir(team);
   };
 
   console.log(team, serverTeam);
