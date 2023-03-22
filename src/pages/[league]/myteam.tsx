@@ -116,7 +116,7 @@ const Myteam = (props: { data: bonus[] }) => {
 
   const linkSetter = () => {
     const path: string = team?.id as string;
-    const host = `https://uk-fantasy.vercel.app/${query.league}/team/`;
+    const host = `https://esportsfantasy.app/${query.league}/team/`;
     const link = host + path;
     navigator.clipboard.writeText(link);
     toast.success("added link to clipboard");
@@ -150,18 +150,24 @@ const Myteam = (props: { data: bonus[] }) => {
   const handleOnDrop = (e: React.DragEvent, i: number) => {
     const Identifier = e.dataTransfer.getData("Identifier");
     const Index = parseInt(e.dataTransfer.getData("BonusIndex"));
-
     //TODO Figure out this type error
     setTeam((prev: any) => {
-      const temp = prev;
-
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      temp.SelectedPlayer[i]!.bonus = {
+      prev!.SelectedPlayer[i]!.bonus = {
         name: Identifier,
         description: allBonuses[Index]?.description,
       };
 
-      return { ...temp };
+      return { ...prev };
+    });
+  };
+
+  const handleBonusDelete = (i: number) => {
+    setTeam((prev: any) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      prev!.SelectedPlayer[i]!.bonus = null;
+
+      return { ...prev };
     });
   };
 
@@ -266,17 +272,37 @@ const Myteam = (props: { data: bonus[] }) => {
           <div className="flex flex-col justify-start space-y-4">
             <section className="mt-1 flex flex-wrap justify-start gap-2 gap-y-8">
               {allBonuses.map((el, i) => {
+                const isBonusAplied = true;
+                for (let i = 0; i < 5; i++) {
+                  const element = team?.SelectedPlayer[i];
+                  if (element?.bonus?.name === el.name) {
+                    return (
+                      <span
+                        key={el.name}
+                        draggable={false}
+                        onClick={() => {
+                          setBonusName(el.name);
+                          setBonusDesc(el.description);
+                        }}
+                        onDragStart={(e) => handleOnDrag(e, el.name, i)}
+                        className={`${`btn-disabled rounded-btn cursor-not-allowed bg-base-content p-3 text-primary-content `}`}
+                      >
+                        {el.name}
+                      </span>
+                    );
+                  }
+                }
                 return (
                   <span
                     key={el.name}
-                    draggable={!bonusCheck.has(el.name)}
+                    draggable={isBonusAplied}
                     onClick={() => {
                       setBonusName(el.name);
                       setBonusDesc(el.description);
                     }}
                     onDragStart={(e) => handleOnDrag(e, el.name, i)}
-                    className={`  ${
-                      bonusCheck.has(el.name)
+                    className={`${
+                      !isBonusAplied
                         ? `btn-disabled rounded-btn cursor-not-allowed bg-base-content p-3 text-primary-content `
                         : `rounded-btn cursor-grab bg-secondary p-3 text-primary-content transition-all hover:scale-105`
                     }`}
@@ -298,6 +324,8 @@ const Myteam = (props: { data: bonus[] }) => {
                     onDrop={(e) => handleOnDrop(e, i)}
                   >
                     <MyPlayer
+                      index={i}
+                      deleteBonus={handleBonusDelete}
                       name={el.name}
                       price={el.price}
                       rareity={el.rareity}

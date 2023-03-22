@@ -7,6 +7,8 @@ type myPlayer = {
   price: number;
   rareity: string;
   img?: string;
+  index: number;
+  deleteBonus: (i: number) => void;
 };
 
 export const MyPlayer = (props: myPlayer) => {
@@ -31,9 +33,7 @@ export const MyPlayer = (props: myPlayer) => {
               {props.bonus.name}
             </button>
             <button
-              onClick={() => {
-                console.log(props.bonus);
-              }}
+              onClick={() => props.deleteBonus(props.index)}
               className="absolute right-0 mr-2 mt-[0.1rem] font-bold text-error"
             >
               X
