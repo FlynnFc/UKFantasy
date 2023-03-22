@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
@@ -19,7 +19,7 @@ export async function getStaticProps() {
     props: {
       data,
     },
-    // revalidate: 5,
+    revalidate: 5,
   };
 }
 
