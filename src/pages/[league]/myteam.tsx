@@ -256,6 +256,8 @@ const Myteam = (props: { data: bonus[] }) => {
                       rareity={el.rareity}
                       img={el.image}
                       bonus={el.bonus}
+                      index={0}
+                      deleteBonus={handleBonusDelete}
                     />
                   );
                 })}
@@ -267,9 +269,10 @@ const Myteam = (props: { data: bonus[] }) => {
       )}
 
       <input type="checkbox" id="bonus" className="modal-toggle" />
-      <div className="modal ">
+      <div className="modal">
         <div className="modal-box flex h-5/6 max-h-full w-11/12 max-w-full select-none flex-col items-center justify-between">
           <div className="flex flex-col justify-start space-y-4">
+            <h3></h3>
             <section className="mt-1 flex flex-wrap justify-start gap-2 gap-y-8">
               {allBonuses.map((el, i) => {
                 const isBonusAplied = true;
