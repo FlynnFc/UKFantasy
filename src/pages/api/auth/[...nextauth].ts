@@ -23,7 +23,8 @@ export const authOptions: NextAuthOptions = {
     },
   }),  FaceItProvider({
     clientId: process.env.FACEIT_CLIENT_ID,
-    clientSecret: process.env.FACEIT_CLIENT_SECRET
+    clientSecret: process.env.FACEIT_CLIENT_SECRET,
+      idToken: true,
   })],
   pages:{
     signIn: "/auth/signin"
