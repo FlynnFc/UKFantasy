@@ -52,7 +52,7 @@ const Table = (props) => {
         accessor: "team",
       },
       {
-        Header: "role points",
+        Header: "bonus points",
         accessor: "rolepoints",
       },
       {
