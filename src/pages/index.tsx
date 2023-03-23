@@ -5,7 +5,8 @@ import { useEffect } from "react";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { status } = useSession();
+  const { status, data } = useSession();
+  console.log(data?.user);
 
   useEffect(() => {
     if (status === "authenticated") {

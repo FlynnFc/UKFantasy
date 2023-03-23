@@ -5,7 +5,7 @@ import NextAuth, { type NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma} from "../../../server/db/client";
 import GoogleProvider from "next-auth/providers/google"
-import FaceItProvider from "next-auth/providers/faceit";
+import TwitterProvider from "next-auth/providers/twitter";
 
 export const authOptions: NextAuthOptions = {
 
@@ -21,10 +21,10 @@ export const authOptions: NextAuthOptions = {
         response_type: "code"
       }
     },
-  }),  FaceItProvider({
-    clientId: process.env.FACEIT_CLIENT_ID,
-    clientSecret: process.env.FACEIT_CLIENT_SECRET
-  })],
+  }),    TwitterProvider({
+    clientId: process.env.TWITTER_ID!,
+    clientSecret: process.env.TWITTER_SECRET!,version: "2.0"
+  }),],
   pages:{
     signIn: "/auth/signin"
   },

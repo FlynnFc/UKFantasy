@@ -37,15 +37,15 @@ export default function SignIn(props: { providers: any }) {
                     key={provider.name}
                     style={{ marginBottom: 0 }}
                   >
-                    <div
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-[#FF5500] text-xl hover:bg-[#E14A00] `}
+                    <button
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-[#1D9BF0] text-xl hover:bg-[#1876b4] `}
                       onClick={() =>
                         signIn(provider.id, { callbackUrl: "/leagues" })
                       }
                     >
                       Sign in with {provider.name}
                       <SiFaceit className="mx-4 inline" />
-                    </div>
+                    </button>
                   </div>
                 );
               }
@@ -58,11 +58,6 @@ export default function SignIn(props: { providers: any }) {
             type="text"
             placeholder="Email"
             className="w-full rounded-lg bg-base-100 p-3"
-          />{" "}
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full rounded-lg bg-base-100 p-3"
           />
           <button className="btn-outline btn w-full" disabled>
             Sign in
@@ -73,7 +68,7 @@ export default function SignIn(props: { providers: any }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const providers = await getProviders();
   return {
     props: {
