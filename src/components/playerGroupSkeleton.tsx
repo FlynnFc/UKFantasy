@@ -32,10 +32,10 @@ const PlayerGroupSkeleton = (props: {
   };
   return (
     <div
-      className=" mt-5 flex w-full flex-col items-center justify-evenly rounded-lg bg-primary
- px-3 pb-4"
+      className=" mt-5 flex w-full flex-col items-center justify-evenly rounded-lg bg-primary p-3 pb-6
+"
     >
-      <div className="flex w-full justify-between  px-5">
+      <div className="flex w-full justify-between p-3">
         <input
           type="text"
           placeholder="Team name"
