@@ -6,6 +6,7 @@ import { useEffect } from "react";
 const Home: NextPage = () => {
   const router = useRouter();
   const { status } = useSession();
+
   useEffect(() => {
     if (status === "authenticated") {
       router.push("/leagues");

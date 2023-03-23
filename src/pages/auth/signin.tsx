@@ -2,7 +2,6 @@ import { getProviders, signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { SiFaceit } from "react-icons/si";
 export default function SignIn(props: { providers: any }) {
-  console.log(props.providers);
   return (
     <div
       className="flex h-screen items-center justify-center"
@@ -12,7 +11,7 @@ export default function SignIn(props: { providers: any }) {
         <div className="flex h-full w-96 flex-col items-stretch justify-center space-y-2 rounded-md bg-primary p-6 shadow-md">
           {props.providers &&
             Object.values(props.providers).map((provider: any) => {
-              console.log(provider.name);
+              console.log(provider);
               if (provider.name === "Google") {
                 return (
                   <div
