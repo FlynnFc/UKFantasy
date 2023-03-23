@@ -1,5 +1,6 @@
 import { getProviders, signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
+import { SiFaceit } from "react-icons/si";
 export default function SignIn(props: { providers: any }) {
   console.log(props.providers);
   return (
@@ -10,23 +11,46 @@ export default function SignIn(props: { providers: any }) {
       <div className="mb-10 flex w-96 flex-col items-center rounded-md bg-base-300 shadow-lg shadow-base-300">
         <div className="flex h-full w-96 flex-col items-stretch justify-center space-y-2 rounded-md bg-primary p-6 shadow-md">
           {props.providers &&
-            Object.values(props.providers).map((provider: any) => (
-              <div
-                className="flex justify-center"
-                key={provider.name}
-                style={{ marginBottom: 0 }}
-              >
-                <div
-                  className={`btn-lg btn flex w-[20rem] justify-center border-none text-xl `}
-                  onClick={() =>
-                    signIn(provider.id, { callbackUrl: "/leagues" })
-                  }
-                >
-                  Sign in with {provider.name}
-                  <FcGoogle className="mx-4 inline" />
-                </div>
-              </div>
-            ))}
+            Object.values(props.providers).map((provider: any) => {
+              console.log(provider.name);
+              if (provider.name === "Google") {
+                return (
+                  <div
+                    className="flex justify-center"
+                    key={provider.name}
+                    style={{ marginBottom: 0 }}
+                  >
+                    <div
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none text-xl `}
+                      onClick={() =>
+                        signIn(provider.id, { callbackUrl: "/leagues" })
+                      }
+                    >
+                      Sign in with {provider.name}
+                      <FcGoogle className="mx-4 inline" />
+                    </div>
+                  </div>
+                );
+              } else {
+                return (
+                  <div
+                    className="flex justify-center"
+                    key={provider.name}
+                    style={{ marginBottom: 0 }}
+                  >
+                    <div
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-[#FF5500] text-xl hover:bg-[#E14A00] `}
+                      onClick={() =>
+                        signIn(provider.id, { callbackUrl: "/leagues" })
+                      }
+                    >
+                      Sign in with {provider.name}
+                      <SiFaceit className="mx-4 inline" />
+                    </div>
+                  </div>
+                );
+              }
+            })}
         </div>
         <h1 className="pt-4 text-3xl font-bold text-base-content">Sign in</h1>
         <div className="mb-2 w-full space-y-2 border-base-100 p-6 pb-4">

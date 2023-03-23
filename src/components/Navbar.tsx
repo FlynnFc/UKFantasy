@@ -9,6 +9,7 @@ type theme = string[];
 const Navbar = () => {
   const [darkmode, setDarkMode] = useState(true);
   const [theme, setTheme] = useState<theme>(["winter", "night"]);
+
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
     const bodyEl = document.querySelector("body");
@@ -17,10 +18,10 @@ const Navbar = () => {
       console.log(themes);
       setTheme(themes);
 
-      const selectedTheme: string = themes[!darkmode ? 1 : 0] as string;
+      const selectedTheme: string = themes[darkmode ? 1 : 0] as string;
       bodyEl?.setAttribute("data-theme", selectedTheme);
     } else {
-      localStorage.setItem("theme", "night,winter");
+      localStorage.setItem("theme", "winter,night");
       bodyEl?.setAttribute("data-theme", !darkmode ? "night" : "winter");
     }
   }, [darkmode]);

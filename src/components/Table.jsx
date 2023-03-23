@@ -3,15 +3,6 @@ import { useTable, useSortBy } from "react-table";
 import Loading from "./Loading";
 import TeamButtonTable from "./TeamButtonTable";
 import { useRouter } from "next/router";
-//Add Global search on table
-
-// type team = {
-//   username: string;
-//   team: string
-//   rolepoints: number;
-//   points: number;
-// totalpoints:number;
-// }
 
 const Table = (props) => {
   const { query } = useRouter();
@@ -47,28 +38,7 @@ const Table = (props) => {
       }
     });
   }, [checker, props.data, query.league]);
-  // setTimeout(() => console.log(playerData));
 
-  //Seed Data for testing
-  const data = React.useMemo(
-    () => [
-      {
-        username: "flynn",
-        team: "World",
-        rolepoints: 5,
-        points: 44,
-        totalpoints: 105,
-      },
-      {
-        username: "flynn",
-        team: "World",
-        rolepoints: 5,
-        points: 44,
-        totalpoints: 105,
-      },
-    ],
-    []
-  );
   const submissiondata = useMemo(() => [...playerData], [playerData]);
 
   const columns = useMemo(

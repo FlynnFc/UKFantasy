@@ -104,7 +104,7 @@ const Profile = () => {
                           <Link
                             href={`/${el.league.name.toLowerCase()}/myteam`}
                           >
-                            <button className="btn-secondary btn w-full">
+                            <button className="btn w-full bg-primary/50">
                               See Team
                             </button>
                           </Link>

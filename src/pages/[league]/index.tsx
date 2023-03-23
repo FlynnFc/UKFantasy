@@ -136,7 +136,7 @@ const LeaguePage = () => {
         </div>
       ) : null}
       {loading && <Loading />}
-      <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-base-100 shadow-lg">
+      <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-primary-content shadow-lg">
         <h1 className="my-8 text-4xl font-bold">
           {query.league} Tournement center
         </h1>

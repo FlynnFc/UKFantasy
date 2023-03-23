@@ -7,6 +7,7 @@ import { MyPlayer } from "../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Table from "../../components/Table";
 
 type bonus = {
   name: string;
@@ -192,9 +193,6 @@ const Myteam = (props: { data: bonus[] }) => {
                 <FiShare />
               </button>
             </div>
-            <div className="flex flex-row items-end justify-center space-y-2">
-              <h2 className="mb-2 text-3xl">{`${session?.user?.name}'s team`}</h2>
-            </div>
           </header>
 
           <input
@@ -264,6 +262,33 @@ const Myteam = (props: { data: bonus[] }) => {
                 })}
             </div>
           </div>
+          <section className="my-4 w-full">
+            <h2 className="my-2 text-left text-4xl">Insights</h2>
+            <div className="max-h-48  overflow-x-auto">
+              <table className="table w-full  overflow-y-scroll">
+                <thead className="sticky top-0">
+                  <tr>
+                    <th>Rating</th>
+                    <th>Teams</th>
+                    <th>Players competing</th>
+                    <th>Score</th>
+                    <th>bonus points</th>
+                    <th>Total points gained</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1.3</td>
+                    <td>Moose house vs Binmen</td>
+                    <td>Edeninho, Sheekey, Thomas</td>
+                    <td>13-16</td>
+                    <td>0</td>
+                    <td>43</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
         </div>
       ) : (
         <Loading />
@@ -274,9 +299,8 @@ const Myteam = (props: { data: bonus[] }) => {
         <div className="modal-box flex h-5/6 max-h-full w-11/12 max-w-full select-none flex-col items-center justify-between">
           <div className="flex flex-col justify-start space-y-4">
             <h3></h3>
-            <section className="mt-1 flex flex-wrap justify-start gap-2 gap-y-8">
+            <section className="mt-1 flex flex-wrap justify-start gap-2">
               {allBonuses.map((el, i) => {
-                const isBonusAplied = true;
                 for (let i = 0; i < 5; i++) {
                   const element = team?.SelectedPlayer[i];
                   if (element?.bonus?.name === el.name) {
@@ -289,7 +313,7 @@ const Myteam = (props: { data: bonus[] }) => {
                           setBonusDesc(el.description);
                         }}
                         onDragStart={(e) => handleOnDrag(e, el.name, i)}
-                        className={`${`btn-disabled rounded-btn cursor-not-allowed bg-base-content p-3 text-primary-content `}`}
+                        className={`${`rounded-btn cursor-not-allowed bg-gray-900 p-3 text-gray-700 line-through`}`}
                       >
                         {el.name}
                       </span>
@@ -299,17 +323,13 @@ const Myteam = (props: { data: bonus[] }) => {
                 return (
                   <span
                     key={el.name}
-                    draggable={isBonusAplied}
+                    draggable={true}
                     onClick={() => {
                       setBonusName(el.name);
                       setBonusDesc(el.description);
                     }}
                     onDragStart={(e) => handleOnDrag(e, el.name, i)}
-                    className={`${
-                      !isBonusAplied
-                        ? `btn-disabled rounded-btn cursor-not-allowed bg-base-content p-3 text-primary-content `
-                        : `rounded-btn cursor-grab bg-secondary p-3 text-primary-content transition-all hover:scale-105`
-                    }`}
+                    className="rounded-btn cursor-grab bg-primary/90 p-3 text-primary-content transition-all hover:scale-105"
                   >
                     {el.name}
                   </span>
@@ -343,10 +363,10 @@ const Myteam = (props: { data: bonus[] }) => {
           </div>
           <section className="rounded-btn w-full bg-primary p-4 text-primary-content ">
             <p className="text-xl font-bold">
-              <span className="text-2xl font-normal">{`${bonusName}: `}</span>
+              <span className="text-xl font-normal">{`${bonusName}: `}</span>
               {bonusDesc}
             </p>
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-end gap-2 pt-2">
               <button onClick={HandleBonusSubmit} className="btn-success btn">
                 Submit
               </button>

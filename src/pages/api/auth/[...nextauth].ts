@@ -5,6 +5,7 @@ import NextAuth, { type NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma} from "../../../server/db/client";
 import GoogleProvider from "next-auth/providers/google"
+import FaceItProvider from "next-auth/providers/faceit";
 
 export const authOptions: NextAuthOptions = {
 
@@ -20,7 +21,10 @@ export const authOptions: NextAuthOptions = {
         response_type: "code"
       }
     },
-  }),],
+  }),  FaceItProvider({
+    clientId: process.env.FACEIT_CLIENT_ID,
+    clientSecret: process.env.FACEIT_CLIENT_SECRET
+  })],
   pages:{
     signIn: "/auth/signin"
   },
