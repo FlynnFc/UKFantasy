@@ -1,6 +1,6 @@
 import { getProviders, signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
-import { SiFaceit } from "react-icons/si";
+import { SiFaceit, SiTwitter } from "react-icons/si";
 export default function SignIn(props: { providers: any }) {
   return (
     <div
@@ -19,7 +19,7 @@ export default function SignIn(props: { providers: any }) {
                     key={provider.name}
                     style={{ marginBottom: 0 }}
                   >
-                    <div
+                    <button
                       className={`btn-lg btn flex w-[20rem] justify-center border-none text-xl `}
                       onClick={() =>
                         signIn(provider.id, { callbackUrl: "/leagues" })
@@ -27,7 +27,7 @@ export default function SignIn(props: { providers: any }) {
                     >
                       Sign in with {provider.name}
                       <FcGoogle className="mx-4 inline" />
-                    </div>
+                    </button>
                   </div>
                 );
               } else {
@@ -44,7 +44,7 @@ export default function SignIn(props: { providers: any }) {
                       }
                     >
                       Sign in with {provider.name}
-                      <SiFaceit className="mx-4 inline" />
+                      <SiTwitter className="mx-4 inline" />
                     </button>
                   </div>
                 );

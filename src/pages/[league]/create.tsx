@@ -290,7 +290,7 @@ const Create = (props: {
             </p>
             <div className="mr-8 flex justify-end">
               <Link href={`/${query.league}/myteam`}>
-                <button className="btn">Take me back</button>
+                <button className="btn">Take me there</button>
               </Link>
             </div>
           </div>
