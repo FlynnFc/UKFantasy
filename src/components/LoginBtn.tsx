@@ -36,12 +36,13 @@ export default function LoginBtn(props: { primary: boolean }) {
                 <a>Settings</a>
               </Link>
             </li>
-            <li>
-              {" "}
-              <Link href="/leagues">
-                <a>Leagues</a>
-              </Link>
-            </li>
+            {status === "authenticated" && (
+              <li>
+                <Link href="/leagues">
+                  <a>Leagues</a>
+                </Link>
+              </li>
+            )}
             <li>
               <button className="btn text-white " onClick={() => signOut()}>
                 Sign out
