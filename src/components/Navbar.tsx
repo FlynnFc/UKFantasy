@@ -46,10 +46,6 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-start space-x-2">
-          <Link href="/leagues">
-            <button className="btn text-white">Leagues</button>
-          </Link>
-
           <label className="swap-rotate swap mt-[0.2rem]">
             <input
               onClick={themeHandler}

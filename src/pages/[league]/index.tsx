@@ -136,7 +136,7 @@ const LeaguePage = () => {
         </div>
       ) : null}
       {loading && <Loading />}
-      <div className="mt-14 flex flex-col rounded-lg bg-primary px-10 pb-10 text-primary-content shadow-lg">
+      <div className="rounded-btn mt-14 flex flex-col bg-primary px-10 pb-10 text-primary-content shadow-lg">
         <h1 className="my-8 text-4xl font-bold">
           {query.league} Tournement center
         </h1>
@@ -163,7 +163,7 @@ const LeaguePage = () => {
       </div>
 
       <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
-        <section className="my-2 mt-5 h-max rounded-lg bg-base-300 py-5 px-0 text-base-content shadow-lg 2xl:w-[25%]">
+        <section className="rounded-btn my-2 mt-5 h-max bg-base-300 py-5 px-0 text-base-content shadow-lg 2xl:w-[25%]">
           <h2 className="text-center text-xl font-bold leading-none">
             Top Performers
           </h2>
@@ -181,7 +181,7 @@ const LeaguePage = () => {
             </li>
           </ul>
         </section>
-        <section className="my-2 mt-5 flex justify-center rounded-lg bg-base-300 px-10 pb-10 text-base-content  2xl:w-[75%]">
+        <section className="rounded-btn my-2 mt-5 flex justify-center bg-base-300 px-10 pb-10 text-base-content  2xl:w-[75%]">
           <div className=" w-full overflow-x-auto">
             {/* <table className="table w-full font-semibold">
               <thead>

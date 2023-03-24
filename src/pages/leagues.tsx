@@ -48,8 +48,8 @@ const leagues = (props: {
 
 const LeagueCard = (props: { title: string; offical: boolean }) => {
   return (
-    <div className="mx-1 h-[304px] w-max  rounded-lg bg-base-content text-base-100 shadow-xl sm:min-w-[15rem]">
-      <div className="h-40 w-full rounded-t-lg bg-slate-600"></div>
+    <div className="rounded-btn mx-1 h-[304px]  w-max bg-base-content text-base-100 shadow-xl sm:min-w-[15rem]">
+      <div className="rounded-t-btn h-40 w-full bg-slate-600"></div>
       <div className="p-6">
         <div className="flex items-center justify-center space-x-2">
           <h2 className="text-2xl font-bold ">{props.title}</h2>

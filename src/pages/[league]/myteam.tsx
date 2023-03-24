@@ -230,14 +230,14 @@ const Myteam = (props: { data: bonus[] }) => {
               </Link>
               <div className="tooltip" data-tip="Edit player bonuses">
                 <button className="btn-ghost my-1 w-fit cursor-pointer rounded p-2 text-2xl text-base-content transition">
-                  <label htmlFor="bonus">
+                  <label className="cursor-pointer" htmlFor="bonus">
                     <ImDice />
                   </label>
                 </button>
               </div>
               <div className="tooltip" data-tip="Delete team">
                 <button className="btn-ghost my-1 h-fit w-fit cursor-pointer rounded p-2 text-2xl text-error transition">
-                  <label htmlFor="my-modal">
+                  <label className="cursor-pointer" htmlFor="my-modal">
                     <ImBin />
                   </label>
                 </button>
@@ -262,7 +262,7 @@ const Myteam = (props: { data: bonus[] }) => {
                 })}
             </div>
           </div>
-          <section className="my-4 w-full">
+          {/* <section className="my-4 w-full">
             <h2 className="my-2 text-left text-4xl">Insights</h2>
             <div className="max-h-48  overflow-x-auto">
               <table className="table w-full  overflow-y-scroll">
@@ -288,7 +288,7 @@ const Myteam = (props: { data: bonus[] }) => {
                 </tbody>
               </table>
             </div>
-          </section>
+          </section> */}
         </div>
       ) : (
         <Loading />
