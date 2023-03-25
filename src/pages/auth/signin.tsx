@@ -30,7 +30,7 @@ export default function SignIn(props: { providers: any }) {
                     </button>
                   </div>
                 );
-              } else {
+              } else if (provider.name === "Twitter") {
                 return (
                   <div
                     className="flex justify-center"
@@ -45,6 +45,24 @@ export default function SignIn(props: { providers: any }) {
                     >
                       Sign in with {provider.name}
                       <SiTwitter className="mx-4 inline" />
+                    </button>
+                  </div>
+                );
+              } else {
+                return (
+                  <div
+                    className="flex justify-center"
+                    key={provider.name}
+                    style={{ marginBottom: 0 }}
+                  >
+                    <button
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-orange-600 text-xl  `}
+                      onClick={() =>
+                        signIn(provider.id, { callbackUrl: "/leagues" })
+                      }
+                    >
+                      Sign in with {provider.name}
+                      <SiFaceit className="mx-4 inline" />
                     </button>
                   </div>
                 );

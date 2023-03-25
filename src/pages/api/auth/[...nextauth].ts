@@ -6,7 +6,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma} from "../../../server/db/client";
 import GoogleProvider from "next-auth/providers/google"
 import TwitterProvider from "next-auth/providers/twitter";
-
+import FaceItProvider from "next-auth/providers/faceit";
 export const authOptions: NextAuthOptions = {
 
   // Configure one or more authentication providers
@@ -23,8 +23,12 @@ export const authOptions: NextAuthOptions = {
     },
   }),    TwitterProvider({
     clientId: process.env.TWITTER_ID!,
-    clientSecret: process.env.TWITTER_SECRET!,version: "2.0"
-  }),],
+    clientSecret: process.env.TWITTER_SECRET!,
+    version: "2.0" 
+  }),  FaceItProvider({
+    clientId: process.env.FACEIT_ID,
+    clientSecret: process.env.FACEIT_SECRET
+  })],
   pages:{
     signIn: "/auth/signin"
   },
