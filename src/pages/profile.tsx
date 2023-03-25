@@ -73,7 +73,7 @@ const Profile = () => {
                   {session?.user?.email}
                 </span>
               </div>
-              {session?.user?.image && (
+              {session?.user?.image ? (
                 <Image
                   className="rounded-lg"
                   src={session?.user?.image}
@@ -81,7 +81,7 @@ const Profile = () => {
                   width={60}
                   alt="profile picture"
                 ></Image>
-              )}
+              ) : null}
             </section>
             <section className="rounded-btn flex h-full flex-col justify-start bg-base-100 p-8 md:w-[30rem]">
               <h2 className="text-3xl">All teams</h2>
