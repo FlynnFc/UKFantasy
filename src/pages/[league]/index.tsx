@@ -45,6 +45,7 @@ type UserProps = {
 
 const LeaguePage = () => {
   const session = useSession();
+  const { status } = useSession();
   const { query } = useRouter();
   const [createModal, setCreateModal] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -109,7 +110,7 @@ const LeaguePage = () => {
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-      {createModal && !userHasTeam && session.data ? (
+      {createModal && !userHasTeam && status === "authenticated" ? (
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
@@ -147,7 +148,7 @@ const LeaguePage = () => {
           dolorum unde assumenda!
         </p>
 
-        {!session.data ? (
+        {status === "unauthenticated" ? (
           <div className="">
             <LoginBtn primary={false} />
           </div>
