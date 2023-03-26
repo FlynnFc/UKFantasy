@@ -192,6 +192,7 @@ const Create = (props: {
 
   //Checks if user has already submitted a team
   useEffect(() => {
+    console.log(session);
     const teamChecker = async () => {
       setLoading(true);
       if (session.data?.user?.id) {
@@ -237,6 +238,7 @@ const Create = (props: {
     teamChecker();
   }, [query.league, session.data?.user?.id]);
 
+  console.log(session.data);
   return (
     <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl select-none flex-col items-end justify-start  p-4 sm:mx-auto">
       <Toaster position="bottom-right" />
