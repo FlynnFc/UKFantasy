@@ -8,22 +8,36 @@ import { useSession } from "next-auth/react";
 type theme = string[];
 
 const Navbar = () => {
-  const [darkmode, setDarkMode] = useState(true);
+  const [darkmode, setDarkMode] = useState<boolean>();
   const [theme, setTheme] = useState<theme>(["winter", "night"]);
   const { status } = useSession();
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
     const bodyEl = document.querySelector("body");
+    const isBrowserSetToDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
     if (localTheme) {
       const themes: theme = localTheme.split(",");
-      console.log(themes);
       setTheme(themes);
-
-      const selectedTheme: string = themes[darkmode ? 1 : 0] as string;
-      bodyEl?.setAttribute("data-theme", selectedTheme);
+      console.log(darkmode);
+      if (darkmode === undefined) {
+        const selectedTheme: string = themes[
+          isBrowserSetToDark ? 1 : 0
+        ] as string;
+        bodyEl?.setAttribute("data-theme", selectedTheme);
+      } else {
+        const selectedTheme: string = themes[darkmode ? 1 : 0] as string;
+        bodyEl?.setAttribute("data-theme", selectedTheme);
+      }
     } else {
-      localStorage.setItem("theme", "winter,night");
-      bodyEl?.setAttribute("data-theme", !darkmode ? "night" : "winter");
+      console.log(isBrowserSetToDark);
+      localStorage.setItem("theme", "business,corporate");
+      bodyEl?.setAttribute(
+        "data-theme",
+        isBrowserSetToDark ? "business" : "corporate"
+      );
     }
   }, [darkmode]);
 

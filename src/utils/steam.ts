@@ -28,9 +28,8 @@ export default function Steam<P extends SteamProfile>(
     },
     token: {
         async request(req:any) {
-
+console.dir("Request!!!!!!", req.params)
             const token_params = {
-                "openid.assoc_handle": req.query["openid.assoc_handle"],
                 "openid.signed": req.query["openid.signed"],
                 "openid.sig": req.query["openid.sig"],
                 "openid.ns": "http://specs.openid.net/auth/2.0",
