@@ -1,53 +1,8 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import type { NextApiRequest, NextApiResponse } from "next"
+import NextAuth from "next-auth";
+import authOptions from "../../../server/auth";
 
-// Prisma adapter for NextAuth, optional and can be removed
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { prisma} from "../../../server/db/client";
-import GoogleProvider from "next-auth/providers/google"
-import TwitterProvider from "next-auth/providers/twitter";
-export const authOptions: NextAuthOptions = {
-
-  // Configure one or more authentication providers
-  adapter: PrismaAdapter(prisma),
-  providers: [GoogleProvider({
-    clientId: process.env.GOOGLE_ID!,
-    clientSecret: process.env.GOOGLE_SECRET!,
-    authorization: {
-      params: {
-        prompt: "consent",
-        access_type: "offline",
-        response_type: "code"
-      }
-    },
-  }),TwitterProvider({
-    clientId: process.env.TWITTER_ID!,
-    clientSecret: process.env.TWITTER_SECRET!,
-    version: "2.0" 
-  }),
-
-
-],
-  pages:{
-    signIn: "/auth/signin"
-  },
-  secret: process.env.sercet,  
-  session: {
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours
-  },
-
-  // Include user.id on session
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
-      }
-      return session;
-    },
-  },
-};
-
-export default NextAuth(authOptions);
-
-
+export default async function auth(req: NextApiRequest, res: NextApiResponse) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return await NextAuth(req, res, authOptions);
+}
