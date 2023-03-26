@@ -121,7 +121,7 @@ const Profile = () => {
                     );
                   }
                 )}
-              {!!teams && <div>No teams</div>}
+              {teams.length < 1 && <div>No teams</div>}
             </section>
           </main>
           <section className="rounded-btn hidden h-[80vh] w-[25rem] flex-row items-center justify-center bg-base-300 text-base-content xl:flex ">
