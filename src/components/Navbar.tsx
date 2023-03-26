@@ -11,6 +11,7 @@ const Navbar = () => {
   const [darkmode, setDarkMode] = useState<boolean>();
   const [theme, setTheme] = useState<theme>(["winter", "night"]);
   const { status } = useSession();
+
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
     const bodyEl = document.querySelector("body");

@@ -1,10 +1,11 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { IoIosArrowDropdown } from "react-icons/io";
 export default function LoginBtn(props: { primary: boolean }) {
   const { status } = useSession();
-
-  console.log(status);
+  const { route } = useRouter();
+  console.log(route);
   return (
     <>
       {status === "loading" ? (
@@ -28,19 +29,37 @@ export default function LoginBtn(props: { primary: boolean }) {
           >
             <li>
               <Link href={"/profile"}>
-                <a>Profile</a>
+                <a
+                  className={`${
+                    route === "/profile" ? `bg-primary-focus` : undefined
+                  } hover:bg-primary-focus/40`}
+                >
+                  Profile
+                </a>
               </Link>
             </li>
             {status === "authenticated" && (
               <li>
                 <Link href="/leagues">
-                  <a>Leagues</a>
+                  <a
+                    className={`${
+                      route === "/leagues" ? `bg-primary-focus` : undefined
+                    } hover:bg-primary-focus/40`}
+                  >
+                    Leagues
+                  </a>
                 </Link>
               </li>
             )}
             <li>
               <Link href={"/settings"}>
-                <a>Settings</a>
+                <a
+                  className={`${
+                    route === "/settings" ? `bg-primary-focus` : undefined
+                  } hover:bg-primary-focus/40`}
+                >
+                  Settings
+                </a>
               </Link>
             </li>
 
