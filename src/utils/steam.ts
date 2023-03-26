@@ -20,7 +20,7 @@ export default function Steam<P extends SteamProfile>(
         params: {
             "openid.ns": "http://specs.openid.net/auth/2.0",
             "openid.mode": "checkid_setup",
-            "openid.return_to": `${options.clientId}/api/v1/auth/callback/steam`,
+            "openid.return_to": `${options.clientId}/api/auth/callback/steam`,
             "openid.realm": `${options.clientId}`,
             "openid.identity": "http://specs.openid.net/auth/2.0/identifier_select",
             "openid.claimed_id": "http://specs.openid.net/auth/2.0/identifier_select",
