@@ -80,7 +80,7 @@ console.dir("Request!!!!!!", req.params)
     },
     idToken: false,
     checks: ["none"],
-    profile(profile: any) {
+    profile(profile: P) {
         return {
             id: profile.steamid,
             image: profile.avatarfull,
