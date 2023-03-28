@@ -20,14 +20,13 @@ const Home: NextPage = () => {
           Welcome to the UK CS{" "}
           <span className="font-bold text-accent"> Fantasy League</span>!
         </h1>
-
-        <div className="my-5 flex w-full flex-col items-center">
+        <div className="mt-[15%] flex w-full flex-col items-center">
           <Link href={"./demo"}>
-            <button className="btn-primary btn-lg btn w-fit">
+            <button className="btn-primary btn w-fit md:btn-lg">
               Take a peek
             </button>
           </Link>
-          <p className="mt-2 text-left text-base">
+          <p className="mt-2 text-center text-xs md:text-left md:text-base">
             This is an experimental version of the site. If you find any bugs or
             have ideas of future features shoot me an email{" "}
             <i>foleyclarkef@gmail.com</i>.

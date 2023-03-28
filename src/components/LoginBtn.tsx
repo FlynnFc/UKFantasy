@@ -51,17 +51,6 @@ export default function LoginBtn(props: { primary: boolean }) {
                 </Link>
               </li>
             )}
-            <li>
-              <Link href={"/settings"}>
-                <a
-                  className={`${
-                    route === "/settings" ? `bg-primary-focus` : undefined
-                  } hover:bg-primary-focus/40`}
-                >
-                  Settings
-                </a>
-              </Link>
-            </li>
 
             <li>
               <button className="btn text-white " onClick={() => signOut()}>

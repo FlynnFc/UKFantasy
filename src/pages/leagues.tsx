@@ -1,5 +1,6 @@
 //Grey out leagues user is already in
 
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import FeaturedLeague from "../components/FeaturedLeague";
@@ -53,8 +54,14 @@ const LeagueCard = (props: { title: string; offical: boolean }) => {
       <div className="p-6">
         <div className="flex items-center justify-center space-x-2">
           <h2 className="text-2xl font-bold ">{props.title}</h2>
-          {props.offical && (
-            <span className="badge-success badge p-3 font-bold">Official</span>
+          {props.offical && props.title === "Demo" ? (
+            <span className="badge-accent badge p-3 font-bold">Demo</span>
+          ) : (
+            props.offical && (
+              <span className="badge-success badge p-3 font-bold">
+                Official
+              </span>
+            )
           )}
         </div>
         <div className="flex w-full">
