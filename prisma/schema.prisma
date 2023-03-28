@@ -139,6 +139,9 @@ model League {
   User        User[]
   offical     Boolean      @default(false)
   playerTeam  PlayerTeam[]
+  openDate    DateTime     @default(now())
+  startDate   DateTime     @default(now())
+  endDate     DateTime     @default(now())
 }
 
 model bonus {

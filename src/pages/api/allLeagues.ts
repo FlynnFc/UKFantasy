@@ -7,7 +7,7 @@ const allLeagues = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const leagues = await prisma.league.findMany({where:{name:{startsWith:''}}})
+        const leagues = await prisma.league.findMany()
         console.log("all leagues",leagues)
         res.status(200).json(leagues)
       } catch (e) {
