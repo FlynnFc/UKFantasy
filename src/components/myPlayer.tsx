@@ -53,7 +53,7 @@ export const MyPlayer = (props: myPlayer) => {
         )}
       </div>
       <div
-        className={`${rareity} flex h-[6rem] select-none flex-col items-center justify-evenly rounded-lg xl:rounded-none xl:rounded-b-lg `}
+        className={`${rareity} xl:rounded-b-btn rounded-btn flex h-[6rem] select-none flex-col items-center justify-evenly xl:rounded-none `}
       >
         <h2 className="pt-3 text-center font-bold leading-none text-base-200 lg:text-xl xl:text-3xl">
           {props.name}
