@@ -62,7 +62,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-2">
-          <label className="swap-rotate swap">
+          <label className="swap swap-rotate">
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"
@@ -87,7 +87,7 @@ const Navbar = () => {
           </label>
           {status !== "authenticated" && (
             <Link href="/leagues">
-              <button className="btn-primary btn">Leagues</button>
+              <button className="btn">Leagues</button>
             </Link>
           )}
           <LoginBtn primary={true} />
