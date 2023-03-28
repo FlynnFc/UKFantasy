@@ -7,7 +7,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { MdHome, MdPayment, MdQueryStats, MdSettings } from "react-icons/md";
 import { CgSpinner } from "react-icons/cg";
 import Loading from "../components/Loading";
-import Settings from "../components/settings";
+import Settings from "../components/Settings";
 
 const Profile = () => {
   const { data: session } = useSession();
