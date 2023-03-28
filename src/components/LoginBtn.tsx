@@ -19,7 +19,7 @@ export default function LoginBtn(props: { primary: boolean }) {
         <div className="dropdown-end dropdown hover:text-primary-content">
           <label
             tabIndex={0}
-            className="btn border-none bg-transparent px-2 text-4xl text-base-content hover:text-inherit"
+            className="btn border-none bg-transparent px-2 text-2xl text-base-content hover:text-inherit md:text-4xl"
           >
             <IoIosArrowDropdown />
           </label>

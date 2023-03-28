@@ -34,10 +34,10 @@ const Navbar = () => {
       }
     } else {
       console.log(isBrowserSetToDark);
-      localStorage.setItem("theme", "business,corporate");
+      localStorage.setItem("theme", "winter,mytheme");
       bodyEl?.setAttribute(
         "data-theme",
-        isBrowserSetToDark ? "business" : "corporate"
+        isBrowserSetToDark ? "mytheme" : "winter"
       );
     }
   }, [darkmode]);
@@ -55,14 +55,14 @@ const Navbar = () => {
       <div className="flex w-full justify-between">
         <div className="flex space-x-4">
           <Link href="/">
-            <a className="btn-ghost btn flex items-center text-xl normal-case">
+            <a className="btn-ghost btn flex items-center text-sm normal-case md:text-xl">
               <span className="mb-3">UKFantasy</span>
               <Image src={logo} width={60} height={60} alt="logo" />
             </a>
           </Link>
         </div>
-        <div className="flex items-start space-x-2">
-          <label className="swap-rotate swap mt-[0.2rem]">
+        <div className="flex items-center space-x-2">
+          <label className="swap-rotate swap">
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"
@@ -70,7 +70,7 @@ const Navbar = () => {
             />
 
             <svg
-              className="swap-on h-10 w-10 fill-current"
+              className="swap-on h-7 w-7 fill-current md:h-10 md:w-10"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
@@ -78,7 +78,7 @@ const Navbar = () => {
             </svg>
 
             <svg
-              className="swap-off h-10 w-10 fill-current"
+              className="swap-off h-7 w-7 fill-current md:h-10 md:w-10"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
