@@ -244,7 +244,7 @@ const Create = (props: {
       <Toaster position="bottom-right" />
       {introModal && (
         <div className="createModal fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
-          <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-base-100">
+          <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-primary-content">
             <h1 className="text-3xl font-bold leading-loose">
               Welcome to team creatation
             </h1>
