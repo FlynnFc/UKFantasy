@@ -176,7 +176,7 @@ const Myteam = (props: { data: bonus[] }) => {
   };
 
   const HandleBonusSubmit = () => {
-    toast.error("Editing bonus currnelty disabled!");
+    toast.success("Bonuses applied");
     console.dir(team);
   };
 
@@ -189,8 +189,11 @@ const Myteam = (props: { data: bonus[] }) => {
           <header className="flex flex-col items-center space-x-2">
             <div className="flex flex-row ">
               <h1 className="text-4xl">{serverTeam.teamName}</h1>
-              <button onClick={linkSetter} className="mb-1 p-2 text-2xl">
-                <FiShare />
+              <button
+                onClick={linkSetter}
+                className="btn-ghost rounded-btn mx-2  mb-1 p-2 text-2xl transition-all"
+              >
+                <FiShare className="" />
               </button>
             </div>
           </header>
@@ -222,25 +225,27 @@ const Myteam = (props: { data: bonus[] }) => {
           </div>
 
           <div className="flex flex-col items-end">
-            <div className="flex w-full flex-row items-center justify-end">
+            <div className="flex w-full flex-row items-center justify-between">
               <Link href={`/${query.league}`}>
-                <button className="btn-ghost my-1 w-fit cursor-pointer rounded p-2 text-2xl text-base-content transition">
+                <button className="btn-ghost rounded-btn my-1 w-fit cursor-pointer p-2 text-2xl text-base-content transition">
                   {query.league}
                 </button>
               </Link>
-              <div className="tooltip" data-tip="Edit player bonuses">
-                <button className="btn-ghost my-1 w-fit cursor-pointer rounded p-2 text-2xl text-base-content transition">
-                  <label className="cursor-pointer" htmlFor="bonus">
-                    <ImDice />
-                  </label>
-                </button>
-              </div>
-              <div className="tooltip" data-tip="Delete team">
-                <button className="btn-ghost my-1 h-fit w-fit cursor-pointer rounded p-2 text-2xl text-error transition">
-                  <label className="cursor-pointer" htmlFor="my-modal">
-                    <ImBin />
-                  </label>
-                </button>
+              <div>
+                <div className="tooltip" data-tip="Edit player bonuses">
+                  <button className="btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl text-primary transition">
+                    <label className="cursor-pointer" htmlFor="bonus">
+                      <ImDice />
+                    </label>
+                  </button>
+                </div>
+                <div className="tooltip" data-tip="Delete team">
+                  <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-error transition">
+                    <label className="cursor-pointer" htmlFor="my-modal">
+                      <ImBin />
+                    </label>
+                  </button>
+                </div>
               </div>
             </div>
             <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
