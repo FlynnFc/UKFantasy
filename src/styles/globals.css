@@ -11,13 +11,11 @@
 }
 
 .scroll::-webkit-scrollbar-thumb {
-  background: hsl(var(--p));
-  border-radius: 20px;
+  background: hsl(var(--n));
 }
 
 .scroll::-webkit-scrollbar-track {
-  background: hsl(var(--pc));
-  border-radius: 20px;
+  background: hsl(var(--nc));
 }
 
 .disabledPlayer {
