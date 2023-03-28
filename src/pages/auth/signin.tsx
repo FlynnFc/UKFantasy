@@ -37,6 +37,7 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
+                      disabled
                       className={`btn-lg btn flex w-[20rem] justify-center border-none bg-gray-800 text-xl text-white hover:bg-gray-900  `}
                       onClick={() =>
                         signIn(provider.id, { callbackUrl: "/leagues" })
