@@ -22,7 +22,7 @@ const Home: NextPage = () => {
         </h1>
 
         <div className="my-5 flex w-full flex-col items-center">
-          <Link href={"./epic39"}>
+          <Link href={"./demo"}>
             <button className="btn-primary btn-lg btn w-fit">
               Take a peek
             </button>
