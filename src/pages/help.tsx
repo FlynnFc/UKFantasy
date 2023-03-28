@@ -1,7 +1,7 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { player } from "./[league]/create";
-
+import { toast, Toaster } from "react-hot-toast";
 type team = {
   Player: player[];
   id: string;
@@ -12,7 +12,12 @@ const Help = (props: { data: team[] }) => {
   const [selectedPlayer, setSelectedPlayer] = useState<player>();
   const [showImg, setShowImg] = useState(false);
 
-  const playerDetailHandler = (id: any) => {
+  const formSubmitter = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    toast.error("Not accepting requests at this time");
+  };
+
+  const playerDetailHandler = (id: string) => {
     props.data.forEach((el) => {
       el.Player.forEach((player) => {
         if (player.id === id) {
@@ -25,12 +30,16 @@ const Help = (props: { data: team[] }) => {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-start">
+      <Toaster position="bottom-left" />
       <header>
         <h1 className="mt-5 mb-10 text-2xl md:mt-0 md:text-5xl">
           Request to edit player details
         </h1>
       </header>
-      <form action="#" className="w-5/6 text-xl md:w-2/6">
+      <form
+        onSubmit={(e) => formSubmitter(e)}
+        className="w-5/6 text-xl md:w-2/6"
+      >
         <div className="flex w-full flex-col">
           <select
             name="playerSelect"
