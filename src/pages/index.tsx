@@ -1,17 +1,17 @@
 import type { NextPage } from "next";
-// import { useSession } from "next-auth/react";
-// import { useRouter } from "next/router";
-// import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Home: NextPage = () => {
-  // const router = useRouter();
-  // const { status, data } = useSession();
+  const router = useRouter();
+  const { status, data } = useSession();
 
-  // useEffect(() => {
-  //   if (status === "authenticated") {
-  //     router.push("/leagues");
-  //   } else return;
-  // }, [router, status]);
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/leagues");
+    } else return;
+  }, [router, status]);
   return (
     <>
       <main className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">

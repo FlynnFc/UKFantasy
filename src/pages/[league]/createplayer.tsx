@@ -99,7 +99,7 @@ const Createplayer = (props: { data: [] }) => {
           </form>
         </>
       ) : (
-        <div className="flex flex-col justify-center">
+        <div className="flex min-h-screen flex-col items-center justify-center">
           <h1 className="text-xl">
             Ooops.... you&apos;re not supposed to be here{" "}
           </h1>

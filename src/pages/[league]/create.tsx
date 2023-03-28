@@ -16,7 +16,7 @@ import Filter from "bad-words";
 
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
-type player = {
+export type player = {
   map(
     arg0: (el: {
       id: string;
