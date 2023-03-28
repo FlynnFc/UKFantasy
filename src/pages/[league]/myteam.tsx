@@ -180,7 +180,7 @@ const Myteam = (props: { data: bonus[] }) => {
     console.dir(team);
   };
 
-  console.log(team, serverTeam);
+  console.log(serverTeam);
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
@@ -267,33 +267,55 @@ const Myteam = (props: { data: bonus[] }) => {
                 })}
             </div>
           </div>
-          {/* <section className="my-4 w-full">
-            <h2 className="my-2 text-left text-4xl">Insights</h2>
-            <div className="max-h-48  overflow-x-auto">
-              <table className="table w-full  overflow-y-scroll">
-                <thead className="sticky top-0">
-                  <tr>
-                    <th>Rating</th>
-                    <th>Teams</th>
-                    <th>Players competing</th>
-                    <th>Score</th>
-                    <th>bonus points</th>
-                    <th>Total points gained</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1.3</td>
-                    <td>Moose house vs Binmen</td>
-                    <td>Edeninho, Sheekey, Thomas</td>
-                    <td>13-16</td>
-                    <td>0</td>
-                    <td>43</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section> */}
+          <h2 className="my-5 text-left text-4xl">Insights</h2>
+          <section className="w-full rounded-xl border-4 border-base-content">
+            <table className="table w-full  rounded-xl">
+              <thead className="sticky top-0">
+                <tr>
+                  <th>Rating</th>
+                  <th>Teams</th>
+                  <th>Players competing</th>
+                  <th>Score</th>
+                  <th>bonus points</th>
+                  <th>Total points gained</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1.3</td>
+                  <td>Moose house vs Binmen</td>
+                  <td>Edeninho, Sheekey, Thomas</td>
+                  <td>13-16</td>
+                  <td>0</td>
+                  <td>43</td>
+                </tr>
+                <tr>
+                  <td>1.3</td>
+                  <td>Moose house vs Binmen</td>
+                  <td>Edeninho, Sheekey, Thomas</td>
+                  <td>13-16</td>
+                  <td>0</td>
+                  <td>43</td>
+                </tr>
+                <tr>
+                  <td>1.3</td>
+                  <td>Moose house vs Binmen</td>
+                  <td>Edeninho, Sheekey, Thomas</td>
+                  <td>13-16</td>
+                  <td>0</td>
+                  <td>43</td>
+                </tr>
+                <tr>
+                  <td>1.3</td>
+                  <td>Moose house vs Binmen</td>
+                  <td>Edeninho, Sheekey, Thomas</td>
+                  <td>13-16</td>
+                  <td>0</td>
+                  <td>43</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
         </div>
       ) : (
         <Loading />
