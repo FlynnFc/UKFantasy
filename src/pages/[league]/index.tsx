@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
+import leagues from "../leagues";
 
 export async function getStaticProps() {
   const res = await fetch("https://esportsfantasy.app/api/allLeagues");
@@ -39,11 +40,20 @@ export async function getStaticPaths() {
   };
 }
 
+type league = {
+  name: string;
+  description: string;
+  id: string;
+  endDate: string;
+  startDate: string;
+  openDate: string;
+};
+
 type UserProps = {
   User: [{ id: string }];
 };
 
-const LeaguePage = () => {
+const LeaguePage = (props: { data: league[] }) => {
   const session = useSession();
   const { status } = useSession();
   const { query } = useRouter();
@@ -52,6 +62,8 @@ const LeaguePage = () => {
   const [userHasTeam, setUserHasTeam] = useState(false);
   const [data, setData] = useState([]);
   const [loadingTable, setLoadingTable] = useState(true);
+  const [league, setLeague] = useState<league>();
+  const [leagueOpen, setLeagueOpen] = useState(false);
   useEffect(() => {
     setLoading(true);
     const tempData: any = [];
@@ -68,6 +80,30 @@ const LeaguePage = () => {
       });
   }, [query.league]);
 
+  const dateSetter = (date?: string) => {
+    let event;
+    if (date) {
+      event = new Date(date);
+    } else {
+      event = new Date();
+    }
+
+    // const options = {
+    //   weekday: "long",
+    //   year: "numeric",
+    //   month: "long",
+    //   day: "numeric",
+    // };
+    return event.toLocaleDateString();
+  };
+
+  useEffect(() => {
+    props.data.forEach((el: { name: string }, i: number) => {
+      if (el.name.toLowerCase() === query.league) {
+        setLeague(props.data[i]);
+      }
+    });
+  }, [props.data, query.league]);
   //Filters teams so it only shows user submitted teams from this league
   // useEffect(() => {
   //   const tempData: any = [];
@@ -93,6 +129,7 @@ const LeaguePage = () => {
   //   return tempData;
   // }, [props.data, query.league]);
   //Checks is signed in user has already created a team for this league
+
   useEffect(() => {
     if (data) {
       for (let index = 0; index < data.length; index++) {
@@ -110,7 +147,7 @@ const LeaguePage = () => {
 
   return (
     <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-      {createModal && !userHasTeam && status === "authenticated" ? (
+      {createModal && !userHasTeam && status === "authenticated" && (
         <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
           <div
             onClick={() => setCreateModal(false)}
@@ -135,32 +172,30 @@ const LeaguePage = () => {
             </Link>
           </div>
         </div>
-      ) : null}
+      )}
       {loading && <Loading />}
-      <div className="rounded-btn mt-14 flex flex-col bg-primary px-10 pb-10 text-primary-content shadow-lg">
+      <div className="rounded-btn mt-14 flex w-full flex-col bg-primary px-10 pb-10 text-primary-content shadow-lg">
         <h1 className="my-8 text-4xl font-bold">
-          {query.league} Tournement center
+          {league && league.name} Tournement center
         </h1>
-        <p className="text-lg">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          soluta quo qui atque natus et impedit maxime, explicabo libero
-          dignissimos saepe minima mollitia ipsa. Minima eveniet inventore
-          dolorum unde assumenda!
-        </p>
-
-        {status === "unauthenticated" ? (
-          <div className="">
-            <LoginBtn primary={false} />
-          </div>
-        ) : !userHasTeam ? (
-          <Link href={`./${query.league}/create`}>
-            <button className="btn mt-4 w-max">Create team</button>
-          </Link>
-        ) : (
-          <Link href={`${query.league}/myteam`}>
-            <button className="btn mt-4 w-max ">View Team</button>
-          </Link>
-        )}
+        <p className="text-lg">{league?.description}</p>
+        <div className="flex items-end justify-between">
+          {status === "unauthenticated" ? (
+            <div className="">
+              <LoginBtn primary={false} />
+            </div>
+          ) : !userHasTeam ? (
+            <Link href={`./${query.league}/create`}>
+              <button className="btn mt-4 w-max">Create team</button>
+            </Link>
+          ) : (
+            userHasTeam && (
+              <Link href={`${query.league}/myteam`}>
+                <button className="btn mt-4 w-max ">View Team</button>
+              </Link>
+            )
+          )}
+        </div>
       </div>
 
       <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
@@ -184,93 +219,6 @@ const LeaguePage = () => {
         </section>
         <section className="rounded-btn my-2 mt-5 flex justify-center bg-base-300 px-10 pb-10 text-base-content  2xl:w-[75%]">
           <div className=" w-full overflow-x-auto">
-            {/* <table className="table w-full font-semibold">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Name</th>
-                  <th>Team</th>
-                  <th>Rol</th>
-                  <th>Points</th>
-                  <th>Total Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>Cy Ganderton</td>
-                  <td>Quality Control Specialist</td>
-                  <td>Littel, Schaden and Vandervort</td>
-                  <td>Canada</td>
-                  <td>12/16/2020</td>
-                </tr>
-                <tr>
-                  <th>2</th>
-                  <td>Hart Hagerty</td>
-                  <td>Desktop Support Technician</td>
-                  <td>Zemlak, Daniel and Leannon</td>
-                  <td>United States</td>
-                  <td>12/5/2020</td>
-                </tr>
-                <tr>
-                  <th>3</th>
-                  <td>Brice Swyre</td>
-                  <td>Tax Accountant</td>
-                  <td>Carroll Group</td>
-                  <td>China</td>
-                  <td>8/15/2020</td>
-                </tr>
-                <tr>
-                  <th>4</th>
-                  <td>Marjy Ferencz</td>
-                  <td>Office Assistant I</td>
-                  <td>Rowe-Schoen</td>
-                  <td>Russia</td>
-                  <td>3/25/2021</td>
-                </tr>
-                <tr>
-                  <th>5</th>
-                  <td>Yancy Tear</td>
-                  <td>Community Outreach Specialist</td>
-                  <td>Wyman-Ledner</td>
-                  <td>Brazil</td>
-                  <td>5/22/2020</td>
-                </tr>
-                <tr>
-                  <th>6</th>
-                  <td>Irma Vasilik</td>
-                  <td>Editor</td>
-                  <td>Wiza, Bins and Emard</td>
-                  <td>Venezuela</td>
-                  <td>12/8/2020</td>
-                </tr>
-                <tr>
-                  <th>7</th>
-                  <td>Meghann Durtnal</td>
-                  <td>Staff Accountant IV</td>
-                  <td>Schuster-Schimmel</td>
-                  <td>Philippines</td>
-                  <td>2/17/2021</td>
-                </tr>
-
-                <tr>
-                  <th>9</th>
-                  <td>Lesya Tinham</td>
-                  <td>Safety Technician IV</td>
-                  <td>Turner-Kuhlman</td>
-                  <td>Philippines</td>
-                  <td>2/21/2021</td>
-                </tr>
-                <tr>
-                  <th>10</th>
-                  <td>Zaneta Tewkesbury</td>
-                  <td>VP Marketing</td>
-                  <td>Sauer LLC</td>
-                  <td>Chad</td>
-                  <td>6/23/2020</td>
-                </tr>
-              </tbody>
-            </table> */}
             <h2 className="mb-4 mt-4 text-center text-2xl font-bold">
               Scoreboard
             </h2>
