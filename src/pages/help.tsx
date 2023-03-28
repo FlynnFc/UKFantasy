@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
-import { player } from "./create";
+import React, { useState } from "react";
+import { player } from "./[league]/create";
 
 type team = {
   Player: player[];
@@ -36,7 +35,7 @@ const Help = (props: { data: team[] }) => {
           <select
             name="playerSelect"
             id="playerSelect"
-            className="select-bordered select my-1 bg-base-content text-base text-base-300 md:select-lg focus:outline-1"
+            className="select-bordered select my-1 border-2 border-primary md:select-lg focus:outline-1"
             onChange={(e) => playerDetailHandler(e.target.value)}
           >
             <option disabled selected value="">
@@ -128,21 +127,6 @@ export async function getStaticProps() {
     props: {
       data,
     },
-  };
-}
-
-export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-  const data = await res.json();
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
-
-  console.log(paths);
-  return {
-    paths,
-    fallback: false,
   };
 }
 

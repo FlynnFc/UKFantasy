@@ -5,6 +5,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { AiOutlineEdit } from "react-icons/ai";
 import { MdHome, MdPayment, MdQueryStats, MdSettings } from "react-icons/md";
+import { CgSpinner } from "react-icons/cg";
+import Loading from "../components/Loading";
 
 const Profile = () => {
   const { data: session } = useSession();
@@ -87,7 +89,7 @@ const Profile = () => {
             </section>
             <section className="rounded-btn flex h-full flex-col justify-start bg-base-100 p-8 md:w-[30rem]">
               <h2 className="text-3xl">All teams</h2>
-              {teams &&
+              {teams ? (
                 teams.map(
                   (el: {
                     id: string;
@@ -120,8 +122,13 @@ const Profile = () => {
                       </div>
                     );
                   }
-                )}
-              {teams.length < 1 && <div>No teams</div>}
+                )
+              ) : (
+                <div className="flex w-full justify-center">
+                  <CgSpinner className="animate-spin text-4xl" />
+                </div>
+              )}
+              {teams && teams.length < 1 && <div>No teams</div>}
             </section>
           </main>
           <section className="rounded-btn hidden h-[80vh] w-[25rem] flex-row items-center justify-center bg-base-300 text-base-content xl:flex ">
