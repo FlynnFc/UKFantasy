@@ -19,7 +19,7 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-[#1D9BF0] text-xl hover:bg-[#1876b4] `}
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-[#1D9BF0] text-xl text-white hover:bg-[#1876b4] `}
                       onClick={() =>
                         signIn(provider.id, { callbackUrl: "/leagues" })
                       }
@@ -37,7 +37,7 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-slate-800 text-xl  `}
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-gray-800 text-xl text-white hover:bg-gray-900  `}
                       onClick={() =>
                         signIn(provider.id, { callbackUrl: "/leagues" })
                       }

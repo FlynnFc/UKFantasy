@@ -27,14 +27,16 @@ const Help = (props: { data: team[] }) => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-start">
       <header>
-        <h1 className="mb-10 text-5xl">Request to edit player details</h1>
+        <h1 className="mt-5 mb-10 text-2xl md:mt-0 md:text-5xl">
+          Request to edit player details
+        </h1>
       </header>
       <form action="#" className="w-5/6 text-xl md:w-2/6">
         <div className="flex w-full flex-col">
           <select
             name="playerSelect"
             id="playerSelect"
-            className="select-bordered select select-lg my-1 bg-base-content text-base text-base-300 focus:outline-1"
+            className="select-bordered select my-1 bg-base-content text-base text-base-300 md:select-lg focus:outline-1"
             onChange={(e) => playerDetailHandler(e.target.value)}
           >
             <option disabled selected value="">
@@ -63,7 +65,7 @@ const Help = (props: { data: team[] }) => {
               <input
                 required
                 type="text"
-                className="input-bordered input input-lg  w-full focus:outline-1"
+                className="input-bordered input w-full  md:input-lg focus:outline-1"
                 value={selectedPlayer.name}
                 onChange={(e) =>
                   setSelectedPlayer({ ...selectedPlayer, name: e.target.value })
@@ -81,9 +83,9 @@ const Help = (props: { data: team[] }) => {
                 </span>
               </label>
               {showImg && (
-                <div className="flex w-full justify-start">
+                <div className="flex w-full justify-start pt-2 pb-5">
                   <Image
-                    className="rounded-t-lg text-center drop-shadow-2xl"
+                    className="rounded-lg text-center drop-shadow-2xl"
                     alt="player portrait"
                     height={200}
                     width={200}
@@ -93,7 +95,7 @@ const Help = (props: { data: team[] }) => {
               )}
               <input
                 type="file"
-                className="file-input-bordered file-input file-input-lg w-full focus:outline-1"
+                className="file-input-bordered file-input w-full md:file-input-lg focus:outline-1"
                 accept=".png, .jpeg, .jpg"
                 size={100}
               />
@@ -105,7 +107,7 @@ const Help = (props: { data: team[] }) => {
               {/*todo: add logic to check if email or twitter user link */}
               <input
                 type="text"
-                className="input-bordered input input-lg w-full focus:outline-1"
+                className="input-bordered input w-full md:input-lg focus:outline-1"
                 placeholder="email or twitter handle"
               />
             </div>

@@ -97,26 +97,26 @@ const Profile = () => {
                     return (
                       <div
                         key={el.id}
-                        className="my-2 border-b border-primary p-2 py-6 hover:bg-[#00000015]"
+                        className="my-2 border-b border-primary p-2 py-6"
                       >
-                        <Link href={`/${el.league.name.toLowerCase()}`}>
-                          <div className="cursor-pointer">
-                            <h2 className="text-3xl">{el.league.name}</h2>
-                            <h3 className="text-2xl font-bold">
-                              {el.teamName}
-                            </h3>
+                        <div>
+                          <Link href={`/${el.league.name.toLowerCase()}`}>
+                            <h2 className="cursor-pointer text-3xl hover:underline">
+                              {el.league.name}
+                            </h2>
+                          </Link>
+                          <h3 className="text-2xl font-bold">{el.teamName}</h3>
 
-                            <div className="flex flex-row items-start justify-start space-x-1 py-2">
-                              <Link
-                                href={`/${el.league.name.toLowerCase()}/myteam`}
-                              >
-                                <button className="btn w-full bg-primary/50">
-                                  See Team
-                                </button>
-                              </Link>
-                            </div>
+                          <div className="flex flex-row items-start justify-start space-x-1 py-2">
+                            <Link
+                              href={`/${el.league.name.toLowerCase()}/myteam`}
+                            >
+                              <button className="btn w-full bg-primary text-primary-content hover:text-primary">
+                                See Team
+                              </button>
+                            </Link>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     );
                   }
