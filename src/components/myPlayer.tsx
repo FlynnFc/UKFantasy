@@ -20,10 +20,10 @@ export const MyPlayer = (props: myPlayer) => {
 
   return (
     <div
-      className={`w-[16rem] flex-col rounded-xl  border-amber-400 shadow-lg  xl:h-[24rem]`}
+      className={`rounded-btn w-[16rem] flex-col  border-amber-400 shadow-lg  xl:h-[24rem]`}
     >
       <div
-        className={`relative hidden h-72 cursor-auto justify-center bg-base-200 xl:block`}
+        className={`rounded-btn relative hidden h-72 cursor-auto justify-center bg-base-200 xl:block`}
       >
         {props.bonus && (
           <div
@@ -53,7 +53,7 @@ export const MyPlayer = (props: myPlayer) => {
         )}
       </div>
       <div
-        className={`${rareity} xl:rounded-b-btn rounded-btn flex h-[6rem] select-none flex-col items-center justify-evenly xl:rounded-none `}
+        className={`${rareity} xl:rounded-b-btn rounded-btn flex h-[6rem] select-none flex-col items-center justify-evenly xl:rounded-t-none`}
       >
         <h2 className="pt-3 text-center font-bold leading-none text-base-200 lg:text-xl xl:text-3xl">
           {props.name}

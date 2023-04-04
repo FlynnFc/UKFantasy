@@ -62,10 +62,10 @@ const Profile = () => {
                 <MdSettings className="text-3xl md:mr-4" />
                 <span className="hidden md:inline">Settings</span>
               </li>
-              <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
+              {/* <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
                 <MdPayment className="text-3xl md:mr-4" />
                 <span className="hidden md:inline">Payments</span>
-              </li>
+              </li> */}
             </ul>
           </section>
           <main className="">
@@ -73,12 +73,6 @@ const Profile = () => {
               <div className="">
                 <h1 className="flex flex-row items-end text-3xl text-primary-content">
                   {session?.user?.name}
-                  <span
-                    onClick={() => setCurrentPage("settings")}
-                    className="btn-ghost mx-1 cursor-pointer rounded p-1 text-2xl transition-all hover:scale-105"
-                  >
-                    <AiOutlineEdit />
-                  </span>
                 </h1>
                 <span className="text-base text-primary-content">
                   {session?.user?.email
@@ -98,7 +92,7 @@ const Profile = () => {
             </section>
             {currentPage === "profile" && (
               <section className="rounded-btn mt-12 flex h-full flex-col justify-start bg-base-300 p-8 md:w-[30rem]">
-                <h2 className="text-3xl">All teams</h2>
+                <h2 className="text-3xl">My teams</h2>
                 {teams ? (
                   teams.map(
                     (el: {

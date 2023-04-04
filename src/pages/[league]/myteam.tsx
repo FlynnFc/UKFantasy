@@ -63,10 +63,12 @@ export async function getStaticPaths() {
 }
 
 const Myteam = (props: { data: bonus[] }) => {
-  const { data: session } = useSession();
+  const { status, data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const [serverTeam, setServerTeam] = useState<teamProps>();
   const { query } = useRouter();
+  const router = useRouter();
+  const [leagueName, setLeagueName] = useState("");
   const [bonusDesc, setBonusDesc] = useState(
     "or you can Drag and drop a bonus onto the desired player. Once you have selected 5 you can submit"
   );
@@ -74,9 +76,12 @@ const Myteam = (props: { data: bonus[] }) => {
   const [bonusCheck, setBonusCheck] = useState(new Set());
 
   const [allBonuses, setAllBonuses] = useState<bonus[]>([]);
-  const router = useRouter();
 
-  console.log(bonusCheck);
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push(`/${query.league}`);
+    } else return;
+  }, [query.league, router, status]);
   useEffect(() => {
     const fetcher = async () => {
       if (session?.user?.id && query.league) {
@@ -92,6 +97,7 @@ const Myteam = (props: { data: bonus[] }) => {
         console.log(data);
         for (let i = 0; i < data.PlayerTeam.length; i++) {
           if (data.PlayerTeam[i].league.name.toLowerCase() === query.league) {
+            setLeagueName(data.PlayerTeam[i].league.name);
             const allPlayers = data.PlayerTeam[i];
             setServerTeam(structuredClone(allPlayers));
             setTeam(structuredClone(allPlayers));
@@ -228,7 +234,7 @@ const Myteam = (props: { data: bonus[] }) => {
             <div className="flex w-full flex-row items-center justify-between">
               <Link href={`/${query.league}`}>
                 <button className="btn-ghost rounded-btn my-1 w-fit cursor-pointer p-2 text-2xl text-base-content transition">
-                  {query.league}
+                  {leagueName}
                 </button>
               </Link>
               <div>
