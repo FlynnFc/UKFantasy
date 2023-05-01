@@ -1,12 +1,19 @@
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer bottom-0 grid-cols-3 items-center bg-neutral p-4 text-neutral-content">
+    <footer className="footer bottom-0 max-h-min grid-cols-4 items-center bg-neutral p-4 text-neutral-content">
       <div className="grid-flow-col items-center">
         <p>Copyright © 2022</p>
       </div>
-      <div className="flex w-full items-center justify-center">
+      <p className="grid-flow-col">
+        If you find any issues please follow these
+        <span className="link">
+          <Link href={`./reportbugs`}>steps</Link>
+        </span>
+      </p>
+      <div className="items-between flex w-full justify-center gap-4">
         <p className="text-center">Made with &#10084; by Flynn</p>
       </div>
       <div className="grid-flow-col md:place-self-center md:justify-self-end">
