@@ -1,5 +1,6 @@
 import { getProviders, signIn } from "next-auth/react";
-import { SiSteam, SiTwitter } from "react-icons/si";
+import { SiSteam, SiTwitter, SiGoogle } from "react-icons/si";
+import { FcGoogle } from "react-icons/fc";
 export default function SignIn(props: { providers: any }) {
   return (
     <div
@@ -26,6 +27,24 @@ export default function SignIn(props: { providers: any }) {
                     >
                       Sign in with {provider.name}
                       <SiTwitter className="mx-4 inline" />
+                    </button>
+                  </div>
+                );
+              } else if (provider.name === "Google") {
+                return (
+                  <div
+                    className="flex justify-center"
+                    key={provider.name}
+                    style={{ marginBottom: 0 }}
+                  >
+                    <button
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-white text-xl text-gray-900  hover:bg-[#e9e9e9]  `}
+                      onClick={() =>
+                        signIn(provider.id, { callbackUrl: "/leagues" })
+                      }
+                    >
+                      Sign in with {provider.name}
+                      <FcGoogle className="m-0 mx-4 inline p-0 text-xl font-bold" />
                     </button>
                   </div>
                 );

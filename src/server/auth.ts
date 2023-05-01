@@ -16,22 +16,22 @@ declare module "next-auth" {
   }
 
 }
-// Google provider
-// GoogleProvider({
-//   clientId: process.env.GOOGLE_ID!,
-//   clientSecret: process.env.GOOGLE_SECRET!,
-//   authorization: {
-//     params: {
-//       prompt: "consent",
-//       access_type: "offline",
-//       response_type: "code"
-//     }
-//   },
-// })
+
 
 const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
+GoogleProvider({
+  clientId: process.env.GOOGLE_ID!,
+  clientSecret: process.env.GOOGLE_SECRET!,
+  authorization: {
+    params: {
+      prompt: "consent",
+      access_type: "offline",
+      response_type: "code"
+    }
+  },
+}),
     SteamProvider({
       clientId: process.env.STEAM_CLIENT_ID!,
       clientSecret: process.env.STEAM_CLIENT_SECRET!,
