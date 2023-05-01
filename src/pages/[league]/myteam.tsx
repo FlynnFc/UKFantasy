@@ -122,7 +122,7 @@ const Myteam = (props: { data: bonus[] }) => {
 
   const linkSetter = () => {
     const path: string = team?.id as string;
-    const host = `https://uk-fantasy.vercel.app/${query.league}/team/`;
+    const host = `https://esportsfantasy.app/${query.league}/team/`;
     const link = host + path;
     navigator.clipboard.writeText(link);
     toast.success("added link to clipboard");
@@ -254,7 +254,7 @@ const Myteam = (props: { data: bonus[] }) => {
                 </div>
               </div>
             </div>
-            <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
+            <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
               {serverTeam &&
                 serverTeam.SelectedPlayer?.map((el) => {
                   return (
@@ -371,7 +371,7 @@ const Myteam = (props: { data: bonus[] }) => {
             </section>
           </div>
 
-          <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg p-6 sm:max-w-[80vw] sm:flex-row sm:space-y-0 sm:space-x-4">
+          <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
             {team &&
               team.SelectedPlayer?.map((el, i) => {
                 return (
