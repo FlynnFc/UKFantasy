@@ -20,7 +20,7 @@ const Home: NextPage = () => {
           Welcome to the UK CS{" "}
           <span className="font-bold text-accent"> Fantasy League</span>!
         </h1>
-        <div className="mt-[15%] flex w-full flex-col items-center">
+        <div className="mt-[5%] flex w-full flex-col items-center">
           <Link href={"./demo"}>
             <button className="btn-primary btn w-fit md:btn-lg">
               Take a peek
