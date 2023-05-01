@@ -31,6 +31,8 @@
     "zod": "^3.18.0"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "@testing-library/react": "^13.2.0",
     "@types/bad-words": "^3.0.1",
     "@types/jest": "^29.5.0",
     "@types/node": "18.0.0",
@@ -42,20 +44,18 @@
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
-    "@testing-library/react": "^13.2.0",
     "@vitejs/plugin-react": "latest",
     "autoprefixer": "^10.4.7",
     "eslint": "8.22.0",
     "eslint-config-next": "12.3.1",
+    "jsdom": "latest",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "prisma": "^4.10.1",
     "tailwindcss": "^3.1.6",
     "typescript": "^4.8.4",
-    "vitest": "^0.26.3",   
-    "jsdom": "latest"
-
+    "vitest": "^0.26.3"
   },
   "ct3aMetadata": {
     "initVersion": "6.5.0"
