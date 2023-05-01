@@ -83,7 +83,7 @@ export default function SignIn(props: { providers: any }) {
             Sign in
           </button>
           <p className="link text-left text-sm">
-            <Link href={`./privacy`}>privacy policy</Link>
+            <Link href={`/privacy`}>privacy policy</Link>
           </p>
         </div>
       </div>
