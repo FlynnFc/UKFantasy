@@ -1,6 +1,7 @@
 import { getProviders, signIn } from "next-auth/react";
 import { SiSteam, SiTwitter, SiGoogle } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
+import Link from "next/link";
 export default function SignIn(props: { providers: any }) {
   return (
     <div
@@ -81,6 +82,9 @@ export default function SignIn(props: { providers: any }) {
           <button className="btn-outline btn w-full" disabled>
             Sign in
           </button>
+          <p className="link text-left text-sm">
+            <Link href={`./privacy`}>privacy policy</Link>
+          </p>
         </div>
       </div>
     </div>
