@@ -17,7 +17,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <meta name="description" content="UK Fantasy League " />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <SessionProvider session={session}>
         <Navbar />
         <Component {...pageProps} />

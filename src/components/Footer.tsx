@@ -3,16 +3,13 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer bottom-0 max-h-min grid-cols-4 items-center bg-neutral p-4 text-neutral-content">
-      <div className="grid-flow-col items-center">
+    <footer className="footer bottom-0 flex max-h-min flex-col items-center bg-neutral p-4 text-neutral-content sm:grid sm:grid-cols-3">
+      <div className="flex grid-flow-col flex-col items-start">
         <p>Copyright © 2022</p>
+        <div className="link grid-flow-col">
+          <Link href={`./reportbugs`}>Report a bug</Link>
+        </div>
       </div>
-      <p className="grid-flow-col">
-        If you find any issues please follow these
-        <span className="link">
-          <Link href={`./reportbugs`}>steps</Link>
-        </span>
-      </p>
       <div className="items-between flex w-full justify-center gap-4">
         <p className="text-center">Made with &#10084; by Flynn</p>
       </div>

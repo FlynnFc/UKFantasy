@@ -16,6 +16,7 @@ import Filter from "bad-words";
 
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
+import Head from "next/head";
 export type player = {
   map(
     arg0: (el: {
@@ -240,177 +241,183 @@ const Create = (props: {
 
   console.log(session.data);
   return (
-    <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl select-none flex-col items-end justify-start  p-4 sm:mx-auto">
-      <Toaster position="bottom-right" />
-      {introModal && (
-        <div className="createModal fixed top-0 left-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
-          <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-primary-content">
-            <h1 className="text-3xl font-bold leading-loose">
-              Welcome to team creatation
-            </h1>
-            <p className="mb-2 py-2">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero
-              accusamus expedita facere ex voluptatem exercitationem veniam
-              itaque est repellendus libero neque, culpa distinctio aliquam
-              dolor atque natus esse non nisi!
-            </p>
-            <h2 className="text-2xl font-bold leading-loose">
-              How do points work?
-            </h2>
-            <p>
-              Lorem, ipsm dolor sit amet consectetur adipisicing elit. Vero
-              accusamus expedita facere ex voluptatem exercitationem veniam
-              itaque est repellendus libero neque, culpa distinctio aliquam
-              dolor atque natus esse non nisi!
-            </p>
-            <div className="mr-8 flex justify-end">
-              <button onClick={() => setIntroModal(false)} className="btn">
-                Got it!
-              </button>
+    <>
+      <Head>
+        <title>Create your team</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl select-none flex-col items-end justify-start  p-4 sm:mx-auto">
+        <Toaster position="bottom-right" />
+        {introModal && (
+          <div className="createModal fixed left-0 top-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
+            <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-primary-content">
+              <h1 className="text-3xl font-bold leading-loose">
+                Welcome to team creatation
+              </h1>
+              <p className="mb-2 py-2">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero
+                accusamus expedita facere ex voluptatem exercitationem veniam
+                itaque est repellendus libero neque, culpa distinctio aliquam
+                dolor atque natus esse non nisi!
+              </p>
+              <h2 className="text-2xl font-bold leading-loose">
+                How do points work?
+              </h2>
+              <p>
+                Lorem, ipsm dolor sit amet consectetur adipisicing elit. Vero
+                accusamus expedita facere ex voluptatem exercitationem veniam
+                itaque est repellendus libero neque, culpa distinctio aliquam
+                dolor atque natus esse non nisi!
+              </p>
+              <div className="mr-8 flex justify-end">
+                <button onClick={() => setIntroModal(false)} className="btn">
+                  Got it!
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      {submitted && (
-        <div className="createModal fixed top-0 left-0 z-30 flex h-screen w-full items-start justify-center overflow-auto">
-          <div className="mt-32 w-[80%] rounded-lg bg-base-100 p-10 text-base-content">
-            <h1 className="text-3xl font-bold leading-loose">
-              {`You've submitted your team!`}
-            </h1>
-            <p className="mb-2 py-2">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero
-              accusamus expedita facere ex voluptatem exercitationem veniam
-              itaque est repellendus libero neque, culpa distinctio aliquam
-              dolor atque natus esse non nisi!
-            </p>
-            <h2 className="text-2xl font-bold leading-loose">What now?</h2>
-            <p>
-              Lorem, ipsm dolor sit amet consectetur adipisicing elit. Vero
-              accusamus expedita facere ex voluptatem exercitationem veniam
-              itaque est repellendus libero neque, culpa distinctio aliquam
-              dolor atque natus esse non nisi!
-            </p>
-            <div className="mr-8 flex justify-end">
-              <Link href={`/${query.league}/myteam`}>
-                <button className="btn">Take me there</button>
-              </Link>
+        )}
+        {submitted && (
+          <div className="createModal fixed left-0 top-0 z-30 flex h-screen w-full items-start justify-center overflow-auto">
+            <div className="mt-32 w-[80%] rounded-lg bg-base-100 p-10 text-base-content">
+              <h1 className="text-3xl font-bold leading-loose">
+                {`You've submitted your team!`}
+              </h1>
+              <p className="mb-2 py-2">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero
+                accusamus expedita facere ex voluptatem exercitationem veniam
+                itaque est repellendus libero neque, culpa distinctio aliquam
+                dolor atque natus esse non nisi!
+              </p>
+              <h2 className="text-2xl font-bold leading-loose">What now?</h2>
+              <p>
+                Lorem, ipsm dolor sit amet consectetur adipisicing elit. Vero
+                accusamus expedita facere ex voluptatem exercitationem veniam
+                itaque est repellendus libero neque, culpa distinctio aliquam
+                dolor atque natus esse non nisi!
+              </p>
+              <div className="mr-8 flex justify-end">
+                <Link href={`/${query.league}/myteam`}>
+                  <button className="btn">Take me there</button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {loading && (
-        <div className="fixed top-0 left-0 z-10 flex h-screen w-full items-center justify-center overflow-auto bg-base-100">
-          <div className="animate-bounce rounded-lg bg-base-300 p-5 text-base-content">
-            <h1 className=" text-3xl font-bold leading-loose">
-              {session.data ? `Loading` : <StandaloneSignIn />}
-            </h1>
+        {loading && (
+          <div className="fixed left-0 top-0 z-10 flex h-screen w-full items-center justify-center overflow-auto bg-base-100">
+            <div className="animate-bounce rounded-lg bg-base-300 p-5 text-base-content">
+              <h1 className=" text-3xl font-bold leading-loose">
+                {session.data ? `Loading` : <StandaloneSignIn />}
+              </h1>
+            </div>
           </div>
-        </div>
-      )}
-      {session.data && (
-        <div className="w-full">
-          <h2 className="text-center text-3xl leading-snug lg:text-5xl">
-            {teamName}
-          </h2>
-          <div className="mt-4 flex items-end justify-center lg:mt-0 lg:justify-end">
-            {!submitted && (
-              <button
-                disabled={!teamFull}
-                onClick={() => {
-                  if (teamName === "Your Team") {
-                    toast.error("Please enter a team name");
-                    return;
-                  } else if (teamName.length < 5) {
-                    toast.error(
-                      "The team name needs to be at least 5 characters"
+        )}
+        {session.data && (
+          <div className="w-full">
+            <h2 className="text-center text-3xl leading-snug lg:text-5xl">
+              {teamName}
+            </h2>
+            <div className="mt-4 flex items-end justify-center lg:mt-0 lg:justify-end">
+              {!submitted && (
+                <button
+                  disabled={!teamFull}
+                  onClick={() => {
+                    if (teamName === "Your Team") {
+                      toast.error("Please enter a team name");
+                      return;
+                    } else if (teamName.length < 5) {
+                      toast.error(
+                        "The team name needs to be at least 5 characters"
+                      );
+                    } else submit();
+                  }}
+                  className="btn-outline btn"
+                >
+                  Submit Team
+                </button>
+              )}
+            </div>
+            <div id="stickyContainer" className="sticky top-5 z-10 my-4">
+              <PlayerGroupSkeleton setTeamName={setTeamName} money={money}>
+                {myTeam}
+              </PlayerGroupSkeleton>
+            </div>
+            <select
+              defaultValue={"DEFAULT"}
+              onChange={(e) => {
+                sorter(e.target.value);
+              }}
+              className="select-bordered select mb-3 w-full max-w-xs text-lg"
+            >
+              <option value={"DEFAULT"} disabled>
+                Sort by
+              </option>
+              <option value={"team"}>Teams</option>
+              <option value={"ascend"}>Cheapest</option>
+              <option value={"descend"}>Most Expensive</option>
+            </select>
+            <AnimatePresence>
+              {teamSort ? (
+                <section className="space-y-6">
+                  {/* Maps all teams found in DB then inside each team maps all players found in team */}
+                  {props.data?.map((el) => {
+                    return (
+                      <PlayerGroup team={el.teamName} key={el.teamName}>
+                        {el.Player?.map(
+                          (els: {
+                            id: string;
+                            image: string;
+                            name: string;
+                            price: number;
+                            rareity: string;
+                          }) => {
+                            return (
+                              <Player
+                                key={els.id}
+                                id={els.id}
+                                teamFull={teamFull}
+                                PlayerSelect={PlayerSelect}
+                                moneyLeft={money}
+                                rareity={els.rareity}
+                                name={els.name}
+                                price={els.price}
+                                img={els.image}
+                                team={myTeam}
+                              />
+                            );
+                          }
+                        )}
+                      </PlayerGroup>
                     );
-                  } else submit();
-                }}
-                className="btn-outline btn"
-              >
-                Submit Team
-              </button>
-            )}
+                  })}
+                </section>
+              ) : (
+                <section className="flex flex-wrap items-start justify-start gap-5 rounded-lg bg-base-300 p-6">
+                  {allPlayers?.map((els) => {
+                    return (
+                      <Player
+                        key={els.id}
+                        id={els.id}
+                        teamFull={teamFull}
+                        PlayerSelect={PlayerSelect}
+                        moneyLeft={money}
+                        rareity={els.rareity}
+                        name={els.name}
+                        price={els.price}
+                        img={els.image}
+                        team={myTeam}
+                      />
+                    );
+                  })}
+                </section>
+              )}
+            </AnimatePresence>
           </div>
-          <div id="stickyContainer" className="sticky top-5 z-10 my-4">
-            <PlayerGroupSkeleton setTeamName={setTeamName} money={money}>
-              {myTeam}
-            </PlayerGroupSkeleton>
-          </div>
-          <select
-            defaultValue={"DEFAULT"}
-            onChange={(e) => {
-              sorter(e.target.value);
-            }}
-            className="select-bordered select mb-3 w-full max-w-xs text-lg"
-          >
-            <option value={"DEFAULT"} disabled>
-              Sort by
-            </option>
-            <option value={"team"}>Teams</option>
-            <option value={"ascend"}>Cheapest</option>
-            <option value={"descend"}>Most Expensive</option>
-          </select>
-          <AnimatePresence>
-            {teamSort ? (
-              <section className="space-y-6">
-                {/* Maps all teams found in DB then inside each team maps all players found in team */}
-                {props.data?.map((el) => {
-                  return (
-                    <PlayerGroup team={el.teamName} key={el.teamName}>
-                      {el.Player?.map(
-                        (els: {
-                          id: string;
-                          image: string;
-                          name: string;
-                          price: number;
-                          rareity: string;
-                        }) => {
-                          return (
-                            <Player
-                              key={els.id}
-                              id={els.id}
-                              teamFull={teamFull}
-                              PlayerSelect={PlayerSelect}
-                              moneyLeft={money}
-                              rareity={els.rareity}
-                              name={els.name}
-                              price={els.price}
-                              img={els.image}
-                              team={myTeam}
-                            />
-                          );
-                        }
-                      )}
-                    </PlayerGroup>
-                  );
-                })}
-              </section>
-            ) : (
-              <section className="flex flex-wrap items-start justify-start gap-5 rounded-lg bg-base-300 p-6">
-                {allPlayers?.map((els) => {
-                  return (
-                    <Player
-                      key={els.id}
-                      id={els.id}
-                      teamFull={teamFull}
-                      PlayerSelect={PlayerSelect}
-                      moneyLeft={money}
-                      rareity={els.rareity}
-                      name={els.name}
-                      price={els.price}
-                      img={els.image}
-                      team={myTeam}
-                    />
-                  );
-                })}
-              </section>
-            )}
-          </AnimatePresence>
-        </div>
-      )}
-    </main>
+        )}
+      </main>
+    </>
   );
 };
 export default Create;

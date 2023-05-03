@@ -103,7 +103,7 @@ const Createplayer = (props: { data: [] }) => {
           <h1 className="text-xl">
             Ooops.... you&apos;re not supposed to be here{" "}
           </h1>
-          <Link href={`/${query.leauge}`}>
+          <Link href={`/leagues`}>
             <button className="btn">{`Go back to ${query.league}`}</button>
           </Link>
         </div>
