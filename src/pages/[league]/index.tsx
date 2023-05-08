@@ -180,11 +180,11 @@ const LeaguePage = (props: { data: league[] }) => {
           </div>
         )}
         {loading && <Loading />}
-        <div className="rounded-btn mt-14 flex w-full flex-col gap-4 bg-primary px-5 py-7 text-primary-content shadow-lg">
+        <div className="rounded-btn mt-14 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg">
           <h1 className="text-4xl font-bold">
             {league && league.name} Tournement center
           </h1>
-          <p className="text-lg">{league?.description}</p>
+          <p className="text-base">{league?.description}</p>
           <div className="flex items-end justify-between">
             {status === "unauthenticated" ? (
               <div className="">
@@ -223,11 +223,9 @@ const LeaguePage = (props: { data: league[] }) => {
               </li>
             </ul>
           </section>
-          <section className="rounded-btn my-2 mt-5 flex justify-center bg-base-300 px-10 pb-10 text-base-content  2xl:w-[75%]">
-            <div className=" w-full overflow-x-auto">
-              <h2 className="mb-4 mt-4 text-center text-2xl font-bold">
-                Scoreboard
-              </h2>
+          <section className="rounded-btn my-2 mt-5 flex justify-center bg-base-300 px-5 py-7 text-base-content  2xl:w-[75%]">
+            <div className=" flex w-full flex-col gap-3 overflow-x-auto">
+              <h2 className="text-center text-2xl font-bold">Scoreboard</h2>
               {loadingTable ? (
                 <Table data={data} />
               ) : (

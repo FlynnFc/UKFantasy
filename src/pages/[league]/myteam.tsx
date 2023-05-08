@@ -8,7 +8,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Table from "../../components/Table";
-
 type bonus = {
   name: string;
   description: string;
@@ -189,6 +188,7 @@ const Myteam = (props: { data: bonus[] }) => {
       } else {
         toast.dismiss(load);
         toast.success("Bonuses applied");
+        router.reload();
       }
     }
   };
