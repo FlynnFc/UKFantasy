@@ -181,9 +181,21 @@ const Myteam = (props: { data: bonus[] }) => {
     e.preventDefault();
   };
 
-  const HandleBonusSubmit = () => {
-    toast.success("Bonuses applied");
+  const HandleBonusSubmit = async () => {
     console.dir(team);
+    if (team) {
+      const JSONbody = await JSON.stringify(team);
+      const res = await fetch("/api/updateTeamBonuses", {
+        method: "POST",
+        body: JSONbody,
+      });
+      if (!res.ok) {
+        //add error tell user to go back to league page
+        toast.error("Could not update team");
+      } else {
+        toast.success("Bonuses applied");
+      }
+    }
   };
 
   console.log(serverTeam);
@@ -273,8 +285,8 @@ const Myteam = (props: { data: bonus[] }) => {
                 })}
             </div>
           </div>
-          <h2 className="my-5 text-left text-4xl">Insights</h2>
-          <section className="w-full rounded-xl border-4 border-base-content">
+          {/* <h2 className="my-5 text-left text-4xl">Insights</h2> */}
+          {/* <section className="w-full rounded-xl border-4 border-base-content">
             <table className="table w-full  rounded-xl">
               <thead className="sticky top-0">
                 <tr>
@@ -321,7 +333,7 @@ const Myteam = (props: { data: bonus[] }) => {
                 </tr>
               </tbody>
             </table>
-          </section>
+          </section> */}
         </div>
       ) : (
         <Loading />

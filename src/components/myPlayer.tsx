@@ -27,7 +27,7 @@ export const MyPlayer = (props: myPlayer) => {
       >
         {props.bonus && (
           <div
-            className={`tooltip absolute top-0  z-10 w-full rounded-t-lg ${rareity} text-center`}
+            className={`tooltip absolute top-0 z-10 w-full rounded-t-lg p-1 ${rareity} text-center`}
             data-tip={props.bonus.description}
           >
             <button className="text-lg font-bold text-base-200">
