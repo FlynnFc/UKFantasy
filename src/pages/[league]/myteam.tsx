@@ -91,10 +91,9 @@ const Myteam = (props: { data: bonus[] }) => {
           headers: { id: id },
         });
         if (!res.ok) {
-          console.log("error");
+          console.error("error");
         }
         const data = await res.json();
-        console.log(data);
         for (let i = 0; i < data.PlayerTeam.length; i++) {
           if (data.PlayerTeam[i].league.name.toLowerCase() === query.league) {
             setLeagueName(data.PlayerTeam[i].league.name);
@@ -107,14 +106,10 @@ const Myteam = (props: { data: bonus[] }) => {
         }
       } else return "error";
     };
-
     fetcher();
-
-    console.log("running");
   }, [query.league, session]);
 
   useEffect(() => {
-    console.log(props.data);
     if (session?.user?.id && query.league) {
       setAllBonuses([...props.data]);
     }
@@ -130,7 +125,6 @@ const Myteam = (props: { data: bonus[] }) => {
 
   const teamDeleter = async () => {
     if (session?.user?.id && team?.id) {
-      console.log("team deleted", team?.id, query.league);
       const res = await fetch("/api/deleteTeam", {
         method: "DELETE",
         headers: { id: team.id },
@@ -148,7 +142,6 @@ const Myteam = (props: { data: bonus[] }) => {
     Identifier: string,
     index: number
   ) => {
-    console.log(e);
     e.dataTransfer.setData("Identifier", Identifier);
     e.dataTransfer.setData("BonusIndex", index.toString());
   };
@@ -182,23 +175,24 @@ const Myteam = (props: { data: bonus[] }) => {
   };
 
   const HandleBonusSubmit = async () => {
-    console.dir(team);
     if (team) {
       const JSONbody = await JSON.stringify(team);
       const res = await fetch("/api/updateTeamBonuses", {
         method: "POST",
         body: JSONbody,
       });
+      const load = toast.loading("updating...");
       if (!res.ok) {
         //add error tell user to go back to league page
+        toast.dismiss(load);
         toast.error("Could not update team");
       } else {
+        toast.dismiss(load);
         toast.success("Bonuses applied");
       }
     }
   };
 
-  console.log(serverTeam);
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
@@ -226,7 +220,7 @@ const Myteam = (props: { data: bonus[] }) => {
               <h3 className="text-lg font-bold">
                 Are you sure you want to delete your team?
               </h3>
-              <p>After deleting you cant get it back!</p>
+              <p>After deleting you can never get it back!</p>
               <div className="modal-action flex w-full justify-end">
                 <label
                   htmlFor="my-modal"

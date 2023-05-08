@@ -12,7 +12,6 @@ export default function SignIn(props: { providers: any }) {
         <div className="flex h-full w-96 flex-col items-stretch justify-center space-y-2 rounded-md bg-primary p-6 shadow-md">
           {props.providers &&
             Object.values(props.providers).map((provider: any) => {
-              console.log(provider);
               if (provider.name === "Twitter") {
                 return (
                   <div

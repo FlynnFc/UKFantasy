@@ -5,7 +5,7 @@ import { IoIosArrowDropdown } from "react-icons/io";
 export default function LoginBtn(props: { primary: boolean }) {
   const { status } = useSession();
   const { route } = useRouter();
-  console.log(route);
+
   return (
     <>
       {status === "loading" ? (

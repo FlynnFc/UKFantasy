@@ -39,7 +39,7 @@ const UserTeam = () => {
         headers: { id: teamId },
       });
       if (!res.ok) {
-        console.log("error");
+        console.error("error");
       }
       const data = await res.json();
 
@@ -47,8 +47,6 @@ const UserTeam = () => {
     };
     fetcher();
   }, [query.userTeamid]);
-
-  console.log(team);
 
   return (
     <>

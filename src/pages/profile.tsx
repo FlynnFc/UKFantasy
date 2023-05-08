@@ -24,20 +24,16 @@ const Profile = () => {
           headers: { id: id },
         });
         if (!res.ok) {
-          console.log("error");
+          console.error("error");
         }
         const data = await res.json();
-        console.log(data);
         setTeams(data.PlayerTeam);
-        console.log(data.PlayerTeam);
       } else return "error";
     };
 
     fetcher();
-    console.log("running");
   }, [session]);
 
-  console.log(teams);
   return (
     <>
       <Head>

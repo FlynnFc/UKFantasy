@@ -193,7 +193,6 @@ const Create = (props: {
 
   //Checks if user has already submitted a team
   useEffect(() => {
-    console.log(session);
     const teamChecker = async () => {
       setLoading(true);
       if (session.data?.user?.id) {
@@ -207,21 +206,10 @@ const Create = (props: {
           setSubmitted(false);
         }
         const data = await res.json();
-        console.log(data.PlayerTeam);
+
         if (!data.PlayerTeam.length) {
           setSubmitted(false);
-          console.log(
-            "User has never submitted a team breaking out of checker function"
-          );
         } else {
-          const leaguesjson = await fetch("/api/allLeagues", {
-            method: "GET",
-            headers: { id: id },
-          });
-          const leagueData = await leaguesjson.json();
-          console.log(leagueData);
-          console.log(data);
-
           for (let i = 0; i < data.PlayerTeam.length; i++) {
             const el = data.PlayerTeam[i];
             const elLeague = el.league.name.toLowerCase();
@@ -239,7 +227,6 @@ const Create = (props: {
     teamChecker();
   }, [query.league, session.data?.user?.id]);
 
-  console.log(session.data);
   return (
     <>
       <Head>
@@ -440,7 +427,6 @@ export async function getStaticPaths() {
     params: { league: league.name.toLowerCase() },
   }));
 
-  console.log(paths);
   return {
     paths,
     fallback: false,

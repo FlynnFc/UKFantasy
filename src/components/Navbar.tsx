@@ -22,7 +22,7 @@ const Navbar = () => {
     if (localTheme) {
       const themes: theme = localTheme.split(",");
       setTheme(themes);
-      console.log(darkmode);
+
       if (darkmode === undefined) {
         const selectedTheme: string = themes[
           isBrowserSetToDark ? 1 : 0
@@ -33,7 +33,6 @@ const Navbar = () => {
         bodyEl?.setAttribute("data-theme", selectedTheme);
       }
     } else {
-      console.log(isBrowserSetToDark);
       localStorage.setItem("theme", "winter,mytheme");
       bodyEl?.setAttribute(
         "data-theme",
@@ -62,7 +61,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-2">
-          <label className="swap swap-rotate">
+          <label className="swap-rotate swap">
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"
