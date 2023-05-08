@@ -9,7 +9,7 @@ type theme = string[];
 
 const Navbar = () => {
   const [darkmode, setDarkMode] = useState<boolean>();
-  const [theme, setTheme] = useState<theme>(["winter", "night"]);
+  const [theme, setTheme] = useState<theme>(["winter", "mytheme"]);
   const { status } = useSession();
 
   useEffect(() => {

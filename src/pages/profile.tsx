@@ -149,10 +149,8 @@ const Profile = () => {
                 </section>
               )}
             </main>
-            <section className="rounded-btn hidden h-[80vh] w-[25rem] flex-row items-center justify-center bg-base-300 text-base-content xl:flex ">
-              <div className="h-[92%] w-5/6 rounded">
-                <h2>Content here, idk what yet</h2>
-              </div>
+            <section className="rounded-btn hidden h-[80vh] w-[25rem] flex-row items-center justify-center text-base-content xl:flex ">
+              {/* <div className="h-[92%] w-5/6 rounded  bg-base-300">Put something here in the future</div> */}
             </section>
           </>
         ) : (
