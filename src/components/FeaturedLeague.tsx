@@ -5,16 +5,16 @@ const FeaturedLeague = () => {
   return (
     <div>
       <h1 className="text-5xl font-bold text-base-content">Featured League</h1>
-      <div className="shad rounded-btn mt-4 bg-primary p-6 text-primary-content shadow-lg">
-        <h2 className="py-4 text-4xl font-bold">Epic 39</h2>
-        <p className="py-3">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas neque
-          ad nisi commodi totam, dolorem inventore repellat esse beatae
-          accusantium enim minus ipsam libero ab, temporibus aliquam dolor eaque
-          quidem!
+      <div className="rounded-btn mt-14 flex w-full flex-col gap-4 bg-primary px-5 py-7 text-primary-content shadow-lg">
+        <h1 className="text-4xl font-bold">Epic 39 Tournement center</h1>
+        <p className="text-lg">
+          EPIC39 is a LAN based gaming event in the UK. It features a mixture of
+          casual gaming, stage content and esports tournaments so whether you
+          enjoy playing games for fun or want to be the next esports
+          professional, there will be something for you.
         </p>
         <Link href={"./epic39"}>
-          <button className="btn">Take a look</button>
+          <button className="btn w-max">Take a look</button>
         </Link>
       </div>
     </div>

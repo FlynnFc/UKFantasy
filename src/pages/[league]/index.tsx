@@ -180,8 +180,8 @@ const LeaguePage = (props: { data: league[] }) => {
           </div>
         )}
         {loading && <Loading />}
-        <div className="rounded-btn mt-14 flex w-full flex-col bg-primary px-10 pb-10 text-primary-content shadow-lg">
-          <h1 className="my-8 text-4xl font-bold">
+        <div className="rounded-btn mt-14 flex w-full flex-col gap-4 bg-primary px-5 py-7 text-primary-content shadow-lg">
+          <h1 className="text-4xl font-bold">
             {league && league.name} Tournement center
           </h1>
           <p className="text-lg">{league?.description}</p>
@@ -192,12 +192,12 @@ const LeaguePage = (props: { data: league[] }) => {
               </div>
             ) : !userHasTeam ? (
               <Link href={`./${query.league}/create`}>
-                <button className="btn mt-4 w-max">Create team</button>
+                <button className="btn w-max">Create team</button>
               </Link>
             ) : (
               userHasTeam && (
                 <Link href={`${query.league}/myteam`}>
-                  <button className="btn mt-4 w-max ">View Team</button>
+                  <button className="btn w-max ">View Team</button>
                 </Link>
               )
             )}
