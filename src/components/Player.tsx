@@ -110,7 +110,6 @@ export const Player = (props: player) => {
         onClick={() => {
           //Check if team is full already
           if (!disable && !picked) {
-            console.log(props);
             props.PlayerSelect(props);
             setPicked(true);
           }

@@ -28,7 +28,6 @@ const Settings = () => {
 
   async function newNameSubmitter(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("submitting", name);
     const reqBody = await {
       name: filter.clean(name),
       id: session.data?.user?.id,
@@ -42,7 +41,6 @@ const Settings = () => {
       if (!res) {
         console.error("woops");
       } else {
-        console.log("name submitted!");
         setName("");
       }
     } catch (error) {
