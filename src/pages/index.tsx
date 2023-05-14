@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-
+import team from "../../public/teamcreation.jpg";
+import bonuses from "../../public/apply bonuses.jpg";
 const Home: NextPage = () => {
   // const router = useRouter();
   // const { status, data } = useSession();
@@ -31,6 +33,28 @@ const Home: NextPage = () => {
             have ideas of future features shoot me an email{" "}
             <i>foleyclarkef@gmail.com</i>.
           </p>
+          {/* <section className="flex flex-col">
+            <div className="my-5 flex flex-col gap-4 pt-5">
+              <h2 className="text-5xl font-thin">Step 1</h2>
+              <h3 className="text-5xl ">
+                Find a <span className="font-bold text-info">league</span>
+              </h3>
+            </div>
+            <div className="my-5 flex flex-col gap-4  pt-5">
+              <h2 className="text-5xl font-thin">Step 2</h2>
+              <h3 className="gap-4  text-5xl">
+                Create your{" "}
+                <span className="font-bold text-secondary">team</span>
+              </h3>
+            </div>
+            <div className="my-5 flex flex-col gap-4 pt-5">
+              <h2 className="text-5xl font-thin">Step 2</h2>
+              <h3 className="w-auto text-5xl ">
+                apply <span className="font-bold text-primary">bonuses</span> to
+                boost your points
+              </h3>
+            </div>
+          </section> */}
         </div>
       </main>
     </>
