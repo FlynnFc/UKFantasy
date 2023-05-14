@@ -10,46 +10,39 @@ export type stream = {
 
 const tempData: stream[] = [
   {
-    channelName: "Edeninho",
-    live: false,
-    streamTitle: "YOOOO playing last ever EPIC!",
-    viewers: 6,
+    channelName: "Edeninho_",
+    live: true,
+    streamTitle: "Getting grouped? Maybe! Klon Super coach",
+    viewers: 2,
   },
   {
-    channelName: "Xetherato",
+    channelName: "fenomm",
     live: true,
     streamTitle:
       "YOOOO playing last ever EPIC! YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!",
-    viewers: 6,
+    viewers: 22,
   },
   {
-    channelName: "Meffew",
-    live: false,
-    streamTitle: "YOOOO playing last ever EPIC!",
-    viewers: 6,
-  },
-  {
-    channelName: "Pepic1",
+    channelName: "meffewcs",
     live: true,
-    streamTitle: "YOOOO playing last ever EPIC!",
-    viewers: 6,
+    streamTitle: "Last Epic Day 0",
+    viewers: 9,
   },
   {
-    channelName: "Edeinho",
+    channelName: "EPICLAN1",
     live: true,
-    streamTitle: "YOOOO playing last ever EPIC!",
+    streamTitle: "LIVE!! EpicLan Day 0 Into the Breach vs Binmen",
     viewers: 6,
   },
   {
-    channelName: "Petherato",
+    channelName: "EPICLAN2",
     live: true,
-    streamTitle:
-      "YOOOO playing last ever EPIC! YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!",
-    viewers: 6,
+    streamTitle: "Last Epic Day 0",
+    viewers: 1311,
   },
   {
-    channelName: "Moffew",
-    live: false,
+    channelName: "Eeninho",
+    live: true,
     streamTitle: "YOOOO playing last ever EPIC!",
     viewers: 6,
   },
@@ -64,20 +57,19 @@ const tempData: stream[] = [
 const EmpyData: stream[] = [];
 const AllLiveChannels = () => {
   const [expanded, setExpanded] = useState(false);
-  const [noOffline, setNoOffline] = useState(true);
   const [streams, setStreams] = useState<stream[]>();
   useEffect(() => {
     const data = tempData.filter((el, idx) => {
       if (!expanded && idx > 5) {
         return;
-      } else if (noOffline && !el.live) {
+      } else if (!el.live) {
         return;
       } else {
         return el;
       }
     });
     setStreams(data);
-  }, [expanded, noOffline]);
+  }, [expanded]);
 
   console.log(streams);
   return (
@@ -88,8 +80,9 @@ const AllLiveChannels = () => {
               <StreamLink
                 key={el.channelName}
                 streamTitle={el.streamTitle}
-                name={el.channelName}
+                channelName={el.channelName}
                 live={el.live}
+                viewers={el.viewers}
               />
             );
           })

@@ -16,6 +16,7 @@ import Head from "next/head";
 import { HiStatusOnline, HiStatusOffline } from "react-icons/hi";
 import StreamLink from "../../components/StreamLink";
 import AllLiveChannels from "../../components/AllLiveChannels";
+import OfficialStreamEmbed from "../../components/OfficialStreamEmbed";
 
 export async function getStaticProps() {
   const res = await fetch("https://esportsfantasy.app/api/allLeagues");
@@ -152,10 +153,13 @@ const LeaguePage = (props: { data: league[] }) => {
   return (
     <>
       <Head>
-        <title>{league?.name ?? "League"}</title>
+        <title>
+          {league?.name ? `${league.name} tournement center` : "League"}
+        </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
+        <OfficialStreamEmbed />
         {createModal && !userHasTeam && status === "authenticated" && (
           <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
             <div
@@ -185,7 +189,7 @@ const LeaguePage = (props: { data: league[] }) => {
         {loading && <Loading />}
         <div className="rounded-btn mt-14 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg">
           <h1 className="text-4xl font-bold">
-            {league && league.name} Tournement center
+            {league && league.name} tournement center
           </h1>
           <p className="text-base">{league?.description}</p>
           <div className="flex items-end justify-between">
@@ -209,12 +213,12 @@ const LeaguePage = (props: { data: league[] }) => {
 
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
           <section className="rounded-btn my-2 mt-5 h-max bg-base-300 p-5 text-base-content shadow-lg 2xl:w-[25%]">
-            <h2 className="text-left text-xl font-bold leading-none">
+            <h2 className="text-center text-xl font-bold leading-none">
               Verified streams
             </h2>
             <AllLiveChannels />
           </section>
-          <section className="rounded-btn my-2 mt-5 flex  h-min justify-center bg-base-300 px-5 py-7 text-base-content  2xl:w-[75%]">
+          <section className="rounded-btn my-2 mt-5 h-max bg-base-300 p-5 text-base-content shadow-lg  2xl:w-[75%]">
             <div className=" flex w-full flex-col gap-3 overflow-x-auto">
               <h2 className="text-center text-2xl font-bold">Scoreboard</h2>
               {loadingTable ? (

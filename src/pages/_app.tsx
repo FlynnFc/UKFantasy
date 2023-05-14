@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import OfficialStreamEmbed from "../components/OfficialStreamEmbed";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
