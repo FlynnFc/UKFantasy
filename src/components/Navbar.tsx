@@ -86,7 +86,7 @@ const Navbar = () => {
           </label>
           {status !== "authenticated" && (
             <Link href="/leagues">
-              <button className="btn">Leagues</button>
+              <button className="btn-sm btn text-sm sm:btn-md">Leagues</button>
             </Link>
           )}
           <LoginBtn primary={true} />
