@@ -14,8 +14,24 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <>
       <Head>
         <title>UK Fantasy</title>
-        <meta name="description" content="UK Fantasy League " />
+        <meta name="title" content="Welcome to the UK CS Fantasy League!" />
+        <meta name="description" content="UK Esports Fantasy League " />
         <link rel="icon" href="/favicon.ico" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://esportsfantasy.app" />
+        <meta
+          property="twitter:title"
+          content="Welcome to the UK CS Fantasy League!"
+        />
+        <meta
+          property="twitter:description"
+          content="UK Esports Fantasy League"
+        />
+        <meta
+          property="twitter:image"
+          content="https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/public/images/Screenshot_11.png"
+        ></meta>
       </Head>
       <SessionProvider session={session}>
         <Navbar />
