@@ -11,7 +11,7 @@ export default function LoginBtn(props: { primary: boolean }) {
       {status === "loading" ? (
         <button
           disabled
-          className="btn animate-pulse border-none bg-transparent px-2 text-4xl text-base-content"
+          className="btn animate-pulse border-none bg-transparent px-2 text-2xl text-base-content sm:text-4xl"
         >
           <IoIosArrowDropdown />
         </button>
@@ -63,7 +63,7 @@ export default function LoginBtn(props: { primary: boolean }) {
         <button
           className={`${
             props.primary ? "btn-primary" : "btn mt-4 w-max"
-          } btn mr-2`}
+          } btn-sm btn mr-2 text-sm sm:btn-md`}
           onClick={() => signIn()}
         >
           Sign in
