@@ -12,7 +12,7 @@ const OfficialStreamEmbed = () => {
       </div>
       <div className="collapse-content">
         <iframe
-          src="https://player.twitch.tv/?channel=lirik&parent=esportsfantasy.app/"
+          src="https://player.twitch.tv/?channel=lirik&parent=esportsfantasy.app"
           height="252"
           width="448"
           className="rounded-btn"
