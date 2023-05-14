@@ -13,6 +13,9 @@ import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
 import leagues from "../leagues";
 import Head from "next/head";
+import { HiStatusOnline, HiStatusOffline } from "react-icons/hi";
+import StreamLink from "../../components/StreamLink";
+import AllLiveChannels from "../../components/AllLiveChannels";
 
 export async function getStaticProps() {
   const res = await fetch("https://esportsfantasy.app/api/allLeagues");
@@ -205,25 +208,13 @@ const LeaguePage = (props: { data: league[] }) => {
         </div>
 
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
-          <section className="rounded-btn my-2 mt-5 h-max bg-base-300 px-0 py-5 text-base-content shadow-lg 2xl:w-[25%]">
-            <h2 className="text-center text-xl font-bold leading-none">
-              Top Performers
+          <section className="rounded-btn my-2 mt-5 h-max bg-base-300 p-5 text-base-content shadow-lg 2xl:w-[25%]">
+            <h2 className="text-left text-xl font-bold leading-none">
+              Verified streams
             </h2>
-
-            <ul className="mt-3 flex w-full flex-col items-center justify-center">
-              <li className="grid w-full grid-cols-3 grid-rows-1 text-center">
-                <b>StayX</b>
-                <b>200</b>
-                <b className="">1.2</b>
-              </li>
-              <li className="grid w-full grid-cols-3 grid-rows-1 text-center">
-                <b>Vacancey</b>
-                <b>195</b>
-                <b>1.3</b>
-              </li>
-            </ul>
+            <AllLiveChannels />
           </section>
-          <section className="rounded-btn my-2 mt-5 flex justify-center bg-base-300 px-5 py-7 text-base-content  2xl:w-[75%]">
+          <section className="rounded-btn my-2 mt-5 flex  h-min justify-center bg-base-300 px-5 py-7 text-base-content  2xl:w-[75%]">
             <div className=" flex w-full flex-col gap-3 overflow-x-auto">
               <h2 className="text-center text-2xl font-bold">Scoreboard</h2>
               {loadingTable ? (
