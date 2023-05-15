@@ -16,6 +16,7 @@ import Loading from "../components/Loading";
 import Settings from "../components/Settings";
 import Head from "next/head";
 import { BiLogOut } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 const Profile = () => {
   const { data: session } = useSession();
@@ -74,7 +75,11 @@ const Profile = () => {
                 <li>
                   <button
                     className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105"
-                    onClick={() => signOut()}
+                    onClick={() =>
+                      signOut({
+                        callbackUrl: `${window.location.origin}`,
+                      })
+                    }
                   >
                     <BiLogOut className="text-3xl md:mr-4" /> Sign out
                   </button>
