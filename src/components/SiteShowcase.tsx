@@ -23,7 +23,7 @@ export default function SiteShowcase() {
   return (
     <motion.div
       transition={{ ease: "easeIn" }}
-      className={`${styles.window} w-[94vw] xl:w-[72vw]`}
+      className={`${styles.window} w-[94vw] max-w-[85rem]`}
     >
       <nav className={styles.nav}>
         <ul className={styles.tabs}>
