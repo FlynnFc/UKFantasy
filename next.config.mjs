@@ -38,6 +38,7 @@ export default defineNextConfig({
         hostname: "pbs.twimg.com",
         pathname: "/profile_images/**",
       },
+      { protocol: "https", hostname: "img-cdn.hltv.org" },
     ],
   },
 });

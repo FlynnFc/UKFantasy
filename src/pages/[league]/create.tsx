@@ -44,6 +44,7 @@ const Create = (props: {
     player: player[];
   };
 }) => {
+  console.dir(props.data);
   const [introModal, setIntroModal] = useState(true);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);

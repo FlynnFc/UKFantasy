@@ -62,6 +62,7 @@ export async function getStaticPaths() {
 }
 
 const Myteam = (props: { data: bonus[] }) => {
+  console.dir(props.data);
   const { status, data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const [serverTeam, setServerTeam] = useState<teamProps>();

@@ -20,7 +20,7 @@ export const MyPlayer = (props: myPlayer) => {
 
   return (
     <div
-      className={`rounded-btn w-[16rem] flex-col  border-amber-400 shadow-lg  xl:h-[24rem]`}
+      className={`rounded-btn flex-col shadow-lg xl:h-[24rem]  xl:w-[16rem]`}
     >
       <div
         className={`rounded-btn relative hidden h-72 cursor-auto justify-center bg-base-200 xl:block`}
@@ -52,17 +52,37 @@ export const MyPlayer = (props: myPlayer) => {
           />
         )}
       </div>
-      <div
-        className={`${rareity} xl:rounded-b-btn rounded-btn flex h-[6rem] select-none flex-col items-center justify-evenly xl:rounded-t-none`}
-      >
-        <h2 className="pt-3 text-center font-bold leading-none text-base-200 lg:text-xl xl:text-3xl">
-          {props.name}
-        </h2>
-        <div>
-          <p className="pb-3 text-center text-base-200 xl:text-2xl">
-            £{props.price}
-          </p>
+      <div className="flex w-full flex-col">
+        <div
+          className={`${rareity} flex h-[6rem] w-full select-none flex-col items-center justify-evenly rounded-t-lg p-4 xl:rounded-b-lg xl:rounded-t-none`}
+        >
+          <h2 className="pt-3 text-center text-xs font-bold leading-none text-base-200 lg:text-xl xl:text-3xl">
+            {props.name}
+          </h2>
+          <div>
+            <p className="pb-3 text-center text-base-200 xl:text-2xl">
+              £{props.price}
+            </p>
+          </div>
         </div>
+        {props.bonus && (
+          <div
+            className={`tooltip z-10 flex w-full gap-2 rounded-b-lg bg-base-content p-1 text-center xl:hidden`}
+            data-tip={props.bonus.description}
+          >
+            <button className="re  text-lg font-bold text-base-200">
+              {props.bonus.name}
+            </button>
+            {props.bonusEdit && (
+              <button
+                onClick={() => props.deleteBonus(props.index)}
+                className="right-0 mr-2 mt-[0.1rem] font-bold text-error"
+              >
+                X
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
