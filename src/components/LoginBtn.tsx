@@ -21,8 +21,8 @@ export default function LoginBtn(props: { primary: boolean }) {
               Leagues
             </a>
           </Link>
-          <ul className="w-full">
-            <li className="pr-1">
+          <ul className="w-full pr-2">
+            <li className="w-full">
               <Link href={`/epic39`}>
                 <a
                   className={`${
@@ -38,7 +38,7 @@ export default function LoginBtn(props: { primary: boolean }) {
           </ul>
         </li>
         {status === "authenticated" && (
-          <li className="p-1">
+          <li className="mr-1">
             <Link href={"/profile"}>
               <a
                 className={`${
