@@ -39,29 +39,19 @@ const LiveGames = () => {
                     rel="noreferrer"
                   >
                     <div
-                      className={`tooltip rounded-btn btn-lg btn flex w-full min-w-0 cursor-pointer items-center justify-between gap-1 border-0 bg-green-500/40 p-2  text-center text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
+                      className={`tooltip rounded-btn btn-lg btn grid w-full min-w-0 cursor-pointer grid-cols-3 gap-1 border-0 bg-green-500/40 p-2  text-center text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
                       data-tip="Go to channel"
                     >
-                      <div className="inline-block w-full min-w-0  flex-col items-start text-left">
-                        <div className="grid  grid-cols-3 text-center text-xl">
-                          <span className="text-left text-xl">
-                            {el.team1.name}
-                          </span>
-                          <span className="text-center text-xl">vs</span>
-                          <span className="text-right text-xl">
-                            {el.team2.name}
-                          </span>
-                        </div>
-                        <div className="flex flex-row justify-between">
-                          <p className="block overflow-hidden truncate text-xs">
-                            {el.map}
-                          </p>
-
-                          <span className="flex w-min flex-row items-center gap-1 text-xs font-bold text-red-500">
-                            <span> {el.team1.score}</span> <span>-</span>
-                            <span> {el.team2.score}</span>
-                          </span>
-                        </div>
+                      <div className="flex flex-col items-start">
+                        <span>{el.team1.name}</span>
+                        <span className="text-xs">{el.map}</span>
+                      </div>
+                      <div>VS</div>{" "}
+                      <div className="flex flex-col items-end">
+                        <span>{el.team2.name}</span>
+                        <span className="text-xs font-medium text-red-500">
+                          {el.team1.score}-{el.team2.score}
+                        </span>
                       </div>
                     </div>
                   </a>
