@@ -18,7 +18,7 @@ const tabs = [
 ];
 
 export default function SiteShowcase() {
-  const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [selectedTab, setSelectedTab] = useState(tabs[1]);
 
   return (
     <motion.div
