@@ -98,8 +98,8 @@ const LiveGamesExample = () => {
 
   console.log(streams);
   return (
-    <section className="rounded-btn m-2 flex w-auto flex-row justify-start gap-4 bg-base-100">
-      <ul className=" items-left mt-3 flex w-1/4 flex-col justify-center gap-1 pl-2 text-left">
+    <section className="rounded-btn m-2 flex w-auto flex-row justify-start gap-2 bg-base-100">
+      <ul className=" items-left my-2 mt-3 flex w-1/4 flex-col justify-center gap-1 border-r-2 border-primary px-2 text-left">
         {streams?.length
           ? streams?.map((el) => {
               return (
