@@ -119,7 +119,7 @@ const CreateExample = () => {
             price: 21000,
             image:
               "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwidHJhbnNmb3JtYXRpb25zIjoiIiwiaWF0IjoxNjcyNTE0ODQ2LCJleHAiOjE5ODc4NzQ4NDZ9.yl_t6TRs1MwbxEPUM919l2TvjGj7AnvnmBFdfDCcwFA&t=2022-12-31T19%3A27%3A42.231Z",
-            rareity: "silver",
+            rareity: "gold",
             statsId: "clb3wv98b0000j9fgp1eqw0xj",
             teamId: "clb6rncjx000bj9dwopf23b9z",
           },
