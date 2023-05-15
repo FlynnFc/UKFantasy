@@ -74,6 +74,11 @@ const tempDataLiveGames: gameData[] = [
     map: "Anubis",
     startTime: Date.now(),
   },
+  {
+    team1: { name: "RKB", score: 15 },
+    team2: { name: "Faze", score: 0 },
+    map: "Anubis",
+  },
 ];
 
 const EmpyData: stream[] = [];
@@ -124,6 +129,9 @@ const LiveGamesExample = () => {
       <ul className="items-left mt-3 flex w-full flex-col justify-start gap-1 pr-2 text-left">
         {streams?.length
           ? tempDataLiveGames?.map((el) => {
+              if (!el.startTime) {
+                return;
+              }
               return (
                 <li key={el.team1.name}>
                   <a
@@ -132,9 +140,7 @@ const LiveGamesExample = () => {
                     rel="noreferrer"
                   >
                     <div
-                      className={`tooltip rounded-btn flex w-full min-w-0 cursor-pointer items-center justify-between gap-1 bg-green-500/30  ${
-                        el.startTime ? "border-error" : "border-base-content"
-                      } p-2 text-center transition-all hover:bg-green-500 hover:text-base-300`}
+                      className={`tooltip rounded-btn btn-lg btn flex w-full min-w-0 cursor-pointer items-center justify-between gap-1 bg-green-500/30 p-2 text-center transition-all hover:bg-green-500 hover:text-base-300`}
                       data-tip="Go to channel"
                     >
                       <div className="inline-block w-full min-w-0  flex-col items-start text-left">

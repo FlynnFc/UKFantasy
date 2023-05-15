@@ -39,7 +39,7 @@ const LiveGames = () => {
                     rel="noreferrer"
                   >
                     <div
-                      className={`btn-success tooltip rounded-btn btn-lg btn flex w-full min-w-0 cursor-pointer items-center justify-between gap-1 p-2 text-center transition-all`}
+                      className={`tooltip rounded-btn btn-lg btn flex w-full min-w-0 cursor-pointer items-center justify-between gap-1 bg-green-500/30 p-2 text-center transition-all hover:bg-green-500 hover:text-base-300`}
                       data-tip="Go to channel"
                     >
                       <div className="inline-block w-full min-w-0  flex-col items-start text-left">
