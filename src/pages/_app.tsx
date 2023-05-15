@@ -15,8 +15,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <>
       <Head>
         <title>UK Fantasy</title>
-        <meta name="title" content="Welcome to the UK CS Fantasy League!" />
-        <meta name="description" content="UK Esports Fantasy League " />
+        <meta name="title" content="Play Fantasy esports here!" />
+        <meta name="description" content="The center for UK esports fantasy" />
         <link rel="icon" href="/favicon.ico" />
 
         <meta property="twitter:card" content="summary_large_image" />
