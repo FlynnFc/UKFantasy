@@ -28,7 +28,7 @@ const Home: NextPage = () => {
             className="my-2 w-5/6 text-center text-2xl font-semibold md:text-4xl xl:text-[6rem] xl:leading-tight"
           >
             Welcome to the UK CS{" "}
-            <span className="font-bold text-accent"> Fantasy League</span>!
+            <span className="font-bold text-orange-500"> Fantasy League</span>!
           </motion.h1>
           <section>
             <SiteShowcase />
