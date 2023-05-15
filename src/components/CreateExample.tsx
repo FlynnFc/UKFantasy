@@ -3,16 +3,13 @@
 // - Fetch player Teams for leaderboard
 // - Fetch Teams for create page
 //TODO line 163 if no res then give user error and prompt back to league screen
-import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { Player } from "./Player";
 import PlayerGroup from "./playerGroup";
 import PlayerGroupSkeleton from "./playerGroupSkeleton";
 import SelectedPlayer from "./SelectedPlayer";
-import toast, { Toaster } from "react-hot-toast";
 
 import { AnimatePresence } from "framer-motion";
-import Head from "next/head";
 
 export type player = {
   map(
@@ -151,15 +148,11 @@ const CreateExample = () => {
     ],
   };
 
-  const [introModal, setIntroModal] = useState(true);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);
   const [teamFull, setTeamFull] = useState(false);
   const [deletes, setDeletes] = useState("");
-  const session = useSession();
-  const [submitted, setSubmitted] = useState(false);
   const [teamName, setTeamName] = useState("Your Team");
-  const [loading, setLoading] = useState(false);
   const [teamSort, setTeamSort] = useState(true);
   const [allPlayers, setAllPlayers] = useState<player[]>();
   //Ensures Team name is never empty string
@@ -168,15 +161,6 @@ const CreateExample = () => {
       setTeamName("Your Team");
     }
   }, [teamName.length]);
-
-  const sorter = (order: string) => {
-    if (order === "team") {
-      setTeamSort(true);
-      return;
-    }
-    setAllPlayers(allPlayers);
-    setTeamSort(false);
-  };
 
   //Updates total money as user changes players
   useEffect(() => {
