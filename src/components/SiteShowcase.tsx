@@ -41,7 +41,7 @@ export default function SiteShowcase() {
           ))}
         </ul>
       </nav>
-      <main className="h-auto p-1">
+      <main className="h-auto">
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={selectedTab ? selectedTab.label : "empty"}
