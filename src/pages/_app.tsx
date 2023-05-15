@@ -5,7 +5,6 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import OfficialStreamEmbed from "../components/OfficialStreamEmbed";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -14,9 +13,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <>
       <Head>
-        <title>UK Fantasy</title>
+        <title>Play Fantasy esports here!</title>
         <meta name="title" content="Play Fantasy esports here!" />
-        <meta name="description" content="The center for UK esports fantasy" />
+        <meta
+          name="description"
+          content="The center for UK esports fantasy. Join leagues, Create your team, win prizes"
+        />
         <link rel="icon" href="/favicon.ico" />
 
         <meta property="twitter:card" content="summary_large_image" />

@@ -100,7 +100,7 @@ const tempDataLiveGames: gameData[] = [
   },
 ];
 
-const EmpyData: stream[] = [];
+// const EmpyData: stream[] = [];
 const LiveGamesExample = () => {
   const [expanded, setExpanded] = useState(false);
   const [streams, setStreams] = useState<stream[]>();
