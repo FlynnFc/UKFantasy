@@ -76,28 +76,33 @@ const AllLiveChannels = () => {
 
   console.log(streams);
   return (
-    <ul className="items-left mt-3 flex w-full flex-col justify-center gap-1 text-left">
-      {streams?.length
-        ? streams?.map((el) => {
-            return (
-              <StreamLink
-                key={el.channelName}
-                streamTitle={el.streamTitle}
-                channelName={el.channelName}
-                live={el.live}
-                viewers={el.viewers}
-              />
-            );
-          })
-        : "No live streams"}
+    <div className="rounded-btn bg-base-300 p-5 shadow-lg">
+      <h2 className="text-center text-xl font-bold leading-none">
+        Verified streams
+      </h2>
+      <ul className="items-left mt-3 flex w-full flex-col justify-center gap-1 p-1 text-left">
+        {streams?.length
+          ? streams?.map((el) => {
+              return (
+                <StreamLink
+                  key={el.channelName}
+                  streamTitle={el.streamTitle}
+                  channelName={el.channelName}
+                  live={el.live}
+                  viewers={el.viewers}
+                />
+              );
+            })
+          : "No live streams"}
 
-      <p
-        className="link-secondary link text-center"
-        onClick={() => setExpanded((prev) => !prev)}
-      >
-        {expanded ? "Show less" : "Show more"}
-      </p>
-    </ul>
+        <p
+          className="link-secondary link text-center"
+          onClick={() => setExpanded((prev) => !prev)}
+        >
+          {expanded ? "Show less" : "Show more"}
+        </p>
+      </ul>
+    </div>
   );
 };
 

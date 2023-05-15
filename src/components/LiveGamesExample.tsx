@@ -12,7 +12,7 @@ export type gameData = {
   team1: { name: string; score: number };
   team2: { name: string; score: number };
   map: string;
-  startTime: number;
+  startTime?: number;
 };
 
 const tempData: stream[] = [
@@ -48,16 +48,16 @@ const tempData: stream[] = [
     viewers: 1311,
   },
   {
-    channelName: "Eeninho",
+    channelName: "Neul",
     live: true,
-    streamTitle: "YOOOO playing last ever EPIC!",
+    streamTitle: "Game week 4",
     viewers: 6,
   },
   {
-    channelName: "Eeninho",
+    channelName: "Haznoodle",
     live: true,
-    streamTitle: "YOOOO playing last ever EPIC!",
-    viewers: 6,
+    streamTitle: "Pugs & Groups",
+    viewers: 1,
   },
 ];
 

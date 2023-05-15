@@ -17,6 +17,7 @@ import { HiStatusOnline, HiStatusOffline } from "react-icons/hi";
 import StreamLink from "../../components/StreamLink";
 import AllLiveChannels from "../../components/AllLiveChannels";
 import OfficialStreamEmbed from "../../components/OfficialStreamEmbed";
+import LiveGames from "../../components/LiveGames";
 
 export async function getStaticProps() {
   const res = await fetch("https://esportsfantasy.app/api/allLeagues");
@@ -217,12 +218,11 @@ const LeaguePage = (props: { data: league[] }) => {
         </div>
 
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
-          <section className="rounded-btn my-2 mt-5 h-max bg-base-300 p-5 text-base-content shadow-lg 2xl:w-[25%]">
-            <h2 className="text-center text-xl font-bold leading-none">
-              Verified streams
-            </h2>
+          <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
             <AllLiveChannels />
+            <LiveGames />
           </section>
+
           <section className="rounded-btn my-2 mt-5 h-max bg-base-300 p-5 text-base-content shadow-lg  2xl:w-[75%]">
             <div className=" flex w-full flex-col gap-3 overflow-x-auto">
               <h2 className="text-center text-2xl font-bold">Scoreboard</h2>
