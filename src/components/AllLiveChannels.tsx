@@ -58,6 +58,7 @@ const EmpyData: stream[] = [];
 const AllLiveChannels = () => {
   const [expanded, setExpanded] = useState(false);
   const [streams, setStreams] = useState<stream[]>();
+  //Only displaying live channels
   useEffect(() => {
     const data = tempData.filter((el, idx) => {
       if (!expanded && idx > 5) {
@@ -68,6 +69,8 @@ const AllLiveChannels = () => {
         return el;
       }
     });
+    //sorting by Viewers hi-low
+    data.sort((a, b) => b.viewers - a.viewers);
     setStreams(data);
   }, [expanded]);
 
