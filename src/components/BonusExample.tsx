@@ -1,8 +1,25 @@
 import React, { useState } from "react";
 import { MyPlayer } from "./myPlayer";
 
+type playerType = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  rareity: string;
+  statsId: string;
+  teamId: string;
+  bonus?: { name: string; description: string };
+};
+
+type exampleTeam = {
+  id: string;
+  teamName: string;
+  Player: playerType[];
+};
+
 const BonusExample = () => {
-  const Defaultteam = {
+  const Defaultteam: exampleTeam = {
     id: "clb6rkolq0000j9dwh0qge2ev",
     teamName: "Into the breach",
     Player: [
@@ -13,9 +30,8 @@ const BonusExample = () => {
         image:
           "https://img-cdn.hltv.org/playerbodyshot/I1ABQFlv-1vKh0QfZqgJ2t.png?ixlib=java-2.1.0&w=400&s=a87f39842f0056664d21ced21c658e08",
         rareity: "gold",
-        statsId: null,
+        statsId: "",
         teamId: "clb6rkolq0000j9dwh0qge2ev",
-        bonus: undefined,
       },
       {
         id: "clb6rmzhi0003j9dw2xp7vagz",
@@ -26,7 +42,6 @@ const BonusExample = () => {
         rareity: "gold",
         statsId: "clb3wv98b0000j9fgp1eqw0xj",
         teamId: "clb6rkolq0000j9dwh0qge2ev",
-        bonus: undefined,
       },
       {
         id: "clb6rmzhj0005j9dwnl5t10af",
@@ -37,7 +52,6 @@ const BonusExample = () => {
         rareity: "gold",
         statsId: "clb3wv98b0000j9fgp1eqw0xj",
         teamId: "clb6rkolq0000j9dwh0qge2ev",
-        bonus: undefined,
       },
       {
         id: "clb6rmzhj0007j9dwhye4s3zc",
@@ -48,7 +62,6 @@ const BonusExample = () => {
         rareity: "gold",
         statsId: "clb3wv98b0000j9fgp1eqw0xj",
         teamId: "clb6rkolq0000j9dwh0qge2ev",
-        bonus: undefined,
       },
       {
         id: "clb6rmzhj0009j9dw5aoy6tnl",
@@ -59,7 +72,6 @@ const BonusExample = () => {
         rareity: "gold",
         statsId: "clb3wv98b0000j9fgp1eqw0xj",
         teamId: "clb6rkolq0000j9dwh0qge2ev",
-        bonus: undefined,
       },
     ],
   };
