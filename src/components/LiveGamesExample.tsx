@@ -63,13 +63,13 @@ const tempData: stream[] = [
 
 const tempDataLiveGames: gameData[] = [
   {
-    team1: { name: "Into the Breach", score: 11 },
+    team1: { name: "ITB", score: 11 },
     team2: { name: "Viperio", score: 4 },
     map: "Mirage",
     startTime: Date.now(),
   },
   {
-    team1: { name: "Ross Kemp Bald", score: 15 },
+    team1: { name: "RKB", score: 15 },
     team2: { name: "Faze", score: 0 },
     map: "Anubis",
     startTime: Date.now(),
@@ -98,7 +98,7 @@ const LiveGamesExample = () => {
 
   console.log(streams);
   return (
-    <section className="rounded-btn m-2 flex w-auto flex-row justify-start gap-2 bg-base-100">
+    <section className="rounded-btn m-2 flex w-auto flex-row justify-between gap-2 bg-base-100">
       <ul className=" items-left my-2 mt-3 flex w-1/4 flex-col justify-center gap-1 border-r-2 border-primary px-2 text-left">
         {streams?.length
           ? streams?.map((el) => {
@@ -121,7 +121,7 @@ const LiveGamesExample = () => {
           {expanded ? "Show less" : "Show more"}
         </p>
       </ul>
-      <ul className="items-left mt-3 flex flex-col justify-start gap-1 pr-2 text-left">
+      <ul className="items-left mt-3 flex w-full flex-col justify-start gap-1 pr-2 text-left">
         {streams?.length
           ? tempDataLiveGames?.map((el) => {
               return (
@@ -137,10 +137,16 @@ const LiveGamesExample = () => {
                       } p-2 text-center transition-all hover:bg-green-500 hover:text-base-300`}
                       data-tip="Go to channel"
                     >
-                      <div className="inline-block w-full min-w-0 flex-col items-start text-left">
-                        <h4 className="text-lg">
-                          {el.team1.name} vs {el.team2.name}
-                        </h4>
+                      <div className="inline-block w-full min-w-0  flex-col items-start text-left">
+                        <div className="grid  grid-cols-3 text-center text-xl">
+                          <span className="text-left text-xl">
+                            {el.team1.name}
+                          </span>
+                          <span className="text-center text-xl">vs</span>
+                          <span className="text-right text-xl">
+                            {el.team2.name}
+                          </span>
+                        </div>
                         <div className="flex flex-row justify-between">
                           <p className="block overflow-hidden truncate text-xs">
                             {el.map}
@@ -159,6 +165,13 @@ const LiveGamesExample = () => {
             })
           : "No live Games"}
       </ul>
+      <div className="mr-2 flex items-center justify-center">
+        <iframe
+          src="https://player.twitch.tv/?channel=blastpremier&parent=esportsfantasy.app"
+          height="360"
+          width="640"
+        ></iframe>
+      </div>
     </section>
   );
 };
