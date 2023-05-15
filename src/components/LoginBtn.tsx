@@ -38,7 +38,7 @@ export default function LoginBtn(props: { primary: boolean }) {
           </ul>
         </li>
         {status === "authenticated" && (
-          <li className="mr-1">
+          <li className="p-1">
             <Link href={"/profile"}>
               <a
                 className={`${
