@@ -3,7 +3,7 @@
 // New Team page would be [league]/team/[teamid]
 // User profile page shows what leagues they are in current/past/upcoming use the https://daisyui.com/components/tab/ component
 
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -195,7 +195,12 @@ const LeaguePage = (props: { data: league[] }) => {
           <div className="flex items-end justify-between">
             {status === "unauthenticated" ? (
               <div className="">
-                <LoginBtn primary={false} />
+                <button
+                  className={`${"btn mt-4 w-max"} btn-sm btn mr-2 text-sm sm:btn-md`}
+                  onClick={() => signIn()}
+                >
+                  Sign in
+                </button>
               </div>
             ) : !userHasTeam ? (
               <Link href={`./${query.league}/create`}>

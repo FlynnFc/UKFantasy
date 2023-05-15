@@ -4,33 +4,54 @@ import { useRouter } from "next/router";
 import { IoIosArrowDropdown } from "react-icons/io";
 export default function LoginBtn(props: { primary: boolean }) {
   const { status } = useSession();
-  const { route } = useRouter();
-
+  const { route, query } = useRouter();
+  console.log(query);
   return (
     <>
-      <ul className="hidden flex-row gap-1 md:flex">
-        <li>
+      <ul className="menu menu-horizontal hidden flex-row gap-1 bg-none md:flex">
+        <li tabIndex={0} className="p-1">
           <Link href="/leagues">
             <a
               className={`${
-                route === "/leagues" ? `bg-primary-focus` : undefined
+                route === "/leagues"
+                  ? `bg-primary-focus text-primary-content`
+                  : undefined
               } btn-ghost btn hover:bg-primary-focus/40`}
             >
               Leagues
             </a>
           </Link>
+          <ul className="w-full">
+            <li className="pr-1">
+              <Link href={`/epic39`}>
+                <a
+                  className={`${
+                    query.league === "epic39"
+                      ? `bg-primary-focus text-primary-content`
+                      : undefined
+                  } btn-ghost btn hover:bg-primary-focus/40 hover:text-primary-content`}
+                >
+                  Epic39
+                </a>
+              </Link>
+            </li>
+          </ul>
         </li>
-        <li>
-          <Link href={"/profile"}>
-            <a
-              className={`${
-                route === "/profile" ? `bg-primary-focus` : undefined
-              } btn-ghost btn hover:bg-primary-focus/40 `}
-            >
-              Profile
-            </a>
-          </Link>
-        </li>
+        {status === "authenticated" && (
+          <li className="p-1">
+            <Link href={"/profile"}>
+              <a
+                className={`${
+                  route === "/profile"
+                    ? `bg-primary-focus text-primary-content`
+                    : undefined
+                } btn-ghost btn hover:bg-primary-focus/40 `}
+              >
+                Profile
+              </a>
+            </Link>
+          </li>
+        )}
       </ul>
       {status === "loading" ? (
         <button

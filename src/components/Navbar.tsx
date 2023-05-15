@@ -53,16 +53,14 @@ const Navbar = () => {
     <nav className="navbar static top-0  p-2 ">
       <div className="flex w-full justify-between">
         <div className="flex space-x-4">
-          <Link href="/">
-            <a className="btn-ghost btn flex items-center text-sm normal-case md:text-xl">
-              <span className="mb-3">UKFantasy</span>
-              <Image src={logo} width={60} height={60} alt="logo" />
-            </a>
-          </Link>
+          <div className="flex cursor-default items-center px-4 text-sm font-semibold normal-case hover:bg-inherit md:text-xl">
+            <span className="mb-3">UKFantasy</span>
+            <Image src={logo} width={60} height={60} alt="logo" />
+          </div>
         </div>
         <div className="flex items-center space-x-2">
           <LoginBtn primary={true} />
-          <label className="swap-rotate swap">
+          <label className="swap-rotate swap p-1">
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"

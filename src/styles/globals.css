@@ -10,6 +10,10 @@
   width: 5px;
 }
 
+li a {
+  border-radius: var(--rounded-btn) !important;
+}
+
 .scroll::-webkit-scrollbar-thumb {
   background: hsl(var(--n));
 }

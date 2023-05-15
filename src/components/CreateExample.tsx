@@ -240,7 +240,7 @@ const CreateExample = () => {
 
   return (
     <>
-      <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl select-none flex-col items-end justify-start  p-4 sm:mx-auto">
+      <main className="min-w-screen container rounded-btn m-6 flex h-full min-h-[88.3vh] w-max select-none flex-col items-end justify-start px-8 py-4 sm:mx-auto">
         <div className="w-full">
           <h2 className="text-center text-3xl leading-snug lg:text-5xl">
             {teamName}
