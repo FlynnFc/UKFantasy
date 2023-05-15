@@ -8,6 +8,30 @@ export default function LoginBtn(props: { primary: boolean }) {
 
   return (
     <>
+      <ul className="hidden flex-row gap-1 md:flex">
+        <li>
+          <Link href="/leagues">
+            <a
+              className={`${
+                route === "/leagues" ? `bg-primary-focus` : undefined
+              } btn-ghost btn hover:bg-primary-focus/40`}
+            >
+              Leagues
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={"/profile"}>
+            <a
+              className={`${
+                route === "/profile" ? `bg-primary-focus` : undefined
+              } btn-ghost btn hover:bg-primary-focus/40 `}
+            >
+              Profile
+            </a>
+          </Link>
+        </li>
+      </ul>
       {status === "loading" ? (
         <button
           disabled
@@ -16,7 +40,7 @@ export default function LoginBtn(props: { primary: boolean }) {
           <IoIosArrowDropdown />
         </button>
       ) : status === "authenticated" ? (
-        <div className="dropdown-end dropdown hover:text-primary-content">
+        <div className="dropdown-end dropdown hover:text-primary-content md:hidden">
           <label
             tabIndex={0}
             className="btn border-none bg-transparent px-2 text-2xl text-base-content hover:text-inherit md:text-4xl"
@@ -39,7 +63,7 @@ export default function LoginBtn(props: { primary: boolean }) {
               </Link>
             </li>
             {status === "authenticated" && (
-              <li>
+              <li className="block md:hidden">
                 <Link href="/leagues">
                   <a
                     className={`${

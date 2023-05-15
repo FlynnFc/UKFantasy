@@ -1,14 +1,21 @@
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { AiOutlineEdit } from "react-icons/ai";
-import { MdHome, MdPayment, MdQueryStats, MdSettings } from "react-icons/md";
+import {
+  MdHome,
+  MdOutlineLogout,
+  MdPayment,
+  MdQueryStats,
+  MdSettings,
+} from "react-icons/md";
 import { CgSpinner } from "react-icons/cg";
 import Loading from "../components/Loading";
 import Settings from "../components/Settings";
 import Head from "next/head";
+import { BiLogOut } from "react-icons/bi";
 
 const Profile = () => {
   const { data: session } = useSession();
@@ -63,6 +70,14 @@ const Profile = () => {
                 >
                   <MdSettings className="text-3xl md:mr-4" />
                   <span className="hidden md:inline">Settings</span>
+                </li>
+                <li>
+                  <button
+                    className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105"
+                    onClick={() => signOut()}
+                  >
+                    <BiLogOut className="text-3xl md:mr-4" /> Sign out
+                  </button>
                 </li>
                 {/* <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
                 <MdPayment className="text-3xl md:mr-4" />
