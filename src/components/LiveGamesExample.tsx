@@ -75,9 +75,28 @@ const tempDataLiveGames: gameData[] = [
     startTime: Date.now(),
   },
   {
-    team1: { name: "RKB", score: 15 },
-    team2: { name: "Faze", score: 0 },
-    map: "Anubis",
+    team1: { name: "Apeks", score: 9 },
+    team2: { name: "GL", score: 2 },
+    map: "Inferno",
+    startTime: Date.now(),
+  },
+  {
+    team1: { name: "Heroic", score: 1 },
+    team2: { name: "Liquid", score: 0 },
+    map: "Overpass",
+    startTime: Date.now(),
+  },
+  {
+    team1: { name: "fnatic", score: 17 },
+    team2: { name: "ENCE", score: 16 },
+    map: "Mirage",
+    startTime: Date.now(),
+  },
+  {
+    team1: { name: "G2", score: 12 },
+    team2: { name: "FURIA", score: 12 },
+    map: "Mirage",
+    startTime: Date.now(),
   },
 ];
 
@@ -104,7 +123,7 @@ const LiveGamesExample = () => {
   console.log(streams);
   return (
     <section className="rounded-btn m-2 flex w-auto flex-row justify-between gap-2 bg-base-100">
-      <ul className=" items-left my-2 mt-3 flex w-1/4 flex-col justify-center gap-1 border-r-2 border-primary px-2 text-left">
+      <ul className=" items-left my-3 flex w-1/4 flex-col justify-center gap-1 border-r-2 border-primary px-2 text-left">
         {streams?.length
           ? streams?.map((el) => {
               return (
