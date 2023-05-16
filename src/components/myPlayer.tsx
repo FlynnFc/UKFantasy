@@ -45,6 +45,7 @@ export const MyPlayer = (props: myPlayer) => {
         )}
         {props.img && (
           <Image
+            draggable={false}
             className="rounded-t-lg text-center drop-shadow-2xl"
             alt="player portrait"
             layout="fill"
