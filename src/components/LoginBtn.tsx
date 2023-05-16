@@ -5,7 +5,6 @@ import { IoIosArrowDropdown } from "react-icons/io";
 export default function LoginBtn(props: { primary: boolean }) {
   const { status } = useSession();
   const { route, query } = useRouter();
-  console.log(query);
   return (
     <>
       <ul className="menu menu-horizontal hidden flex-row gap-1 bg-none md:flex">

@@ -74,7 +74,6 @@ const AllLiveChannels = () => {
     setStreams(data);
   }, [expanded]);
 
-  console.log(streams);
   return (
     <div className="rounded-btn bg-base-300 p-5 shadow-lg">
       <h2 className="text-center text-xl font-bold leading-none">

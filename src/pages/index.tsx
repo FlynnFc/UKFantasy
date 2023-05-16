@@ -27,7 +27,7 @@ const Home: NextPage = () => {
             transition={{ duration: 0.5 }}
             className="my-2 w-5/6 text-center text-4xl font-semibold md:text-6xl xl:text-[6rem] xl:leading-tight"
           >
-            Welcome to the UK CS
+            Welcome to the <b>UKCS</b>
             <span className="font-bold text-orange-500"> Fantasy League</span>!
           </motion.h1>
           <section>
