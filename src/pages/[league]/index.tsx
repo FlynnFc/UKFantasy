@@ -188,7 +188,7 @@ const LeaguePage = (props: { data: league[] }) => {
           </div>
         )}
         {loading && <Loading />}
-        <div className="rounded-btn mt-14 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg">
+        <div className="px:5 rounded-btn mt-14 flex w-full flex-col gap-6 bg-primary py-7 text-primary-content shadow-lg md:px-8">
           <h1 className="text-4xl font-bold">
             {league && league.name} tournement center
           </h1>
