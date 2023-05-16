@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="flex grid-flow-col flex-row items-start gap-4">
         <p className="py-1">Copyright © 2022</p>
         <div className="link rounded-btn relative grid-flow-col px-2 py-1 transition-all hover:bg-base-300">
-          <Link href={`./reportbugs`}>Report a bug</Link>
+          <Link href={`./report`}>Report a bug</Link>
         </div>
       </div>
       <div className="items-between flex w-full justify-center gap-4">
