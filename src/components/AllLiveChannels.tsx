@@ -96,7 +96,7 @@ const AllLiveChannels = () => {
           : "No live streams"}
 
         <p
-          className="link-secondary link text-center"
+          className="link-secondary link mt-2 text-center"
           onClick={() => setExpanded((prev) => !prev)}
         >
           {expanded ? "Show less" : "Show more"}
