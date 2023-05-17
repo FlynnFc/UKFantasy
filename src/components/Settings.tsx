@@ -49,54 +49,52 @@ const Settings = () => {
   }
 
   return (
-    <main className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">
-      <div className="h-full w-[30rem] rounded-lg bg-base-300 p-8">
-        <Toaster position="bottom-left" />
-        <form className="form" onSubmit={(e) => submitHandler(e)}>
-          <label className="label text-xl" htmlFor="name">
-            Change Display Name
-          </label>
-          <input
-            type="text"
-            className="input w-full max-w-xs"
-            placeholder="Display name"
-            value={name}
-            onChange={(e) => newName(e.target.value)}
-          />
-          <button
-            disabled={!name}
-            type="submit"
-            className="btn-success btn-sm btn mx-2"
-          >
-            Submit
-          </button>
-        </form>
-        <form className="form" action="">
-          <label className="label mt-1 text-xl" htmlFor="name">
-            Theme
-          </label>
-          <select
-            onChange={(e) => setTheme(e.target.value)}
-            className="select w-full max-w-xs"
-          >
-            <option disabled selected={true}>
-              Choose a theme
-            </option>
-            <option value={"winter,mytheme"}>Default</option>
-            <option value={"corporate,business"}>Microsoft</option>
-            <option value={"bumblebee,halloween"}>Halloween</option>
-            <option value={"lofi,black"}>Minimal</option>
-            <option value={"cyberpunk,synthwave"}>{`I'm brave`}</option>
-          </select>
-          <button
-            onClick={themeSubmitter}
-            className="btn-success btn-sm btn mx-2"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
-    </main>
+    <section className="rounded-btn flex h-full w-full flex-col justify-start bg-base-300 p-8 md:w-[30rem]">
+      <Toaster position="bottom-left" />
+      <form className="form " onSubmit={(e) => submitHandler(e)}>
+        <label className="label text-xl" htmlFor="name">
+          Change Display Name
+        </label>
+        <input
+          type="text"
+          className="input w-full max-w-xs"
+          placeholder="Display name"
+          value={name}
+          onChange={(e) => newName(e.target.value)}
+        />
+        <button
+          disabled={!name}
+          type="submit"
+          className="btn-success btn-sm btn mx-2"
+        >
+          Submit
+        </button>
+      </form>
+      <form className="form" action="">
+        <label className="label mt-1 text-xl" htmlFor="name">
+          Theme
+        </label>
+        <select
+          onChange={(e) => setTheme(e.target.value)}
+          className="select w-full max-w-xs"
+        >
+          <option disabled selected={true}>
+            Choose a theme
+          </option>
+          <option value={"winter,mytheme"}>Default</option>
+          <option value={"corporate,business"}>Microsoft</option>
+          <option value={"bumblebee,halloween"}>Halloween</option>
+          <option value={"lofi,black"}>Minimal</option>
+          <option value={"cyberpunk,synthwave"}>{`I'm brave`}</option>
+        </select>
+        <button
+          onClick={themeSubmitter}
+          className="btn-success btn-sm btn mx-2"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
   );
 };
 

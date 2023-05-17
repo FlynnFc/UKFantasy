@@ -48,12 +48,12 @@ const Profile = () => {
         <title>Your profile</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="container mx-auto flex min-h-screen select-none flex-col space-y-2 p-4 md:flex-row md:items-start md:justify-evenly">
+      <div className="container mx-auto flex min-h-screen select-none flex-col items-start gap-8 p-4 md:grid md:grid-cols-6 md:grid-rows-1 ">
         {session ? (
           <>
             <Toaster position="bottom-left" />
-            <section className="rounded-btn h-full bg-primary p-6 text-primary-content shadow-lg">
-              <ul className="flex select-none flex-row items-center justify-evenly md:flex-col md:items-stretch md:space-y-8">
+            <section className="col-span-2 flex w-full items-start justify-end">
+              <ul className="rounded-btn flex h-min w-full select-none flex-row items-center justify-evenly bg-primary p-6 text-primary-content shadow-lg md:w-fit md:flex-col md:items-stretch md:justify-start md:space-y-8">
                 <li
                   onClick={() => setCurrentPage("profile")}
                   className=" btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105"
@@ -81,7 +81,8 @@ const Profile = () => {
                       })
                     }
                   >
-                    <BiLogOut className="text-3xl md:mr-4" /> Sign out
+                    <BiLogOut className="text-3xl md:mr-4" />{" "}
+                    <span className="hidden md:inline">Sign out</span>
                   </button>
                 </li>
                 {/* <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
@@ -90,8 +91,8 @@ const Profile = () => {
               </li> */}
               </ul>
             </section>
-            <main className="">
-              <section className="rounded-btn flex h-full flex-row justify-between bg-primary p-8  md:w-[30rem]">
+            <main className="col-span-3 flex h-fit w-full flex-col items-start gap-4">
+              <section className="rounded-btn flex h-full w-full flex-row justify-between bg-primary p-8  md:w-[30rem]">
                 <div className="">
                   <h1 className="flex flex-row items-end text-3xl text-primary-content">
                     {session?.user?.name}
@@ -113,7 +114,7 @@ const Profile = () => {
                 )}
               </section>
               {currentPage === "profile" && (
-                <section className="rounded-btn mt-12 flex h-full flex-col justify-start bg-base-300 p-8 md:w-[30rem]">
+                <section className="rounded-btn flex h-fit w-full flex-col justify-start bg-base-300 p-8 md:w-[30rem]">
                   <h2 className="text-3xl">My teams</h2>
                   {teams ? (
                     teams.map(
@@ -159,15 +160,13 @@ const Profile = () => {
                   {teams && teams.length < 1 && <div>No teams</div>}
                 </section>
               )}
-              {currentPage === "settings" && (
-                <section className="rounded-btn flex h-full flex-col justify-start bg-base-100 p-8 md:w-[30rem]">
-                  <Settings />
-                </section>
-              )}
+              {currentPage === "settings" && <Settings />}
             </main>
-            <section className="rounded-btn hidden h-[80vh] w-[25rem] flex-row items-center justify-center text-base-content xl:flex ">
-              {/* <div className="h-[92%] w-5/6 rounded  bg-base-300">Put something here in the future</div> */}
-            </section>
+            {/* <section className="rounded-btn col-span-1 hidden h-[80vh] w-[25rem] flex-row items-center justify-center text-base-content xl:flex ">
+              <div className="h-[92%] w-5/6 rounded  bg-base-300">
+                Put something here in the future
+              </div>
+            </section> */}
           </>
         ) : (
           <div>
