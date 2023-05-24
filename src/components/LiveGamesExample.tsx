@@ -25,14 +25,13 @@ const tempData: stream[] = [
   {
     channelName: "fenomm",
     live: true,
-    streamTitle:
-      "YOOOO playing last ever EPIC! YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!",
+    streamTitle: "YOOOO playing last ever IEM Kettering!",
     viewers: 22,
   },
   {
     channelName: "meffewcs",
     live: true,
-    streamTitle: "Last Epic Day 0",
+    streamTitle: "Last Epic Group stage",
     viewers: 9,
   },
   {
@@ -159,8 +158,7 @@ const LiveGamesExample = () => {
                     rel="noreferrer"
                   >
                     <div
-                      className={`tooltip rounded-btn btn-lg btn grid w-full min-w-0 cursor-pointer grid-cols-3 gap-1 border-0 bg-green-500/40 p-2  text-center text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
-                      data-tip="Go to channel"
+                      className={`rounded-btn btn-lg btn grid w-full min-w-0 cursor-pointer grid-cols-3 gap-1 border-0 bg-green-500/40 p-2  text-center text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
                     >
                       <div className="flex flex-col items-start">
                         <span>{el.team1.name}</span>
