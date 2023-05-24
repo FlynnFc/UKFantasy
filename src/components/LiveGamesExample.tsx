@@ -136,13 +136,6 @@ const LiveGamesExample = () => {
               );
             })
           : "No live streams"}
-
-        <p
-          className="link-secondary link text-center"
-          onClick={() => setExpanded((prev) => !prev)}
-        >
-          {expanded ? "Show less" : "Show more"}
-        </p>
       </ul>
       <ul className="items-left mt-3 flex w-full flex-col justify-start gap-1 pr-2 text-left">
         {streams?.length
