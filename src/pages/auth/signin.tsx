@@ -38,7 +38,7 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-base-300 text-xl text-[#e9e9e9] `}
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-base-300 text-xl text-base-content`}
                       onClick={() =>
                         signIn(provider.id, { callbackUrl: "/leagues" })
                       }
