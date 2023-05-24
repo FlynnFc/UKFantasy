@@ -44,7 +44,6 @@ const Create = (props: {
     player: player[];
   };
 }) => {
-  console.dir(props.data);
   const [introModal, setIntroModal] = useState(true);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);
@@ -319,6 +318,8 @@ const Create = (props: {
                       toast.error(
                         "The team name needs to be at least 5 characters"
                       );
+                    } else if (teamName !== filter.clean(teamName)) {
+                      toast.error("No naughty words please!");
                     } else submit();
                   }}
                   className="btn-outline btn"
