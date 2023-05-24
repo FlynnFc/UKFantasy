@@ -1,7 +1,8 @@
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Loading from "../../components/Loading";
 import { ImBin, ImTwitter, ImDice } from "react-icons/im";
+import { FiArrowDownRight } from "react-icons/fi";
 import { FiShare } from "react-icons/fi";
 import { MyPlayer } from "../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
@@ -73,9 +74,14 @@ const Myteam = (props: { data: bonus[] }) => {
     "or you can Drag and drop a bonus onto the desired player. Once you have selected 5 you can submit"
   );
   const [bonusName, setBonusName] = useState(`Click a bonus for more details`);
-  const [bonusCheck, setBonusCheck] = useState(new Set());
-
   const [allBonuses, setAllBonuses] = useState<bonus[]>([]);
+  const [userNeedsHelp, setUserNeedsHelp] = useState(false);
+
+  useEffect(() => {
+    setUserNeedsHelp(localStorage.getItem("UserTips") ? false : true);
+  }, []);
+
+  console.log(userNeedsHelp);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -245,8 +251,34 @@ const Myteam = (props: { data: bonus[] }) => {
                 </button>
               </Link>
               <div>
-                <div className="tooltip" data-tip="Edit player bonuses">
-                  <button className="btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl text-primary transition">
+                <div
+                  className="tooltip"
+                  data-tip={userNeedsHelp ? null : "Edit player bonuses"}
+                >
+                  {userNeedsHelp && (
+                    <div className="rounded-btn absolute bottom-[2.6rem] right-10 hidden w-48 flex-col bg-info p-2 text-base text-info-content md:flex">
+                      <p>Make sure you apply bonuses to your players!</p>
+                      <button
+                        onClick={() => {
+                          localStorage.setItem("UserTips", "false");
+                          setUserNeedsHelp(false);
+                        }}
+                        className="btn-sm btn text-primary-content"
+                      >
+                        got it
+                      </button>
+                      <span className="absolute bottom-4 right-4 text-primary-content">
+                        <FiArrowDownRight />
+                      </span>
+                    </div>
+                  )}
+                  <button
+                    onClick={() => {
+                      localStorage.setItem("UserTips", "false");
+                      setUserNeedsHelp(false);
+                    }}
+                    className="btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl text-primary transition"
+                  >
                     <label className="cursor-pointer" htmlFor="bonus">
                       <ImDice />
                     </label>
@@ -338,7 +370,6 @@ const Myteam = (props: { data: bonus[] }) => {
       <div className="modal">
         <div className="modal-box flex h-5/6 max-h-full w-11/12 max-w-full select-none flex-col items-center justify-between">
           <div className="flex flex-col justify-start space-y-4">
-            <h3></h3>
             <section className="mt-1 flex flex-wrap justify-start gap-2">
               {allBonuses.map((el, i) => {
                 for (let i = 0; i < 5; i++) {
