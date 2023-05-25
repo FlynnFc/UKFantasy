@@ -194,7 +194,7 @@ const LeaguePage = (props: { data: league[] }) => {
           </h1>
           <p className="text-base">{league?.description}</p>
           <div className="flex items-end justify-between">
-            {status === "unauthenticated" ? (
+            {status !== "authenticated" ? (
               <div className="">
                 <button
                   className={`${"btn mt-4 w-max"} btn-sm btn mr-2 text-sm sm:btn-md`}
