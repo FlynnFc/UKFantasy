@@ -54,7 +54,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: hsl(var(--p));
+  background: hsl(var(--pc));
 }
 
 .selected {
