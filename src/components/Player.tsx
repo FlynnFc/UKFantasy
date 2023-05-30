@@ -76,7 +76,7 @@ export const Player = (props: player) => {
       >
         {props.img ? (
           <Image
-            loading="eager"
+            loading="lazy"
             className="text-center drop-shadow-2xl"
             alt="player portrait"
             height={500}
