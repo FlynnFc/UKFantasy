@@ -30,6 +30,16 @@ const Home: NextPage = () => {
             Welcome to the <b>UKCS</b>
             <span className="font-bold text-orange-500"> Fantasy League</span>!
           </motion.h1>
+          <section className="my-10">
+            <Link href={"/demo"}>
+              <button
+                id="getStarted"
+                className="duration-400 btn-primary btn-lg btn shadow transition-all"
+              >
+                Try out the demo
+              </button>
+            </Link>
+          </section>
           <section>
             <SiteShowcase />
           </section>

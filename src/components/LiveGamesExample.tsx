@@ -80,14 +80,14 @@ const tempDataLiveGames: gameData[] = [
     startTime: Date.now(),
   },
   {
-    team1: { name: "Heroic", score: 1 },
-    team2: { name: "Liquid", score: 0 },
-    map: "Overpass",
+    team1: { name: "fnatic", score: 17 },
+    team2: { name: "ENCE", score: 16 },
+    map: "Mirage",
     startTime: Date.now(),
   },
   {
-    team1: { name: "fnatic", score: 17 },
-    team2: { name: "ENCE", score: 16 },
+    team1: { name: "Heroic", score: 1 },
+    team2: { name: "Liquid", score: 9 },
     map: "Mirage",
     startTime: Date.now(),
   },
@@ -121,8 +121,8 @@ const LiveGamesExample = () => {
 
   console.log(streams);
   return (
-    <section className="rounded-btn m-2 flex w-auto flex-row justify-between gap-2 bg-base-100">
-      <ul className=" items-left my-3 flex w-1/4 flex-col justify-center gap-1 border-r-2 border-primary px-2 text-left">
+    <section className="rounded-btn m-2 flex w-auto flex-row justify-between gap-2">
+      <ul className=" items-left rounded-btn my-3 flex w-1/4 flex-col justify-center gap-1 bg-base-100 px-2 py-2 text-left">
         {streams?.length
           ? streams?.map((el) => {
               return (
@@ -137,7 +137,7 @@ const LiveGamesExample = () => {
             })
           : "No live streams"}
       </ul>
-      <ul className="items-left mt-3 flex w-full flex-col justify-start gap-1 pr-2 text-left">
+      <ul className="items-left rounded-btn mt-3 flex h-full w-full flex-col justify-start gap-1 bg-base-100 p-2 text-left">
         {streams?.length
           ? tempDataLiveGames?.map((el) => {
               if (!el.startTime) {
@@ -151,7 +151,7 @@ const LiveGamesExample = () => {
                     rel="noreferrer"
                   >
                     <div
-                      className={`rounded-btn btn-lg btn grid w-full min-w-0 cursor-pointer grid-cols-3 gap-1 border-0 bg-green-500/40 p-2  text-center text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
+                      className={`rounded-btn  btn grid h-auto w-full min-w-0 cursor-pointer grid-cols-3 gap-1 border-0 bg-green-500/40 p-2 text-center  text-lg text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
                     >
                       <div className="flex flex-col items-start">
                         <span>{el.team1.name}</span>
@@ -171,7 +171,7 @@ const LiveGamesExample = () => {
             })
           : "No live Games"}
       </ul>
-      <div className="mr-2 flex items-center justify-center">
+      <div className="rounded-btn my-3 flex items-center justify-center bg-base-100 px-4">
         <iframe
           src="https://player.twitch.tv/?channel=blastpremier&parent=esportsfantasy.app"
           height="360"
