@@ -198,6 +198,7 @@ const CreateExample = () => {
     }
   }, [deletes, myTeam]);
 
+  console.log(myTeam);
   //Sets name to deletes so I know which player to delete
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
     setDeletes(data.name);
@@ -236,7 +237,7 @@ const CreateExample = () => {
     <>
       <main className="min-w-screen container rounded-btn m-6 flex h-full min-h-[88.3vh] w-max select-none flex-col items-end justify-start px-8 py-4 sm:mx-auto">
         <div className="w-full">
-          <h2 className="text-center text-3xl leading-snug lg:text-5xl">
+          <h2 className="text-center text-3xl leading-snug transition-all duration-1000 lg:text-5xl">
             {teamName}
           </h2>
 
@@ -247,60 +248,39 @@ const CreateExample = () => {
           </div>
 
           <AnimatePresence>
-            {teamSort ? (
-              <section className="space-y-6">
-                {/* Maps all teams found in DB then inside each team maps all players found in team */}
-                {props.data?.map((el) => {
-                  return (
-                    <PlayerGroup team={el.teamName} key={el.teamName}>
-                      {el.Player?.map(
-                        (els: {
-                          id: string;
-                          image: string;
-                          name: string;
-                          price: number;
-                          rareity: string;
-                        }) => {
-                          return (
-                            <Player
-                              key={els.id}
-                              id={els.id}
-                              teamFull={teamFull}
-                              PlayerSelect={PlayerSelect}
-                              moneyLeft={money}
-                              rareity={els.rareity}
-                              name={els.name}
-                              price={els.price}
-                              img={els.image}
-                              team={myTeam}
-                            />
-                          );
-                        }
-                      )}
-                    </PlayerGroup>
-                  );
-                })}
-              </section>
-            ) : (
-              <section className="flex flex-wrap items-start justify-start gap-5 rounded-lg bg-base-300 p-6">
-                {allPlayers?.map((els) => {
-                  return (
-                    <Player
-                      key={els.id}
-                      id={els.id}
-                      teamFull={teamFull}
-                      PlayerSelect={PlayerSelect}
-                      moneyLeft={money}
-                      rareity={els.rareity}
-                      name={els.name}
-                      price={els.price}
-                      img={els.image}
-                      team={myTeam}
-                    />
-                  );
-                })}
-              </section>
-            )}
+            <section className="space-y-6">
+              {/* Maps all teams found in DB then inside each team maps all players found in team */}
+              {props.data?.map((el) => {
+                return (
+                  <PlayerGroup team={el.teamName} key={el.teamName}>
+                    {el.Player?.map(
+                      (els: {
+                        id: string;
+                        image: string;
+                        name: string;
+                        price: number;
+                        rareity: string;
+                      }) => {
+                        return (
+                          <Player
+                            key={els.id}
+                            id={els.id}
+                            teamFull={teamFull}
+                            PlayerSelect={PlayerSelect}
+                            moneyLeft={money}
+                            rareity={els.rareity}
+                            name={els.name}
+                            price={els.price}
+                            img={els.image}
+                            team={myTeam}
+                          />
+                        );
+                      }
+                    )}
+                  </PlayerGroup>
+                );
+              })}
+            </section>
           </AnimatePresence>
         </div>
       </main>
