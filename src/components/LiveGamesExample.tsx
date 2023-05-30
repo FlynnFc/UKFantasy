@@ -173,7 +173,8 @@ const LiveGamesExample = () => {
       </ul>
       <div className="rounded-btn my-3 flex items-center justify-center bg-base-100 px-4">
         <iframe
-          src="https://player.twitch.tv/?channel=blastpremier&parent=esportsfantasy.app"
+          className="rounded-btn"
+          src="https://player.twitch.tv/?channel=esl_csgo&parent=esportsfantasy.app"
           height="360"
           width="640"
         ></iframe>
