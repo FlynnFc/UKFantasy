@@ -119,9 +119,20 @@ model SelectedPlayer {
   playerTeamId String?
   bonusName    String?
   PlayerTeam   PlayerTeam? @relation(fields: [playerTeamId], references: [id], onDelete: Cascade)
+  points       point[]
 
   @@index([bonusName])
   @@index([playerTeamId])
+}
+
+//WHY DO THEY NOT SUPPORT ARRAYS OF PRIMITIVES!!!?????
+model point {
+  id               String          @id @default(cuid())
+  value            Int
+  SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id])
+  selectedPlayerId String?
+
+  @@index([selectedPlayerId])
 }
 
 model Team {

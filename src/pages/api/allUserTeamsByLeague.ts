@@ -4,12 +4,14 @@ import { prisma } from "../../server/db/client";
 
 const allUserTeamsByLeague = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req
-  const body = req.body
+  const url = req.headers.url as string
+  const processed = url.split('/')
+
+  
   switch (method) {
     case 'GET':
       try {
-        const userTeams = await prisma.playerTeam.findMany({where:{league:body.team},include:{SelectedPlayer:true}})
-        console.log("all teams", userTeams)
+        const userTeams = await prisma.playerTeam.findMany({where:{league:{name:processed[1]}},include:{SelectedPlayer:true}})
         res.status(200).json(userTeams)
       } catch (e) {
         console.error('Request error', e)

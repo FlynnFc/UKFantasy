@@ -5,8 +5,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as XLSX from "xlsx";
 
-export async function getServerSideProps() {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allUserTeams");
+export async function getServerSideProps(context: any) {
+  const url = context.req.url;
+  console.log(url);
+  const res = await fetch("http://localhost:3000/api/allUserTeamsByLeague", {
+    method: "GET",
+    headers: { url: JSON.stringify(url) },
+  });
   const data = await res.json();
   return {
     props: {
@@ -16,7 +21,6 @@ export async function getServerSideProps() {
 }
 
 const Round = (props: { data: [] }) => {
-  console.log(props);
   const admins = useMemo(() => new Set(["mastare.flynn@gmail.com"]), []);
   const { query } = useRouter();
   const session = useSession();
@@ -61,33 +65,58 @@ const Round = (props: { data: [] }) => {
     const data = await f.arrayBuffer();
     const workbook = XLSX.read(data);
     const worksheet: any = workbook.Sheets["Round 1"];
-    console.log(workbook);
     const jsonData: any = XLSX.utils.sheet_to_json(worksheet, {
       header: 1,
       defval: "",
     });
     //todo
     //Loop through array and create an object with each player, their points and their bonuses
-    const submitData = [];
+    const submitData: any[] = [];
     for (let i = 1; i < jsonData.length; i++) {
       const player: (string | number)[] = jsonData[i];
       const basePoints = player[75];
       const entryKing = player[76];
       const utilNerd = player[77];
-      console.log(
-        `${player[0]}'s base points is ${basePoints}. steamid: ${player[1]}`
-      );
+      // console.log(
+      //   `${player[0]}'s base points is ${basePoints}. steamid: ${player[1]}`
+      // );
       const formattedPlayer = {
         name: player[0],
         steamid: player[1],
-        ponts: basePoints,
+        points: basePoints,
       };
       submitData.push(formattedPlayer);
     }
-    console.log("data", submitData);
-    setFile("");
+
+    const currentlySelectedTeams = props.data;
+    const allSelectedPlayers: any[] = [];
+    currentlySelectedTeams.forEach((el: any) => {
+      el.SelectedPlayer.forEach((el: { name: string; id: string }) =>
+        allSelectedPlayers.push({ name: el.name.toLowerCase(), id: el.id })
+      );
+    });
+    const finalData = comparer(submitData, allSelectedPlayers);
+    console.log(finalData);
   };
 
+  const comparer = (points: string | any[], userPlayers: any[]) => {
+    const elements = [];
+    for (let index = 0; index < userPlayers.length; index++) {
+      let element = userPlayers[index];
+      for (let index = 0; index < points.length; index++) {
+        const element2 = points[index];
+        if (element?.name === element2.name.toLowerCase()) {
+          element = {
+            ...element,
+            steamid: element2.steamid,
+            points: element2.points,
+          };
+          elements.push(element);
+        }
+      }
+    }
+    return elements;
+  };
   useEffect(() => {
     if (
       session.data?.user?.email &&
