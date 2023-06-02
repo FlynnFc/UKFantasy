@@ -294,7 +294,7 @@ const Myteam = (props: { data: bonus[] }) => {
                 </div>
               </div>
             </div>
-            <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-primary p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
+            <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
               {serverTeam &&
                 serverTeam.SelectedPlayer?.map((el) => {
                   console.log(el);
@@ -316,7 +316,7 @@ const Myteam = (props: { data: bonus[] }) => {
             </div>
           </div>
           <h2 className="my-5 text-left text-4xl">Insights</h2>
-          <section className="w-full rounded-xl border-4 border-base-content">
+          <section className="w-full rounded-xl border-2 border-base-content">
             <table className="table w-full  rounded-xl">
               <thead className="sticky top-0">
                 <tr>
