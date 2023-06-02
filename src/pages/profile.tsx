@@ -18,6 +18,7 @@ import Settings from "../components/Settings";
 import Head from "next/head";
 import { BiLogOut } from "react-icons/bi";
 import { useRouter } from "next/router";
+import { TbArrowUpRight } from "react-icons/tb";
 
 const Profile = () => {
   const admins = useMemo(() => new Set(["mastare.flynn@gmail.com"]), []);
@@ -74,12 +75,17 @@ const Profile = () => {
                   <MdSettings className="text-3xl md:mr-4" />
                   <span className="hidden md:inline">Settings</span>
                 </li>
-                <Link href={"/admin"}>
-                  <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
-                    <MdOutlineAdminPanelSettings className="text-3xl md:mr-4" />
-                    <span className="hidden md:inline">Admin</span>
-                  </li>
-                </Link>
+                {admins.has(session.user?.email as string) && (
+                  <Link href={"/admin"}>
+                    <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
+                      <MdOutlineAdminPanelSettings className="text-3xl md:mr-4" />
+                      <span className="hidden flex-row md:flex ">
+                        Admin
+                        <TbArrowUpRight className="hover:inherit text-base" />
+                      </span>
+                    </li>
+                  </Link>
+                )}
                 <li>
                   <button
                     className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105"
