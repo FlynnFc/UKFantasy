@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { AiOutlineEdit } from "react-icons/ai";
 import {
   MdHome,
+  MdOutlineAdminPanelSettings,
   MdOutlineLogout,
   MdPayment,
   MdQueryStats,
@@ -19,6 +20,7 @@ import { BiLogOut } from "react-icons/bi";
 import { useRouter } from "next/router";
 
 const Profile = () => {
+  const admins = useMemo(() => new Set(["mastare.flynn@gmail.com"]), []);
   const { data: session } = useSession();
   const [datateams, setTeams] = useState([]);
   const teams = useMemo(() => [...datateams], [datateams]);
@@ -72,6 +74,12 @@ const Profile = () => {
                   <MdSettings className="text-3xl md:mr-4" />
                   <span className="hidden md:inline">Settings</span>
                 </li>
+                <Link href={"/admin"}>
+                  <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
+                    <MdOutlineAdminPanelSettings className="text-3xl md:mr-4" />
+                    <span className="hidden md:inline">Admin</span>
+                  </li>
+                </Link>
                 <li>
                   <button
                     className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105"
