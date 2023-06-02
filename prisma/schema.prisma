@@ -143,16 +143,35 @@ model Team {
 }
 
 model League {
-  id          String       @id @default(cuid())
-  name        String
-  description String       @db.Text
-  Teams       Team[]
-  User        User[]
-  offical     Boolean      @default(false)
-  playerTeam  PlayerTeam[]
-  openDate    DateTime     @default(now())
-  startDate   DateTime     @default(now())
-  endDate     DateTime     @default(now())
+  id             String        @id @default(cuid())
+  name           String
+  description    String        @db.Text
+  Teams          Team[]
+  User           User[]
+  offical        Boolean       @default(false)
+  playerTeam     PlayerTeam[]
+  LeagueRounds   LeagueRounds? @relation(fields: [leagueRoundsId], references: [id])
+  openDate       DateTime      @default(now())
+  startDate      DateTime      @default(now())
+  endDate        DateTime      @default(now())
+  leagueRoundsId String?
+
+  @@index([leagueRoundsId])
+}
+
+model LeagueRounds {
+  id           String   @id @default(cuid())
+  roundsPlayed round[]
+  League       League[]
+}
+
+model round {
+  id             String        @id @default(cuid())
+  number         Int           @default(1)
+  LeagueRounds   LeagueRounds? @relation(fields: [leagueRoundsId], references: [id])
+  leagueRoundsId String?
+
+  @@index([leagueRoundsId])
 }
 
 model bonus {
