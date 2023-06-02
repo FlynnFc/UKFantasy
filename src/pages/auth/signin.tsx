@@ -2,7 +2,11 @@ import { getProviders, signIn } from "next-auth/react";
 import { SiSteam, SiTwitter, SiGoogle } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
+import { useRouter } from "next/router";
 export default function SignIn(props: { providers: any }) {
+  const callback = useRouter();
+  console.log(callback.query.callbackUrl);
+  const url = callback.query.callbackUrl as string;
   return (
     <div
       className="flex h-screen items-center justify-center"
@@ -39,9 +43,7 @@ export default function SignIn(props: { providers: any }) {
                   >
                     <button
                       className={`btn-lg btn flex w-[20rem] justify-center border-none bg-base-300 text-xl text-base-content`}
-                      onClick={() =>
-                        signIn(provider.id, { callbackUrl: "/leagues" })
-                      }
+                      onClick={() => signIn(provider.id, { callbackUrl: url })}
                     >
                       Sign in with {provider.name}
                       <FcGoogle className="m-0 mx-4 inline p-0 text-xl font-bold" />
