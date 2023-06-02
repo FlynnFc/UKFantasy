@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 type myPlayer = {
   bonus?: { name: string; description: string };
@@ -9,6 +9,7 @@ type myPlayer = {
   rareity: string;
   img?: string;
   index: number;
+  points?: { value: number }[];
   deleteBonus: (i: number) => void;
 };
 
@@ -18,12 +19,16 @@ export const MyPlayer = (props: myPlayer) => {
     setRareity(props.rareity);
   }, [props.rareity]);
 
+  const points = useMemo(() => {
+    let value = 0;
+    props.points?.map((el) => (value += el.value));
+    return value;
+  }, [props.points]);
+
   return (
-    <div
-      className={`rounded-btn flex-col shadow-lg xl:h-[22rem]  xl:w-[16rem]`}
-    >
+    <div className={`rounded-btn flex-col shadow-lg xl:h-[22rem] xl:w-[16rem]`}>
       <div
-        className={`rounded-btn relative hidden h-[16.5rem] cursor-auto bg-base-200 xl:block`}
+        className={`rounded-btn relative hidden h-[16.5rem] cursor-auto rounded-b-none bg-base-200 xl:block`}
       >
         {props.bonus && (
           <div
@@ -46,7 +51,7 @@ export const MyPlayer = (props: myPlayer) => {
         {props.img && (
           <Image
             draggable={false}
-            className="rounded-t-lg text-center drop-shadow-2xl"
+            className="rounded-b-none rounded-t-lg text-center drop-shadow-2xl"
             alt="player portrait"
             layout="fill"
             src={props.img}
@@ -55,7 +60,7 @@ export const MyPlayer = (props: myPlayer) => {
       </div>
       <div className="flex w-full flex-col">
         <div
-          className={`${rareity} flex h-[6rem] w-full select-none flex-col items-center justify-evenly rounded-t-lg p-4 xl:rounded-b-lg xl:rounded-t-none`}
+          className={`${rareity} flex h-[6rem] w-full select-none flex-col items-center  justify-center rounded-t-lg p-4 xl:rounded-b-lg xl:rounded-t-none`}
         >
           <h2 className="pt-3 text-center text-xs font-bold leading-none text-base-200 lg:text-xl xl:text-3xl">
             {props.name}
@@ -71,7 +76,7 @@ export const MyPlayer = (props: myPlayer) => {
             className={`tooltip z-10 flex w-full gap-2 rounded-b-lg bg-base-content p-1 text-center xl:hidden`}
             data-tip={props.bonus.description}
           >
-            <button className="re  text-lg font-bold text-base-200">
+            <button className="text-lg font-bold text-base-200">
               {props.bonus.name}
             </button>
             {props.bonusEdit && (

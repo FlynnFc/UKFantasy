@@ -14,7 +14,7 @@ export default async function assetHandler(req:NextApiRequest, res:NextApiRespon
               id: id?.toString(),
             },
             include: {
-              PlayerTeam:{include:{league:true, SelectedPlayer:{include:{bonus:true}}}},
+              PlayerTeam:{include:{league:true, SelectedPlayer:{include:{bonus:true,points:true}}}},
               
             },
           })

@@ -22,6 +22,7 @@ type player = {
   teamId: string;
   statsId: string;
   image: string;
+  points: { value: number }[];
   bonus: { name: string; description: string };
 };
 
@@ -293,9 +294,10 @@ const Myteam = (props: { data: bonus[] }) => {
                 </div>
               </div>
             </div>
-            <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
+            <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-primary p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
               {serverTeam &&
                 serverTeam.SelectedPlayer?.map((el) => {
+                  console.log(el);
                   return (
                     <MyPlayer
                       key={el.name}
@@ -305,6 +307,7 @@ const Myteam = (props: { data: bonus[] }) => {
                       img={el.image}
                       bonus={el.bonus}
                       index={0}
+                      points={el.points}
                       deleteBonus={handleBonusDelete}
                       bonusEdit={false}
                     />
@@ -312,55 +315,35 @@ const Myteam = (props: { data: bonus[] }) => {
                 })}
             </div>
           </div>
-          {/* <h2 className="my-5 text-left text-4xl">Insights</h2> */}
-          {/* <section className="w-full rounded-xl border-4 border-base-content">
+          <h2 className="my-5 text-left text-4xl">Insights</h2>
+          <section className="w-full rounded-xl border-4 border-base-content">
             <table className="table w-full  rounded-xl">
               <thead className="sticky top-0">
                 <tr>
-                  <th>Rating</th>
-                  <th>Teams</th>
-                  <th>Players competing</th>
-                  <th>Score</th>
-                  <th>bonus points</th>
-                  <th>Total points gained</th>
+                  <th>Name</th>
+                  <th>Round 1</th>
+                  <th>Round 2</th>
+                  <th>Round 3</th>
+                  <th>Round 4</th>
+                  <th>Round 5</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1.3</td>
-                  <td>Moose house vs Binmen</td>
-                  <td>Edeninho, Sheekey, Thomas</td>
-                  <td>13-16</td>
-                  <td>0</td>
-                  <td>43</td>
-                </tr>
-                <tr>
-                  <td>1.3</td>
-                  <td>Moose house vs Binmen</td>
-                  <td>Edeninho, Sheekey, Thomas</td>
-                  <td>13-16</td>
-                  <td>0</td>
-                  <td>43</td>
-                </tr>
-                <tr>
-                  <td>1.3</td>
-                  <td>Moose house vs Binmen</td>
-                  <td>Edeninho, Sheekey, Thomas</td>
-                  <td>13-16</td>
-                  <td>0</td>
-                  <td>43</td>
-                </tr>
-                <tr>
-                  <td>1.3</td>
-                  <td>Moose house vs Binmen</td>
-                  <td>Edeninho, Sheekey, Thomas</td>
-                  <td>13-16</td>
-                  <td>0</td>
-                  <td>43</td>
-                </tr>
+                {serverTeam.SelectedPlayer?.map((el) => {
+                  return (
+                    <tr key={el.id}>
+                      <td>{el.name}</td>
+                      <td>{el.points[0]?.value ? el.points[0]?.value : 0}</td>
+                      <td>{el.points[1]?.value ? el.points[1]?.value : 0}</td>
+                      <td>{el.points[2]?.value ? el.points[2]?.value : 0}</td>
+                      <td>{el.points[3]?.value ? el.points[3]?.value : 0}</td>
+                      <td>{el.points[4]?.value ? el.points[4]?.value : 0}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
-          </section> */}
+          </section>
         </div>
       ) : (
         <Loading />
