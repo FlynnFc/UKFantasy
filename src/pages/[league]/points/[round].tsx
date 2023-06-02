@@ -29,6 +29,8 @@ const Round = (props: { data: [] }) => {
   const session = useSession();
   const [authorised, setAuthorised] = useState(false);
   const [file, setFile] = useState<any>();
+  const [multiSheet, setMultiSheet] = useState(false);
+  const [sheetName, setSheetName] = useState("");
   const current = useMemo(() => {
     const currentRound = query.round;
     return parseInt(currentRound?.slice(5) as string);
@@ -46,7 +48,6 @@ const Round = (props: { data: [] }) => {
   const findPointsColumn = async (jsonData: any) => {
     let pointsIndex = 0;
     const data = await jsonData;
-    console.log(data);
     for (let index = 0; index < data[0].length; index++) {
       const el: string = data[0][index];
       if (el.toLowerCase() === "points") pointsIndex += index;
@@ -63,11 +64,10 @@ const Round = (props: { data: [] }) => {
   //todo
   const fileProcesMain = async (e: HTMLFormElement) => {
     e.preventDefault();
-    console.log(file[0]);
     const f = file[0];
     const data = await f.arrayBuffer();
     const workbook = XLSX.read(data);
-    const worksheet: any = workbook.Sheets["Round 1"];
+    const worksheet: any = workbook.Sheets[sheetName];
     const jsonData: any = XLSX.utils.sheet_to_json(worksheet, {
       header: 1,
       defval: "",
@@ -80,7 +80,6 @@ const Round = (props: { data: [] }) => {
     const pointsColumn = await findPointsColumn(jsonData);
 
     const submitData: any[] = [];
-    console.log(jsonData);
     for (let i = 1; i < jsonData.length; i++) {
       try {
         const player: (string | number)[] = jsonData[i];
@@ -99,7 +98,6 @@ const Round = (props: { data: [] }) => {
         return new Error("cannot proccess file");
       }
     }
-    console.log(submitData);
     const currentlySelectedTeams = props.data;
     const allSelectedPlayers: any[] = [];
     currentlySelectedTeams.forEach((el: any) => {
@@ -108,7 +106,6 @@ const Round = (props: { data: [] }) => {
       );
     });
     const finalData = comparer(submitData, allSelectedPlayers);
-    console.log(finalData);
 
     const res = await fetch("/api/ApplyPoints", {
       method: "POST",
@@ -156,14 +153,35 @@ const Round = (props: { data: [] }) => {
               className="mt-8 flex flex-col items-center justify-center gap-4"
             >
               <div className="rounded-btn flex w-[40%] flex-col space-y-3 bg-base-300 p-6 text-xl">
-                <input
-                  onChange={(e) => setFile(e.target.files)}
-                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                  className="file-input"
-                  type="file"
-                  name="roundFile"
-                  id="roundFile"
-                />
+                <div>
+                  <label className="label" htmlFor="sheetName">
+                    What sheet features the points and bonus columns?
+                  </label>
+                  <input
+                    onChange={(e) => setSheetName(e.target.value)}
+                    required
+                    className="input w-full"
+                    type="text"
+                    name="sheetName"
+                    id="sheetName"
+                    placeholder="sheet name"
+                  />
+                </div>
+
+                <div>
+                  <label className="label" htmlFor="file">
+                    File upload
+                  </label>
+                  <input
+                    required
+                    onChange={(e) => setFile(e.target.files)}
+                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                    className="file-input w-full"
+                    type="file"
+                    name="roundFile"
+                    id="roundFile"
+                  />
+                </div>
 
                 <button type="submit" className="btn-primary btn">
                   Submit round
