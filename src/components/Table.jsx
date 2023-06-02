@@ -9,7 +9,7 @@ const Table = (props) => {
 
   const [playerData, setPlayerData] = useState([]);
   const [checker, setChecker] = useState(new Set([]));
-
+  console.log(props);
   useEffect(() => {
     const data = [...props.data];
     data.map((el) => {
@@ -17,6 +17,11 @@ const Table = (props) => {
         return;
       } else {
         setChecker((prev) => new Set([...prev, el.id]));
+        const totalPoints = 0;
+        console.log(el.SelectedPlayer);
+        el.SelectedPlayer.forEach((element) => {
+          element.points.forEach((el) => (totalPoints += el.value));
+        });
         setPlayerData((prev) => {
           return [
             ...prev,
@@ -29,7 +34,7 @@ const Table = (props) => {
                   league={query.league}
                 />
               ),
-              points: el.points,
+              points: totalPoints,
               rolepoints: el.rolePoints,
               totalpoints: parseInt(el.points) + parseInt(el.rolePoints),
             },

@@ -3,20 +3,21 @@ import { prisma } from "../../server/db/client";
 
 export default async function assetHandler(req:NextApiRequest, res:NextApiResponse) {
     const { method } = req
-    const {headers, body} = req
-    const id = headers.id
-    console.log(body)
-//What this api needs to work!
-//  Needs what round its applying edits to
-// Needs array of players and their adjusted points array
-    //https://www.prisma.io/docs/concepts/components/prisma-client/transactions#sequential-prisma-client-operations:~:text=prisma.resource,prisma.resource
+    const { body} = req
+    const data = JSON.parse(body)
+    const allPrismaQueries = []
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+    const test = prisma.selectedPlayer.update({where:{id:element.id}, data:{points:{create:{value:element.points}}}})
+    allPrismaQueries.push(test)
+    }
+
+    console.log(allPrismaQueries)
     switch (method) {
-      case 'GET':
+      case 'POST':
         try {
-        //   const pointsUpdate = await prisma.$transaction({forEach(callbackfn, thisArg) {
-              
-        //   },})
-          res.status(200).json({data: 'data sent!'})
+          const pointsUpdate = await prisma.$transaction(allPrismaQueries)
+          res.status(200).json({data: pointsUpdate})
         } catch (e) {
           console.error('Request error', e)
           res.status(500).json({ error: 'Error Applying points' })

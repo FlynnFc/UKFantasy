@@ -100,6 +100,12 @@ const Round = (props: { data: [] }) => {
     });
     const finalData = comparer(submitData, allSelectedPlayers);
     console.log(finalData);
+
+    const res = await fetch("/api/ApplyPoints", {
+      method: "POST",
+      body: JSON.stringify(finalData),
+    });
+    return res;
   };
 
   const comparer = (points: string | any[], userPlayers: any[]) => {
@@ -152,16 +158,22 @@ const Round = (props: { data: [] }) => {
               <button type="submit" className="btn-primary btn">
                 Submit round
               </button>
-              <div className="grid w-full grid-cols-2 gap-2">
-                <Link href={`./round${current - 1}`}>
-                  <button className=" btn w-full">{`Go to prior round`}</button>
-                </Link>
-                <Link href={`./round${current + 1}`}>
-                  <button className="btn  w-full">{`Go to next round`}</button>
-                </Link>
-              </div>
             </div>
           </form>
+          <div className="flex w-full items-end justify-center">
+            <div className="join grid grid-cols-2">
+              <Link href={`./round${current - 1}`}>
+                <button className="join-item border-r-none btn-outline btn rounded-r-none">
+                  Previous round
+                </button>
+              </Link>
+              <Link href={`./round${current + 1}`}>
+                <button className="join-item btn-outline btn rounded-l-none border-l-0">
+                  Next round
+                </button>
+              </Link>
+            </div>
+          </div>
         </section>
       ) : (
         <div className="flex min-h-screen flex-col items-center justify-center">
