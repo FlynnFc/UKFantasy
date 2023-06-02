@@ -1,6 +1,4 @@
 import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as XLSX from "xlsx";
@@ -10,7 +8,6 @@ const Round = (props: { data: []; selectedRound: number }) => {
   const session = useSession();
   const [authorised, setAuthorised] = useState(false);
   const [file, setFile] = useState<any>();
-  const [multiSheet, setMultiSheet] = useState(false);
   const [sheetName, setSheetName] = useState("");
   const current = useMemo(() => props.selectedRound, [props.selectedRound]);
 
@@ -120,72 +117,64 @@ const Round = (props: { data: []; selectedRound: number }) => {
     } else setAuthorised(false);
   }, [admins, session.data?.user?.email]);
 
-  if (current > 0) {
-    return (
-      <div className="mt-5 w-full">
-        <Toaster />
-        {authorised ? (
-          <section className="flex min-h-screen w-full flex-col justify-start gap-2">
-            <h1 className="text-center text-3xl">
-              {`Submit stats for round `}
-              <span className="text-4xl text-orange-500">{current}</span>
-            </h1>
-            <form
-              onSubmit={submit}
-              className="mt-8 flex w-full flex-col items-center justify-center gap-4"
-            >
-              <div className="rounded-btn flex flex-col space-y-3 bg-base-300 p-6 text-xl">
-                <div>
-                  <label className="label" htmlFor="sheetName">
-                    What sheet features the points and bonus columns?
-                  </label>
-                  <input
-                    onChange={(e) => setSheetName(e.target.value)}
-                    required
-                    className="input w-full"
-                    type="text"
-                    name="sheetName"
-                    id="sheetName"
-                    placeholder="sheet name"
-                  />
-                </div>
-
-                <div>
-                  <label className="label" htmlFor="file">
-                    File upload
-                  </label>
-                  <input
-                    required
-                    onChange={(e) => setFile(e.target.files)}
-                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                    className="file-input w-full"
-                    type="file"
-                    name="roundFile"
-                    id="roundFile"
-                  />
-                </div>
-
-                <button type="submit" className="btn-primary btn">
-                  Submit round
-                </button>
+  return (
+    <div className="mt-5 w-full">
+      <Toaster />
+      {authorised ? (
+        <section className="flex w-full flex-col justify-start gap-2">
+          <h1 className="text-center text-3xl">
+            {`Submit stats for round `}
+            <span className="text-4xl text-orange-500">{current}</span>
+          </h1>
+          <form
+            onSubmit={submit}
+            className="mt-8 flex w-full flex-col items-center justify-center gap-4"
+          >
+            <div className="rounded-btn flex flex-col space-y-3 bg-base-300 p-6 text-xl">
+              <div>
+                <label className="label" htmlFor="sheetName">
+                  What sheet features the points and bonus columns?
+                </label>
+                <input
+                  onChange={(e) => setSheetName(e.target.value)}
+                  required
+                  className="input w-full"
+                  type="text"
+                  name="sheetName"
+                  id="sheetName"
+                  placeholder="sheet name"
+                />
               </div>
-            </form>
-          </section>
-        ) : (
-          <div className="flex min-h-screen flex-col items-center justify-center">
-            <h1 className="text-xl">
-              Ooops.... you&apos;re not supposed to be here{" "}
-            </h1>
-          </div>
-        )}
-      </div>
-    );
-  } else {
-    return (
-      <section className="flex min-h-screen w-auto flex-col justify-start gap-2">
-        <h1 className="text-center text-3xl">{`This is not a valid round`}</h1>
-      </section>
-    );
-  }
+
+              <div>
+                <label className="label" htmlFor="file">
+                  File upload
+                </label>
+                <input
+                  required
+                  onChange={(e) => setFile(e.target.files)}
+                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                  className="file-input w-full"
+                  type="file"
+                  name="roundFile"
+                  id="roundFile"
+                />
+              </div>
+
+              <button type="submit" className="btn-primary btn">
+                Submit round
+              </button>
+            </div>
+          </form>
+        </section>
+      ) : (
+        <div className="flex min-h-screen flex-col items-center justify-center">
+          <h1 className="text-xl">
+            Ooops.... you&apos;re not supposed to be here{" "}
+          </h1>
+        </div>
+      )}
+    </div>
+  );
 };
 export default Round;
