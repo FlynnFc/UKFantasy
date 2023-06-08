@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Round from "../../../components/Round";
 import { AiOutlineCheckCircle, AiOutlineInfoCircle } from "react-icons/ai";
@@ -23,7 +23,6 @@ export async function getServerSideProps(context: any) {
 }
 
 const Index = (props: any) => {
-  console.log(props);
   const currentRound = useMemo(
     () => props.data[0].SelectedPlayer[1].points,
     [props.data]
@@ -36,43 +35,18 @@ const Index = (props: any) => {
       <div className="grid grid-cols-6">
         {currentRound.map((el: number, idx: number) => {
           console.log(el, idx);
-          if (idx === 0) {
-            return (
-              <button
-                onClick={() => setSelectedRound(idx + 1)}
-                key={idx}
-                className={`join-item  btn rounded-none ${
-                  idx + 1 === selectedRound && "btn-active"
-                }`}
-              >
-                {`Round ${idx + 1}`}
-              </button>
-            );
-          } else if (idx === currentRound.length - 1) {
-            return (
-              <button
-                onClick={() => setSelectedRound(idx + 1)}
-                key={idx}
-                className={`join-item btn rounded-none ${
-                  idx + 1 === selectedRound && "btn-active"
-                }`}
-              >
-                {`Round ${idx + 1}`}
-              </button>
-            );
-          } else {
-            return (
-              <button
-                onClick={() => setSelectedRound(idx + 1)}
-                key={idx}
-                className={`join-item  btn rounded-none ${
-                  idx + 1 === selectedRound && "btn-active"
-                }`}
-              >
-                {`Round ${idx + 1}`}
-              </button>
-            );
-          }
+
+          return (
+            <button
+              onClick={() => setSelectedRound(idx + 1)}
+              key={idx}
+              className={`join-item  btn-disabled btn rounded-none ${
+                idx + 1 === selectedRound && "btn-active"
+              }`}
+            >
+              {`Round ${idx + 1}`}
+            </button>
+          );
         })}
 
         <button
@@ -85,7 +59,7 @@ const Index = (props: any) => {
         >{`Round ${currentRound.length + 1}`}</button>
       </div>
       <Round data={props.data} selectedRound={selectedRound} />
-      <div className="collapse w-max bg-info">
+      <div className="collapse w-max bg-info text-info-content">
         <input type="checkbox" />
         <div className="collapse-title flex flex-row gap-1 text-xl font-medium">
           What format does the file need to follow? <AiOutlineInfoCircle />
