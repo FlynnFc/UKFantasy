@@ -9,12 +9,13 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Table from "../../components/Table";
+import InsightsTable from "../../components/InsightsTable";
 type bonus = {
   name: string;
   description: string;
 };
 
-type player = {
+export type player = {
   id: string;
   name: string;
   price: number;
@@ -26,7 +27,7 @@ type player = {
   bonus: { name: string; description: string };
 };
 
-type teamProps = {
+export type teamProps = {
   id: string;
   points: string;
   teamName: string;
@@ -64,7 +65,6 @@ export async function getStaticPaths() {
 }
 
 const Myteam = (props: { data: bonus[] }) => {
-  console.dir(props.data);
   const { status, data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const [serverTeam, setServerTeam] = useState<teamProps>();
@@ -81,8 +81,6 @@ const Myteam = (props: { data: bonus[] }) => {
   useEffect(() => {
     setUserNeedsHelp(localStorage.getItem("UserTips") ? false : true);
   }, []);
-
-  console.log(userNeedsHelp);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -201,8 +199,6 @@ const Myteam = (props: { data: bonus[] }) => {
     }
   };
 
-  console.log(serverTeam);
-
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
@@ -296,7 +292,7 @@ const Myteam = (props: { data: bonus[] }) => {
                 </div>
               </div>
             </div>
-            <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
+            <div className="flex h-auto flex-col items-stretch justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
               {serverTeam &&
                 serverTeam.SelectedPlayer?.map((el) => {
                   return (
@@ -317,35 +313,8 @@ const Myteam = (props: { data: bonus[] }) => {
             </div>
           </div>
           <h2 className="my-5 text-left text-4xl">Insights</h2>
-          <section className="w-full rounded-xl border-2 border-base-content">
-            <table className="table w-full overflow-scroll  rounded-xl">
-              <thead className="sticky top-0">
-                <tr>
-                  <th>Name</th>
-                  {serverTeam.SelectedPlayer?.map((el, idx) => {
-                    return <th key={idx + 1}>{`Round ${idx + 1}`}</th>;
-                  })}
-                  <th>total points</th>
-                </tr>
-              </thead>
-              <tbody>
-                {serverTeam.SelectedPlayer?.map((el) => {
-                  let total = 0;
-                  el.points.map((el) => (total += el.value));
-                  return (
-                    <tr key={el.id}>
-                      <td>{el.name}</td>
-                      <td>{el.points[0]?.value ? el.points[0]?.value : 0}</td>
-                      <td>{el.points[1]?.value ? el.points[1]?.value : 0}</td>
-                      <td>{el.points[2]?.value ? el.points[2]?.value : 0}</td>
-                      <td>{el.points[3]?.value ? el.points[3]?.value : 0}</td>
-                      <td>{el.points[4]?.value ? el.points[4]?.value : 0}</td>
-                      <td>{total}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <section className="w-fit rounded-xl border-2 border-base-content">
+            <InsightsTable serverTeam={serverTeam} />
           </section>
         </div>
       ) : (

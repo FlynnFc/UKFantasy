@@ -76,7 +76,7 @@ export const MyPlayer = (props: myPlayer) => {
             className={`tooltip z-10 flex w-full gap-2 rounded-b-lg bg-base-content p-1 text-center xl:hidden`}
             data-tip={props.bonus.description}
           >
-            <button className="text-lg font-bold text-base-200">
+            <button className="w-full text-center text-lg font-bold text-base-200">
               {props.bonus.name}
             </button>
             {props.bonusEdit && (
