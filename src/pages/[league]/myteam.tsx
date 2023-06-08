@@ -201,6 +201,8 @@ const Myteam = (props: { data: bonus[] }) => {
     }
   };
 
+  console.log(serverTeam);
+
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
@@ -297,7 +299,6 @@ const Myteam = (props: { data: bonus[] }) => {
             <div className="flex h-auto flex-col items-center justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
               {serverTeam &&
                 serverTeam.SelectedPlayer?.map((el) => {
-                  console.log(el);
                   return (
                     <MyPlayer
                       key={el.name}
@@ -317,19 +318,20 @@ const Myteam = (props: { data: bonus[] }) => {
           </div>
           <h2 className="my-5 text-left text-4xl">Insights</h2>
           <section className="w-full rounded-xl border-2 border-base-content">
-            <table className="table w-full  rounded-xl">
+            <table className="table w-full overflow-scroll  rounded-xl">
               <thead className="sticky top-0">
                 <tr>
                   <th>Name</th>
-                  <th>Round 1</th>
-                  <th>Round 2</th>
-                  <th>Round 3</th>
-                  <th>Round 4</th>
-                  <th>Round 5</th>
+                  {serverTeam.SelectedPlayer?.map((el, idx) => {
+                    return <th key={idx + 1}>{`Round ${idx + 1}`}</th>;
+                  })}
+                  <th>total points</th>
                 </tr>
               </thead>
               <tbody>
                 {serverTeam.SelectedPlayer?.map((el) => {
+                  let total = 0;
+                  el.points.map((el) => (total += el.value));
                   return (
                     <tr key={el.id}>
                       <td>{el.name}</td>
@@ -338,6 +340,7 @@ const Myteam = (props: { data: bonus[] }) => {
                       <td>{el.points[2]?.value ? el.points[2]?.value : 0}</td>
                       <td>{el.points[3]?.value ? el.points[3]?.value : 0}</td>
                       <td>{el.points[4]?.value ? el.points[4]?.value : 0}</td>
+                      <td>{total}</td>
                     </tr>
                   );
                 })}
