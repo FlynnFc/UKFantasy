@@ -23,6 +23,13 @@ export async function getServerSideProps(context: any) {
 }
 
 const Index = (props: any) => {
+  const router = useRouter();
+  const leagueName = useMemo(() => {
+    const word = router.query.league as string;
+    const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
+    return capitalized;
+  }, [router.query]);
+  router.query;
   const currentRound = useMemo(
     () => props.data[0].SelectedPlayer[1].points,
     [props.data]
@@ -31,11 +38,9 @@ const Index = (props: any) => {
   const [selectedRound, setSelectedRound] = useState(currentRound.length + 1);
   return (
     <div className="min-w-screen container flex h-full min-h-screen max-w-7xl  select-none flex-col items-center justify-start gap-4 sm:mx-auto">
-      <h1 className="mb-5 text-5xl">Epic39 point dashboard</h1>
+      <h1 className="mb-5 text-5xl">{`${leagueName} point dashboard`}</h1>
       <div className="grid grid-cols-6">
         {currentRound.map((el: number, idx: number) => {
-          console.log(el, idx);
-
           return (
             <button
               onClick={() => setSelectedRound(idx + 1)}
