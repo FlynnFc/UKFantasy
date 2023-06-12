@@ -311,7 +311,6 @@ const CreateExample = () => {
                 {/* Maps all teams found in DB then inside each team maps all players found in team */}
 
                 {props.data?.map((el) => {
-                  console.log(el);
                   return (
                     <PlayerGroup team={el.teamName} key={el.teamName}>
                       {el.Player?.map(
