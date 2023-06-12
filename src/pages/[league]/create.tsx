@@ -241,7 +241,7 @@ const Create = (props: {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-w-screen container flex h-full min-h-[88.3vh]  max-w-7xl select-none flex-col items-end justify-start  p-4 sm:mx-auto">
-        <Toaster position="bottom-right" />
+        <Toaster position="top-center" />
         {introModal && (
           <div className="createModal fixed left-0 top-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
             <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-primary-content">
@@ -335,7 +335,7 @@ const Create = (props: {
                 </button>
               )}
             </div>
-            <div id="stickyContainer" className="sticky top-5 z-10 my-4">
+            <div className="sticky top-2 z-10 my-4">
               <PlayerGroupSkeleton setTeamName={setTeamName} money={money}>
                 {myTeam}
               </PlayerGroupSkeleton>

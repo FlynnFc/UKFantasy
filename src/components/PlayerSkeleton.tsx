@@ -1,23 +1,11 @@
 import React, { useState } from "react";
 
 const PlayerSkeleton = () => {
-  const [stats, setStats] = useState(false);
-
   return (
     <div
-      className={`z-0 flex  h-72 w-56 flex-col justify-between overflow-hidden rounded-xl bg-base-200 text-sm shadow-lg ${
-        stats && "animate-pulse"
-      }`}
-      onMouseEnter={() => {
-        setTimeout(() => setStats(true), 100);
-      }}
-      onMouseLeave={() => {
-        setTimeout(() => setStats(false), 100);
-      }}
+      className={`z-0 flex  w-56 flex-col justify-between overflow-hidden rounded-xl bg-base-200 text-sm shadow-lg xl:h-72 `}
     >
-      <div
-        className={` image  justify-center overflow-hidden bg-base-300`}
-      ></div>
+      <div className={`justify-center overflow-hidden bg-base-300`}></div>
 
       <div className="flex h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg bg-base-300">
         <h2 className=" pt-2 text-center text-2xl font-bold leading-none"></h2>
