@@ -63,9 +63,9 @@ const LeaguePage = (props: { data: league[] }) => {
   const session = useSession();
   const { status } = useSession();
   const { query } = useRouter();
-  const [createModal, setCreateModal] = useState(true);
+  const [createModal, setCreateModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [userHasTeam, setUserHasTeam] = useState(false);
+  const [userHasTeam, setUserHasTeam] = useState<boolean>();
   const [data, setData] = useState([]);
   const [loadingTable, setLoadingTable] = useState(true);
   const [league, setLeague] = useState<league>();
@@ -140,13 +140,11 @@ const LeaguePage = (props: { data: league[] }) => {
     if (data) {
       for (let index = 0; index < data.length; index++) {
         const element: UserProps | any = data[index];
-
         if (element?.User.id === session.data?.user?.id) {
           setUserHasTeam(true);
           return;
         }
       }
-
       setUserHasTeam(false);
     }
   }, [data, session.data?.user?.id]);
@@ -161,7 +159,7 @@ const LeaguePage = (props: { data: league[] }) => {
       </Head>
       <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
         {/* <OfficialStreamEmbed /> */}
-        {createModal && !userHasTeam && status === "authenticated" && (
+        {/* {createModal && !userHasTeam && status === "authenticated" && (
           <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
             <div
               onClick={() => setCreateModal(false)}
@@ -186,7 +184,7 @@ const LeaguePage = (props: { data: league[] }) => {
               </Link>
             </div>
           </div>
-        )}
+        )} */}
         {loading && <Loading />}
         <div className="rounded-btn mt-14 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg md:px-8">
           <h1 className="text-4xl font-bold">
