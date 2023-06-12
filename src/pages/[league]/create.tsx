@@ -83,8 +83,6 @@ const Create = (props: {
       // allPlayers = allPlayers.concat();
     });
 
-    console.log(allPlayers);
-
     allPlayers.sort((a, b) => {
       return compare(a, b);
     });
@@ -117,9 +115,7 @@ const Create = (props: {
     if (deletes.length < 1) {
       return;
     }
-    console.log("running effect");
     const tempTeam = myTeam;
-    console.log("looping to find player");
     for (let index = 0; index < tempTeam.length; index++) {
       const element = tempTeam[index]?.key;
       if (element === deletes) {
@@ -135,12 +131,10 @@ const Create = (props: {
   }, [deletes, myTeam]);
 
   //Sets name to deletes so I know which player to delete
-  //Edit
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
     setDeletes(data.name);
-    console.log("Deleted player", data.name, deletes);
   };
-  // EDIT
+
   //Adding player to myTeam
   const PlayerSelect = (data: {
     rareity: string;
@@ -364,7 +358,9 @@ const Create = (props: {
               {teamSort ? (
                 <section className="space-y-6">
                   {/* Maps all teams found in DB then inside each team maps all players found in team */}
+
                   {props.data?.map((el) => {
+                    console.log(el);
                     return (
                       <PlayerGroup team={el.teamName} key={el.teamName}>
                         {el.Player?.map(
