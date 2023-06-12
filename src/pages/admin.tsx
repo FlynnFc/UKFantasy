@@ -36,8 +36,13 @@ const Admin = (props: {
               className="rounded-btn flex h-min min-w-[5rem] flex-col gap-2 bg-base-content p-4 uppercase text-base-100 shadow"
             >
               <h1 className="text-center text-2xl">{el.name}</h1>
-              <Link target="_blank" href={`/${el.name.toLowerCase()}/points`}>
-                <button className="btn-sm btn">Apply points</button>
+              <Link passHref href={`/${el.name.toLowerCase()}/points`}>
+                <a
+                  className="btn-sm btn  w-full cursor-pointer"
+                  target="_blank"
+                >
+                  Apply points
+                </a>
               </Link>
             </div>
           );
