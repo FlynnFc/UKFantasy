@@ -9,6 +9,7 @@ type player = {
   img?: string;
   team: any;
   id: string;
+  playersTeam: string;
   PlayerRemove: (data: any) => void;
 };
 
@@ -93,7 +94,7 @@ const SelectedPlayer = (props: player) => {
       </div>
       <div
         onClick={() => props.PlayerRemove(props)}
-        className="absolute top-1 right-2 z-10 cursor-pointer"
+        className="absolute right-2 top-1 z-10 cursor-pointer"
       >
         <b>X</b>
       </div>

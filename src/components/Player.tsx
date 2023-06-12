@@ -11,6 +11,7 @@ type player = {
   teamFull: boolean;
   team: any[];
   id: string;
+  playersTeam: any;
 };
 
 export const Player = (props: player) => {
@@ -18,6 +19,28 @@ export const Player = (props: player) => {
   const [rareity, setRareity] = useState("");
   const [disable, setDisabled] = useState(false);
   const [picked, setPicked] = useState(false);
+  const [teamLimit, setTeamLimit] = useState(false);
+
+  //Team comparer
+
+  useEffect(() => {
+    const checkIfTwoTeammatesPicked = () => {
+      props.team;
+      let totalTeammates = 0;
+      for (let i = 0; i < props.team.length; i++) {
+        const element = props.team[i];
+        if (element.props.playersTeam === props.playersTeam) {
+          totalTeammates++;
+        }
+      }
+      if (totalTeammates >= 2) {
+        console.log("More than 2 from one team!");
+        return setTeamLimit(true);
+      } else return setTeamLimit(false);
+    };
+    checkIfTwoTeammatesPicked();
+  }, [props.playersTeam, props.team]);
+
   useEffect(() => {
     const nameCheck = (name: string) => {
       return props.name === name;
@@ -54,6 +77,12 @@ export const Player = (props: player) => {
       ) : props.teamFull ? (
         <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center  font-bold lg:text-xl">
           <p className="p-4 text-center text-white">No more slots</p>
+        </div>
+      ) : teamLimit ? (
+        <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
+          <p className="p-4 text-center text-white">
+            You can only have 2 players per team!
+          </p>
         </div>
       ) : disable ? (
         <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
