@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import LoginBtn from "./LoginBtn";
 import logo from "../images/mininewlogo.png";
 import { useSession } from "next-auth/react";
@@ -11,6 +11,35 @@ const Navbar = () => {
   const [darkmode, setDarkMode] = useState<boolean>();
   const [theme, setTheme] = useState<theme>(["mythemeLight", "mytheme"]);
   const { status } = useSession();
+  const [y, setY] = useState(0);
+  const [scrolled, setScrolled] = useState<boolean>();
+
+  const handleNavigation = useCallback(
+    (e: any) => {
+      const window = e.currentTarget;
+      if (y > window.scrollY) {
+        console.log("scrolling up");
+      } else if (y < window.scrollY) {
+        console.log("scrolling down");
+      }
+      setY(window.scrollY);
+    },
+    [y]
+  );
+
+  useEffect(() => {
+    setY(window.scrollY);
+    window.addEventListener("scroll", handleNavigation);
+
+    return () => {
+      window.removeEventListener("scroll", handleNavigation);
+    };
+  }, [handleNavigation]);
+
+  useEffect(() => {
+    if (y > 50) setScrolled(true);
+    else setScrolled(false);
+  }, [y]);
 
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
@@ -50,17 +79,21 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar static top-0  p-2 ">
+    <nav
+      className={`navbar sticky top-0 z-50 p-2  transition-all ${
+        scrolled && "bg-neutral"
+      }`}
+    >
       <div className="flex w-full justify-between">
         <div className="flex space-x-4">
-          <div className="flex cursor-default items-center px-4 text-sm font-semibold normal-case hover:bg-inherit md:text-xl">
+          <div className="rounded-btn btn flex cursor-pointer items-center justify-center border-none bg-inherit text-sm font-semibold normal-case text-base-content hover:bg-base-300 md:text-xl">
             <span className="mb-3">UKFantasy</span>
             <Image src={logo} width={60} height={60} alt="logo" />
           </div>
         </div>
         <div className="flex items-center space-x-2">
           <LoginBtn primary={true} />
-          <label className="swap swap-rotate p-1">
+          <label className="swap-rotate swap p-1">
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"
