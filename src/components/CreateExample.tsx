@@ -212,6 +212,7 @@ const CreateExample = () => {
     price: number;
     img: string;
     id: string;
+    playersTeam: string;
   }) => {
     if (!teamFull) {
       if (myTeam.length === 4) {
@@ -228,6 +229,7 @@ const CreateExample = () => {
           key={data.name}
           id={data.id}
           team={myTeam}
+          playersTeam={data.playersTeam}
         />,
       ]);
     }
@@ -273,6 +275,7 @@ const CreateExample = () => {
                             price={els.price}
                             img={els.image}
                             team={myTeam}
+                            playersTeam={el.teamName}
                           />
                         );
                       }
