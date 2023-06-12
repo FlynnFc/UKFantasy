@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
 export type player = {
+  length: number;
   map(
     arg0: (el: {
       id: string;
@@ -34,6 +35,7 @@ export type player = {
   teamId: string;
   statsId: string;
   image: string;
+  playerTeam: string;
 };
 
 const filter = new Filter();
@@ -56,6 +58,7 @@ const Create = (props: {
   const [teamSort, setTeamSort] = useState(true);
   const [allPlayers, setAllPlayers] = useState<player[]>();
   const { query } = useRouter();
+
   //Ensures Team name is never empty string
   useEffect(() => {
     if (teamName.length < 1) {
@@ -69,12 +72,17 @@ const Create = (props: {
       return;
     }
     const allTeams = props.data;
-    let allPlayers: player[] = [];
+    const allPlayers: player[] = [];
 
-    allTeams.map((el: { Player: player }) => {
-      allPlayers = allPlayers.concat(el.Player);
+    allTeams.map((el: { Player: any; teamName: string }) => {
+      const players = el.Player;
+      for (let i = 0; i < players.length; i++) {
+        const element = players[i];
+        allPlayers.push({ ...element, playerTeam: el.teamName });
+      }
+      // allPlayers = allPlayers.concat();
     });
-    console.log(allTeams);
+
     allPlayers.sort((a, b) => {
       return compare(a, b);
     });
@@ -85,7 +93,7 @@ const Create = (props: {
       } else return a.price < b.price ? 1 : -1;
     }
     setAllPlayers(allPlayers);
-    setTeamSort(false);
+    return setTeamSort(false);
   };
 
   //Updates total money as user changes players
@@ -107,9 +115,7 @@ const Create = (props: {
     if (deletes.length < 1) {
       return;
     }
-    console.log("running effect");
     const tempTeam = myTeam;
-    console.log("looping to find player");
     for (let index = 0; index < tempTeam.length; index++) {
       const element = tempTeam[index]?.key;
       if (element === deletes) {
@@ -120,14 +126,13 @@ const Create = (props: {
     setMyTeam([...tempTeam]);
     setDeletes("");
     if (tempTeam.length < 5) {
-      setTeamFull(false);
-    }
+      return setTeamFull(false);
+    } else return;
   }, [deletes, myTeam]);
 
   //Sets name to deletes so I know which player to delete
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
     setDeletes(data.name);
-    console.log("Deleted player", data.name, deletes);
   };
 
   //Adding player to myTeam
@@ -137,6 +142,7 @@ const Create = (props: {
     price: number;
     img: string;
     id: string;
+    playersTeam: string;
   }) => {
     if (!teamFull) {
       if (myTeam.length === 4) {
@@ -153,6 +159,7 @@ const Create = (props: {
           key={data.name}
           id={data.id}
           team={myTeam}
+          playersTeam={data.playersTeam}
         />,
       ]);
     }
@@ -351,6 +358,7 @@ const Create = (props: {
               {teamSort ? (
                 <section className="space-y-6">
                   {/* Maps all teams found in DB then inside each team maps all players found in team */}
+
                   {props.data?.map((el) => {
                     return (
                       <PlayerGroup team={el.teamName} key={el.teamName}>
@@ -374,6 +382,7 @@ const Create = (props: {
                                 price={els.price}
                                 img={els.image}
                                 team={myTeam}
+                                playersTeam={el.teamName}
                               />
                             );
                           }
@@ -397,6 +406,7 @@ const Create = (props: {
                         price={els.price}
                         img={els.image}
                         team={myTeam}
+                        playersTeam={els.playerTeam}
                       />
                     );
                   })}

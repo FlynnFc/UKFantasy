@@ -145,6 +145,62 @@ const CreateExample = () => {
           },
         ],
       },
+      {
+        id: "clb6roz48000nj9dwfk86tp0c",
+        teamName: "Ross Kemp Bald",
+        Player: [
+          {
+            id: "clb3wvsw70004j9fgpesrc6qg",
+            name: "m2k",
+            price: 20000,
+            image:
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwidHJhbnNmb3JtYXRpb25zIjoiIiwiaWF0IjoxNjcyNTE0ODQ2LCJleHAiOjE5ODc4NzQ4NDZ9.yl_t6TRs1MwbxEPUM919l2TvjGj7AnvnmBFdfDCcwFA&t=2022-12-31T19%3A27%3A42.231Z",
+            rareity: "silver",
+            statsId: "clb3wv98b0000j9fgp1eqw0xj",
+            teamId: "clb6roz48000nj9dwfk86tp0c",
+          },
+          {
+            id: "clb6ugg1y000nj9ygj1b4zxal",
+            name: "Edeninho",
+            price: 15000,
+            image:
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/edeninho.webp?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2VkZW5pbmhvLndlYnAiLCJ0cmFuc2Zvcm1hdGlvbnMiOiIiLCJpYXQiOjE2NzA5NjIwNzQsImV4cCI6MTk4NjMyMjA3NH0.ZoifktgPG8mqq4ff7oP9H7GJd3mTrZMagIal0fHMNZs&t=2022-12-13T20%3A07%3A55.252Z",
+            rareity: "bronze",
+            statsId: "clb3wv98b0000j9fgp1eqw0xj",
+            teamId: "clb6roz48000nj9dwfk86tp0c",
+          },
+          {
+            id: "clb6uhqg9000oj9ygt8puq8f2",
+            name: "Yenixs",
+            price: 18000,
+            image:
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwidHJhbnNmb3JtYXRpb25zIjoiIiwiaWF0IjoxNjcyNTE0ODQ2LCJleHAiOjE5ODc4NzQ4NDZ9.yl_t6TRs1MwbxEPUM919l2TvjGj7AnvnmBFdfDCcwFA&t=2022-12-31T19%3A27%3A42.231Z",
+            rareity: "silver",
+            statsId: "clb3wv98b0000j9fgp1eqw0xj",
+            teamId: "clb6roz48000nj9dwfk86tp0c",
+          },
+          {
+            id: "clb6uhqg9000pj9ygmi8oawdl",
+            name: "Ross Kemp",
+            price: 50000,
+            image:
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwidHJhbnNmb3JtYXRpb25zIjoiIiwiaWF0IjoxNjcyNTE0ODQ2LCJleHAiOjE5ODc4NzQ4NDZ9.yl_t6TRs1MwbxEPUM919l2TvjGj7AnvnmBFdfDCcwFA&t=2022-12-31T19%3A27%3A42.231Z",
+            rareity: "gold",
+            statsId: "clb3wv98b0000j9fgp1eqw0xj",
+            teamId: "clb6roz48000nj9dwfk86tp0c",
+          },
+          {
+            id: "clb6uibb3000qj9ygg7b4q89j",
+            name: "Deevil",
+            price: 19000,
+            image:
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwidHJhbnNmb3JtYXRpb25zIjoiIiwiaWF0IjoxNjcyNTE0ODQ2LCJleHAiOjE5ODc4NzQ4NDZ9.yl_t6TRs1MwbxEPUM919l2TvjGj7AnvnmBFdfDCcwFA&t=2022-12-31T19%3A27%3A42.231Z",
+            rareity: "silver",
+            statsId: "clb3wv98b0000j9fgp1eqw0xj",
+            teamId: "clb6roz48000nj9dwfk86tp0c",
+          },
+        ],
+      },
     ],
   };
 
@@ -212,6 +268,7 @@ const CreateExample = () => {
     price: number;
     img: string;
     id: string;
+    playersTeam: string;
   }) => {
     if (!teamFull) {
       if (myTeam.length === 4) {
@@ -228,6 +285,7 @@ const CreateExample = () => {
           key={data.name}
           id={data.id}
           team={myTeam}
+          playersTeam={data.playersTeam}
         />,
       ]);
     }
@@ -237,10 +295,10 @@ const CreateExample = () => {
     <>
       <main className="min-w-screen container rounded-btn m-6 flex h-full min-h-[88.3vh] w-max select-none flex-col items-end justify-start px-8 py-4 sm:mx-auto">
         <div className="w-full">
-          <h2 className="text-center text-3xl leading-snug transition-all duration-1000 lg:text-5xl">
+          <h2 className="text-center text-3xl leading-snug lg:text-5xl">
             {teamName}
           </h2>
-
+          <div className="mt-4 flex items-end justify-center lg:mt-0 lg:justify-end"></div>
           <div id="stickyContainer" className="sticky top-5 z-10 my-4">
             <PlayerGroupSkeleton setTeamName={setTeamName} money={money}>
               {myTeam}
@@ -248,39 +306,43 @@ const CreateExample = () => {
           </div>
 
           <AnimatePresence>
-            <section className="space-y-6">
-              {/* Maps all teams found in DB then inside each team maps all players found in team */}
-              {props.data?.map((el) => {
-                return (
-                  <PlayerGroup team={el.teamName} key={el.teamName}>
-                    {el.Player?.map(
-                      (els: {
-                        id: string;
-                        image: string;
-                        name: string;
-                        price: number;
-                        rareity: string;
-                      }) => {
-                        return (
-                          <Player
-                            key={els.id}
-                            id={els.id}
-                            teamFull={teamFull}
-                            PlayerSelect={PlayerSelect}
-                            moneyLeft={money}
-                            rareity={els.rareity}
-                            name={els.name}
-                            price={els.price}
-                            img={els.image}
-                            team={myTeam}
-                          />
-                        );
-                      }
-                    )}
-                  </PlayerGroup>
-                );
-              })}
-            </section>
+            {teamSort ? (
+              <section className="space-y-6">
+                {/* Maps all teams found in DB then inside each team maps all players found in team */}
+
+                {props.data?.map((el) => {
+                  return (
+                    <PlayerGroup team={el.teamName} key={el.teamName}>
+                      {el.Player?.map(
+                        (els: {
+                          id: string;
+                          image: string;
+                          name: string;
+                          price: number;
+                          rareity: string;
+                        }) => {
+                          return (
+                            <Player
+                              key={els.id}
+                              id={els.id}
+                              teamFull={teamFull}
+                              PlayerSelect={PlayerSelect}
+                              moneyLeft={money}
+                              rareity={els.rareity}
+                              name={els.name}
+                              price={els.price}
+                              img={els.image}
+                              team={myTeam}
+                              playersTeam={el.teamName}
+                            />
+                          );
+                        }
+                      )}
+                    </PlayerGroup>
+                  );
+                })}
+              </section>
+            ) : null}
           </AnimatePresence>
         </div>
       </main>
