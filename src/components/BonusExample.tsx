@@ -165,7 +165,7 @@ const BonusExample = () => {
   return (
     <div className="flex select-none flex-col items-center justify-between">
       <div className="flex flex-col justify-start space-y-4">
-        <section className="mx-4 mt-1 flex w-fit flex-wrap justify-start gap-2">
+        <section className="mx-4 mt-1 flex w-fit flex-wrap justify-center gap-2 lg:justify-start">
           {allBonuses.map((el, i) => {
             for (let i = 0; i < 5; i++) {
               const element = team?.Player[i];
@@ -197,7 +197,7 @@ const BonusExample = () => {
         </section>
       </div>
 
-      <div className="flex h-auto w-fit flex-col items-start justify-between gap-1 rounded-lg p-6 sm:flex-row sm:gap-0 sm:space-x-4">
+      <div className="flex h-auto w-full flex-col items-stretch justify-between gap-1 rounded-lg p-6 sm:flex-row sm:gap-0 sm:space-x-4 lg:w-fit lg:items-start">
         {team &&
           team.Player?.map((el, i) => {
             return (

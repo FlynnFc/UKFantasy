@@ -121,8 +121,8 @@ const LiveGamesExample = () => {
 
   console.log(streams);
   return (
-    <section className="rounded-btn m-2 flex w-auto flex-row justify-between gap-2">
-      <ul className=" items-left rounded-btn my-3 flex w-1/4 flex-col justify-center gap-1 bg-base-100 px-2 py-2 text-left">
+    <section className="rounded-btn m-2 flex w-auto flex-col justify-between gap-2 lg:flex-row">
+      <ul className=" items-left rounded-btn my-3 flex flex-col justify-center gap-1 bg-base-100 px-2 py-2 text-left lg:w-1/4">
         {streams?.length
           ? streams?.map((el) => {
               return (

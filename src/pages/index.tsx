@@ -27,17 +27,19 @@ const Home: NextPage = () => {
             transition={{ duration: 0.5 }}
             className="my-2 w-5/6 text-center text-4xl font-semibold md:text-6xl xl:text-[6rem] xl:leading-tight"
           >
-            Welcome to the <b>UKCS</b>
+            Welcome to the <b>UK CS</b>
             <span className="font-bold text-orange-500"> Fantasy League</span>!
           </motion.h1>
           <section className="my-10">
             <Link href={"/demo"}>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 id="getStarted"
-                className="duration-400 btn-primary btn-lg btn shadow transition-all"
+                className="duration-400 rounded-btn bg-primary p-5 text-xl font-bold uppercase shadow-lg   transition-all"
               >
                 Try out the demo
-              </button>
+              </motion.button>
             </Link>
           </section>
           <section>
