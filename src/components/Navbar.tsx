@@ -9,7 +9,7 @@ type theme = string[];
 
 const Navbar = () => {
   const [darkmode, setDarkMode] = useState<boolean>();
-  const [theme, setTheme] = useState<theme>(["winter", "mytheme"]);
+  const [theme, setTheme] = useState<theme>(["mythemeLight", "mytheme"]);
   const { status } = useSession();
 
   useEffect(() => {
@@ -33,10 +33,10 @@ const Navbar = () => {
         bodyEl?.setAttribute("data-theme", selectedTheme);
       }
     } else {
-      localStorage.setItem("theme", "winter,mytheme");
+      localStorage.setItem("theme", "mythemeLight,mytheme");
       bodyEl?.setAttribute(
         "data-theme",
-        isBrowserSetToDark ? "mytheme" : "winter"
+        isBrowserSetToDark ? "mytheme" : "mythemeLight"
       );
     }
   }, [darkmode]);
@@ -60,7 +60,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center space-x-2">
           <LoginBtn primary={true} />
-          <label className="swap-rotate swap p-1">
+          <label className="swap swap-rotate p-1">
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"

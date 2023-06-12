@@ -81,7 +81,7 @@ const Settings = () => {
           <option disabled selected={true}>
             Choose a theme
           </option>
-          <option value={"winter,mytheme"}>Default</option>
+          <option value={"mythemeLight,mytheme"}>Default</option>
           <option value={"corporate,business"}>Microsoft</option>
           <option value={"bumblebee,halloween"}>Halloween</option>
           <option value={"lofi,black"}>Minimal</option>
