@@ -10,6 +10,7 @@ import PlayerGroupSkeleton from "./playerGroupSkeleton";
 import SelectedPlayer from "./SelectedPlayer";
 
 import { AnimatePresence } from "framer-motion";
+import PlayerGroupSkeletonExample from "./playerGroupSkeletonExample";
 
 export type player = {
   map(
@@ -300,9 +301,9 @@ const CreateExample = () => {
           </h2>
           <div className="mt-4 flex items-end justify-center lg:mt-0 lg:justify-end"></div>
           <div id="stickyContainer" className="sticky top-5 z-10 my-4">
-            <PlayerGroupSkeleton setTeamName={setTeamName} money={money}>
+            <PlayerGroupSkeletonExample setTeamName={setTeamName} money={money}>
               {myTeam}
-            </PlayerGroupSkeleton>
+            </PlayerGroupSkeletonExample>
           </div>
 
           <AnimatePresence>
