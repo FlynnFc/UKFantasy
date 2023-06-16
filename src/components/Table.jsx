@@ -3,10 +3,13 @@ import { useTable, useSortBy } from "react-table";
 import Loading from "./Loading";
 import TeamButtonTable from "./TeamButtonTable";
 import { useRouter } from "next/router";
+import LocalLoading from "./LocalLoading";
 
 const Table = (props) => {
   const { query } = useRouter();
-
+  //todo
+  //Sort leaderboard by total points on load
+  const [loading, setLoading] = useState(true);
   const [playerData, setPlayerData] = useState([]);
   const [checker, setChecker] = useState(new Set([]));
   useEffect(() => {
@@ -41,6 +44,7 @@ const Table = (props) => {
         });
       }
     });
+    setLoading(false);
   }, [checker, props.data, query.league]);
 
   const submissiondata = useMemo(() => [...playerData], [playerData]);
@@ -76,61 +80,73 @@ const Table = (props) => {
 
   return (
     <>
-      <table
-        {...getTableProps()}
-        className="table w-full select-none overflow-auto font-semibold shadow-lg"
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr
-              className="transition-all"
-              key={headerGroup}
-              {...headerGroup.getHeaderGroupProps()}
-            >
-              {headerGroup.headers.map((column) => (
-                <th
-                  key={column.Cell}
-                  className="sticky -top-1 box-content text-center "
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
+      {!loading ? (
+        submissiondata.length > 1 ? (
+          <table
+            {...getTableProps()}
+            className="table w-full select-none overflow-auto font-semibold shadow-lg"
+          >
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr
+                  className="transition-all"
+                  key={headerGroup}
+                  {...headerGroup.getHeaderGroupProps()}
                 >
-                  {column.render("Header")}
-                  <span className="absolute">
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()} className="overflow-x-auto">
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr
-                className="z-10 transition-all"
-                key={row.id}
-                {...row.getRowProps()}
-              >
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      className="text-center font-normal"
-                      key={"test"}
-                      {...cell.getCellProps()}
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      key={column.Cell}
+                      className="rounded-t-btn sticky -top-1 box-content text-center "
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+                      {column.render("Header")}
+                      <span className="absolute">
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()} className="overflow-x-auto">
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    className="z-10 transition-all"
+                    key={row.id}
+                    {...row.getRowProps()}
+                  >
+                    {row.cells.map((cell) => {
+                      return (
+                        <td
+                          className="text-center font-normal"
+                          key={"test"}
+                          {...cell.getCellProps()}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        ) : (
+          <div className="flex min-w-full flex-row rounded-lg bg-base-100 p-4 ">
+            <h3 className="w-full text-center text-inherit text-primary-content">
+              No teams submitted yet
+            </h3>
+          </div>
+        )
+      ) : (
+        <LocalLoading />
+      )}
     </>
   );
 };
