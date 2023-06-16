@@ -1,78 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import StreamLink from "./StreamLink";
+import { set } from "zod";
 
 export type stream = {
-  channelName: string;
+  user_name: string;
   live: boolean;
-  streamTitle: string;
-  viewers: number;
+  title: string;
+  viewer_count: number;
 };
 
-const tempData: stream[] = [
-  {
-    channelName: "Edeninho_",
-    live: true,
-    streamTitle: "Getting grouped? Maybe! Klon Super coach",
-    viewers: 2,
-  },
-  {
-    channelName: "fenomm",
-    live: true,
-    streamTitle:
-      "YOOOO playing last ever EPIC! YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!YOOOO playing last ever EPIC!",
-    viewers: 22,
-  },
-  {
-    channelName: "meffewcs",
-    live: true,
-    streamTitle: "Last Epic Day 0",
-    viewers: 9,
-  },
-  {
-    channelName: "EPICLAN1",
-    live: true,
-    streamTitle: "LIVE!! EpicLan Day 0 Into the Breach vs Binmen",
-    viewers: 6,
-  },
-  {
-    channelName: "EPICLAN2",
-    live: true,
-    streamTitle: "Last Epic Day 0",
-    viewers: 1311,
-  },
-  {
-    channelName: "Eeninho",
-    live: true,
-    streamTitle: "YOOOO playing last ever EPIC!",
-    viewers: 6,
-  },
-  {
-    channelName: "Eeninho",
-    live: true,
-    streamTitle: "YOOOO playing last ever EPIC!",
-    viewers: 6,
-  },
-];
-
-const EmpyData: stream[] = [];
 const AllLiveChannels = () => {
   const [expanded, setExpanded] = useState(false);
   const [streams, setStreams] = useState<stream[]>();
-  //Only displaying live channels
+
   useEffect(() => {
-    const data = tempData.filter((el, idx) => {
-      if (!expanded && idx > 5) {
-        return;
-      } else if (!el.live) {
-        return;
-      } else {
-        return el;
-      }
-    });
-    //sorting by Viewers hi-low
-    data.sort((a, b) => b.viewers - a.viewers);
-    setStreams(data);
-  }, [expanded]);
+    const getStreams = async () => {
+      const res = await fetch("/api/allTwitchStreams");
+      if (!res.ok) return;
+      const data = await res.json();
+      setStreams(data.data);
+    };
+    getStreams();
+  }, []);
+  //Only displaying live channels
+  // useEffect(() => {
+  //   const data = tempData.filter((el, idx) => {
+  //     if (!expanded && idx > 5) {
+  //       return;
+  //     } else if (!el.live) {
+  //       return;
+  //     } else {
+  //       return el;
+  //     }
+  //   });
+  //   //sorting by Viewers hi-low
+  //   data.sort((a, b) => b.viewers - a.viewers);
+  //   setStreams(data);
+  // }, [expanded]);
+
+  console.log(streams);
 
   return (
     <div className="rounded-btn bg-base-300 p-5 shadow-lg">
@@ -84,11 +50,11 @@ const AllLiveChannels = () => {
           ? streams?.map((el) => {
               return (
                 <StreamLink
-                  key={el.channelName}
-                  streamTitle={el.streamTitle}
-                  channelName={el.channelName}
-                  live={el.live}
-                  viewers={el.viewers}
+                  key={el.user_name}
+                  title={el.title}
+                  user_name={el.user_name}
+                  live={el.viewer_count > 0}
+                  viewer_count={el.viewer_count}
                 />
               );
             })
@@ -98,7 +64,11 @@ const AllLiveChannels = () => {
           className="link-secondary link mt-2 text-center"
           onClick={() => setExpanded((prev) => !prev)}
         >
-          {expanded ? "Show less" : "Show more"}
+          {streams && streams?.length > 5
+            ? expanded
+              ? "Show less"
+              : "Show more"
+            : null}
         </p>
       </ul>
     </div>

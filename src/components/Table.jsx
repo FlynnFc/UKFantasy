@@ -9,7 +9,6 @@ const Table = (props) => {
 
   const [playerData, setPlayerData] = useState([]);
   const [checker, setChecker] = useState(new Set([]));
-  console.log(props);
   useEffect(() => {
     const data = [...props.data];
     data.map((el) => {
