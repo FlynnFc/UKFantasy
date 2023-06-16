@@ -4,10 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
-  console.log("bjasdhashdahsdhashd", session);
   // const path = "http://localhost:3000/";
   const path = "https://uk-fantasy.vercel.app/";
-
   const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
