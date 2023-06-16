@@ -14,18 +14,10 @@ const Navbar = () => {
   const [y, setY] = useState(0);
   const [scrolled, setScrolled] = useState<boolean>();
 
-  const handleNavigation = useCallback(
-    (e: any) => {
-      const window = e.currentTarget;
-      if (y > window.scrollY) {
-        console.log("scrolling up");
-      } else if (y < window.scrollY) {
-        console.log("scrolling down");
-      }
-      setY(window.scrollY);
-    },
-    [y]
-  );
+  const handleNavigation = useCallback((e: any) => {
+    const window = e.currentTarget;
+    setY(window.scrollY);
+  }, []);
 
   useEffect(() => {
     setY(window.scrollY);
@@ -95,7 +87,7 @@ const Navbar = () => {
         </div>
         <div className="flex items-center space-x-2">
           <LoginBtn primary={true} />
-          <label className="swap swap-rotate p-1">
+          <label className="swap-rotate swap p-1">
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"
