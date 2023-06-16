@@ -77,11 +77,12 @@ const Table = (props) => {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns: columns, data: submissiondata }, useSortBy);
+  console.log(playerData.length > 0);
 
   return (
     <>
       {!loading ? (
-        submissiondata.length > 1 ? (
+        playerData.length > 0 ? (
           <table
             {...getTableProps()}
             className="table w-full select-none overflow-auto font-semibold shadow-lg"
