@@ -6,12 +6,11 @@ const allUserTeamsByLeague = async (req: NextApiRequest, res: NextApiResponse) =
   const { method } = req
   const url = req.headers.url as string
   const processed = url.split('/')
-console.log("tetetetetet",processed)
   
   switch (method) {
     case 'GET':
       try {
-        const userTeams = await prisma.playerTeam.findMany({where:{league:{name:processed[0]}},include:{SelectedPlayer:{include:{points:true}}}})
+        const userTeams = await prisma.playerTeam.findMany({where:{league:{name:processed[1]}},include:{SelectedPlayer:{include:{points:true}}}})
         res.status(200).json(userTeams)
       } catch (e) {
         console.error('Request error', e)
