@@ -1,7 +1,7 @@
-import { signOut, useSession } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { AiOutlineEdit } from "react-icons/ai";
 import {
@@ -20,8 +20,30 @@ import { BiLogOut } from "react-icons/bi";
 import { useRouter } from "next/router";
 import { TbArrowUpRight } from "react-icons/tb";
 
-const Profile = () => {
-  const admins = useMemo(() => new Set(["mastare.flynn@gmail.com"]), []);
+export async function getServerSideProps({ req }: any) {
+  const session = await getSession({ req });
+  // const path = "http://localhost:3000/";
+  const path = "https://uk-fantasy.vercel.app/";
+
+  const res = await fetch(`${path}/api/allAdmins`, {
+    method: "GET",
+  });
+  if (!res.ok) {
+    console.error("error");
+  }
+  const temp = await res.json();
+  const admins = new Set(temp.map((el: { id: string }) => el.id));
+  const isAdmin = admins.has(session?.user?.id);
+
+  return {
+    props: {
+      isAdmin,
+    },
+  };
+}
+
+const Profile = (props: { isAdmin: boolean }) => {
+  const admin = useMemo(() => props.isAdmin, [props.isAdmin]);
   const { data: session } = useSession();
   const [datateams, setTeams] = useState([]);
   const teams = useMemo(() => [...datateams], [datateams]);
@@ -75,7 +97,7 @@ const Profile = () => {
                   <MdSettings className="text-3xl md:mr-4" />
                   <span className="hidden md:inline">Settings</span>
                 </li>
-                {admins.has(session.user?.email as string) && (
+                {admin && (
                   <Link target="_blank" href={"/admin"}>
                     <li className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105">
                       <MdOutlineAdminPanelSettings className="text-3xl md:mr-4" />
