@@ -8,8 +8,8 @@ import { PlayerTeam } from "@prisma/client";
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
 
-  const path = "http://localhost:3000/";
-  // const path = "https://uk-fantasy.vercel.app/";
+  // const path = "http://localhost:3000/";
+  const path = "https://uk-fantasy.vercel.app/";
   const url = req.url;
   const res = await fetch(`${path}api/allUserTeamsByLeague`, {
     method: "GET",
