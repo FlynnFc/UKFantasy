@@ -9,22 +9,23 @@ import { useRouter } from "next/router";
 
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
-import LoginBtn from "../../components/LoginBtn";
 import Table from "../../components/Table";
-import leagues from "../leagues";
 import Head from "next/head";
-import { HiStatusOnline, HiStatusOffline } from "react-icons/hi";
-import StreamLink from "../../components/StreamLink";
-import AllLiveChannels from "../../components/AllLiveChannels";
-import OfficialStreamEmbed from "../../components/OfficialStreamEmbed";
+import AllLiveChannels, { stream } from "../../components/AllLiveChannels";
 import LiveGames from "../../components/LiveGames";
 
 export async function getStaticProps() {
   const res = await fetch("https://esportsfantasy.app/api/allLeagues");
   const data = await res.json();
+  const streamsRes = await fetch(
+    "https://esportsfantasy.app/api/allTwitchStreams"
+  );
+  const streamData = await streamsRes.json();
+  const streams = streamData.data;
   return {
     props: {
       data,
+      streams,
     },
     revalidate: 5,
   };
@@ -59,7 +60,7 @@ type UserProps = {
   User: [{ id: string }];
 };
 
-const LeaguePage = (props: { data: league[] }) => {
+const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
   const session = useSession();
   const { status } = useSession();
   const { query } = useRouter();
@@ -217,7 +218,7 @@ const LeaguePage = (props: { data: league[] }) => {
 
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
           <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
-            <AllLiveChannels />
+            <AllLiveChannels streams={props.streams} />
             <LiveGames />
           </section>
 
