@@ -86,14 +86,16 @@ const Navbar = () => {
     >
       <div className="flex w-full justify-between">
         <div className="flex space-x-4">
-          <div className="rounded-btn btn flex cursor-pointer items-center justify-center border-none bg-inherit text-sm font-semibold normal-case text-base-content hover:bg-base-300 md:text-xl">
-            <span className="mb-3">UKFantasy</span>
-            <Image src={logo} width={60} height={60} alt="logo" />
-          </div>
+          <Link href={"/"}>
+            <div className="rounded-btn btn flex cursor-pointer items-center justify-center border-none bg-inherit text-sm font-semibold normal-case text-base-content hover:bg-base-300 md:text-xl">
+              <span className="mb-3">UKFantasy</span>
+              <Image src={logo} width={60} height={60} alt="logo" />
+            </div>
+          </Link>
         </div>
         <div className="flex items-center space-x-2">
           <LoginBtn primary={true} />
-          <label className="swap-rotate swap p-1">
+          <label className="swap swap-rotate p-1">
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"
