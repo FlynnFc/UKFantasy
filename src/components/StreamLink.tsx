@@ -12,7 +12,7 @@ const StreamLink = (props: stream) => {
         rel="noreferrer"
       >
         <div
-          className={`tooltip rounded-btn flex w-full min-w-0 cursor-pointer items-center justify-between gap-1 p-2 text-center transition-all hover:bg-neutral/20`}
+          className={`tooltip rounded-btn flex w-full min-w-0 cursor-pointer items-center justify-between gap-1 p-2 text-center transition-all hover:bg-base-200`}
           data-tip="Go to channel"
         >
           <div className="inline-block w-full min-w-0 flex-col items-start text-left">
