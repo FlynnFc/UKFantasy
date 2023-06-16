@@ -1,39 +1,66 @@
-import Link from "next/link";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import Round from "../../../components/Round";
 import { AiOutlineCheckCircle, AiOutlineInfoCircle } from "react-icons/ai";
+import { getSession } from "next-auth/react";
+import { PlayerTeam } from "@prisma/client";
 
-export async function getServerSideProps(context: any) {
-  const url = context.req.url;
-  console.log(url);
-  const res = await fetch(
-    "https://esportsfantasy.app/api/allUserTeamsByLeague",
-    {
-      method: "GET",
-      headers: { url: JSON.stringify(url) },
-    }
-  );
+export async function getServerSideProps({ req }: any) {
+  const session = await getSession({ req });
+
+  const path = "http://localhost:3000/";
+  // const path = "https://uk-fantasy.vercel.app/";
+  const url = req.url;
+  const res = await fetch(`${path}api/allUserTeamsByLeague`, {
+    method: "GET",
+    headers: { url: JSON.stringify(url) },
+  });
   const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-  };
+
+  const res2 = await fetch(`${path}/api/allAdmins`, {
+    method: "GET",
+  });
+  if (!res.ok) {
+    console.error("error");
+  }
+  const temp = await res2.json();
+  const admins = new Set(temp.map((el: { id: string }) => el.id));
+
+  console.log(data);
+  if (admins.has(session?.user?.id)) {
+    return {
+      props: {
+        data,
+      },
+    };
+  } else
+    return {
+      redirect: {
+        destination: "/epic39",
+        permanent: false,
+      },
+    };
 }
 
-const Index = (props: any) => {
+const Index = (props: { data: any }) => {
   const router = useRouter();
   const leagueName = useMemo(() => {
     const word = router.query.league as string;
     const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
     return capitalized;
   }, [router.query]);
-  router.query;
-  const currentRound = useMemo(
-    () => props.data[0].SelectedPlayer[1].points,
-    [props.data]
-  );
+
+  const currentRound = useMemo(() => {
+    if (props.data[0]?.SelectedPlayer) {
+      const players = props.data[0].SelectedPlayer;
+      let mostPlayedplayer: number[] = [];
+      for (let i = 0; i < players.length; i++) {
+        if (players[i].points.length > mostPlayedplayer.length)
+          mostPlayedplayer = [...players[i].points];
+      }
+      return mostPlayedplayer;
+    } else return [];
+  }, [props.data]);
 
   const [selectedRound, setSelectedRound] = useState(currentRound.length + 1);
   return (
