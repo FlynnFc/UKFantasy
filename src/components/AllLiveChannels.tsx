@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import StreamLink from "./StreamLink";
-import { set } from "zod";
+
+import LocalLoading from "./LocalLoading";
 
 export type stream = {
   user_name: string;
@@ -12,33 +13,18 @@ export type stream = {
 const AllLiveChannels = () => {
   const [expanded, setExpanded] = useState(false);
   const [streams, setStreams] = useState<stream[]>();
+  const [streamLoading, setStreamLoading] = useState(true);
 
   useEffect(() => {
     const getStreams = async () => {
       const res = await fetch("/api/allTwitchStreams");
       if (!res.ok) return;
       const data = await res.json();
+      setStreamLoading(false);
       setStreams(data.data);
     };
     getStreams();
   }, []);
-  //Only displaying live channels
-  // useEffect(() => {
-  //   const data = tempData.filter((el, idx) => {
-  //     if (!expanded && idx > 5) {
-  //       return;
-  //     } else if (!el.live) {
-  //       return;
-  //     } else {
-  //       return el;
-  //     }
-  //   });
-  //   //sorting by Viewers hi-low
-  //   data.sort((a, b) => b.viewers - a.viewers);
-  //   setStreams(data);
-  // }, [expanded]);
-
-  console.log(streams);
 
   return (
     <div className="rounded-btn bg-base-300 p-5 shadow-lg">
@@ -46,8 +32,9 @@ const AllLiveChannels = () => {
         Verified streams
       </h2>
       <ul className="items-left mt-3 flex w-full flex-col justify-center gap-1 p-1 text-left">
-        {streams?.length
-          ? streams?.map((el) => {
+        {!streamLoading ? (
+          streams?.length ? (
+            streams?.map((el) => {
               return (
                 <StreamLink
                   key={el.user_name}
@@ -58,7 +45,12 @@ const AllLiveChannels = () => {
                 />
               );
             })
-          : "No live streams"}
+          ) : (
+            "No live streams"
+          )
+        ) : (
+          <LocalLoading />
+        )}
 
         <p
           className="link-secondary link mt-2 text-center"

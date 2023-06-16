@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import StreamLink from "./StreamLink";
 
 export type stream = {
-  channelName: string;
+  user_name: string;
   live: boolean;
-  streamTitle: string;
-  viewers: number;
+  title: string;
+  viewer_count: number;
 };
 
 export type gameData = {
@@ -17,46 +17,46 @@ export type gameData = {
 
 const tempData: stream[] = [
   {
-    channelName: "Edeninho_",
+    user_name: "Edeninho_",
     live: true,
-    streamTitle: "Getting grouped? Maybe! Klon Super coach",
-    viewers: 2,
+    title: "Getting grouped? Maybe! Klon Super coach",
+    viewer_count: 2,
   },
   {
-    channelName: "fenomm",
+    user_name: "fenomm",
     live: true,
-    streamTitle: "YOOOO playing last ever IEM Kettering!",
-    viewers: 22,
+    title: "YOOOO playing last ever IEM Kettering!",
+    viewer_count: 22,
   },
   {
-    channelName: "meffewcs",
+    user_name: "meffewcs",
     live: true,
-    streamTitle: "Last Epic Group stage",
-    viewers: 9,
+    title: "Last Epic Group stage",
+    viewer_count: 9,
   },
   {
-    channelName: "EPICLAN1",
+    user_name: "EPICLAN1",
     live: true,
-    streamTitle: "LIVE!! EpicLan Day 0 Into the Breach vs Binmen",
-    viewers: 6,
+    title: "LIVE!! EpicLan Day 0 Into the Breach vs Binmen",
+    viewer_count: 6,
   },
   {
-    channelName: "EPICLAN2",
+    user_name: "EPICLAN2",
     live: true,
-    streamTitle: "Last Epic Day 0",
-    viewers: 1311,
+    title: "Last Epic Day 0",
+    viewer_count: 1311,
   },
   {
-    channelName: "Neul",
+    user_name: "Neul",
     live: true,
-    streamTitle: "Game week 4",
-    viewers: 6,
+    title: "Game week 4",
+    viewer_count: 6,
   },
   {
-    channelName: "Haznoodle",
+    user_name: "Haznoodle",
     live: true,
-    streamTitle: "Pugs & Groups",
-    viewers: 1,
+    title: "Pugs & Groups",
+    viewer_count: 1,
   },
 ];
 
@@ -114,8 +114,8 @@ const LiveGamesExample = () => {
         return el;
       }
     });
-    //sorting by Viewers hi-low
-    data.sort((a, b) => b.viewers - a.viewers);
+    //sorting by viewer_count hi-low
+    data.sort((a, b) => b.viewer_count - a.viewer_count);
     setStreams(data);
   }, [expanded]);
 
@@ -127,11 +127,11 @@ const LiveGamesExample = () => {
           ? streams?.map((el) => {
               return (
                 <StreamLink
-                  key={el.channelName}
-                  streamTitle={el.streamTitle}
-                  channelName={el.channelName}
+                  key={el.user_name}
+                  title={el.title}
+                  user_name={el.user_name}
                   live={el.live}
-                  viewers={el.viewers}
+                  viewer_count={el.viewer_count}
                 />
               );
             })
