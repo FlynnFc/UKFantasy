@@ -15,6 +15,8 @@ const AllLiveChannels = () => {
   const [streams, setStreams] = useState<stream[]>();
   const [streamLoading, setStreamLoading] = useState(true);
 
+  console.log(streams);
+
   useEffect(() => {
     const getStreams = async () => {
       const res = await fetch("/api/allTwitchStreams");
