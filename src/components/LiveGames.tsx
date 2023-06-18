@@ -33,28 +33,21 @@ const LiveGames = () => {
               }
               return (
                 <li key={el.team1.name}>
-                  <a
-                    href={`https://hltv.org/`}
-                    target="_blank"
-                    rel="noreferrer"
+                  <div
+                    className={`rounded-btn btn-lg btn grid w-full min-w-0 cursor-default grid-cols-3 gap-1 border-0 bg-green-500/40 p-2  text-center text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
                   >
-                    <div
-                      className={`tooltip rounded-btn btn-lg btn grid w-full min-w-0 cursor-pointer grid-cols-3 gap-1 border-0 bg-green-500/40 p-2  text-center text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
-                      data-tip="Go to channel"
-                    >
-                      <div className="flex flex-col items-start">
-                        <span>{el.team1.name}</span>
-                        <span className="text-xs">{el.map}</span>
-                      </div>
-                      <div>VS</div>{" "}
-                      <div className="flex flex-col items-end">
-                        <span>{el.team2.name}</span>
-                        <span className="text-xs font-medium text-red-500">
-                          {el.team1.score}-{el.team2.score}
-                        </span>
-                      </div>
+                    <div className="flex flex-col items-start">
+                      <span>{el.team1.name}</span>
+                      <span className="text-xs">{el.map}</span>
                     </div>
-                  </a>
+                    <div>VS</div>{" "}
+                    <div className="flex flex-col items-end">
+                      <span>{el.team2.name}</span>
+                      <span className="text-xs font-medium text-red-500">
+                        {el.team1.score}-{el.team2.score}
+                      </span>
+                    </div>
+                  </div>
                 </li>
               );
             })

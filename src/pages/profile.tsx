@@ -1,24 +1,20 @@
 import { getSession, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { AiOutlineEdit } from "react-icons/ai";
+
 import {
   MdHome,
   MdOutlineAdminPanelSettings,
-  MdOutlineLogout,
-  MdPayment,
   MdQueryStats,
   MdSettings,
 } from "react-icons/md";
 import { CgSpinner } from "react-icons/cg";
-import Loading from "../components/Loading";
+
 import Settings from "../components/Settings";
 import Head from "next/head";
 import { BiLogOut } from "react-icons/bi";
-import { useRouter } from "next/router";
-import { TbArrowUpRight } from "react-icons/tb";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });

@@ -54,8 +54,6 @@ const PlayerGroupSkeleton = (props: {
     else setScrolled(false);
   }, [y]);
 
-  console.log(y);
-
   //Delays setting state until user stops typing
   const inputHandler = (e: string) => {
     if (timer) {

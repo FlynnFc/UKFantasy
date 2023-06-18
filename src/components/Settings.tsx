@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Filter from "bad-words";
 

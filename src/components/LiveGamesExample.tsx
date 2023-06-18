@@ -20,13 +20,13 @@ const tempData: stream[] = [
     user_name: "Edeninho_",
     live: true,
     title: "Getting grouped? Maybe! Klon Super coach",
-    viewer_count: 2,
+    viewer_count: 8,
   },
   {
     user_name: "fenomm",
     live: true,
     title: "YOOOO playing last ever IEM Kettering!",
-    viewer_count: 22,
+    viewer_count: 122,
   },
   {
     user_name: "meffewcs",
@@ -45,6 +45,12 @@ const tempData: stream[] = [
     live: true,
     title: "Last Epic Day 0",
     viewer_count: 1311,
+  },
+  {
+    user_name: "esl_csgo",
+    live: true,
+    title: "Last Epic Day 0",
+    viewer_count: 11231,
   },
   {
     user_name: "Neul",
@@ -119,7 +125,6 @@ const LiveGamesExample = () => {
     setStreams(data);
   }, [expanded]);
 
-  console.log(streams);
   return (
     <section className="rounded-btn m-2 flex w-auto flex-col justify-between gap-2 lg:flex-row">
       <ul className=" items-left rounded-btn my-3 flex flex-col justify-center gap-1 bg-base-100 px-2 py-2 text-left lg:w-1/4">
@@ -145,39 +150,35 @@ const LiveGamesExample = () => {
               }
               return (
                 <li key={el.team1.name}>
-                  <a
-                    href={`https://hltv.org/`}
-                    target="_blank"
-                    rel="noreferrer"
+                  <div
+                    className={`rounded-btn  btn grid h-auto w-full min-w-0 cursor-default grid-cols-3 gap-1 border-0 bg-green-500/40 p-2 text-center  text-lg text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
                   >
-                    <div
-                      className={`rounded-btn  btn grid h-auto w-full min-w-0 cursor-pointer grid-cols-3 gap-1 border-0 bg-green-500/40 p-2 text-center  text-lg text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
-                    >
-                      <div className="flex flex-col items-start">
-                        <span>{el.team1.name}</span>
-                        <span className="text-xs">{el.map}</span>
-                      </div>
-                      <div>VS</div>{" "}
-                      <div className="flex flex-col items-end">
-                        <span>{el.team2.name}</span>
-                        <span className="text-xs text-red-400">
-                          {el.team1.score}-{el.team2.score}
-                        </span>
-                      </div>
+                    <div className="flex flex-col items-start">
+                      <span>{el.team1.name}</span>
+                      <span className="text-xs">{el.map}</span>
                     </div>
-                  </a>
+                    <div>VS</div>{" "}
+                    <div className="flex flex-col items-end">
+                      <span>{el.team2.name}</span>
+                      <span className="text-xs text-red-400">
+                        {el.team1.score}-{el.team2.score}
+                      </span>
+                    </div>
+                  </div>
                 </li>
               );
             })
           : "No live Games"}
       </ul>
       <div className="rounded-btn my-3 flex items-center justify-center bg-base-100 px-4">
-        <iframe
-          className="rounded-btn"
-          src="https://player.twitch.tv/?channel=esl_csgo&parent=esportsfantasy.app"
-          height="360"
-          width="640"
-        ></iframe>
+        {streams && (
+          <iframe
+            className="rounded-btn"
+            src={`https://player.twitch.tv/?channel=${streams[0]?.user_name}&parent=esportsfantasy.app`}
+            height="360"
+            width="640"
+          ></iframe>
+        )}
       </div>
     </section>
   );

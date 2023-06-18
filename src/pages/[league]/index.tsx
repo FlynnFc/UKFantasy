@@ -13,6 +13,7 @@ import Table from "../../components/Table";
 import Head from "next/head";
 import AllLiveChannels, { stream } from "../../components/AllLiveChannels";
 import LiveGames from "../../components/LiveGames";
+import OfficialStreamEmbed from "../../components/OfficialStreamEmbed";
 
 export async function getStaticProps() {
   const res = await fetch("https://esportsfantasy.app/api/allLeagues");
@@ -159,33 +160,7 @@ const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-        {/* <OfficialStreamEmbed /> */}
-        {/* {createModal && !userHasTeam && status === "authenticated" && (
-          <div className="fixed bottom-2 right-2 z-20 rounded-lg bg-base-content p-2">
-            <div
-              onClick={() => setCreateModal(false)}
-              className="absolute right-3 cursor-pointer  text-base-100"
-            >
-              <b>X</b>
-            </div>
-            <h2 className="px-7 pb-2 pt-6 text-xl font-semibold text-base-100">
-              You have not registered a team for this League!
-            </h2>
-            <p className="px-7 font-semibold text-base-100">
-              To enter this league you need to create a team
-            </p>
-            <div className="mx-3  flex w-full flex-row justify-start p-6">
-              <Link href={`${query.league}/create`}>
-                <button
-                  onClick={() => setLoading(true)}
-                  className="btn-primary btn w-max outline"
-                >
-                  Create Team
-                </button>
-              </Link>
-            </div>
-          </div>
-        )} */}
+        <OfficialStreamEmbed />
         {loading && <Loading />}
         <div className="rounded-btn mt-14 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg md:px-8">
           <h1 className="text-4xl font-bold">
