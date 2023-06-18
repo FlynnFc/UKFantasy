@@ -31,6 +31,7 @@ const words = [
   "c0cks",
   "c0k",
   "Carpet Muncher",
+  "curry Muncher",
   "cawk",
   "cawks",
   "Clit",
