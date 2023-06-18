@@ -323,9 +323,9 @@ const Create = (props: {
                     if (teamName === "Your Team") {
                       toast.error("Please enter a team name");
                       return;
-                    } else if (teamName.length < 5) {
+                    } else if (teamName.length < 4) {
                       toast.error(
-                        "The team name needs to be at least 5 characters"
+                        "The team name needs to be at least 4 characters"
                       );
                     } else if (myfilter.trickey(teamName) !== null) {
                       toast.error("No naughty words please!");
