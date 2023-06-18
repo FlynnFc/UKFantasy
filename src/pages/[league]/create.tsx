@@ -13,6 +13,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import StandaloneSignIn from "../../components/StandaloneSignIn";
 import Filter from "bad-words";
+import MyFilter from "../../utils/profanityFilter/lib/badwords";
 
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
@@ -38,6 +39,7 @@ export type player = {
   playerTeam: string;
 };
 
+const myfilter = new MyFilter();
 const filter = new Filter();
 
 const Create = (props: {
@@ -325,7 +327,7 @@ const Create = (props: {
                       toast.error(
                         "The team name needs to be at least 5 characters"
                       );
-                    } else if (teamName !== filter.clean(teamName)) {
+                    } else if (myfilter.trickey(teamName) !== null) {
                       toast.error("No naughty words please!");
                     } else submit();
                   }}
