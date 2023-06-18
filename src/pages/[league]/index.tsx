@@ -160,7 +160,6 @@ const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
-        <OfficialStreamEmbed />
         {loading && <Loading />}
         <div className="rounded-btn mt-14 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg md:px-8">
           <h1 className="text-4xl font-bold">
