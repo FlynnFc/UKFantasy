@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import * as XLSX from "xlsx";
+import PointCalcForm from "./PointCalcForm";
 
 const Round = (props: { data: []; selectedRound: number }) => {
   const admins = useMemo(() => new Set(["mastare.flynn@gmail.com"]), []);
@@ -9,6 +10,7 @@ const Round = (props: { data: []; selectedRound: number }) => {
   const [authorised, setAuthorised] = useState(false);
   const [file, setFile] = useState<any>();
   const [sheetName, setSheetName] = useState("");
+  const [calculateType, setCalculateType] = useState("");
   const current = useMemo(() => props.selectedRound, [props.selectedRound]);
 
   // const [formData, setFormData] = useState({});
@@ -121,51 +123,75 @@ const Round = (props: { data: []; selectedRound: number }) => {
     <div className="mt-5 w-full">
       <Toaster />
       {authorised ? (
-        <section className="flex w-full flex-col justify-start gap-2">
+        <section className="flex w-full flex-col items-center justify-start gap-2">
           <h1 className="text-center text-3xl">
-            {`Submit stats for round `}
+            {`Submit stats for round`}
             <span className="text-4xl text-orange-500">{current}</span>
           </h1>
-          <form
-            onSubmit={submit}
-            className="mt-8 flex w-full flex-col items-center justify-center gap-4"
-          >
-            <div className="rounded-btn flex flex-col space-y-3 bg-base-300 p-6 text-xl">
-              <div>
-                <label className="label" htmlFor="sheetName">
-                  What sheet features the points and bonus columns?
+          <div className="rounded-btn mt-8 flex w-full max-w-2xl flex-col items-center justify-center bg-base-300">
+            <form
+              onSubmit={submit}
+              className="flex w-full flex-col gap-4 px-4 pt-4"
+            >
+              <div className="flex items-start justify-start">
+                <label htmlFor="selctingtype" className="label text-xl">
+                  What processing do you need for this submission?
                 </label>
-                <input
-                  onChange={(e) => setSheetName(e.target.value)}
-                  required
-                  className="input w-full"
-                  type="text"
-                  name="sheetName"
-                  id="sheetName"
-                  placeholder="sheet name"
-                />
               </div>
+              <select
+                onChange={(e) => setCalculateType(e.target.value)}
+                className="select w-full"
+                name="sheetType"
+                id="sheetType"
+              >
+                <option value="precalculated">Pre-calculated</option>
+                <option value="calculate">Calculate for me</option>
+              </select>
+              <progress
+                className="progress progress-primary w-full"
+                value="100"
+                max="100"
+              ></progress>
+              {calculateType === "precalculated" && (
+                <div className="rounded-btn flex w-full flex-col gap-3 pb-4 text-xl">
+                  <div>
+                    <label className="label" htmlFor="sheetName">
+                      What sheet features the points and bonus columns?
+                    </label>
+                    <input
+                      onChange={(e) => setSheetName(e.target.value)}
+                      required
+                      className="input w-full"
+                      type="text"
+                      name="sheetName"
+                      id="sheetName"
+                      placeholder="sheet name"
+                    />
+                  </div>
 
-              <div>
-                <label className="label" htmlFor="file">
-                  File upload
-                </label>
-                <input
-                  required
-                  onChange={(e) => setFile(e.target.files)}
-                  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                  className="file-input w-full"
-                  type="file"
-                  name="roundFile"
-                  id="roundFile"
-                />
-              </div>
+                  <div>
+                    <label className="label" htmlFor="file">
+                      File upload
+                    </label>
+                    <input
+                      required
+                      onChange={(e) => setFile(e.target.files)}
+                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                      className="file-input w-full"
+                      type="file"
+                      name="roundFile"
+                      id="roundFile"
+                    />
+                  </div>
 
-              <button type="submit" className="btn-primary btn">
-                Submit round
-              </button>
-            </div>
-          </form>
+                  <button type="submit" className="btn-primary btn">
+                    Submit round
+                  </button>
+                </div>
+              )}
+            </form>
+            {calculateType !== "precalculated" && <PointCalcForm />}
+          </div>
         </section>
       ) : (
         <div className="flex min-h-screen flex-col items-center justify-center">

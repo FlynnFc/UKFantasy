@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import Round from "../../../components/Round";
 import { AiOutlineCheckCircle, AiOutlineInfoCircle } from "react-icons/ai";
 import { getSession } from "next-auth/react";
-import { PlayerTeam } from "@prisma/client";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
@@ -44,6 +43,7 @@ export async function getServerSideProps({ req }: any) {
 
 const Index = (props: { data: any }) => {
   const router = useRouter();
+
   const leagueName = useMemo(() => {
     const word = router.query.league as string;
     const capitalized = word.charAt(0).toUpperCase() + word.slice(1);
@@ -90,12 +90,14 @@ const Index = (props: { data: any }) => {
           }`}
         >{`Round ${currentRound.length + 1}`}</button>
       </div>
+
       <Round data={props.data} selectedRound={selectedRound} />
       <div className="collapse w-max bg-info text-info-content">
         <input type="checkbox" />
         <div className="collapse-title flex flex-row gap-1 text-xl font-medium">
           What format does the file need to follow? <AiOutlineInfoCircle />
         </div>
+
         <div className="collapse-content rounded-btn w-[36rem]">
           <ul className="flex flex-col items-start gap-1">
             <li className="flex flex-row items-center justify-center gap-2">
