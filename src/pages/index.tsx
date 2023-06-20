@@ -1,11 +1,7 @@
 import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
-import Image from "next/image";
+
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import team from "../../public/teamcreation.jpg";
-import bonuses from "../../public/apply bonuses.jpg";
+
 import { motion } from "framer-motion";
 import SiteShowcase from "../components/SiteShowcase";
 const Home: NextPage = () => {

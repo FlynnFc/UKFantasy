@@ -13,7 +13,6 @@ import Table from "../../components/Table";
 import Head from "next/head";
 import AllLiveChannels, { stream } from "../../components/AllLiveChannels";
 import LiveGames from "../../components/LiveGames";
-import OfficialStreamEmbed from "../../components/OfficialStreamEmbed";
 
 export async function getStaticProps() {
   const res = await fetch("https://esportsfantasy.app/api/allLeagues");
