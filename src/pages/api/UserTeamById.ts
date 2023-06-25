@@ -11,7 +11,7 @@ const allUserTeams = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const userTeams = await prisma.playerTeam.findUnique({where:{id: id}, include:{ SelectedPlayer:{include: {bonus:true,points:true}}, User:true,}})
+        const userTeams = await prisma.playerTeam.findUnique({where:{id: id}, include:{ SelectedPlayer:{include: {bonus:true,points:true,bonusPoint:true}}, User:true,}})
         console.log(userTeams)
         res.status(200).json(userTeams)
       } catch (e) {

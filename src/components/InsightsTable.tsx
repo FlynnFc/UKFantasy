@@ -24,7 +24,11 @@ const InsightsTable = (props: any) => {
       let total = 0;
       el.points.map((el) => (total += el.value));
       let bonusTotal = 0;
-      el.bonusPoint.map((el: { value: number }) => (bonusTotal += el.value));
+      console.log(el.bonusPoint);
+      if (el.bonusPoint.length > 0) {
+        el.bonusPoint.map((el: { value: number }) => (bonusTotal += el.value));
+      }
+
       const playersPointsRow = [];
       for (let index = 0; index < rounds!; index++) {
         playersPointsRow.push(

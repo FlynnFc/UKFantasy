@@ -16,7 +16,7 @@ type bonus = {
 };
 
 export type player = {
-  bonusPoint: any;
+  bonusPoint: { value: number }[];
   id: string;
   name: string;
   price: number;

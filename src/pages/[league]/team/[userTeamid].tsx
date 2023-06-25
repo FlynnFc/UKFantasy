@@ -7,18 +7,7 @@ import Loading from "../../../components/Loading";
 import { MyPlayer } from "../../../components/myPlayer";
 import Head from "next/head";
 import InsightsTable from "../../../components/InsightsTable";
-import { teamProps } from "../myteam";
-
-type player = {
-  bonus: { name: string; description: string };
-  id: string;
-  name: string;
-  price: number;
-  rareity: string;
-  teamId: string;
-  statsId: string;
-  image: string;
-};
+import { teamProps, player } from "../myteam";
 
 type playerTeam = {
   User: any;
@@ -51,6 +40,8 @@ const UserTeam = () => {
     };
     fetcher();
   }, [query.userTeamid]);
+
+  console.log(team);
 
   return (
     <>
