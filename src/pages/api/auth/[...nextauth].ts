@@ -35,7 +35,6 @@ export default async function handler(
     ], pages:{
         signIn: "/auth/signin"
       },
-
   })
 }
 
