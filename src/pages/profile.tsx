@@ -28,8 +28,9 @@ export async function getServerSideProps({ req }: any) {
     console.error("error");
   }
   const temp = await res.json();
-  const admins = new Set(temp.map((el: { id: string }) => el.id));
-  const isAdmin = admins.has(session?.user?.id);
+  const admins = new Set(temp.map((el: { email: string }) => el.email));
+
+  const isAdmin = admins.has(session?.user?.email);
 
   return {
     props: {
