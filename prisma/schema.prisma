@@ -105,6 +105,7 @@ model PlayerTeam {
   leagueId       String?
   userId         String?
   SelectedPlayer SelectedPlayer[]
+  ready          Boolean          @default(false)
 
   @@index([leagueId])
   @@index([userId])

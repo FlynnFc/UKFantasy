@@ -181,8 +181,9 @@ const Myteam = (props: { data: bonus[] }) => {
   };
 
   const HandleBonusSubmit = async () => {
+    const data = { ...team, id: session?.user?.id };
     if (team) {
-      const JSONbody = await JSON.stringify(team);
+      const JSONbody = await JSON.stringify(data);
       const res = await fetch("/api/updateTeamBonuses", {
         method: "POST",
         body: JSONbody,
