@@ -129,7 +129,6 @@ model SelectedPlayer {
   trade_me     Int
   stat_padder  Int
   head_clicker Int
-  all_rounder  Int
   points       point[]
 
   @@index([bonusName])
@@ -142,8 +141,6 @@ model point {
   value            Int
   SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id])
   selectedPlayerId String?
-
-  @@index([selectedPlayerId])
 }
 
 model Team {

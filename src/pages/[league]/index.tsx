@@ -77,6 +77,7 @@ const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
     fetch("/api/allUserTeams")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         data.forEach((el: { league: { name: string } }) => {
           if (el.league?.name.toLowerCase() === query.league) {
             tempData.push(el);

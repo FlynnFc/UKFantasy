@@ -8,8 +8,8 @@ export default async function assetHandler(req:NextApiRequest, res:NextApiRespon
     const allPrismaQueries = []
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
-    const test = prisma.selectedPlayer.update({where:{id:element.id}, data:{points:{create:{value:element.points}}}})
-    allPrismaQueries.push(test)
+    const query = prisma.selectedPlayer.update({where:{id:element.id}, data:{points:{create:{value:element.points}}}})
+    allPrismaQueries.push(query)
     }
 
     console.log(allPrismaQueries)
