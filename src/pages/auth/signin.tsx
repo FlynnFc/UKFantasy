@@ -1,5 +1,5 @@
 import { getProviders, signIn } from "next-auth/react";
-import { SiSteam, SiTwitter, SiGoogle } from "react-icons/si";
+import { SiSteam, SiTwitter } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -25,9 +25,7 @@ export default function SignIn(props: { providers: any }) {
                   >
                     <button
                       className={`btn-lg btn flex w-[20rem] justify-center border-none bg-[#1D9BF0] text-xl text-white hover:bg-[#1876b4] `}
-                      onClick={() =>
-                        signIn(provider.id, { callbackUrl: "/leagues" })
-                      }
+                      onClick={() => signIn(provider.id, { callbackUrl: url })}
                     >
                       Sign in with {provider.name}
                       <SiTwitter className="mx-4 inline" />
@@ -60,9 +58,7 @@ export default function SignIn(props: { providers: any }) {
                     <button
                       disabled
                       className={`btn-lg btn flex w-[20rem] justify-center border-none bg-gray-800 text-xl text-white hover:bg-gray-900  `}
-                      onClick={() =>
-                        signIn(provider.id, { callbackUrl: "/leagues" })
-                      }
+                      onClick={() => signIn(provider.id, { callbackUrl: url })}
                     >
                       Sign in with {provider.name}
                       <SiSteam className="mx-4 inline" />
