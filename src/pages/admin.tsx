@@ -11,6 +11,8 @@ import {
 } from "react-icons/bs";
 import { GrScorecard } from "react-icons/gr";
 import { MdOutlineScoreboard } from "react-icons/md";
+import Points from "../components/AdminPages/Points";
+import Bonuses from "../components/AdminPages/Bonuses";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
@@ -52,19 +54,26 @@ export async function getServerSideProps({ req }: any) {
 const Admin = (props: {
   data: [{ id: string; name: string; offical: boolean }];
 }) => {
+  const [page, setPage] = useState("points");
   return (
     <div
       className={`min-w-screen container flex min-h-screen w-screen max-w-xl flex-row`}
     >
-      <div className="rounded-btn my-2 ml-2 w-[30rem] bg-neutral p-4 shadow">
+      <div className="rounded-btn my-2 ml-2 w-max bg-neutral p-4 px-6 shadow">
         <h1 className="mb-4 flex flex-row items-center justify-start gap-2 text-left text-2xl">
           <BiBarChartAlt2 /> Dashboard
         </h1>
         <ul className="flex flex-col gap-5 text-xl text-neutral-content ">
-          <li className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus">
+          <li
+            onClick={() => setPage("points")}
+            className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
+          >
             <BsFillCalculatorFill /> Points
           </li>
-          <li className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus">
+          <li
+            onClick={() => setPage("bonuses")}
+            className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
+          >
             <BsFillCollectionFill />
             Bonuses
           </li>
@@ -77,25 +86,10 @@ const Admin = (props: {
         </ul>
       </div>
       <div
-        className={`flex flex-row items-start justify-center gap-4 px-4 py-2`}
+        className={`flex w-11/12 flex-row items-start justify-center gap-4 px-4 py-2`}
       >
-        {props.data.map((el) => {
-          return (
-            <div
-              key={el.id}
-              className="rounded-btn flex h-min min-w-max flex-col gap-2 bg-base-content p-4 uppercase text-base-100 shadow"
-            >
-              <h1 className="text-center text-2xl">{el.name}</h1>
-              <div className="flex flex-row gap-2">
-                <Link passHref href={`/${el.name.toLowerCase()}/points`}>
-                  <a className="btn-sm btn cursor-pointer" target="_blank">
-                    Apply points
-                  </a>
-                </Link>
-              </div>
-            </div>
-          );
-        })}
+        {page === "points" && <Points data={props.data} />}
+        {page === "bonuses" && <Bonuses />}
       </div>
     </div>
   );

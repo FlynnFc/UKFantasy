@@ -23,10 +23,10 @@ export async function getServerSideProps({ req }: any) {
     console.error("error");
   }
   const temp = await res2.json();
-  const admins = new Set(temp.map((el: { id: string }) => el.id));
+  const admins = new Set(temp.map((el: { email: string }) => el.email));
 
   console.log(data);
-  if (admins.has(session?.user?.id)) {
+  if (admins.has(session?.user?.email)) {
     return {
       props: {
         data,
@@ -92,29 +92,6 @@ const Index = (props: { data: any }) => {
       </div>
 
       <Round data={props.data} selectedRound={selectedRound} />
-      <div className="collapse w-max bg-info text-info-content">
-        <input type="checkbox" />
-        <div className="collapse-title flex flex-row gap-1 text-xl font-medium">
-          What format does the file need to follow? <AiOutlineInfoCircle />
-        </div>
-
-        <div className="collapse-content rounded-btn w-[36rem]">
-          <ul className="flex flex-col items-start gap-1">
-            <li className="flex flex-row items-center justify-center gap-2">
-              <AiOutlineCheckCircle className="text-xl" /> There must be a
-              points, steamid, and name column
-            </li>
-            <li className="flex flex-row items-center justify-center gap-2">
-              <AiOutlineCheckCircle className="text-xl" /> The points column
-              must include numbers exclusively
-            </li>
-            <li className="flex flex-row items-center justify-center gap-2">
-              <AiOutlineCheckCircle className="text-xl" /> Must use steamid64
-              (76561198.....)
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
   );
 };
