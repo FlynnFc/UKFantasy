@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 const Home: NextPage = () => {
   // const router = useRouter();
   const { status, data } = useSession();
-  console.log("asdsad", status);
+  console.log("asdsad", data);
   // useEffect(() => {
   //   if (status === "authenticated") {
   //     router.push("/leagues");

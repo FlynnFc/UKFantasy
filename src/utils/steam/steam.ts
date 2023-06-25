@@ -106,7 +106,8 @@ console.log(matches)
     profile(profile: SteamProfile) {
       // next.js can't serialize the session if email is missing or null, so I specify user ID
       return {
-        id: profile.steamid,
+        id: randomUUID(),
+        steamid: profile.steamid,
         image: profile.avatarfull,
         email: `${profile.personaname}@${EMAIL_DOMAIN}`,
         name: profile.personaname
