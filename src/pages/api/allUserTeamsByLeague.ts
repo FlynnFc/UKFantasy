@@ -10,7 +10,7 @@ const allUserTeamsByLeague = async (req: NextApiRequest, res: NextApiResponse) =
   switch (method) {
     case 'GET':
       try {
-        const userTeams = await prisma.playerTeam.findMany({where:{league:{name:processed[1]}},include:{SelectedPlayer:{include:{points:true}}}})
+        const userTeams = await prisma.playerTeam.findMany({where:{league:{name:processed[1]}},include:{SelectedPlayer:{include:{points:true,bonusPoint:true}}}})
         res.status(200).json(userTeams)
       } catch (e) {
         console.error('Request error', e)
