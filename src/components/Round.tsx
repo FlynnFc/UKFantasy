@@ -190,7 +190,9 @@ const Round = (props: { data: []; selectedRound: number }) => {
                 </div>
               )}
             </form>
-            {calculateType !== "precalculated" && <PointCalcForm />}
+            {calculateType !== "precalculated" && (
+              <PointCalcForm data={props.data} />
+            )}
           </div>
         </section>
       ) : (
