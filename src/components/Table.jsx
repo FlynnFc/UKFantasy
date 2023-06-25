@@ -19,11 +19,13 @@ const Table = (props) => {
         return;
       } else {
         setChecker((prev) => new Set([...prev, el.id]));
-        const totalPoints = 0;
-        console.log(el.SelectedPlayer);
+        const points = 0;
+        const bonusPoints = 0;
         el.SelectedPlayer.forEach((element) => {
-          element.points.forEach((el) => (totalPoints += el.value));
+          element.points.forEach((el) => (points += el.value));
+          element.bonusPoint.forEach((el) => (bonusPoints += el.value));
         });
+
         setPlayerData((prev) => {
           return [
             ...prev,
@@ -36,16 +38,23 @@ const Table = (props) => {
                   league={query.league}
                 />
               ),
-              points: totalPoints,
-              rolepoints: el.rolePoints,
-              totalpoints: parseInt(el.points) + parseInt(el.rolePoints),
+              points: points,
+              rolepoints: bonusPoints,
+              totalpoints: points + bonusPoints,
             },
           ];
         });
       }
     });
+
     setLoading(false);
   }, [checker, props.data, query.league]);
+
+  const sortedTeams = useMemo(() => {
+    return playerData.sort((a, b) => b.totalpoints - a.totalpoints);
+  }, [playerData]);
+
+  console.log(sortedTeams);
 
   const submissiondata = useMemo(() => [...playerData], [playerData]);
 
@@ -77,7 +86,8 @@ const Table = (props) => {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns: columns, data: submissiondata }, useSortBy);
-  console.log(playerData.length > 0);
+
+  console.log(playerData);
 
   return (
     <>
