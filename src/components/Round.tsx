@@ -129,70 +129,7 @@ const Round = (props: { data: []; selectedRound: number }) => {
             <span className="text-4xl text-orange-500">{current}</span>
           </h1>
           <div className="rounded-btn mt-8 flex w-full max-w-2xl flex-col items-center justify-center bg-base-300">
-            <form
-              onSubmit={submit}
-              className="flex w-full flex-col gap-4 px-4 pt-4"
-            >
-              <div className="flex items-start justify-start">
-                <label htmlFor="selctingtype" className="label text-xl">
-                  What processing do you need for this submission?
-                </label>
-              </div>
-              <select
-                onChange={(e) => setCalculateType(e.target.value)}
-                className="select w-full"
-                name="sheetType"
-                id="sheetType"
-              >
-                <option value="precalculated">Pre-calculated</option>
-                <option value="calculate">Calculate for me</option>
-              </select>
-              <progress
-                className="progress progress-primary w-full"
-                value="100"
-                max="100"
-              ></progress>
-              {calculateType === "precalculated" && (
-                <div className="rounded-btn flex w-full flex-col gap-3 pb-4 text-xl">
-                  <div>
-                    <label className="label" htmlFor="sheetName">
-                      What sheet features the points and bonus columns?
-                    </label>
-                    <input
-                      onChange={(e) => setSheetName(e.target.value)}
-                      required
-                      className="input w-full"
-                      type="text"
-                      name="sheetName"
-                      id="sheetName"
-                      placeholder="sheet name"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="label" htmlFor="file">
-                      File upload
-                    </label>
-                    <input
-                      required
-                      onChange={(e) => setFile(e.target.files)}
-                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                      className="file-input w-full"
-                      type="file"
-                      name="roundFile"
-                      id="roundFile"
-                    />
-                  </div>
-
-                  <button type="submit" className="btn-primary btn">
-                    Submit round
-                  </button>
-                </div>
-              )}
-            </form>
-            {calculateType !== "precalculated" && (
-              <PointCalcForm data={props.data} />
-            )}
+            <PointCalcForm data={props.data} />
           </div>
         </section>
       ) : (

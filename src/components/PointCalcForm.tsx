@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { json } from "stream/consumers";
 import * as XLSX from "xlsx";
 
 type bigPlayer = {
+  bonusName?: string;
   name: any;
   steamid: any;
   points: number;
@@ -22,6 +22,7 @@ type bigPlayer = {
 const PointCalcForm = (props: { data: [] }) => {
   const [file, setFile] = useState<any>();
   const [data, setData] = useState();
+  const [sheet, setSheet] = useState("");
 
   const submit = (e: any) => {
     toast.promise(handleUpload(e), {
@@ -36,7 +37,7 @@ const PointCalcForm = (props: { data: [] }) => {
     const f = file[0];
     const data = await f.arrayBuffer();
     const workbook = XLSX.read(data);
-    const worksheet: any = workbook.Sheets["Copy of Round 1"];
+    const worksheet: any = workbook.Sheets[sheet];
     const jsonData: any = XLSX.utils.sheet_to_json(worksheet, {
       header: 1,
       defval: "",
@@ -161,27 +162,63 @@ const PointCalcForm = (props: { data: [] }) => {
     return playerPoints;
   };
 
-  const comparer = (points: string | any[], userPlayers: bigPlayer[]) => {
+  const bonusFinder = (element: bigPlayer, bonusName: string) => {
+    let bonus = 0;
+    switch (bonusName) {
+      case "ADR warrior":
+        bonus = element.ADR_warrior;
+        break;
+      case "All rounder":
+        bonus = element.all_rounder;
+        break;
+      case "Clutcher":
+        bonus = element.clutcher;
+        break;
+      case "Head clicker":
+        bonus = element.head_clicker;
+        break;
+      case "PTFO":
+        bonus = element.PTFO;
+        break;
+      case "Site on lock":
+        bonus = element.site_on_lock;
+        break;
+      case "Stat padder":
+        bonus = element.stat_padder;
+        break;
+      case "Trade me":
+        bonus = element.trade_me;
+        break;
+      case "Entry king":
+        bonus = element.entry_king;
+        break;
+      case "Util nerd":
+        bonus = element.util_nerd;
+        break;
+      default:
+        bonus = 0;
+        break;
+    }
+    return bonus;
+  };
+
+  const comparer = (points: bigPlayer[], userPlayers: any[]) => {
     const elements = [];
     for (let index = 0; index < userPlayers.length; index++) {
-      let element: bigPlayer | undefined = userPlayers[index];
+      let element = userPlayers[index];
       for (let index = 0; index < points.length; index++) {
-        const element2: bigPlayer = points[index];
-        if (element?.name === element2.name.toLowerCase() && element) {
+        const element2: bigPlayer | undefined = points[index];
+        if (
+          element?.name === element2?.name.toLowerCase() &&
+          element &&
+          element2
+        ) {
+          const bonus = bonusFinder(element2, element.bonusName);
           element = {
             ...element,
             steamid: element2.steamid,
             points: element2.points,
-            entry_king: element2.entry_king,
-            ADR_warrior: element2.ADR_warrior,
-            util_nerd: element2.util_nerd,
-            PTFO: element2.PTFO,
-            site_on_lock: element2.site_on_lock,
-            clutcher: element2.clutcher,
-            trade_me: element2.trade_me,
-            stat_padder: element2.stat_padder,
-            head_clicker: element2.head_clicker,
-            all_rounder: element2.all_rounder,
+            bonusPoint: bonus,
           };
           elements.push(element);
         }
@@ -195,18 +232,22 @@ const PointCalcForm = (props: { data: [] }) => {
     const processedPlayers = await fileProcesMain(e);
     const allSelectedPlayers: any[] = [];
     currentlySelectedTeams.forEach((el: any) => {
-      el.SelectedPlayer.forEach((el: { name: string; id: string }) =>
-        allSelectedPlayers.push({ name: el.name.toLowerCase(), id: el.id })
+      el.SelectedPlayer.forEach(
+        (el: { name: string; id: string; bonusName: string }) =>
+          allSelectedPlayers.push({
+            name: el.name.toLowerCase(),
+            id: el.id,
+            bonusName: el.bonusName,
+          })
       );
     });
-    console.log(processedPlayers);
     const finalData = comparer(processedPlayers, allSelectedPlayers);
     console.log(finalData);
-    // const res = await fetch("/api/ApplyPoints", {
-    //   method: "POST",
-    //   body: JSON.stringify(finalData),
-    // });
-    // return res;
+    const res = await fetch("/api/ApplyPoints", {
+      method: "POST",
+      body: JSON.stringify(finalData),
+    });
+    return res;
   };
 
   //Point form. Take 62nd col and -1 then * 100 then take 73 cols
@@ -221,12 +262,14 @@ const PointCalcForm = (props: { data: [] }) => {
           What sheet features the players you want to calculate points for?
         </label>
         <input
+          required
+          onChange={(e) => setSheet(e.target.value)}
           type="text"
           name="sheetName"
           className="input w-full"
           placeholder="sheet name"
         />
-      </div>{" "}
+      </div>
       <div>
         <label htmlFor="firstnumber" className="label">
           Calcuation options
@@ -234,7 +277,9 @@ const PointCalcForm = (props: { data: [] }) => {
         <select className=" select w-full" name="calcOptions" id="calcOptions">
           <option value="default">default</option>
           {/* add table to sort through algo options and display here */}
-          <option value="create">create new</option>
+          <option disabled value="create">
+            create new
+          </option>
         </select>
       </div>
       <div>
