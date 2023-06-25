@@ -60,9 +60,6 @@ const Admin = (props: {
       className={`min-w-screen container flex min-h-screen w-screen max-w-xl flex-row`}
     >
       <div className="rounded-btn my-2 ml-2 w-max bg-neutral p-4 px-6 shadow">
-        <h1 className="mb-4 flex flex-row items-center justify-start gap-2 text-left text-2xl">
-          <BiBarChartAlt2 /> Dashboard
-        </h1>
         <ul className="flex flex-col gap-5 text-xl text-neutral-content ">
           <li
             onClick={() => setPage("points")}

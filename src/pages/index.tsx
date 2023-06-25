@@ -4,10 +4,11 @@ import Link from "next/link";
 
 import { motion } from "framer-motion";
 import SiteShowcase from "../components/SiteShowcase";
+import { useSession } from "next-auth/react";
 const Home: NextPage = () => {
   // const router = useRouter();
-  // const { status, data } = useSession();
-
+  const { status, data } = useSession();
+  console.log("asdsad", status);
   // useEffect(() => {
   //   if (status === "authenticated") {
   //     router.push("/leagues");

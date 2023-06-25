@@ -12,7 +12,7 @@ export default async function assetHandler(req:NextApiRequest, res:NextApiRespon
     allPrismaQueries.push(query)
     }
 
-    console.log(allPrismaQueries)
+
     switch (method) {
       case 'POST':
         try {
