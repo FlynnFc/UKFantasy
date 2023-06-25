@@ -17,14 +17,13 @@ const InsightsTable = (props: any) => {
   //   );
   const [maxRounds, setMaxRounds] = useState<any>([]);
   const [playerRows, setPlayerRows] = useState<any>([]);
-  console.log(props.serverTeam.SelectedPlayer[0]?.points);
   useEffect(() => {
     const rows: JSX.Element[] = [];
     props.serverTeam.SelectedPlayer?.map((el: player) => {
       let total = 0;
       el.points.map((el) => (total += el.value));
       let bonusTotal = 0;
-      console.log(el.bonusPoint);
+
       if (el.bonusPoint.length > 0) {
         el.bonusPoint.map((el: { value: number }) => (bonusTotal += el.value));
       }
@@ -47,7 +46,6 @@ const InsightsTable = (props: any) => {
     return setPlayerRows(rows);
   }, [props.serverTeam.SelectedPlayer, rounds]);
 
-  console.log(props.serverTeam);
   useEffect(() => {
     const tempRounds = [];
 

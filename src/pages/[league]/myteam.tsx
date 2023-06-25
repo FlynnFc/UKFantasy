@@ -35,15 +35,17 @@ export type teamProps = {
   SelectedPlayer: player[];
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(paths: { params: { league: string } }) {
   // const path = "http://localhost:3000/";
   const path = "https://uk-fantasy.vercel.app/";
+
   const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;
   }
   const data = await res.json();
+
   return {
     props: {
       data,
@@ -55,9 +57,11 @@ export async function getStaticPaths() {
   const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
   const data = await res.json();
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
+  const paths = data.map((league: { name: string; id: string }) => {
+    return {
+      params: { league: league.name.toLowerCase() },
+    };
+  });
 
   return {
     paths,
@@ -65,7 +69,7 @@ export async function getStaticPaths() {
   };
 }
 
-const Myteam = (props: { data: bonus[] }) => {
+const Myteam = (props: { data: bonus[]; leagueId: string }) => {
   const { status, data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const [serverTeam, setServerTeam] = useState<teamProps>();
@@ -181,7 +185,7 @@ const Myteam = (props: { data: bonus[] }) => {
   };
 
   const HandleBonusSubmit = async () => {
-    const data = { ...team, id: session?.user?.id };
+    const data = { ...team, id: session?.user?.id, league: query.league };
     if (team) {
       const JSONbody = await JSON.stringify(data);
       const res = await fetch("/api/updateTeamBonuses", {

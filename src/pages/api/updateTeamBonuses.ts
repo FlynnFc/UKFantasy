@@ -10,30 +10,25 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const data = await JSON.parse(req.body)
-  const userID:string = data.id
+
+
   const allPrismaQueries = []
-  let playerBonusCount = 0
   for (let index = 0; index < 5; index++) {
     const query = prisma.selectedPlayer.updateMany({
       where: { id:data.SelectedPlayer[index]?.id },
       data: {bonusName: data.SelectedPlayer[index]?.bonus?.name}
   })
-  if(data.SelectedPlayer[index]?.bonus?.name.length > 0) {
-    playerBonusCount++
-  }
   allPrismaQueries.push(query)
   }
-  if(playerBonusCount === 5) {
-    const query = prisma.playerTeam.update({where:{id:userID},data:{ready:true}})
-    allPrismaQueries.push(query)
-  }
 
-try {
-const updateBonuses = await prisma.$transaction(allPrismaQueries)
-res.status(200).json({data: updateBonuses})
-} catch (error) {
-  res.status(500).json('Failed to submit')
-}
+
+
+  try {
+  const updateBonuses = await prisma.$transaction(allPrismaQueries)
+  res.status(200).json({data: updateBonuses})
+  } catch (error) {
+    res.status(500).json('Failed to submit')
+  }
 
 };
 

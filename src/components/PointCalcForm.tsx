@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
 
@@ -232,22 +233,25 @@ const PointCalcForm = (props: { data: [] }) => {
     const processedPlayers = await fileProcesMain(e);
     const allSelectedPlayers: any[] = [];
     currentlySelectedTeams.forEach((el: any) => {
-      el.SelectedPlayer.forEach(
-        (el: { name: string; id: string; bonusName: string }) =>
-          allSelectedPlayers.push({
-            name: el.name.toLowerCase(),
-            id: el.id,
-            bonusName: el.bonusName,
-          })
-      );
+      //Checking if users team has bonuses applied to all players
+      if (el.ready) {
+        el.SelectedPlayer.forEach(
+          (el: { name: string; id: string; bonusName: string }) =>
+            allSelectedPlayers.push({
+              name: el.name.toLowerCase(),
+              id: el.id,
+              bonusName: el.bonusName,
+            })
+        );
+      }
     });
     const finalData = comparer(processedPlayers, allSelectedPlayers);
     console.log(finalData);
-    const res = await fetch("/api/ApplyPoints", {
-      method: "POST",
-      body: JSON.stringify(finalData),
-    });
-    return res;
+    // const res = await fetch("/api/ApplyPoints", {
+    //   method: "POST",
+    //   body: JSON.stringify(finalData),
+    // });
+    // return res;
   };
 
   //Point form. Take 62nd col and -1 then * 100 then take 73 cols
