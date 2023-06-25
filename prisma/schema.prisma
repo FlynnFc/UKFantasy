@@ -120,6 +120,16 @@ model SelectedPlayer {
   playerTeamId String?
   bonusName    String?
   PlayerTeam   PlayerTeam? @relation(fields: [playerTeamId], references: [id], onDelete: Cascade)
+  entry_king   Int
+  util_nerd    Int
+  PTFO         Int
+  ADR_warrior  Int
+  site_on_lock Int
+  clutcher     Int
+  trade_me     Int
+  stat_padder  Int
+  head_clicker Int
+  all_rounder  Int
   points       point[]
 
   @@index([bonusName])
