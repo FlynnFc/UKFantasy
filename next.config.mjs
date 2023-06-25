@@ -39,6 +39,7 @@ export default defineNextConfig({
         pathname: "/profile_images/**",
       },
       { protocol: "https", hostname: "img-cdn.hltv.org" },
+      { protocol: "https", hostname: "avatars.steamstatic.com" },
     ],
   },
 });

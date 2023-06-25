@@ -3,11 +3,13 @@ import {
   type DefaultSession,
 } from "next-auth";
 import getServerSession from "next-auth/next";
-import SteamProvider from "../utils/steam";
+import SteamProvider  from '../utils/steam';
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "./db/client";
 import TwitterProvider from "next-auth/providers/twitter";
 import GoogleProvider from "next-auth/providers/google"
+
+
 declare module "next-auth" {
   interface Session extends DefaultSession {
     userLogin: {
@@ -32,10 +34,7 @@ GoogleProvider({
     }
   },
 }),
-    SteamProvider({
-      clientId: process.env.STEAM_CLIENT_ID!,
-      clientSecret: process.env.STEAM_CLIENT_SECRET!,
-    }),TwitterProvider({
+TwitterProvider({
         clientId: process.env.TWITTER_ID!,
         clientSecret: process.env.TWITTER_SECRET!,
         version: "2.0" ,  authorization: {
@@ -56,6 +55,7 @@ GoogleProvider({
   },  
   callbacks: {
     session({ session, user }) {
+      
       if (session.user) {
         session.user.id = user.id;
       }
@@ -63,6 +63,7 @@ GoogleProvider({
     },
   },
 };
+
 
 
 export const getServerAuthSession = (ctx: {
