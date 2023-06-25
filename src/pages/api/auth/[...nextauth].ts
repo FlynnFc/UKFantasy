@@ -21,7 +21,7 @@ export default async function handler(
       }),
       SteamProvider(req, {
         clientSecret: process.env.STEAM_CLINET_SECRET!,
-        callbackUrl: 'http://localhost:3000/api/auth/callback'
+        callbackUrl: 'https://esportsfantasy.app/api/auth/callback'
       }), TwitterProvider({
         clientId: process.env.TWITTER_ID!,
         clientSecret: process.env.TWITTER_SECRET!,
