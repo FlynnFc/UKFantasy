@@ -44,7 +44,7 @@ export default async function handler(
         maxAge: 30 * 24 * 60 * 60, // 30 days
         updateAge: 24 * 60 * 60, // 24 hours
       },callbacks: {
-        async session({ session , user}) {
+        async session({ session }) {
           if(session.user) {
             const prismaUser = await prisma.user.findUnique({
               where: {
