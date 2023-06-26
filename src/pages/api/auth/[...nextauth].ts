@@ -42,12 +42,26 @@ export default async function handler(
         maxAge: 30 * 24 * 60 * 60, // 30 days
         updateAge: 24 * 60 * 60, // 24 hours
       },callbacks: {
-        session({ session, user}){
-          if (session.user){
-            session.user.id = user.id
-          }
-          return session;
-        }
+        async session({ session }) {
+          if(session.user) {
+            const prismaUser = await prisma.user.findUnique({
+              where: {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                email: session.user.email!,
+              },
+              include: {
+                accounts: true,
+              },
+            });
+    
+            const steamAccount = prismaUser?.accounts.find(a => a.provider == "steam");
+         
+            session.user.id = steamAccount?.id as string;
+    
+            return session;
+          } else return session
+
+        },
       }
   })
 
