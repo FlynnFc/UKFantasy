@@ -24,7 +24,6 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
-                      disabled
                       className={`btn-lg btn flex w-[20rem] justify-center border-none bg-[#1D9BF0] text-xl text-white hover:bg-[#1876b4] `}
                       onClick={() => signIn(provider.id, { callbackUrl: url })}
                     >
