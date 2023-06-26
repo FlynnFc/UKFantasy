@@ -1,18 +1,20 @@
 import SteamProvider from '../../../utils/steam'
 import NextAuth from 'next-auth/next'
 import GoogleProvider from "next-auth/providers/google"
+import FaceitProvider from "next-auth/providers/faceit"
 import type { NextApiRequest, NextApiResponse } from 'next'
 import TwitterProvider from "next-auth/providers/twitter";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../server/db/client";
 import authOptions from '../../../server/auth';
+import { userAgent } from 'next/server';
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   return NextAuth(req, res, {
     adapter: PrismaAdapter(prisma),
-    providers: [GoogleProvider({
+    providers: [FaceitProvider({clientId:process.env.FACEIT_ID, clientSecret:process.env.FACEIT_SECRET}) ,GoogleProvider({
         clientId: process.env.GOOGLE_ID!,
         clientSecret: process.env.GOOGLE_SECRET!,
         authorization: {
@@ -24,8 +26,8 @@ export default async function handler(
         },
       }),
       SteamProvider(req, {
-        clientSecret: process.env.STEAM_CLINET_SECRET!,
-        callbackUrl: 'https://esportsfantasy.app/api/auth/callback/'
+        clientSecret: process.env.STEAM_CLIENT_SECRET!,
+        callbackUrl: 'http://localhost:3000/api/auth/callback/steam'
       }), TwitterProvider({
         clientId: process.env.TWITTER_ID!,
         clientSecret: process.env.TWITTER_SECRET!,
@@ -42,25 +44,12 @@ export default async function handler(
         maxAge: 30 * 24 * 60 * 60, // 30 days
         updateAge: 24 * 60 * 60, // 24 hours
       },callbacks: {
-        async session({ session }) {
+        async session({ session , user}) {
           if(session.user) {
-            const prismaUser = await prisma.user.findUnique({
-              where: {
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                email: session.user.email!,
-              },
-              include: {
-                accounts: true,
-              },
-            });
-    
-            const steamAccount = prismaUser?.accounts.find(a => a.provider == "steam");
-         
-            session.user.id = steamAccount?.id as string;
+            user.id = session.user.id
+          }
     
             return session;
-          } else return session
-
         },
       }
   })
