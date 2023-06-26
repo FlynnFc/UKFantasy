@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { randomUUID } from 'crypto'
 import { RelyingParty } from 'openid'
 import { TokenSet } from 'openid-client'
-import { prisma } from "../../server/db/client";
+
 import {
   EMAIL_DOMAIN,
   PROVIDER_ID,
@@ -28,11 +27,11 @@ export function Steam(
 
   // https://example.com
   // https://example.com/api/auth/callback/steam
-
   const realm = callbackUrl.origin
   const returnTo = `${callbackUrl.href}/${PROVIDER_ID}`
 
   return {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     options,
     id: PROVIDER_ID,
@@ -47,8 +46,8 @@ export function Steam(
       bgDark: '#000',
       textDark: '#fff'
     },
-    idToken: true,
-    checks: ["pkce", "state"],
+    idToken: false,
+    checks: ['none'],
     clientId: PROVIDER_ID,
     authorization: {
       url: 'https://steamcommunity.com/openid/login',
@@ -66,7 +65,6 @@ export function Steam(
       async request() {
         // May throw an error, dunno should I handle it or no
         // prettier-ignore
-     
         const claimedIdentifier = await verifyAssertion(req.url!, realm, returnTo)
 
         if (!claimedIdentifier) {
@@ -76,10 +74,11 @@ export function Steam(
         const matches = claimedIdentifier.match(
           /^https?:\/\/steamcommunity\.com\/openid\/id\/(\d+)$/
         )
-      
+
         if (!matches) {
           throw new Error('Unauthenticated')
         }
+
         return {
           tokens: new TokenSet({
             id_token: randomUUID(),
@@ -90,30 +89,26 @@ export function Steam(
       }
     },
     userinfo: {
-    
       async request(ctx) {
-   
         const response = await fetch(
-          `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${process.env.STEAM_CLIENT_SECRET}&steamids=${ctx.tokens.steamId}`
+          `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${ctx.provider.clientSecret}&steamids=${ctx.tokens.steamId}`
         )
 
         const data = await response.json()
-  
+
         return data.response.players[0]
       }
     },
-   async profile(profile: SteamProfile) {
+    profile(profile: SteamProfile) {
       // next.js can't serialize the session if email is missing or null, so I specify user ID
       return {
         id: profile.steamid,
         image: profile.avatarfull,
-        email: `${profile.personaname}@${EMAIL_DOMAIN}`,
+        email: `${profile.steamid}@${EMAIL_DOMAIN}`,
         name: profile.personaname
       }
     }
-
   }
- 
 }
 
 /**
