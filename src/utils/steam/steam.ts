@@ -105,7 +105,7 @@ export function Steam(
     profile(profile: SteamProfile) {
       // next.js can't serialize the session if email is missing or null, so I specify user ID
       return {
-        id: randomUUID(),
+        id: profile.steamid,
         image: profile.avatarfull,
         email: `${profile.personaname}@${EMAIL_DOMAIN}`,
         name: profile.personaname
