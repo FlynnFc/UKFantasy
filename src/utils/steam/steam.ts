@@ -47,7 +47,7 @@ export function Steam(
       bgDark: '#000',
       textDark: '#fff'
     },
-    idToken: false,
+    idToken: true,
     checks: ['none'],
     clientId: PROVIDER_ID,
     authorization: {
