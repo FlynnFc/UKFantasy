@@ -44,7 +44,7 @@ export default async function handler(
         maxAge: 30 * 24 * 60 * 60, // 30 days
         updateAge: 24 * 60 * 60, // 24 hours
       },callbacks: {
-        async session({ session }) {
+        async session({ session, user }) {
           if(session.user) {
             const prismaUser = await prisma.user.findUnique({
               where: {
@@ -56,7 +56,7 @@ export default async function handler(
               },
             });
             const steamAccount = prismaUser?.accounts.find(a => a.provider == "steam");
-            session.user.id = steamAccount?.id as string;
+            session.user.id = steamAccount?.id ? steamAccount.id : user.id as string;
           }
     
             return session;
