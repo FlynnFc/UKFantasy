@@ -48,7 +48,7 @@ export function Steam(
       textDark: '#fff'
     },
     idToken: true,
-    checks: ['none'],
+    checks: ["pkce", "state"],
     clientId: PROVIDER_ID,
     authorization: {
       url: 'https://steamcommunity.com/openid/login',
