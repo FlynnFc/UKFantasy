@@ -102,7 +102,7 @@ export function Steam(
         return data.response.players[0]
       }
     },
-    profile(profile: SteamProfile) {
+   async profile(profile: SteamProfile) {
       // next.js can't serialize the session if email is missing or null, so I specify user ID
       return {
         id: profile.steamid,
