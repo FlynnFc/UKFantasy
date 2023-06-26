@@ -46,7 +46,17 @@ export default async function handler(
       },callbacks: {
         async session({ session , user}) {
           if(session.user) {
-            user.id = session.user.id
+            const prismaUser = await prisma.user.findUnique({
+              where: {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                email: session.user.email!,
+              },
+              include: {
+                accounts: true,
+              },
+            });
+            const steamAccount = prismaUser?.accounts.find(a => a.provider == "steam");
+            session.user.id = steamAccount?.id as string;
           }
     
             return session;
