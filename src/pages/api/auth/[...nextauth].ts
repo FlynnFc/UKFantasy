@@ -7,7 +7,6 @@ import TwitterProvider from "next-auth/providers/twitter";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../server/db/client";
 import authOptions from '../../../server/auth';
-import { userAgent } from 'next/server';
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -31,12 +30,7 @@ export default async function handler(
       }), TwitterProvider({
         clientId: process.env.TWITTER_ID!,
         clientSecret: process.env.TWITTER_SECRET!,
-        version: "2.0" ,  authorization: {
-          url: "https://twitter.com/i/oauth2/authorize",
-          params: {
-            scope: "users.read tweet.read offline.access",
-          },
-        },
+        version: "2.0"
       })
     ],   secret: process.env.sercet,  pages:{
         signIn: "/auth/signin"
@@ -44,22 +38,12 @@ export default async function handler(
         maxAge: 30 * 24 * 60 * 60, // 30 days
         updateAge: 24 * 60 * 60, // 24 hours
       },callbacks: {
-        async session({ session, user }) {
-          if(session.user) {
-            const prismaUser = await prisma.user.findUnique({
-              where: {
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                email: session.user.email!,
-              },
-              include: {
-                accounts: true,
-              },
-            });
-            const steamAccount = prismaUser?.accounts.find(a => a.provider == "steam");
-            session.user.id = steamAccount?.id ? steamAccount.id : user.id as string;
+        session({ session, user, token }) {
+      console.log("sadasoidhaosid ", user)
+          if (session.user) {
+            session.user.id = user.id;
           }
-    
-            return session;
+          return session;
         },
       }
   })
