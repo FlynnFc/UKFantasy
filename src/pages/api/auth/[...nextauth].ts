@@ -23,23 +23,21 @@ export default async function handler(
           }
         },
       }),
-      SteamProvider(req, {
-        clientSecret: process.env.STEAM_CLIENT_SECRET!,
-        callbackUrl: 'https://esportsfantasy.app/api/auth/callback/steam'
-      }), TwitterProvider({
+     TwitterProvider({
         clientId: process.env.TWITTER_ID!,
         clientSecret: process.env.TWITTER_SECRET!,
         version: "2.0"
-      })
+      }),
+      // SteamProvider(req, {
+      //   clientSecret: process.env.STEAM_CLIENT_SECRET!,
+      //   callbackUrl: 'http://localhost:3000/api/auth/callback/steam',
+      // }), 
     ],   secret: process.env.sercet,  pages:{
         signIn: "/auth/signin"
       },  session: {
         maxAge: 30 * 24 * 60 * 60, // 30 days
         updateAge: 24 * 60 * 60, // 24 hours
-      },callbacks: {    async jwt({ token, user, account, profile, isNewUser }) {
-        console.log("TOKENNN")
-        return token
-      },
+      },callbacks: {
        async session({ session, user,token}) {
 
           if (session.user) {

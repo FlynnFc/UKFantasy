@@ -9,11 +9,12 @@ export default function SignIn(props: { providers: any }) {
   const url = callback.query.callbackUrl as string;
   return (
     <div
-      className="flex h-screen items-center justify-center"
+      className="flex h-screen items-start justify-center"
       style={{ overflow: "hidden", position: "relative" }}
     >
-      <div className="mb-10 flex w-96 flex-col items-center rounded-md bg-base-300 shadow-lg shadow-base-300">
-        <div className="flex h-full w-96 flex-col items-stretch justify-center space-y-2 rounded-md bg-primary p-6 shadow-md">
+      <div className="mb-10 mt-20 flex w-96 flex-col items-center rounded-md bg-base-300 shadow-lg shadow-base-300">
+        <h1 className="pt-4 text-3xl font-bold text-base-content">Sign in</h1>
+        <div className="flex h-full w-96 flex-col items-stretch justify-center gap-2 rounded-md p-6">
           {props.providers &&
             Object.values(props.providers).map((provider: any) => {
               if (provider.name === "Twitter") {
@@ -40,7 +41,7 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-base-300 text-xl text-base-content`}
+                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-slate-100 text-xl text-slate-700 hover:bg-slate-300`}
                       onClick={() => signIn(provider.id, { callbackUrl: url })}
                     >
                       Sign in with {provider.name}
@@ -83,8 +84,8 @@ export default function SignIn(props: { providers: any }) {
               }
             })}
         </div>
-        <h1 className="pt-4 text-3xl font-bold text-base-content">Sign in</h1>
-        <div className="mb-2 w-full space-y-2 border-base-100 p-6 pb-4">
+
+        <div className="mb-2 w-full space-y-2 border-base-100 px-6 pb-4">
           <p className="text-error">Email coming soon</p>
           <input
             type="text"
