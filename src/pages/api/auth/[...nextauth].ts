@@ -6,14 +6,13 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import TwitterProvider from "next-auth/providers/twitter";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "../../../server/db/client";
-import authOptions from '../../../server/auth';
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   return NextAuth(req, res, {
     adapter: PrismaAdapter(prisma),
-    providers: [FaceitProvider({clientId:process.env.FACEIT_ID, clientSecret:process.env.FACEIT_SECRET}) ,GoogleProvider({
+    providers: [GoogleProvider({
         clientId: process.env.GOOGLE_ID!,
         clientSecret: process.env.GOOGLE_SECRET!,
         authorization: {
@@ -37,12 +36,19 @@ export default async function handler(
       },  session: {
         maxAge: 30 * 24 * 60 * 60, // 30 days
         updateAge: 24 * 60 * 60, // 24 hours
-      },callbacks: {
-        session({ session, user, token }) {
-      console.log("sadasoidhaosid ", user)
+      },callbacks: {    async jwt({ token, user, account, profile, isNewUser }) {
+        console.log("TOKENNN")
+        return token
+      },
+       async session({ session, user,token}) {
+
           if (session.user) {
+            if(!session.user.email) {
+              session.user.email = `${user.name}@twitter.com`
+            }
             session.user.id = user.id;
           }
+          console.log(session,user,token)
           return session;
         },
       }
