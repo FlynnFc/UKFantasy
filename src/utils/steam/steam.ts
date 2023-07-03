@@ -46,7 +46,7 @@ export function Steam(
       textDark: '#fff'
     },
     idToken: true,
-    checks: ['none'],
+    checks: ["pkce", "state"],
     clientId: PROVIDER_ID,
     authorization: {
       url: 'https://steamcommunity.com/openid/login',
@@ -98,7 +98,7 @@ export function Steam(
         return data.response.players[0]
       }
     },
-    profile(profile: SteamProfile) {
+  async profile(profile: SteamProfile) {
       // next.js can't serialize the session if email is missing or null, so I specify username
       return  {
         id:profile.steamid,
