@@ -21,11 +21,11 @@ const Home: NextPage = () => {
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="my-2 w-5/6 text-center text-4xl font-semibold md:text-6xl xl:text-[6rem] xl:leading-tight"
           >
             Welcome to the <b>UK CS</b>
-            <span className="font-bold text-[#FA8128]"> Fantasy League</span>!
+            <span className="font-bold text-[#187EF2]"> Fantasy League</span>!
           </motion.h1>
           <section className="my-10">
             <Link href={"/demo"}>
@@ -39,13 +39,9 @@ const Home: NextPage = () => {
               </motion.button>
             </Link>
           </section>
-          <motion.section
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
+          <section>
             <SiteShowcase />
-          </motion.section>
+          </section>
         </section>
       </main>
     </>

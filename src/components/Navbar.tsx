@@ -54,10 +54,10 @@ const Navbar = () => {
         bodyEl?.setAttribute("data-theme", selectedTheme);
       }
     } else {
-      localStorage.setItem("theme", "mythemelight,mytheme");
+      localStorage.setItem("theme", "myHalloweenlight,myHalloween");
       bodyEl?.setAttribute(
         "data-theme",
-        isBrowserSetToDark ? "mytheme" : "mythemelight"
+        isBrowserSetToDark ? "myHalloween" : "myHalloweenlight"
       );
     }
   }, [darkmode]);
@@ -95,7 +95,7 @@ const Navbar = () => {
         <div className="flex items-center space-x-2">
           <LoginBtn scrolled={scrolled} primary={true} />
           <label
-            className={`swap swap-rotate p-1 ${
+            className={`swap-rotate swap p-1 ${
               scrolled ? "text-neutral-content" : "text-base-content"
             }`}
           >
