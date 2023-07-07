@@ -95,7 +95,7 @@ const PlayerGroupSkeleton = (props: {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ delay: 0.1 }}
-            className="rounded-btn invisible fixed right-1 bg-neutral p-4 text-end font-bold text-base-content transition md:text-base lg:text-xl xl:top-[4.75rem] xl:text-2xl 2xl:visible"
+            className="rounded-btn invisible fixed right-1 bg-neutral p-4 text-end font-bold text-neutral-content transition md:text-base lg:text-xl xl:top-[4.75rem] xl:text-2xl 2xl:visible"
           >
             Money Left: {props.money.toLocaleString("en-US")}
           </motion.span>

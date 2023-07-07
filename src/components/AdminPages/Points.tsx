@@ -8,7 +8,7 @@ const Points = (props: { data: any }) => {
         return (
           <div
             key={el.id}
-            className="rounded-btn flex h-min min-w-max flex-col gap-2 bg-base-content p-4 uppercase text-base-100 shadow"
+            className="rounded-btn flex h-min min-w-max flex-col gap-2 bg-base-200 p-4 uppercase text-base-content"
           >
             <h1 className="text-center text-2xl">{el.name}</h1>
             <div className="flex flex-row gap-2">

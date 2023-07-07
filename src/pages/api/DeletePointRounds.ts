@@ -5,23 +5,25 @@ export default async function assetHandler(req:NextApiRequest, res:NextApiRespon
     const { method } = req
     const { body} = req
     const data = JSON.parse(body)
-    const allPrismaQueries = []
+    const league = data.league
+    console.log(league)
+    // const allPrismaQueries = []
     const round = data.round
-    for (let index = 0; index < data.playerData.length; index++) {
-        const element = data.playerData[index];
-        const query = prisma.selectedPlayer.update({where:{id:element.id}, data:{points:{create:{value:element.points,roundNumber:round }},bonusPoint:{create:{value:element.bonusPoint, roundNumber:round}}}})
-        allPrismaQueries.push(query)
-    }
+    // for (let index = 0; index < data.playerData.length; index++) {
+    //     const element = data.playerData[index];
+    //     const query = prisma.selectedPlayer.update({where:{id:element.id}, data:{points:{create:{value:element.points,roundNumber:round }},bonusPoint:{create:{value:element.bonusPoint, roundNumber:round}}}})
+    //     allPrismaQueries.push(query)
+    // }
 
 
     switch (method) {
       case 'POST':
         try {
-          const pointsUpdate = await prisma.$transaction(allPrismaQueries)
-          res.status(200).json({data: pointsUpdate})
+          const pointsDelete = await prisma.point.deleteMany({where:{roundNumber:round,SelectedPlayer:{PlayerTeam:{league:{name:league}}}}})
+          res.status(200).json({data: pointsDelete})
         } catch (e) {
           console.error('Request error', e)
-          res.status(500).json({ error: 'Error Applying points' })
+          res.status(500).json({ error: 'Error Deleting points' })
         }
         break
       default:

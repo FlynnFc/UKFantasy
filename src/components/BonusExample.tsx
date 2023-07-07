@@ -165,7 +165,7 @@ const BonusExample = () => {
   return (
     <div className="flex select-none flex-col items-center justify-between">
       <div className="flex flex-col justify-start space-y-4">
-        <section className="mx-4 mt-1 flex w-fit flex-wrap justify-center gap-2 lg:justify-start">
+        <section className="mx-4 mt-1 flex w-fit flex-wrap  justify-center gap-2 lg:justify-start">
           {allBonuses.map((el, i) => {
             for (let i = 0; i < 5; i++) {
               const element = team?.Player[i];

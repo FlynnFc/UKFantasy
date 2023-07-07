@@ -2,12 +2,19 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { IoIosArrowDropdown } from "react-icons/io";
-export default function LoginBtn(props: { primary: boolean }) {
+export default function LoginBtn(props: {
+  primary: boolean;
+  scrolled: boolean;
+}) {
   const { status } = useSession();
   const { route, query } = useRouter();
   return (
     <>
-      <ul className="menu menu-horizontal hidden flex-row gap-1 bg-none md:flex">
+      <ul
+        className={`menu menu-horizontal hidden flex-row gap-1 bg-none md:flex ${
+          props.scrolled ? "text-neutral-content" : "text-base-content"
+        }`}
+      >
         <li tabIndex={0} className="p-1">
           <Link href="/leagues">
             <a
@@ -15,7 +22,7 @@ export default function LoginBtn(props: { primary: boolean }) {
                 route === "/leagues"
                   ? `bg-primary-focus text-primary-content`
                   : undefined
-              } btn-ghost btn hover:bg-primary-focus/40`}
+              } btn-ghost btn text-inherit hover:bg-primary-focus/40`}
             >
               Leagues
             </a>
@@ -24,11 +31,11 @@ export default function LoginBtn(props: { primary: boolean }) {
             <li className="w-full">
               <Link href={`/epic39`}>
                 <a
-                  className={`${
+                  className={` btn bg-neutral text-neutral-content hover:bg-neutral ${
                     query.league === "epic39"
                       ? `bg-primary-focus text-primary-content`
                       : undefined
-                  } btn-ghost btn hover:bg-primary-focus/40 hover:text-primary-content`}
+                  }`}
                 >
                   Epic39
                 </a>

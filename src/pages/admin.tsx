@@ -79,7 +79,10 @@ const Admin = (props: {
           >
             <BsReverseListColumnsReverse /> Leagues
           </li>
-          <li className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus">
+          <li
+            onClick={() => setPage("diognostics")}
+            className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
+          >
             <BsGraphUp /> Diognostics
           </li>
         </ul>
@@ -90,16 +93,124 @@ const Admin = (props: {
         {page === "points" && <Points data={props.data} />}
         {page === "bonuses" && <Bonuses />}
         {page === "leagues" && <Leagues />}
+        {page === "diognostics" && <Diognostics />}
       </div>
     </div>
   );
 };
 
 const Leagues = () => {
-  return <div className="w-full">leagues</div>;
+  //TODO
+  // Date logic - Check if date has already passed, if start time is before end time and if submit time is before start time
+  //
+  const [newLeagueModel, setNewLeagueModel] = useState(false);
+
+  console.log(newLeagueModel);
+  return (
+    <div className="w-full">
+      <div className="">
+        <button onClick={() => setNewLeagueModel(true)} className="btn">
+          Create new League
+        </button>
+      </div>
+      {newLeagueModel && (
+        <div className="fixed left-0 top-0 z-50 flex min-h-screen w-screen items-center justify-center overflow-auto bg-black/50">
+          <form
+            className="rounded-btn absolute flex flex-col gap-4 bg-base-300 p-6"
+            action="#"
+          >
+            <button
+              onClick={() => setNewLeagueModel(false)}
+              className="btn-sm btn absolute right-2 top-2"
+            >
+              X
+            </button>
+            <section className="grid grid-cols-2 gap-4">
+              <section className="grid gap-4">
+                <h3 className="text-2xl">Basic Info</h3>
+                <div className="flex flex-col">
+                  <label className="label" htmlFor="">
+                    League name
+                  </label>
+                  <input type="text" className="input" name="" id="" />
+                </div>
+
+                <div className="grid">
+                  <div className="flex flex-col">
+                    <label className="label" htmlFor="">
+                      League description
+                    </label>
+                    <input type="text" className="input" name="" id="" />
+                  </div>
+                </div>
+              </section>
+              <section className="grid gap-4">
+                <h3 className="text-2xl">Key dates</h3>
+                <div className="flex flex-col">
+                  <label className="label" htmlFor="">
+                    Users can submit teams from
+                  </label>
+                  <input type="date" className="input" name="" id="" />
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="flex flex-col">
+                    <label className="label" htmlFor="">
+                      League start time
+                    </label>
+                    <input type="date" className="input" name="" id="" />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className="label" htmlFor="">
+                      League end time
+                    </label>
+                    <input type="date" className="input" name="" id="" />
+                  </div>
+                </div>
+              </section>
+            </section>
+            <h3 className="text-2xl">Teams & Players competing</h3>
+            <section className="mb-2 grid gap-4">
+              <div className="grid">
+                <label className="label" htmlFor="">
+                  Excel file with players and their teams
+                </label>
+                <input type="file" className="file-input" />
+              </div>
+              <div className="flex flex-col">
+                <label className="label" htmlFor="">
+                  Name of targeted sheet
+                </label>
+                <input type="text" name="" className="input" id="" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <label className="label" htmlFor="">
+                    Name of player column
+                  </label>
+                  <input type="text" name="" className="input" id="" />
+                </div>{" "}
+                <div className="flex flex-col">
+                  <label className="label" htmlFor="">
+                    Name of team column
+                  </label>
+                  <input type="text" name="" className="input" id="" />
+                </div>
+              </div>
+            </section>
+            <button className="btn">create new league</button>
+          </form>
+        </div>
+      )}
+    </div>
+  );
 };
 const Bonuses = () => {
   return <div className="w-full">Bonuses</div>;
+};
+
+const Diognostics = () => {
+  return <div className="w-full">Diognostics</div>;
 };
 
 export default Admin;

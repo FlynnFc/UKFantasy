@@ -25,7 +25,7 @@ const Home: NextPage = () => {
             className="my-2 w-5/6 text-center text-4xl font-semibold md:text-6xl xl:text-[6rem] xl:leading-tight"
           >
             Welcome to the <b>UK CS</b>
-            <span className="font-bold text-orange-500"> Fantasy League</span>!
+            <span className="font-bold text-[#E53939]"> Fantasy League</span>!
           </motion.h1>
           <section className="my-10">
             <Link href={"/demo"}>

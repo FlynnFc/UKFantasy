@@ -12,7 +12,7 @@ const Navbar = () => {
   const [theme, setTheme] = useState<theme>(["mythemeLight", "mytheme"]);
   const { status } = useSession();
   const [y, setY] = useState(0);
-  const [scrolled, setScrolled] = useState<boolean>();
+  const [scrolled, setScrolled] = useState<boolean>(false);
 
   const handleNavigation = useCallback((e: any) => {
     const window = e.currentTarget;
@@ -64,6 +64,7 @@ const Navbar = () => {
 
   const themeHandler = () => {
     setDarkMode((prev) => !prev);
+
     const bodyEl = document.querySelector("body");
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const chosenTheme: string = theme[darkmode ? 1 : 0]!;
@@ -80,14 +81,24 @@ const Navbar = () => {
         <div className="flex space-x-4">
           <Link href={"/"}>
             <div className="rounded-btn btn flex cursor-pointer items-center justify-center border-none bg-inherit text-sm font-semibold normal-case text-base-content hover:bg-base-300 md:text-xl">
-              <span className="mb-3">UKFantasy</span>
+              <span
+                className={`mb-3 ${
+                  scrolled ? "text-neutral-content" : "text-base-content"
+                }`}
+              >
+                UKFantasy
+              </span>
               <Image src={logo} width={60} height={60} alt="logo" />
             </div>
           </Link>
         </div>
         <div className="flex items-center space-x-2">
-          <LoginBtn primary={true} />
-          <label className="swap-rotate swap p-1">
+          <LoginBtn scrolled={scrolled} primary={true} />
+          <label
+            className={`swap-rotate swap p-1 ${
+              scrolled ? "text-neutral-content" : "text-base-content"
+            }`}
+          >
             <input
               onClick={themeHandler}
               data-toggle-theme="business,corporate"

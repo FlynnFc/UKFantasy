@@ -1,7 +1,10 @@
 import React, { ChangeEvent, useState } from "react";
 import PointCalcForm from "./PointCalcForm";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const RoundDeletionForm = ({ round, data }: { round: number; data: [] }) => {
+  const { query } = useRouter();
   const [updateDeletePrefrence, setUpdateDeletePrefrence] = useState<string>();
   const [deleteCheck, setDeleteCheck] = useState(false);
   const [deleteCheckInput, setDeleteCheckInput] = useState("");
@@ -9,8 +12,29 @@ const RoundDeletionForm = ({ round, data }: { round: number; data: [] }) => {
     setUpdateDeletePrefrence(e.target.value);
   };
 
+  const RoundDeleteHandler = () => {
+    toast.promise(deleter(), {
+      loading: "deleting...",
+      success: <b>{`Round ${round} deleted`}</b>,
+      error: <b>{`Couldn't delete round ${round}`}</b>,
+    });
+  };
+
+  const deleter = async () => {
+    const res = await fetch("/api/DeletePointRounds", {
+      method: "POST",
+      body: JSON.stringify({
+        round: round,
+        league: query.league,
+      }),
+    });
+    setDeleteCheck(false);
+    return res;
+  };
+
   return (
     <div className="flex flex-col justify-center gap-4 p-4">
+      <Toaster />
       <h2 className="text-center text-3xl">
         {`Edit/Delete stats for round`}
         <span className="text-4xl text-orange-500"> {round}</span>
@@ -82,7 +106,7 @@ const RoundDeletionForm = ({ round, data }: { round: number; data: [] }) => {
                 disabled={
                   deleteCheckInput !== `delete round ${round} permanently`
                 }
-                onClick={(e) => console.log(`DELETE ALL POINTS WITH ${round}`)}
+                onClick={RoundDeleteHandler}
                 className="btn-error btn"
               >
                 Delete
