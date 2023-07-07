@@ -38,7 +38,11 @@ export default defineNextConfig({
         hostname: "pbs.twimg.com",
         pathname: "/profile_images/**",
       },
-      { protocol: "https", hostname: "img-cdn.hltv.org" },
+      {
+        protocol: "https",
+        hostname: "img-cdn.hltv.org",
+        pathname: "/playerbodyshot/**",
+      },
       { protocol: "https", hostname: "avatars.steamstatic.com" },
     ],
   },
