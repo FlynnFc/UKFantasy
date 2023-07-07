@@ -54,10 +54,10 @@ const Navbar = () => {
         bodyEl?.setAttribute("data-theme", selectedTheme);
       }
     } else {
-      localStorage.setItem("theme", "mythemeLight,mytheme");
+      localStorage.setItem("theme", "myHalloweenlight,myHalloween");
       bodyEl?.setAttribute(
         "data-theme",
-        isBrowserSetToDark ? "mytheme" : "mythemeLight"
+        isBrowserSetToDark ? "myHalloween" : "myHalloweenlight"
       );
     }
   }, [darkmode]);
