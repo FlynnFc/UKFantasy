@@ -29,16 +29,19 @@ const InsightsTable = (props: any) => {
       }
 
       const playersPointsRow = [];
+
       for (let index = 0; index < rounds!; index++) {
         playersPointsRow.push(
           <td>{el.points[index]?.value ? el.points[index]?.value : 0}</td>
         );
       }
+
       rows.push(
         <tr key={el.id}>
           <td>{el.name}</td>
           {playersPointsRow}
           <td>{total}</td>
+
           <td>{bonusTotal}</td>
         </tr>
       );
@@ -56,18 +59,22 @@ const InsightsTable = (props: any) => {
     return setMaxRounds(tempRounds);
   }, [rounds]);
 
+  console.log(props.serverTeam);
+
   return (
-    <table className="table w-fit overflow-scroll  rounded-xl">
-      <thead className="sticky top-0">
-        <tr>
-          <th>Name</th>
-          {maxRounds}
-          <th>total points</th>
-          <th>Total Bonus points</th>
-        </tr>
-      </thead>
-      <tbody className="text-center">{playerRows}</tbody>
-    </table>
+    <div className="w-full">
+      <table className="table w-fit overflow-scroll  rounded-xl">
+        <thead className="sticky top-0">
+          <tr>
+            <th>Name</th>
+            {maxRounds}
+            <th>total points</th>
+            <th>Total Bonus points</th>
+          </tr>
+        </thead>
+        <tbody className="text-center">{playerRows}</tbody>
+      </table>
+    </div>
   );
 };
 

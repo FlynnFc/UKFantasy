@@ -321,7 +321,7 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
             </div>
           </div>
           <h2 className="my-5 text-left text-4xl">Insights</h2>
-          <section className="w-fit rounded-xl border-2 border-base-content">
+          <section className="w-fit rounded-xl border-2 border-base-content ">
             <InsightsTable serverTeam={serverTeam} />
           </section>
         </div>
