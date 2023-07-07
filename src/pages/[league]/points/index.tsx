@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import Round from "../../../components/Round";
 import { getSession } from "next-auth/react";
+import RoundDeletionForm from "../../../components/RoundDeletionForm";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
@@ -60,8 +61,6 @@ const Index = (props: { data: any }) => {
     } else return [];
   }, [props.data]);
 
-  console.log("Is this working?", props.data);
-
   const [selectedRound, setSelectedRound] = useState(currentRound.length + 1);
   return (
     <div className="min-w-screen container flex h-full min-h-screen max-w-7xl  select-none flex-col items-center justify-start gap-4 sm:mx-auto">
@@ -91,8 +90,11 @@ const Index = (props: { data: any }) => {
         >{`Round ${currentRound.length + 1}`}</button>
       </div>
 
-      {selectedRound === 4 && (
+      {selectedRound === currentRound.length + 1 && (
         <Round data={props.data} selectedRound={selectedRound} />
+      )}
+      {selectedRound !== currentRound.length + 1 && (
+        <RoundDeletionForm data={props.data} round={selectedRound} />
       )}
     </div>
   );
