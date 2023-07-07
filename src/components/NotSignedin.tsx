@@ -6,7 +6,7 @@ const NotSignedin = () => {
     <div className="fixed z-50 mt-[15%] flex h-screen w-full flex-col items-center justify-start">
       <div>
         <div className="flex justify-start py-2">
-          <LoginBtn primary={true}></LoginBtn>
+          <LoginBtn scrolled={false} primary={true}></LoginBtn>
         </div>
       </div>
     </div>
