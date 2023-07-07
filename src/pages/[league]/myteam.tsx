@@ -84,7 +84,9 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
   const [userNeedsHelp, setUserNeedsHelp] = useState(false);
 
   useEffect(() => {
-    setUserNeedsHelp(localStorage.getItem("UserTips") ? false : true);
+    setUserNeedsHelp(
+      localStorage.getItem("UserTips") === "false" ? false : true
+    );
   }, []);
 
   useEffect(() => {
@@ -254,7 +256,7 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
             <div className="flex w-full flex-row items-center justify-between">
               <Link href={`/${query.league}`}>
                 <button className="btn-ghost rounded-btn my-1 w-fit cursor-pointer p-2 text-2xl text-base-content transition">
-                  {leagueName}
+                  League page
                 </button>
               </Link>
               <div>
@@ -270,11 +272,11 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
                           localStorage.setItem("UserTips", "false");
                           setUserNeedsHelp(false);
                         }}
-                        className="btn-sm btn text-primary-content"
+                        className="btn-sm btn text-white"
                       >
                         got it
                       </button>
-                      <span className="absolute bottom-4 right-4 text-primary-content">
+                      <span className="absolute bottom-4 right-4 text-white">
                         <FiArrowDownRight />
                       </span>
                     </div>
