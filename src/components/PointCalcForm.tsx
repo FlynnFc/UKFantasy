@@ -20,7 +20,7 @@ type bigPlayer = {
   all_rounder: number;
 };
 
-const PointCalcForm = (props: { data: [] }) => {
+const PointCalcForm = (props: { data: []; currentRound: number }) => {
   const [file, setFile] = useState<any>();
   const [data, setData] = useState();
   const [sheet, setSheet] = useState("");
@@ -247,7 +247,10 @@ const PointCalcForm = (props: { data: [] }) => {
     console.log(finalData);
     const res = await fetch("/api/ApplyPoints", {
       method: "POST",
-      body: JSON.stringify(finalData),
+      body: JSON.stringify({
+        playerData: finalData,
+        round: props.currentRound,
+      }),
     });
     return res;
   };

@@ -134,7 +134,7 @@ model SelectedPlayer {
 model bonusPoint {
   id               String          @id @default(cuid())
   value            Int
-  SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id])
+  SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id], onDelete: Cascade)
   selectedPlayerId String?
   roundNumber      Int?
 
@@ -145,7 +145,7 @@ model bonusPoint {
 model point {
   id               String          @id @default(cuid())
   value            Int
-  SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id])
+  SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id], onDelete: Cascade)
   selectedPlayerId String?
   roundNumber      Int?
 

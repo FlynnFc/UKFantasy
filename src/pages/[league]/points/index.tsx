@@ -72,7 +72,7 @@ const Index = (props: { data: any }) => {
             <button
               onClick={() => setSelectedRound(idx + 1)}
               key={idx}
-              className={`join-item  btn-disabled btn rounded-none ${
+              className={`join-item btn rounded-none ${
                 idx + 1 === selectedRound && "btn-active"
               }`}
             >
@@ -91,7 +91,9 @@ const Index = (props: { data: any }) => {
         >{`Round ${currentRound.length + 1}`}</button>
       </div>
 
-      <Round data={props.data} selectedRound={selectedRound} />
+      {selectedRound === 4 && (
+        <Round data={props.data} selectedRound={selectedRound} />
+      )}
     </div>
   );
 };
