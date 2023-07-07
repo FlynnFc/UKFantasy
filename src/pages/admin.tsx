@@ -12,7 +12,6 @@ import {
 import { GrScorecard } from "react-icons/gr";
 import { MdOutlineScoreboard } from "react-icons/md";
 import Points from "../components/AdminPages/Points";
-import Bonuses from "../components/AdminPages/Bonuses";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
@@ -74,7 +73,10 @@ const Admin = (props: {
             <BsFillCollectionFill />
             Bonuses
           </li>
-          <li className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus">
+          <li
+            onClick={() => setPage("leagues")}
+            className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
+          >
             <BsReverseListColumnsReverse /> Leagues
           </li>
           <li className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus">
@@ -87,9 +89,17 @@ const Admin = (props: {
       >
         {page === "points" && <Points data={props.data} />}
         {page === "bonuses" && <Bonuses />}
+        {page === "leagues" && <Leagues />}
       </div>
     </div>
   );
+};
+
+const Leagues = () => {
+  return <div className="w-full">leagues</div>;
+};
+const Bonuses = () => {
+  return <div className="w-full">Bonuses</div>;
 };
 
 export default Admin;

@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import Round from "../../../components/Round";
-import { AiOutlineCheckCircle, AiOutlineInfoCircle } from "react-icons/ai";
 import { getSession } from "next-auth/react";
 
 export async function getServerSideProps({ req }: any) {
@@ -25,7 +24,6 @@ export async function getServerSideProps({ req }: any) {
   const temp = await res2.json();
   const admins = new Set(temp.map((el: { email: string }) => el.email));
 
-  console.log(data);
   if (admins.has(session?.user?.email)) {
     return {
       props: {
@@ -61,6 +59,8 @@ const Index = (props: { data: any }) => {
       return mostPlayedplayer;
     } else return [];
   }, [props.data]);
+
+  console.log("Is this working?", props.data);
 
   const [selectedRound, setSelectedRound] = useState(currentRound.length + 1);
   return (

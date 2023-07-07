@@ -10,6 +10,7 @@ const Round = (props: { data: []; selectedRound: number }) => {
   const [authorised, setAuthorised] = useState(false);
   const current = useMemo(() => props.selectedRound, [props.selectedRound]);
 
+  console.log("round number:", props.selectedRound);
   useEffect(() => {
     if (
       session.data?.user?.email &&

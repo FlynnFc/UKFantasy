@@ -136,7 +136,7 @@ model bonusPoint {
   value            Int
   SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id])
   selectedPlayerId String?
-  bonusName        String?
+  roundNumber      Int?
 
   @@index([selectedPlayerId])
 }
@@ -147,7 +147,7 @@ model point {
   value            Int
   SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id])
   selectedPlayerId String?
-  bonusName        String?
+  roundNumber      Int?
 
   @@index([selectedPlayerId])
 }
