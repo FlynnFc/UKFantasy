@@ -31,10 +31,9 @@ export default function LoginBtn(props: {
             <li className="w-full">
               <Link href={`/epic39`}>
                 <a
-                  className={` btn bg-neutral text-neutral-content hover:bg-neutral ${
-                    query.league === "epic39"
-                      ? `bg-primary-focus text-primary-content`
-                      : undefined
+                  className={` btn bg-neutral text-neutral-content hover:bg-neutral hover:text-neutral-content ${
+                    query.league === "epic39" &&
+                    `bg-primary-focus text-primary-content`
                   }`}
                 >
                   Epic39
