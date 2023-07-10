@@ -43,7 +43,7 @@ const PlayerGroupSkeletonExample = (props: {
         <input
           type="text"
           placeholder="Team name"
-          className="input input-sm my-2 w-auto max-w-xs bg-base-300 md:input-md lg:text-2xl"
+          className="input input-sm my-2 w-auto max-w-xs bg-base-100 md:input-md lg:text-2xl"
           onChange={(e) => {
             inputHandler(e.target.value);
           }}

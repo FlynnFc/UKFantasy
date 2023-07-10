@@ -30,7 +30,7 @@ export default function SiteShowcase() {
           {tabs.map((item) => (
             <li
               key={item?.label}
-              className={`${styles.item}`}
+              className={`transition-all ${styles.item}`}
               onClick={() => setSelectedTab(item)}
             >
               {`${item?.icon} ${item?.label}`}

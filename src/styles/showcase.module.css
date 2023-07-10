@@ -34,7 +34,7 @@
   width: 100%;
   padding: 10px 15px;
   position: relative;
-  background: hsl(var(--b1));
+  background: hsl(var(--b3));
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -45,6 +45,9 @@
   color: hsl(var(--bc));
   position: relative;
   user-select: none;
+}
+.item:hover {
+  background: hsl(var(--b2));
 }
 
 .underline {
