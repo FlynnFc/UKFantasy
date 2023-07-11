@@ -13,8 +13,8 @@ export default async function handler(
   return NextAuth(req, res, {
     adapter: PrismaAdapter(prisma),
     providers: [GoogleProvider({
-        clientId: process.env.GOOGLE_ID!,
-        clientSecret: process.env.GOOGLE_SECRET!,
+        clientId: process.env.GOOGLE_ID as string,
+        clientSecret: process.env.GOOGLE_SECRET as string,
         authorization: {
           params: {
             prompt: "consent",
@@ -24,8 +24,8 @@ export default async function handler(
         },
       }),
      TwitterProvider({
-        clientId: process.env.TWITTER_ID!,
-        clientSecret: process.env.TWITTER_SECRET!,
+        clientId: process.env.TWITTER_ID as string,
+        clientSecret: process.env.TWITTER_SECRET as string,
         version: "2.0"
       }),
       // SteamProvider(req, {
@@ -46,7 +46,7 @@ export default async function handler(
             }
             session.user.id = user.id;
           }
-          console.log(session,user,token)
+          console.log("asdasd",session,user,token)
           return session;
         },
       }
