@@ -84,7 +84,6 @@ const Settings = () => {
           <option value={"myHalloweenlight,myHalloween"}>Default</option>
           <option value={"corporate,business"}>Microsoft</option>
           <option value={"mythemeLight,mytheme"}>Blues</option>
-          <option value={"lofi,black"}>Minimal</option>
           <option value={"cyberpunk,synthwave"}>{`I'm brave`}</option>
         </select>
         <button

@@ -151,7 +151,7 @@ const LiveGamesExample = () => {
               return (
                 <li key={el.team1.name}>
                   <div
-                    className={`rounded-btn  btn grid h-auto w-full min-w-0 cursor-default grid-cols-3 gap-1 border-0 bg-green-500/40 p-2 text-center  text-lg text-base-100 transition-all hover:bg-green-500 hover:text-base-300`}
+                    className={`rounded-btn  btn grid h-auto w-full min-w-0 cursor-default grid-cols-3 gap-1 border-0 bg-green-500/40 p-2 text-center  text-lg text-base-100 transition-all hover:bg-green-500`}
                   >
                     <div className="flex flex-col items-start">
                       <span>{el.team1.name}</span>

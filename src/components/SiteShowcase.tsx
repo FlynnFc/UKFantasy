@@ -25,7 +25,7 @@ export default function SiteShowcase() {
       transition={{ ease: "easeIn" }}
       className={`${styles.window} w-[94vw] max-w-[85rem]`}
     >
-      <nav className={styles.nav}>
+      <nav className={`${styles.nav}`}>
         <ul className={styles.tabs}>
           {tabs.map((item) => (
             <li
