@@ -5,7 +5,7 @@
 //TODO line 163 if no res then give user error and prompt back to league screen
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import { Player } from "../../components/Player";
+import { Player, playerStats } from "../../components/Player";
 import PlayerGroup from "../../components/playerGroup";
 import PlayerGroupSkeleton from "../../components/playerGroupSkeleton";
 import SelectedPlayer from "../../components/SelectedPlayer";
@@ -371,6 +371,7 @@ const Create = (props: {
                             name: string;
                             price: number;
                             rareity: string;
+                            stats: playerStats;
                           }) => {
                             return (
                               <Player
@@ -385,6 +386,7 @@ const Create = (props: {
                                 img={els.image}
                                 team={myTeam}
                                 playersTeam={el.teamName}
+                                stats={els.stats}
                               />
                             );
                           }
