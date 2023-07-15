@@ -19,7 +19,7 @@ async function getAccessToken() {
       
   }
   async function getStreams() {
-    const streamers:string[] = ['edeninho_', 'meffew','valorant','esl_csgo']
+    const streamers:string[] = ['edeninho_', 'meffew','valorant','esl_csgo', 'shoobieTV','pieface_CS', 'gizmyy']
     const token = await getAccessToken();
     let path = 'https://api.twitch.tv/helix/streams?'
     for (let i = 0; i < streamers.length; i++) {

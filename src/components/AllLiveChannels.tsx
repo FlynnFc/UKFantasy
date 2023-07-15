@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import StreamLink from "./StreamLink";
+import { P } from "vitest/dist/types-bae746aa";
 
 export type stream = {
   user_name: string;
@@ -18,8 +19,8 @@ const AllLiveChannels = (props: { streams: stream[] }) => {
         Verified streams
       </h2>
       <ul className="items-left mt-3 flex w-full flex-col justify-center gap-1 p-1 text-left">
-        {streams &&
-          streams?.map((el) => {
+        {streams.length ? (
+          streams.map((el) => {
             return (
               <StreamLink
                 key={el.user_name}
@@ -29,7 +30,10 @@ const AllLiveChannels = (props: { streams: stream[] }) => {
                 viewer_count={el.viewer_count}
               />
             );
-          })}
+          })
+        ) : (
+          <p className="select-none text-center">No streams online</p>
+        )}
 
         <p
           className="link-secondary link mt-2 text-center"

@@ -4,7 +4,7 @@
 // - Fetch Teams for create page
 //TODO line 163 if no res then give user error and prompt back to league screen
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Player, playerStats } from "../../components/Player";
 import PlayerGroup from "../../components/playerGroup";
 import PlayerGroupSkeleton from "../../components/playerGroupSkeleton";
@@ -48,7 +48,9 @@ const Create = (props: {
     map(arg0: (el: any) => void): React.ReactNode;
     player: player[];
   };
+  data2: { startDate: string };
 }) => {
+  console.log(props);
   const [introModal, setIntroModal] = useState(true);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);
@@ -60,7 +62,17 @@ const Create = (props: {
   const [loading, setLoading] = useState(false);
   const [teamSort, setTeamSort] = useState(true);
   const [allPlayers, setAllPlayers] = useState<player[]>();
-  const { query } = useRouter();
+  const router = useRouter();
+  const query = router.query;
+  const isStarted = useMemo(() => {
+    if (props.data2?.startDate)
+      return new Date(props.data2?.startDate) < new Date();
+  }, [props.data2?.startDate]);
+  useEffect(() => {
+    if (isStarted) {
+      router.push(`/${query.league}`);
+    }
+  }, [isStarted, query.league, router]);
 
   //Ensures Team name is never empty string
   useEffect(() => {
@@ -449,12 +461,21 @@ const Create = (props: {
 };
 export default Create;
 
-export async function getStaticProps() {
+export async function getStaticProps(paths: { params: { league: string } }) {
   const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
   const data = await res.json();
+  // const path = "http://localhost:3000/";
+  const path = "https://uk-fantasy.vercel.app";
+  const res2 = await fetch(`${path}/api/getLeague`, {
+    method: "GET",
+    headers: { leagueName: paths.params.league },
+  });
+  const data2 = await res2.json();
+
   return {
     props: {
       data,
+      data2,
     },
   };
 }

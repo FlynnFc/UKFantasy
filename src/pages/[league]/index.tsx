@@ -7,12 +7,14 @@ import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Loading from "../../components/Loading";
 import Table from "../../components/Table";
 import Head from "next/head";
 import AllLiveChannels, { stream } from "../../components/AllLiveChannels";
 import LiveGames from "../../components/LiveGames";
+import { ExternalLink } from "lucide-react";
+import { now } from "next-auth/client/_utils";
 
 export async function getStaticProps() {
   const res = await fetch("https://esportsfantasy.app/api/allLeagues");
@@ -61,6 +63,7 @@ type UserProps = {
 };
 
 const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
+  console.log(props.data);
   const session = useSession();
   const { status } = useSession();
   const { query } = useRouter();
@@ -71,6 +74,17 @@ const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
   const [loadingTable, setLoadingTable] = useState(true);
   const [league, setLeague] = useState<league>();
   const [leagueOpen, setLeagueOpen] = useState(false);
+
+  const isOpen = useMemo(() => {
+    if (league?.openDate) return new Date(league.openDate) < new Date();
+  }, [league?.openDate]);
+  const isStarted = useMemo(() => {
+    if (league?.startDate) return new Date(league.startDate) < new Date();
+  }, [league?.startDate]);
+  const isEnded = useMemo(() => {
+    if (league?.endDate) return new Date(league.endDate) < new Date();
+  }, [league?.endDate]);
+
   useEffect(() => {
     setLoading(true);
     const tempData: any = [];
@@ -160,42 +174,79 @@ const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
       </Head>
       <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
         {loading && <Loading />}
-        <div className="rounded-btn mt-14 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg md:px-8">
+
+        <div className="rounded-btn mt-5 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg md:px-8">
           <h1 className="text-4xl font-bold">
             {league && league.name} tournement center
           </h1>
           <p className="text-base">{league?.description}</p>
-          <div className="flex items-end justify-between">
-            {status !== "authenticated" ? (
-              <div className="">
-                <button
-                  className={`${"btn mt-4 w-max"} btn-sm btn mr-2 text-sm sm:btn-md`}
-                  onClick={() => signIn()}
-                >
-                  Sign in to create team
-                </button>
-              </div>
-            ) : !userHasTeam ? (
-              <Link href={`./${query.league}/create`}>
-                <button className="btn w-max">Create team</button>
-              </Link>
-            ) : (
-              userHasTeam && (
-                <Link href={`${query.league}/myteam`}>
-                  <button className="btn w-max ">my team</button>
+          {isOpen && !isStarted && !isEnded && (
+            <div className="flex items-end justify-start gap-2">
+              {status !== "authenticated" ? (
+                <div className="">
+                  <button
+                    className={`${"btn mt-4 w-max"} btn-sm btn mr-2 text-sm sm:btn-md`}
+                    onClick={() => signIn()}
+                  >
+                    Sign in to create team
+                  </button>
+                </div>
+              ) : !userHasTeam ? (
+                <Link href={`./${query.league}/create`}>
+                  <button className="btn w-max">Create team</button>
                 </Link>
-              )
-            )}
-            <Link href={`${query.league}/teams`}>
-              <button className="btn">Competing teams</button>
+              ) : (
+                userHasTeam && (
+                  <Link href={`${query.league}/myteam`}>
+                    <button className="btn w-max ">my fantasy team</button>
+                  </Link>
+                )
+              )}
+            </div>
+          )}
+          {/* League is live */}
+          {userHasTeam && isStarted && (
+            <Link href={`${query.league}/myteam`}>
+              <button className="btn w-max ">my fantasy team</button>
             </Link>
-          </div>
+          )}
+          {!userHasTeam && isStarted && (
+            <span className="rounded-btn w-fit select-none bg-neutral p-3 text-neutral-content">
+              You didnt make a team :/
+            </span>
+          )}
+          {/* League hasnt started */}
+          {!isOpen && (
+            <div className=" rounded-btn w-fit select-none bg-neutral p-3 text-neutral-content ">
+              This league opens on{" "}
+              <span className=" font-semibold">
+                {league && new Date(league.startDate).toDateString()}
+              </span>
+            </div>
+          )}
+          {/* League ended */}
         </div>
 
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
           <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
+            {isStarted && !isEnded && (
+              <span className="rounded-btn w-full select-none bg-success p-3 text-center font-semibold uppercase text-base-content">
+                Tournement live
+              </span>
+            )}
+            {isEnded && (
+              <span className="rounded-btn w-full select-none bg-error p-3 text-center font-semibold uppercase text-base-content">
+                Tournement ended
+              </span>
+            )}
+            <Link href={`${query.league}/teams`}>
+              <button className="btn flex flex-row items-center justify-center gap-1">
+                Competing teams <ExternalLink height={20} />
+              </button>
+            </Link>
             <AllLiveChannels streams={props.streams} />
-            <LiveGames />
+            {/* 
+            <LiveGames /> */}
           </section>
 
           <section className="rounded-btn my-2 mt-5 h-max bg-base-300 p-5 text-base-content shadow-lg  2xl:w-[75%]">

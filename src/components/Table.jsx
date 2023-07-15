@@ -54,8 +54,6 @@ const Table = (props) => {
     return playerData.sort((a, b) => b.totalpoints - a.totalpoints);
   }, [playerData]);
 
-  console.log(sortedTeams);
-
   const submissiondata = useMemo(() => [...playerData], [playerData]);
 
   const columns = useMemo(
@@ -87,8 +85,6 @@ const Table = (props) => {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns: columns, data: submissiondata }, useSortBy);
-
-  console.log(playerData);
 
   return (
     <>

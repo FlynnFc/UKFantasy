@@ -59,8 +59,6 @@ const InsightsTable = (props: any) => {
     return setMaxRounds(tempRounds);
   }, [rounds]);
 
-  console.log(props.serverTeam);
-
   return (
     <div className="w-full">
       <table className="table w-fit overflow-scroll  rounded-xl">

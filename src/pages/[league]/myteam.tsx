@@ -36,8 +36,8 @@ export type teamProps = {
 };
 
 export async function getStaticProps(paths: { params: { league: string } }) {
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
+  const path = "http://localhost:3000/";
+  // const path = "https://uk-fantasy.vercel.app/";
 
   const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
   if (!res.ok) {
@@ -46,9 +46,16 @@ export async function getStaticProps(paths: { params: { league: string } }) {
   }
   const data = await res.json();
 
+  const res2 = await fetch(`${path}/api/getLeague`, {
+    method: "GET",
+    headers: { leagueName: paths.params.league },
+  });
+  const data2 = await res2.json();
+
   return {
     props: {
       data,
+      data2,
     },
   };
 }
@@ -69,7 +76,11 @@ export async function getStaticPaths() {
   };
 }
 
-const Myteam = (props: { data: bonus[]; leagueId: string }) => {
+const Myteam = (props: {
+  data: bonus[];
+  leagueId: string;
+  data2: { startDate: string };
+}) => {
   const { status, data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
   const [serverTeam, setServerTeam] = useState<teamProps>();
@@ -84,6 +95,11 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
   );
   const [allBonuses, setAllBonuses] = useState<bonus[]>([]);
   const [userNeedsHelp, setUserNeedsHelp] = useState(false);
+
+  const isStarted = useMemo(() => {
+    if (props.data2?.startDate)
+      return new Date(props.data2?.startDate) < new Date();
+  }, [props.data2?.startDate]);
 
   useEffect(() => {
     setUserNeedsHelp(
@@ -209,8 +225,6 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
     }
   };
 
-  console.log(team);
-
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
@@ -261,48 +275,50 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
                   League page
                 </button>
               </Link>
-              <div>
-                <div
-                  className="tooltip"
-                  data-tip={userNeedsHelp ? null : "Edit player bonuses"}
-                >
-                  {userNeedsHelp && (
-                    <div className="rounded-btn absolute bottom-[2.6rem] right-10 hidden w-48 flex-col bg-info p-2 text-base text-info-content md:flex">
-                      <p>Make sure you apply bonuses to your players!</p>
-                      <button
-                        onClick={() => {
-                          localStorage.setItem("UserTips", "false");
-                          setUserNeedsHelp(false);
-                        }}
-                        className="btn-sm btn text-white"
-                      >
-                        got it
-                      </button>
-                      <span className="absolute bottom-4 right-4 text-white">
-                        <FiArrowDownRight />
-                      </span>
-                    </div>
-                  )}
-                  <button
-                    onClick={() => {
-                      localStorage.setItem("UserTips", "false");
-                      setUserNeedsHelp(false);
-                    }}
-                    className="btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl text-primary transition"
+              {!isStarted && (
+                <div>
+                  <div
+                    className="tooltip"
+                    data-tip={userNeedsHelp ? null : "Edit player bonuses"}
                   >
-                    <label className="cursor-pointer" htmlFor="bonus">
-                      <ImDice />
-                    </label>
-                  </button>
+                    {userNeedsHelp && (
+                      <div className="rounded-btn absolute bottom-[2.6rem] right-10 hidden w-48 flex-col bg-info p-2 text-base text-info-content md:flex">
+                        <p>Make sure you apply bonuses to your players!</p>
+                        <button
+                          onClick={() => {
+                            localStorage.setItem("UserTips", "false");
+                            setUserNeedsHelp(false);
+                          }}
+                          className="btn-sm btn text-white"
+                        >
+                          got it
+                        </button>
+                        <span className="absolute bottom-4 right-4 text-white">
+                          <FiArrowDownRight />
+                        </span>
+                      </div>
+                    )}
+                    <button
+                      onClick={() => {
+                        localStorage.setItem("UserTips", "false");
+                        setUserNeedsHelp(false);
+                      }}
+                      className="btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl text-primary transition"
+                    >
+                      <label className="cursor-pointer" htmlFor="bonus">
+                        <ImDice />
+                      </label>
+                    </button>
+                  </div>
+                  <div className="tooltip" data-tip="Delete team">
+                    <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-error transition">
+                      <label className="cursor-pointer" htmlFor="my-modal">
+                        <ImBin />
+                      </label>
+                    </button>
+                  </div>
                 </div>
-                <div className="tooltip" data-tip="Delete team">
-                  <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-error transition">
-                    <label className="cursor-pointer" htmlFor="my-modal">
-                      <ImBin />
-                    </label>
-                  </button>
-                </div>
-              </div>
+              )}
             </div>
             <div className="flex h-auto flex-col items-stretch justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
               {serverTeam &&

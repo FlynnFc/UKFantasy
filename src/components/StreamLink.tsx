@@ -3,7 +3,6 @@ import { BsFillCircleFill } from "react-icons/bs";
 import { stream } from "./AllLiveChannels";
 
 const StreamLink = (props: stream) => {
-  console.log(props.user_name);
   return (
     <li>
       <a
