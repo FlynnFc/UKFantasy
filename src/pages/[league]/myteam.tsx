@@ -77,9 +77,11 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
   const router = useRouter();
   const [leagueName, setLeagueName] = useState("");
   const [bonusDesc, setBonusDesc] = useState(
-    "or you can Drag and drop a bonus onto the desired player. Once you have selected 5 you can submit"
+    "or you can Drag and drop a bonus onto the desired player"
   );
-  const [bonusName, setBonusName] = useState(`Click a bonus for more details`);
+  const [bonusName, setBonusName] = useState(
+    `Click a bonus for more details & Drag the bonus to apply`
+  );
   const [allBonuses, setAllBonuses] = useState<bonus[]>([]);
   const [userNeedsHelp, setUserNeedsHelp] = useState(false);
 
@@ -334,7 +336,7 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
       <input type="checkbox" id="bonus" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box flex h-5/6 max-h-full w-11/12 max-w-full select-none flex-col items-center justify-between">
-          <div className="flex flex-col justify-start space-y-4">
+          <div className="flex flex-row items-center justify-start gap-4">
             <section className="mt-1 flex flex-wrap justify-start gap-2">
               {allBonuses.map((el, i) => {
                 for (let i = 0; i < 5; i++) {
@@ -399,7 +401,7 @@ const Myteam = (props: { data: bonus[]; leagueId: string }) => {
           </div>
           <section className="rounded-btn w-full bg-primary p-4 text-primary-content ">
             <p className="text-xl font-bold">
-              <span className="text-xl font-normal">{`${bonusName}: `}</span>
+              <span className="text-2xl font-normal">{`${bonusName}: `}</span>
               {bonusDesc}
             </p>
             <div className="flex items-center justify-end gap-2 pt-2">

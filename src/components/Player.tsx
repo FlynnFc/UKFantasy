@@ -24,7 +24,6 @@ type player = {
 };
 
 export const Player = (props: player) => {
-  console.log(props.stats);
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
   const [disable, setDisabled] = useState(false);
@@ -44,7 +43,6 @@ export const Player = (props: player) => {
         }
       }
       if (totalTeammates >= 2) {
-        console.log("More than 2 from one team!");
         return setTeamLimit(true);
       } else return setTeamLimit(false);
     };

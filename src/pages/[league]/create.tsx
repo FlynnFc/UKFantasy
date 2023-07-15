@@ -14,6 +14,7 @@ import Link from "next/link";
 import StandaloneSignIn from "../../components/StandaloneSignIn";
 import Filter from "bad-words";
 import MyFilter from "../../utils/profanityFilter/lib/badwords";
+import { Info } from "lucide-react";
 
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
@@ -144,6 +145,7 @@ const Create = (props: {
     price: number;
     img: string;
     id: string;
+    stats: playerStats;
     playersTeam: string;
   }) => {
     if (!teamFull) {
@@ -161,6 +163,7 @@ const Create = (props: {
           key={data.name}
           id={data.id}
           team={myTeam}
+          stats={data.stats}
           playersTeam={data.playersTeam}
         />,
       ]);
@@ -246,27 +249,39 @@ const Create = (props: {
         <Toaster position="top-center" />
         {introModal && (
           <div className="createModal fixed left-0 top-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
-            <div className="mt-32 w-[80%] rounded-lg bg-primary p-10 text-primary-content">
-              <h1 className="text-3xl font-bold leading-loose">
+            <div className="prose mt-32 flex max-w-xl  flex-col gap-2  rounded-lg bg-primary p-10 text-primary-content">
+              <h2 className="mb-0 text-3xl font-bold leading-loose text-primary-content">
                 Welcome to team creatation
-              </h1>
-              <p className="mb-2 py-2">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero
-                accusamus expedita facere ex voluptatem exercitationem veniam
-                itaque est repellendus libero neque, culpa distinctio aliquam
-                dolor atque natus esse non nisi!
+              </h2>
+              <p className="mb-2 py-2 text-base">
+                This is where you will decide who will give you the most points,
+                be the most economically efficiant and be the person {`that's`}{" "}
+                too expensive. You will have a budget of a £100,000, with this
+                you will need to select 5 players. There are 2 simple
               </p>
-              <h2 className="text-2xl font-bold leading-loose">
+              <ul className="marker:text-primary-content">
+                <b> limitations:</b>
+                <li className="text-primary-content">
+                  You cannot select more than 2 players per team.
+                </li>
+                <li>You cannot select the same player twice.</li>
+                <li>You cannot spend more than £100,000</li>
+              </ul>
+              <h2 className="my-0 text-2xl  font-bold leading-loose text-primary-content">
                 How do points work?
               </h2>
               <p>
-                Lorem, ipsm dolor sit amet consectetur adipisicing elit. Vero
-                accusamus expedita facere ex voluptatem exercitationem veniam
-                itaque est repellendus libero neque, culpa distinctio aliquam
-                dolor atque natus esse non nisi!
+                After each round a player is assesed across multiple
+                disciplines. A player is given a certain amount of points based
+                on their overall performance. Bonuses points are given based on
+                specific sets of criteria{" "}
+                {`(You will learn about them when applying bonuses)`}.
               </p>
-              <div className="mr-8 flex justify-end">
-                <button onClick={() => setIntroModal(false)} className="btn">
+              <div className="mt-1 w-full">
+                <button
+                  onClick={() => setIntroModal(false)}
+                  className="btn w-full"
+                >
                   Got it!
                 </button>
               </div>
@@ -275,26 +290,25 @@ const Create = (props: {
         )}
         {submitted && (
           <div className="createModal fixed left-0 top-0 z-30 flex h-screen w-full items-start justify-center overflow-auto">
-            <div className="mt-32 w-[80%] rounded-lg bg-base-100 p-10 text-base-content">
+            <div className="mt-[13rem] w-[65.6%] rounded-lg bg-base-100 p-8 text-base-content">
               <h1 className="text-3xl font-bold leading-loose">
                 {`You've submitted your team!`}
               </h1>
               <p className="mb-2 py-2">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero
-                accusamus expedita facere ex voluptatem exercitationem veniam
-                itaque est repellendus libero neque, culpa distinctio aliquam
-                dolor atque natus esse non nisi!
+                {`Congrats you've submitted your team! Dont like your team? Feel free to delete it and start over.`}
               </p>
               <h2 className="text-2xl font-bold leading-loose">What now?</h2>
               <p>
-                Lorem, ipsm dolor sit amet consectetur adipisicing elit. Vero
-                accusamus expedita facere ex voluptatem exercitationem veniam
-                itaque est repellendus libero neque, culpa distinctio aliquam
-                dolor atque natus esse non nisi!
+                Firstly {`you'll`} want to apply <b>bonuses</b> to your players.
+                You can apply/edit/remove bonuses on your <b> team page</b>.{" "}
+                {`If you're`} not ready to apply bonuses dont worry, you can
+                apply them any time before the tournement starts.
               </p>
               <div className="mr-8 flex justify-end">
                 <Link href={`/${query.league}/myteam`}>
-                  <button className="btn">Take me there</button>
+                  <button disabled={!submitted} className="btn">
+                    Team page
+                  </button>
                 </Link>
               </div>
             </div>
@@ -342,20 +356,30 @@ const Create = (props: {
                 {myTeam}
               </PlayerGroupSkeleton>
             </div>
-            <select
-              defaultValue={"DEFAULT"}
-              onChange={(e) => {
-                sorter(e.target.value);
-              }}
-              className="select-bordered select mb-3 w-full max-w-xs text-lg"
-            >
-              <option value={"DEFAULT"} disabled>
-                Sort by
-              </option>
-              <option value={"team"}>Teams</option>
-              <option value={"ascend"}>Cheapest</option>
-              <option value={"descend"}>Most Expensive</option>
-            </select>
+            <div className="flex justify-between">
+              <select
+                defaultValue={"team"}
+                onChange={(e) => {
+                  sorter(e.target.value);
+                }}
+                className="select-bordered select mb-3 w-full max-w-xs text-lg"
+              >
+                <option value={"DEFAULT"} disabled>
+                  Sort by
+                </option>
+                <option value={"team"}>Teams</option>
+                <option value={"ascend"}>Cheapest</option>
+                <option value={"descend"}>Most Expensive</option>
+              </select>
+              <button
+                onClick={() => {
+                  setIntroModal(true);
+                }}
+                className="btn flex flex-row gap-1"
+              >
+                Info <Info />
+              </button>
+            </div>
             <AnimatePresence>
               {teamSort ? (
                 <section className="space-y-6">

@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
+import { playerStats } from "./Player";
 
 type player = {
   name: string;
@@ -8,6 +9,7 @@ type player = {
   rareity: string;
   img?: string;
   team: any;
+  stats?: playerStats;
   id: string;
   playersTeam: string;
   PlayerRemove: (data: any) => void;
@@ -37,6 +39,8 @@ const SelectedPlayer = (props: player) => {
     setRareity(props.rareity);
   }, [props.rareity]);
 
+  console.log(props);
+
   return (
     <div
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
@@ -60,24 +64,25 @@ const SelectedPlayer = (props: player) => {
             src={props.img}
           />
         )}
-        <div
-          className={
-            stats
-              ? "stats absolute top-0 h-full w-full overflow-hidden p-2 text-white"
-              : "stats absolute top-full h-full w-full overflow-hidden p-2 text-white"
-          }
-        >
-          <ul className="flex h-full flex-col justify-start space-y-4">
-            <div>
-              <li>HLTV: N/A</li>
-              <li>Faceit Elo: 3400 </li>
-              <li>HS%: 54.3%</li>
-              <li>Entry Rounds: 10.4%</li>
-              <li>Clutch Rounds: 0.4%</li>
-            </div>
-            <button className="btn">Detailed Stats</button>
-          </ul>
-        </div>
+        {props.stats && (
+          <div
+            className={
+              stats
+                ? "playerstats absolute top-0  h-full w-full p-2 text-white"
+                : "playerstats absolute top-full h-full w-full p-2 text-white"
+            }
+          >
+            <ul className="flex flex-col justify-start gap-1">
+              <li>HLTV: {props.stats.hltv}</li>
+              <li>Faceit Elo: {props.stats.elo} </li>
+              <li>KAST: %</li>
+              <li>ADR: 10</li>
+              <li>HS%: {props.stats.hs}%</li>
+              <li>Entry Rounds: {props.stats.entryRounds}%</li>
+              <li>Clutch Rounds: {props.stats.clutchRounds}%</li>
+            </ul>
+          </div>
+        )}
       </div>
 
       <div
