@@ -42,7 +42,7 @@ li a {
   background: linear-gradient(to bottom, #452d0dd4 0%, #a5611e 100%);
 }
 
-.stats {
+.playerstats {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 250ms;

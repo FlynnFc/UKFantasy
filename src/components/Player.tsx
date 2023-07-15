@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+
+export type playerStats = {
+  hltv: number;
+  elo: number;
+  hs: number;
+  clutchRounds: number;
+  entryRounds: number;
+};
 type player = {
   PlayerSelect: (data: any) => void;
   name: string;
   price: number;
   rareity: string;
   img?: string;
+  stats?: playerStats;
   moneyLeft: number;
   teamFull: boolean;
   team: any[];
@@ -15,6 +24,7 @@ type player = {
 };
 
 export const Player = (props: player) => {
+  console.log(props.stats);
   const [stats, setStats] = useState(false);
   const [rareity, setRareity] = useState("");
   const [disable, setDisabled] = useState(false);
@@ -115,24 +125,25 @@ export const Player = (props: player) => {
         ) : (
           <div></div>
         )}
-        <div
-          className={
-            stats
-              ? "stats absolute top-0 h-full w-full p-2 text-white"
-              : "stats absolute top-full h-full w-full p-2 text-white"
-          }
-        >
-          <div className="flex h-full flex-col justify-start space-y-4">
-            <ul>
-              <li>HLTV: N/A</li>
-              <li>Faceit Elo: 3400 </li>
-              <li>HS%: 54.3%</li>
-              <li>Entry Rounds: 10.4%</li>
-              <li>Clutch Rounds: 0.4%</li>
+        {props.stats && (
+          <div
+            className={
+              stats
+                ? "playerstats absolute top-0  h-full w-full p-2 text-white"
+                : "playerstats absolute top-full h-full w-full p-2 text-white"
+            }
+          >
+            <ul className="flex flex-col justify-start gap-1">
+              <li>HLTV: {props.stats.hltv}</li>
+              <li>Faceit Elo: {props.stats.elo} </li>
+              <li>KAST: %</li>
+              <li>ADR: 10</li>
+              <li>HS%: {props.stats.hs}%</li>
+              <li>Entry Rounds: {props.stats.entryRounds}%</li>
+              <li>Clutch Rounds: {props.stats.clutchRounds}%</li>
             </ul>
-            <button className="btn">Detailed Stats</button>
           </div>
-        </div>
+        )}
       </div>
       <div
         className={`${rareity} tooltip flex h-[5rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg `}
