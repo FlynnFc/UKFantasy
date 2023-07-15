@@ -7,7 +7,7 @@ const allTeams = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const myTeam = await prisma.team.findMany({include:{Player:true}})
+        const myTeam = await prisma.team.findMany({include:{Player:{include:{stats:true}}}})
         res.status(200).json(myTeam)
       } catch (e) {
         console.error('Request error', e)
