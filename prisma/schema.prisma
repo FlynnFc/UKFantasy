@@ -90,11 +90,11 @@ model Player {
 
 model Stats {
   id           String   @id @default(cuid())
-  hltv         String
-  faceitElo    Int
-  HS           Int
-  EntryRounds  Int
-  ClutchRounds Int
+  hltv         Float
+  elo          Int      @default(1000)
+  hs           Int
+  entryRounds  Int
+  clutchRounds Int
   link         String
   Player       Player[]
 }
