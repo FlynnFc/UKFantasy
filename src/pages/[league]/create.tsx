@@ -48,7 +48,7 @@ const Create = (props: {
     map(arg0: (el: any) => void): React.ReactNode;
     player: player[];
   };
-  data2: { startDate: string };
+  data2: { startDate: string; openDate: string; endDate: string };
 }) => {
   console.log(props);
   const [introModal, setIntroModal] = useState(true);
@@ -68,11 +68,16 @@ const Create = (props: {
     if (props.data2?.startDate)
       return new Date(props.data2?.startDate) < new Date();
   }, [props.data2?.startDate]);
+  const isOpen = useMemo(() => {
+    if (props.data2?.openDate)
+      return new Date(props.data2?.openDate) < new Date();
+  }, [props.data2?.openDate]);
+
   useEffect(() => {
     if (isStarted) {
       router.push(`/${query.league}`);
-    }
-  }, [isStarted, query.league, router]);
+    } else if (!isOpen) router.push(`/${query.league}`);
+  }, [isOpen, isStarted, query.league, router]);
 
   //Ensures Team name is never empty string
   useEffect(() => {
