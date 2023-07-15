@@ -182,10 +182,13 @@ const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
             ) : (
               userHasTeam && (
                 <Link href={`${query.league}/myteam`}>
-                  <button className="btn w-max ">View Team</button>
+                  <button className="btn w-max ">my team</button>
                 </Link>
               )
             )}
+            <Link href={`${query.league}/teams`}>
+              <button className="btn">Competing teams</button>
+            </Link>
           </div>
         </div>
 
