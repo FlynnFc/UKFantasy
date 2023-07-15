@@ -68,15 +68,7 @@ export const Player = (props: player) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       layout={true}
-      onClick={() => {
-        //Check if team is full already
-        if (!disable && !picked) {
-          props.PlayerSelect(props);
-          setPicked(true);
-        }
-      }}
-      className={`tooltip relative  z-0  w-56 cursor-pointer overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72`}
-      data-tip="Add player"
+      className={`relative z-0 w-56 overflow-hidden rounded-xl bg-neutral shadow-lg lg:h-72`}
     >
       {picked ? (
         <div className="pickedPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
@@ -102,7 +94,15 @@ export const Player = (props: player) => {
         ""
       )}
 
-      <div className={`hidden h-52 justify-center lg:block`}>
+      <div
+        className={`hidden h-52 cursor-auto justify-center lg:block`}
+        onMouseEnter={() => {
+          setTimeout(() => setStats(true), 100);
+        }}
+        onMouseLeave={() => {
+          setTimeout(() => setStats(false), 100);
+        }}
+      >
         {props.img ? (
           <Image
             loading="eager"
@@ -110,15 +110,40 @@ export const Player = (props: player) => {
             alt="player portrait"
             height={500}
             width={500}
-            draggable={false}
             src={props.img}
           />
         ) : (
           <div></div>
         )}
+        <div
+          className={
+            stats
+              ? "stats absolute top-0 h-full w-full p-2 text-white"
+              : "stats absolute top-full h-full w-full p-2 text-white"
+          }
+        >
+          <div className="flex h-full flex-col justify-start space-y-4">
+            <ul>
+              <li>HLTV: N/A</li>
+              <li>Faceit Elo: 3400 </li>
+              <li>HS%: 54.3%</li>
+              <li>Entry Rounds: 10.4%</li>
+              <li>Clutch Rounds: 0.4%</li>
+            </ul>
+            <button className="btn">Detailed Stats</button>
+          </div>
+        </div>
       </div>
       <div
-        className={`${rareity} tooltip flex h-[5rem] flex-col items-center justify-evenly rounded-b-lg `}
+        className={`${rareity} tooltip flex h-[5rem] cursor-pointer select-none flex-col items-center justify-evenly rounded-b-lg `}
+        data-tip="Add player"
+        onClick={() => {
+          //Check if team is full already
+          if (!disable && !picked) {
+            props.PlayerSelect(props);
+            setPicked(true);
+          }
+        }}
       >
         <h2 className=" pt-2 text-center font-bold leading-none text-neutral lg:text-2xl">
           {props.name}
