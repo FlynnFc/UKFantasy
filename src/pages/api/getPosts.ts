@@ -14,6 +14,8 @@ const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
           res.status(200).json(posts);
         } else {
           const posts = await prisma.highlightpost.findMany({
+            take: 10,
+            orderBy: { title: "desc" },
             where: { League: { name: leagueName } },
             include: { author: true },
           });
