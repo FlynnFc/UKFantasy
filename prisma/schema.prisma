@@ -201,14 +201,15 @@ model bonus {
 }
 
 model highlightpost {
-  id       String  @id @unique @default(cuid())
-  author   User    @relation(fields: [userId], references: [id])
-  likes    Int
-  userId   String
-  source   String
-  title    String
-  League   League? @relation(fields: [leagueId], references: [id])
-  leagueId String?
+  id         String   @id @unique @default(cuid())
+  author     User     @relation(fields: [userId], references: [id])
+  likes      Int
+  userId     String
+  source     String
+  title      String
+  League     League?  @relation(fields: [leagueId], references: [id])
+  leagueId   String?
+  submitDate DateTime @default(now())
 
   @@index([userId])
   @@index([leagueId])
