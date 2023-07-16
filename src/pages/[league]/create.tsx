@@ -45,10 +45,9 @@ const filter = new Filter();
 
 const Create = (props: {
   data: {
-    Teams: {
-      map(arg0: (el: any) => void): React.ReactNode;
-      player: player[];
-    };
+    map(arg0: (el: any) => void): React.ReactNode;
+    player: player[];
+
     startDate: string;
     openDate: string;
   };
@@ -68,20 +67,20 @@ const Create = (props: {
   const [allPlayers, setAllPlayers] = useState<player[]>();
   const router = useRouter();
   const query = router.query;
-  const isStarted = useMemo(() => {
-    if (props.data?.startDate)
-      return new Date(props.data?.startDate) < new Date();
-  }, [props.data?.startDate]);
-  const isOpen = useMemo(() => {
-    if (props.data?.openDate)
-      return new Date(props.data?.openDate) < new Date();
-  }, [props.data?.openDate]);
+  // const isStarted = useMemo(() => {
+  //   if (props.data?.startDate)
+  //     return new Date(props.data?.startDate) < new Date();
+  // }, [props.data?.startDate]);
+  // const isOpen = useMemo(() => {
+  //   if (props.data?.openDate)
+  //     return new Date(props.data?.openDate) < new Date();
+  // }, [props.data?.openDate]);
 
-  useEffect(() => {
-    if (isStarted) {
-      router.push(`/${query.league}`);
-    } else if (!isOpen) router.push(`/${query.league}`);
-  }, [isOpen, isStarted, query.league, router]);
+  // useEffect(() => {
+  //   if (isStarted) {
+  //     router.push(`/${query.league}`);
+  //   } else if (!isOpen) router.push(`/${query.league}`);
+  // }, [isOpen, isStarted, query.league, router]);
 
   //Ensures Team name is never empty string
   useEffect(() => {
@@ -95,7 +94,7 @@ const Create = (props: {
       setTeamSort(true);
       return;
     }
-    const allTeams = props.data.Teams;
+    const allTeams = props.data;
     const allPlayers: player[] = [];
 
     allTeams.map((el: { Player: any; teamName: string }) => {
@@ -406,7 +405,7 @@ const Create = (props: {
                 <section className="space-y-6">
                   {/* Maps all teams found in DB then inside each team maps all players found in team */}
 
-                  {props.data?.Teams.map((el) => {
+                  {props.data?.map((el) => {
                     return (
                       <PlayerGroup team={el.teamName} key={el.teamName}>
                         {el.Player?.map(

@@ -8,7 +8,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
   const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/allTeams`, {
     method: "GET",
-    headers: { leaguename: paths.params.league },
+    // headers: { leaguename: paths.params.league },
   });
   const data = await res.json();
   return {
@@ -32,7 +32,7 @@ export async function getStaticPaths() {
   };
 }
 
-const Teams = (props: { data: { Teams: [] } }) => {
+const Teams = (props: { data: [] }) => {
   console.log(props.data);
   return (
     <section className="container mx-auto mb-5 flex min-h-screen flex-col gap-4">
@@ -40,7 +40,7 @@ const Teams = (props: { data: { Teams: [] } }) => {
         <h1 className="">All teams</h1>
       </div>
 
-      {props.data?.Teams.map((el: { teamName: string; Player: player[] }) => {
+      {props.data?.map((el: { teamName: string; Player: player[] }) => {
         return (
           <PlayerGroup team={el.teamName} key={el.teamName}>
             {el.Player?.map((els) => {
