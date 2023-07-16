@@ -22,8 +22,6 @@ const UserTeam = () => {
   const { query } = useRouter();
   const [team, setTeam] = useState<playerTeam>();
 
-  console.log(team);
-
   useEffect(() => {
     const fetcher = async () => {
       const teamId: string = query.userTeamid as string;
@@ -40,8 +38,6 @@ const UserTeam = () => {
     };
     fetcher();
   }, [query.userTeamid]);
-
-  console.log(team);
 
   return (
     <>

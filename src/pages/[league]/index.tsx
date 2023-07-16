@@ -66,7 +66,6 @@ type UserProps = {
 };
 
 const LeaguePage = (props: { data: league; streams: stream[] }) => {
-  console.log(props.data);
   const session = useSession();
   const { status } = useSession();
   const { query } = useRouter();
@@ -239,7 +238,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
               </span>
             )}
             <Link href={`${query.league}/teams`}>
-              <button className="btn flex flex-row items-center justify-center gap-1">
+              <button className="btn flex flex-row items-center justify-center gap-1 border-0 bg-base-300">
                 Competing teams <ExternalLink height={20} />
               </button>
             </Link>

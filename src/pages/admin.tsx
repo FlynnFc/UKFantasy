@@ -105,7 +105,6 @@ const Leagues = () => {
   // Dates need to be converted into prisma supported date format (look up)
   const [newLeagueModel, setNewLeagueModel] = useState(false);
 
-  console.log(newLeagueModel);
   return (
     <div className="w-full">
       <div className="">

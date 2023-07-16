@@ -39,8 +39,6 @@ const SelectedPlayer = (props: player) => {
     setRareity(props.rareity);
   }, [props.rareity]);
 
-  console.log(props);
-
   return (
     <div
       className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}

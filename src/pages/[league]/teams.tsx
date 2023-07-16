@@ -33,7 +33,6 @@ export async function getStaticPaths() {
 }
 
 const Teams = (props: { data: { Teams: [] } }) => {
-  console.log(props.data);
   return (
     <section className="container mx-auto mb-5 flex min-h-screen flex-col gap-4">
       <div className="prose">

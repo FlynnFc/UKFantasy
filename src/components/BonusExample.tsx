@@ -169,7 +169,7 @@ const BonusExample = () => {
           {allBonuses.map((el, i) => {
             for (let i = 0; i < 5; i++) {
               const element = team?.Player[i];
-              console.log(element);
+
               if (element?.bonus?.name === el.name) {
                 return (
                   <span

@@ -7,8 +7,7 @@ import SiteShowcase from "../components/SiteShowcase";
 import { useSession } from "next-auth/react";
 const Home: NextPage = () => {
   // const router = useRouter();
-  const data = useSession();
-  console.log("asdsad", data.data);
+
   // useEffect(() => {
   //   if (status === "authenticated") {
   //     router.push("/leagues");
@@ -33,7 +32,7 @@ const Home: NextPage = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 id="getStarted"
-                className="duration-400 rounded-btn bg-primary p-5 text-xl font-bold uppercase shadow-lg   transition-all"
+                className="duration-400 rounded-btn bg-primary p-5 text-xl font-bold uppercase text-primary-content shadow-lg   transition-all"
               >
                 Try out the demo
               </motion.button>
