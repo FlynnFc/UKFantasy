@@ -61,7 +61,7 @@ model User {
   sessions      Session[]
   PlayerTeam    PlayerTeam[]
   league        League[]
-  HighLightPost HighLightPost[]
+  HighLightPost highlightpost[]
 }
 
 model VerificationToken {
@@ -174,7 +174,7 @@ model League {
   startDate      DateTime        @default(now())
   endDate        DateTime        @default(now())
   leagueRoundsId String?
-  HighLightPost  HighLightPost[]
+  HighLightPost  highlightpost[]
 
   @@index([leagueRoundsId])
 }
@@ -200,7 +200,7 @@ model bonus {
   SelectedPlayer SelectedPlayer[]
 }
 
-model HighLightPost {
+model highlightpost {
   id       String  @id @unique @default(cuid())
   author   User    @relation(fields: [userId], references: [id])
   likes    Int
