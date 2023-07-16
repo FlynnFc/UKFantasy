@@ -16,8 +16,11 @@ import LiveGames from "../../components/LiveGames";
 import { ExternalLink } from "lucide-react";
 import { now } from "next-auth/client/_utils";
 
-export async function getStaticProps() {
-  const res = await fetch("https://esportsfantasy.app/api/allLeagues");
+export async function getStaticProps(paths: { params: { league: string } }) {
+  const res = await fetch("https://esportsfantasy.app/api/allLeagues", {
+    method: "GET",
+    headers: { leaguename: paths.params.league },
+  });
   const data = await res.json();
   const streamsRes = await fetch(
     "https://esportsfantasy.app/api/allTwitchStreams"
@@ -34,8 +37,8 @@ export async function getStaticProps() {
 }
 
 export async function getStaticPaths() {
-  // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app";
+  const path = "http://localhost:3000/";
+  // const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
   const data = await res.json();
 
