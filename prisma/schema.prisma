@@ -51,16 +51,17 @@ model Session {
 }
 
 model User {
-  id            String       @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String?
-  email         String?      @unique
+  email         String?         @unique
   emailVerified DateTime?
   image         String?
-  admin         Boolean      @default(false)
+  admin         Boolean         @default(false)
   accounts      Account[]
   sessions      Session[]
   PlayerTeam    PlayerTeam[]
   league        League[]
+  HighLightPost HighLightPost[]
 }
 
 model VerificationToken {
@@ -161,18 +162,19 @@ model Team {
 }
 
 model League {
-  id             String        @id @default(cuid())
-  name           String        @unique
-  description    String        @db.Text
+  id             String          @id @default(cuid())
+  name           String          @unique
+  description    String          @db.Text
   Teams          Team[]
   User           User[]
-  offical        Boolean       @default(false)
+  offical        Boolean         @default(false)
   playerTeam     PlayerTeam[]
-  LeagueRounds   LeagueRounds? @relation(fields: [leagueRoundsId], references: [id])
-  openDate       DateTime      @default(now())
-  startDate      DateTime      @default(now())
-  endDate        DateTime      @default(now())
+  LeagueRounds   LeagueRounds?   @relation(fields: [leagueRoundsId], references: [id])
+  openDate       DateTime        @default(now())
+  startDate      DateTime        @default(now())
+  endDate        DateTime        @default(now())
   leagueRoundsId String?
+  HighLightPost  HighLightPost[]
 
   @@index([leagueRoundsId])
 }
@@ -196,4 +198,18 @@ model bonus {
   name           String           @id @unique
   description    String           @db.Text
   SelectedPlayer SelectedPlayer[]
+}
+
+model HighLightPost {
+  id       String  @id @unique @default(cuid())
+  author   User    @relation(fields: [userId], references: [id])
+  likes    Int
+  userId   String
+  source   String
+  title    String
+  League   League? @relation(fields: [leagueId], references: [id])
+  leagueId String?
+
+  @@index([userId])
+  @@index([leagueId])
 }
