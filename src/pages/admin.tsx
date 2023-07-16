@@ -102,7 +102,7 @@ const Admin = (props: {
 const Leagues = () => {
   //TODO
   // Date logic - Check if date has already passed, if start time is before end time and if submit time is before start time
-  //
+  // Dates need to be converted into prisma supported date format (look up)
   const [newLeagueModel, setNewLeagueModel] = useState(false);
 
   console.log(newLeagueModel);

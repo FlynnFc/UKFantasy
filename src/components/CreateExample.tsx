@@ -238,9 +238,9 @@ const CreateExample = () => {
     if (deletes.length < 1) {
       return;
     }
-    console.log("running effect");
+
     const tempTeam = myTeam;
-    console.log("looping to find player");
+
     for (let index = 0; index < tempTeam.length; index++) {
       const element = tempTeam[index]?.key;
       if (element === deletes) {
@@ -255,11 +255,9 @@ const CreateExample = () => {
     }
   }, [deletes, myTeam]);
 
-  console.log(myTeam);
   //Sets name to deletes so I know which player to delete
   const PlayerRemove = (data: { name: React.SetStateAction<string> }) => {
     setDeletes(data.name);
-    console.log("Deleted player", data.name, deletes);
   };
 
   //Adding player to myTeam
