@@ -15,8 +15,8 @@ import AllLiveChannels, { stream } from "../../components/AllLiveChannels";
 import { ExternalLink } from "lucide-react";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
-  const path = "http://localhost:3000";
-  // const path = "https://esportsfantasy.app";
+  // const path = "http://localhost:3000";
+  const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/allLeagues`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
