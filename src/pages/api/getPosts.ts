@@ -7,10 +7,18 @@ const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const posts = await prisma.highlightpost.findMany({
-          include: { author: true },
-        });
-        res.status(200).json(posts);
+        if (!leagueName) {
+          const posts = await prisma.highlightpost.findMany({
+            include: { author: true },
+          });
+          res.status(200).json(posts);
+        } else {
+          const posts = await prisma.highlightpost.findMany({
+            where: { League: { name: leagueName } },
+            include: { author: true },
+          });
+          res.status(200).json(posts);
+        }
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error fetching highlight posts" });
