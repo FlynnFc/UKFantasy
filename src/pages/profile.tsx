@@ -15,6 +15,7 @@ import { CgSpinner } from "react-icons/cg";
 import Settings from "../components/Settings";
 import Head from "next/head";
 import { BiLogOut } from "react-icons/bi";
+import { Edit } from "lucide-react";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
@@ -86,6 +87,13 @@ const Profile = (props: { isAdmin: boolean }) => {
                 <li className="btn-disabled rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl text-primary transition-all hover:scale-105">
                   <MdQueryStats className="text-3xl md:mr-4" />
                   <span className="hidden md:inline"> Stats</span>
+                </li>
+                <li
+                  onClick={() => setCurrentPage("posts")}
+                  className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105"
+                >
+                  <Edit className="text-3xl md:mr-4" />
+                  <span className="hidden md:inline"> Posts</span>
                 </li>
                 <li
                   onClick={() => setCurrentPage("settings")}
