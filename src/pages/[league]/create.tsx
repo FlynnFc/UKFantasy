@@ -45,8 +45,12 @@ const filter = new Filter();
 
 const Create = (props: {
   data: {
-    map(arg0: (el: any) => void): React.ReactNode;
-    player: player[];
+    Teams: {
+      map(arg0: (el: any) => void): React.ReactNode;
+      player: player[];
+    };
+    startDate: string;
+    openDate: string;
   };
   data2: { startDate: string; openDate: string; endDate: string };
 }) => {
@@ -65,13 +69,13 @@ const Create = (props: {
   const router = useRouter();
   const query = router.query;
   const isStarted = useMemo(() => {
-    if (props.data2?.startDate)
-      return new Date(props.data2?.startDate) < new Date();
-  }, [props.data2?.startDate]);
+    if (props.data?.startDate)
+      return new Date(props.data?.startDate) < new Date();
+  }, [props.data?.startDate]);
   const isOpen = useMemo(() => {
-    if (props.data2?.openDate)
-      return new Date(props.data2?.openDate) < new Date();
-  }, [props.data2?.openDate]);
+    if (props.data?.openDate)
+      return new Date(props.data?.openDate) < new Date();
+  }, [props.data?.openDate]);
 
   useEffect(() => {
     if (isStarted) {
@@ -91,7 +95,7 @@ const Create = (props: {
       setTeamSort(true);
       return;
     }
-    const allTeams = props.data;
+    const allTeams = props.data.Teams;
     const allPlayers: player[] = [];
 
     allTeams.map((el: { Player: any; teamName: string }) => {
@@ -402,7 +406,7 @@ const Create = (props: {
                 <section className="space-y-6">
                   {/* Maps all teams found in DB then inside each team maps all players found in team */}
 
-                  {props.data?.map((el) => {
+                  {props.data?.Teams.map((el) => {
                     return (
                       <PlayerGroup team={el.teamName} key={el.teamName}>
                         {el.Player?.map(
@@ -467,20 +471,17 @@ const Create = (props: {
 export default Create;
 
 export async function getStaticProps(paths: { params: { league: string } }) {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
-  const data = await res.json();
   // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app";
-  const res2 = await fetch(`${path}/api/getLeague`, {
+  const path = "https://esportsfantasy.app";
+  const res = await fetch(`${path}/api/allTeams`, {
     method: "GET",
-    headers: { leagueName: paths.params.league },
+    headers: { leaguename: paths.params.league },
   });
-  const data2 = await res2.json();
+  const data = await res.json();
 
   return {
     props: {
       data,
-      data2,
     },
   };
 }

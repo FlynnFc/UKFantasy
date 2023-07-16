@@ -15,7 +15,9 @@ import AllLiveChannels, { stream } from "../../components/AllLiveChannels";
 import { ExternalLink } from "lucide-react";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
-  const res = await fetch("https://esportsfantasy.app/api/allLeagues", {
+  const path = "http://localhost:3000";
+  // const path = "https://esportsfantasy.app";
+  const res = await fetch(`${path}/api/allLeagues`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
   });
@@ -63,7 +65,7 @@ type UserProps = {
   User: [{ id: string }];
 };
 
-const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
+const LeaguePage = (props: { data: league; streams: stream[] }) => {
   console.log(props.data);
   const session = useSession();
   const { status } = useSession();
@@ -120,11 +122,7 @@ const LeaguePage = (props: { data: league[]; streams: stream[] }) => {
   };
 
   useEffect(() => {
-    props.data.forEach((el: { name: string }, i: number) => {
-      if (el.name.toLowerCase() === query.league) {
-        setLeague(props.data[i]);
-      }
-    });
+    setLeague(props.data);
   }, [props.data, query.league]);
   //Filters teams so it only shows user submitted teams from this league
   // useEffect(() => {

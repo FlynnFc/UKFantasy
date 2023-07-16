@@ -3,8 +3,13 @@ import PlayerGroup from "../../components/playerGroup";
 import { playerStats } from "../../components/Player";
 import PreviewPlayer, { player } from "../../components/PreviewPlayer";
 
-export async function getStaticProps() {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
+export async function getStaticProps(paths: { params: { league: string } }) {
+  // const path = "http://localhost:3000/";
+  const path = "https://esportsfantasy.app";
+  const res = await fetch(`${path}/api/allTeams`, {
+    method: "GET",
+    headers: { leaguename: paths.params.league },
+  });
   const data = await res.json();
   return {
     props: {
@@ -27,18 +32,18 @@ export async function getStaticPaths() {
   };
 }
 
-const teams = (props: { data: { teamName: string; Player: player[] }[] }) => {
+const Teams = (props: { data: { Teams: [] } }) => {
+  console.log(props.data);
   return (
     <section className="container mx-auto mb-5 flex min-h-screen flex-col gap-4">
       <div className="prose">
         <h1 className="">All teams</h1>
       </div>
 
-      {props.data?.map((el: { teamName: string; Player: player[] }) => {
+      {props.data?.Teams.map((el: { teamName: string; Player: player[] }) => {
         return (
           <PlayerGroup team={el.teamName} key={el.teamName}>
             {el.Player?.map((els) => {
-              console.log(els);
               return (
                 <PreviewPlayer
                   key={els.id}
@@ -58,4 +63,4 @@ const teams = (props: { data: { teamName: string; Player: player[] }[] }) => {
   );
 };
 
-export default teams;
+export default Teams;
