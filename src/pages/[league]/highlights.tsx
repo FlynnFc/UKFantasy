@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowBigUp, Heart, Mailbox } from "lucide-react";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { FormEvent, useEffect, useMemo, useState } from "react";
 import { date } from "zod";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
@@ -37,7 +37,11 @@ export async function getStaticPaths() {
 
 const Highlights = (props: { data: any }) => {
   const [order, setOrder] = useState<"top" | "new">("top");
+  const [postModal, setPostModal] = useState(false);
 
+  const newPostHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
   const posts = useMemo(() => {
     if (order === "top") {
       const sorted = props.data.sort((a: any, b: any) => b.likes - a.likes);
@@ -71,9 +75,47 @@ const Highlights = (props: { data: any }) => {
               <Mailbox /> New
             </button>
           </div>
-          <button className="btn w-fit justify-self-end">Post</button>
+          {!postModal ? (
+            <button
+              onClick={() => setPostModal(true)}
+              className="btn w-fit justify-self-end"
+            >
+              Post
+            </button>
+          ) : (
+            <button
+              onClick={() => setPostModal(false)}
+              className="btn-error btn w-fit justify-self-end"
+            >
+              Close
+            </button>
+          )}
         </section>
         <AnimatePresence>
+          {postModal && (
+            <motion.form
+              className="rounded-btn flex w-full flex-col gap-4 bg-base-300 p-6"
+              onSubmit={newPostHandler}
+            >
+              <label htmlFor="">Title</label>
+              <input
+                placeholder="post title"
+                className="input"
+                type="text"
+                name=""
+                id=""
+              />
+              <label htmlFor="">url</label>
+              <input
+                placeholder="twitch clip / streamable link"
+                className="input"
+                type="url"
+                name=""
+                id=""
+              />
+              <button className="btn">Post</button>
+            </motion.form>
+          )}
           {posts.map(
             (el: {
               id: string;
