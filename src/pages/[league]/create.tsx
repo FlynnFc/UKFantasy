@@ -192,23 +192,29 @@ const Create = (props: {
   };
   //Submits people in myTeam to DB
   const teamSubmitHandler = async () => {
-    const playerIds = await myTeam.map((el) => {
-      return el.props.id;
-    });
+    try {
+      const playerIds = await myTeam.map((el) => {
+        return el.props.id;
+      });
 
-    const body = await {
-      teamName: filter.clean(teamName),
-      userId: session.data?.user?.id,
-      players: playerIds,
-      league: query.league,
-    };
+      const body = await {
+        teamName: filter.clean(teamName),
+        userId: session.data?.user?.id,
+        players: playerIds,
+        league: query.league,
+      };
 
-    const JSONbody = await JSON.stringify(body);
-    const response = await fetch("/api/submitTeam", {
-      method: "POST",
-      body: JSONbody,
-    });
-    return response;
+      const JSONbody = await JSON.stringify(body);
+      const response = await fetch("/api/submitTeam", {
+        method: "POST",
+        body: JSONbody,
+      });
+      if (response.ok) {
+        return response;
+      } else throw new Error("Could not submit team!");
+    } catch (error) {
+      throw error;
+    }
   };
 
   const submitSuccess = () => {

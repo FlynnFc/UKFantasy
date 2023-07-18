@@ -1,6 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowBigUp, Heart, Mailbox } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { date } from "zod";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
@@ -35,17 +38,62 @@ export async function getStaticPaths() {
   };
 }
 
+type PostType = {
+  title: string;
+  source: string;
+  author: string;
+  league: string;
+};
+
 const Highlights = (props: { data: any }) => {
   const [order, setOrder] = useState<"top" | "new">("top");
   const [postModal, setPostModal] = useState(false);
-
-  const newPostHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const { status, data } = useSession();
+  const [newPost, setNewPost] = useState<PostType>();
+  const [title, setTitle] = useState("");
+  const [source, setSource] = useState("");
+  const { query } = useRouter();
+  const newPostHandler = async () => {
+    try {
+      if (data?.user && title.length && source.length) {
+        const res = await fetch("/api/postHighlight", {
+          method: "POST",
+          body: JSON.stringify({
+            title: title,
+            source: source,
+            author: data.user.id,
+            league: query.league,
+          }),
+        });
+        if (!res.ok) {
+          throw new Error("Failed to submit post");
+        }
+        setTitle("");
+        setSource("");
+        return res;
+      } else {
+        throw new Error("Not enough params passed in form");
+      }
+    } catch (error) {
+      throw error;
+    }
   };
+
+  console.log(newPost);
+
+  const newPostSubmitter = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    toast.promise(newPostHandler(), {
+      loading: "Posting...",
+      success: <b>Your post is up!</b>,
+      error: <b>Could not post.</b>,
+    });
+  };
+
   const posts = useMemo(() => {
     if (order === "top") {
       const sorted = props.data.sort((a: any, b: any) => b.likes - a.likes);
-      return props.data;
+      return sorted;
     } else {
       const sorted = props.data.sort(
         (a: any, b: any) => Date.parse(b.submitDate) - Date.parse(a.submitDate)
@@ -55,6 +103,7 @@ const Highlights = (props: { data: any }) => {
   }, [order, props.data]);
   return (
     <section className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">
+      <Toaster position="top-center" />
       <section className="flex flex-col gap-4 p-4 ">
         <section className="rounded-btn grid grid-cols-2 items-center gap-4 bg-base-300 p-2">
           <div className="flex flex-row gap-1">
@@ -75,38 +124,48 @@ const Highlights = (props: { data: any }) => {
               <Mailbox /> New
             </button>
           </div>
-          {!postModal ? (
-            <button
-              onClick={() => setPostModal(true)}
-              className="btn w-fit justify-self-end"
-            >
-              Post
-            </button>
-          ) : (
-            <button
-              onClick={() => setPostModal(false)}
-              className="btn-error btn w-fit justify-self-end"
-            >
-              Close
-            </button>
-          )}
+          {status === "authenticated" &&
+            (!postModal ? (
+              <button
+                onClick={() => setPostModal(true)}
+                className="btn w-fit justify-self-end"
+              >
+                Post
+              </button>
+            ) : (
+              <button
+                onClick={() => setPostModal(false)}
+                className="btn-error btn w-fit justify-self-end"
+              >
+                Close
+              </button>
+            ))}
         </section>
         <AnimatePresence>
           {postModal && (
             <motion.form
-              className="rounded-btn flex w-full flex-col gap-4 bg-base-300 p-6"
-              onSubmit={newPostHandler}
+              className="rounded-btn flex w-full flex-col gap-3 bg-base-300 p-6"
+              onSubmit={newPostSubmitter}
             >
-              <label htmlFor="">Title</label>
+              <label className="label-text font-semibold" htmlFor="">
+                Title
+              </label>
               <input
+                minLength={4}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 placeholder="post title"
                 className="input"
                 type="text"
                 name=""
                 id=""
               />
-              <label htmlFor="">url</label>
+              <label className="label-text font-semibold" htmlFor="">
+                url
+              </label>
               <input
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
                 placeholder="twitch clip / streamable link"
                 className="input"
                 type="url"
@@ -124,7 +183,6 @@ const Highlights = (props: { data: any }) => {
               likes: number;
               title: string;
             }) => {
-              console.log(el);
               return (
                 <Post
                   key={el.id}
@@ -200,9 +258,9 @@ const LikeButton = ({ likes }: { likes: number }) => {
 
   const handleClick = () => {
     if (isClicked) {
-      setPostLikes((prev) => prev--);
+      setPostLikes((prev) => prev - 1);
     } else {
-      setPostLikes((prev) => prev++);
+      setPostLikes((prev) => prev + 1);
     }
     setIsClicked(!isClicked);
   };
