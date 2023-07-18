@@ -26,7 +26,7 @@ export default defineNextConfig({
       {
         protocol: "https",
         hostname: "wosipkxcwhwqrtnbwdxx.supabase.co",
-        pathname: "/storage/v1/object/sign/players/**",
+        pathname: "/storage/v1/object/sign/players/**/**",
       },
       {
         protocol: "https",
