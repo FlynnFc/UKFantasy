@@ -15,7 +15,7 @@ const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
         } else {
           const posts = await prisma.highlightpost.findMany({
             take: 10,
-            orderBy: { title: "desc" },
+            orderBy: { likes: "desc" },
             where: { League: { name: leagueName } },
             include: { author: true },
           });
