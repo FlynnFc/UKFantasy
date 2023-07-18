@@ -174,7 +174,7 @@ const LiveGamesExample = () => {
         {streams && (
           <iframe
             className="rounded-btn"
-            src={`https://player.twitch.tv/?channel=${streams[0]?.user_name}&parent=esportsfantasy.app`}
+            src={`https://player.twitch.tv/?channel=ESLCS&parent=esportsfantasy.app`}
             height="360"
             width="640"
           ></iframe>
