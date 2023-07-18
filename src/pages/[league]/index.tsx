@@ -88,16 +88,14 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
   useEffect(() => {
     setLoading(true);
     const tempData: any = [];
-    fetch("/api/allUserTeams")
+    fetch("/api/allUserTeams", {
+      method: "GET",
+      headers: { leagename: JSON.stringify(query.league) },
+    })
       .then((res) => res.json())
       .then((data) => {
-        data.forEach((el: { league: { name: string } }) => {
-          if (el.league?.name.toLowerCase() === query.league) {
-            tempData.push(el);
-          } else return;
-        });
         setLoading(false);
-        return setData(tempData);
+        return setData(data);
       });
   }, [query.league]);
 

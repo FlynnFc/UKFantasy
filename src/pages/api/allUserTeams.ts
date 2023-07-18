@@ -7,7 +7,7 @@ const allUserTeams = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        if (!league.length) {
+        if (!league) {
           const userTeams = await prisma.playerTeam.findMany({
             include: {
               league: true,
