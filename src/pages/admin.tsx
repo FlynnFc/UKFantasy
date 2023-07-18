@@ -31,9 +31,9 @@ export async function getServerSideProps({ req }: any) {
   }
   const temp = await res2.json();
   const data = await res.json();
-  const admins = new Set(temp.map((el: { email: string }) => el.email));
+  const admins = new Set(temp.map((el: { id: string }) => el.id));
 
-  const isAdmin = admins.has(session?.user?.email);
+  const isAdmin = admins.has(session?.user?.id);
 
   if (isAdmin) {
     return {
