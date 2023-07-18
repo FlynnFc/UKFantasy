@@ -18,7 +18,7 @@ const Adminlayout = ({ children }: any) => {
 
   console.log(currentPage);
   return (
-    <div className={`min-w-screen flex min-h-screen w-screen flex-row `}>
+    <div className={`max-w-screen flex min-h-screen flex-row `}>
       <div className=" w-max bg-neutral p-4 px-3 shadow">
         <ul className="flex flex-col gap-5 text-xl text-neutral-content ">
           <Link href={`/admin/points`}>

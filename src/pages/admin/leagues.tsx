@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import Adminlayout from "../../components/AdminLayout";
 import { getSession } from "next-auth/react";
+import PlayerStatsAdmin from "../../components/PlayerStatsAdmin";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
@@ -55,9 +56,9 @@ const Leagues = () => {
   const [currentPage, setCurrentPage] = useState("editplayers");
   return (
     <Adminlayout>
-      <div className="grid grid-cols-7 border-l">
-        <div className="col-span-1  bg-neutral">
-          <ul className="my-2 flex flex-col gap-2 px-2 text-lg">
+      <div className="grid grid-cols-7 border-l ">
+        <div className="col-span-1  rounded-tr-lg bg-neutral">
+          <ul className="my-2 flex flex-col gap-2  px-2 text-lg">
             <li
               onClick={() => setCurrentPage("editplayers")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
@@ -173,7 +174,7 @@ const Leagues = () => {
             </form>
           )}
 
-          {currentPage === "playerstats" && <div>stats</div>}
+          {currentPage === "playerstats" && <PlayerStatsAdmin />}
         </div>
       </div>
     </Adminlayout>
