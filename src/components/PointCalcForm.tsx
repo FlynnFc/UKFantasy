@@ -138,6 +138,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     };
     for (let index = 1; index < jsonData.length; index++) {
       const element = jsonData[index];
+      //General point calc
       const points = Math.round(
         (element[Rowmap.get("Rating 2")] - 1) *
           100 *
