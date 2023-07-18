@@ -60,21 +60,27 @@ li a {
 .gold {
   font-family: lustra !important;
   font-weight: bold;
-  background-image: linear-gradient(135deg, #d29f53 10%, #b86f10 100%);
+
+  background-image: linear-gradient(135deg, #f7cb6b 45%, #fba980 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .silver {
   background: rgb(205, 205, 205);
-  background-image: linear-gradient(135deg, #e4dede 10%, #69635b 100%);
+  background-image: linear-gradient(
+    135deg,
+    #ededed 51%,
+    #b1a9b1 78%,
+    #ededed 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .bronze {
-  font-family: lustra;
-  background: #613f12fe;
+  font-family: lustra, sans-serif;
+  background: linear-gradient(135deg, #d28049 76%, #e39167 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
