@@ -55,10 +55,8 @@ const Admin = (props: {
 }) => {
   const [page, setPage] = useState("points");
   return (
-    <div
-      className={`min-w-screen container flex min-h-screen w-screen max-w-xl flex-row`}
-    >
-      <div className="rounded-btn my-2 ml-2 w-max bg-neutral p-4 px-6 shadow">
+    <div className={`min-w-screen grid min-h-screen w-screen grid-cols-8 `}>
+      <div className="rounded-btn col-span-1 my-2 ml-2 w-max bg-neutral p-4 px-6 shadow">
         <ul className="flex flex-col gap-5 text-xl text-neutral-content ">
           <li
             onClick={() => setPage("points")}
@@ -87,9 +85,7 @@ const Admin = (props: {
           </li>
         </ul>
       </div>
-      <div
-        className={`flex w-11/12 flex-row items-start justify-center gap-4 px-4 py-2`}
-      >
+      <div className={` col-span-6 bg-green-500 px-4 py-2`}>
         {page === "points" && <Points data={props.data} />}
         {page === "bonuses" && <Bonuses />}
         {page === "leagues" && <Leagues />}
@@ -106,11 +102,16 @@ const Leagues = () => {
   const [newLeagueModel, setNewLeagueModel] = useState(false);
 
   return (
-    <div className="w-full">
-      <div className="">
+    <div className="h-full w-full bg-green-500">
+      <div className=" grid w-full grid-cols-2 bg-green-500">
         <button onClick={() => setNewLeagueModel(true)} className="btn">
           Create new League
         </button>
+        <select className="select-bordered select" name="" id="">
+          <option className="optio" value="epic39">
+            Epic39
+          </option>
+        </select>
       </div>
       {newLeagueModel && (
         <div className="fixed left-0 top-0 z-50 flex min-h-screen w-screen items-center justify-center overflow-auto bg-black/50">
