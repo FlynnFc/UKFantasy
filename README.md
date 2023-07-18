@@ -13,7 +13,9 @@
   -compete against others
 * Share teams
 * Create Leagues
-* Different color theme
+* Bonus multipliers
+* Player Stats
+* Automatic point allocation to players
 
 ### Tech
 * React, Nextjs
@@ -21,35 +23,14 @@
 * MySql & PlanetScale for DB
 * Rate Liming with upstash & Redis
 
-This app is still in development. The first event it will cover is EpicLan which is in mid February 2023.
+This app is still in development. The first event it will cover is EpicLan which is 27th april 2023.
 
 ## Feature Roadmap
 * Migrate Auth to Reddis
 * Paid Leagues
-* Player Stats
+
  -Advanced Stats
 * Live game coverage
-* Automatic point allocation to players
-
-
-
-
-## How To Use
-
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-```bash
-# Clone this repository
-$ git clone https://github.com/FlynnFc/TicketTracker.io
-
-# Go into the repository
-
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm start
-```
 
 ### Credits
 
