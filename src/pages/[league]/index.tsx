@@ -94,8 +94,13 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        data.forEach((el: { league: { name: string } }) => {
+          if (el.league?.name.toLowerCase() === query.league) {
+            tempData.push(el);
+          } else return;
+        });
         setLoading(false);
-        return setData(data);
+        return setData(tempData);
       });
   }, [query.league]);
 
