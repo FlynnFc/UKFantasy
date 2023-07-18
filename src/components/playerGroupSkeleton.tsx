@@ -73,7 +73,7 @@ const PlayerGroupSkeleton = (props: {
           Money Left: {props.money.toLocaleString("en-US")}
         </span>
       </div>
-      <div className="rounded-btn sticky top-5  flex w-[95%] flex-row justify-evenly space-x-2 bg-primary px-4 py-6 lg:w-full">
+      <div className="rounded-btn sticky top-5  flex w-full flex-row justify-evenly gap-2 bg-primary px-4 py-6 lg:w-full">
         {props.children[0] ? props.children[0] : <PlayerSkeleton />}
         {props.children[1] ? props.children[1] : <PlayerSkeleton />}
         {props.children[2] ? props.children[2] : <PlayerSkeleton />}

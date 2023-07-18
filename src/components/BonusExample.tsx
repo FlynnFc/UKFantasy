@@ -212,7 +212,9 @@ const BonusExample = () => {
                   name={el.name}
                   price={el.price}
                   rareity={el.rareity}
-                  img={el.image}
+                  img={
+                    "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/7AM/7AM_Husky_Card.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzLzdBTS83QU1fSHVza3lfQ2FyZC5qcGciLCJpYXQiOjE2ODk2OTIxNzMsImV4cCI6MTcyMTIyODE3M30.lxJFTt2YYwAh8-fQw1DHDsiYFBmM03xN7ONR7g1VE3o&t=2023-07-18T14%3A56%3A21.181Z"
+                  }
                   bonus={el.bonus}
                   bonusEdit={true}
                 />

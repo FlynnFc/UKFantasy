@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const PlayerSkeleton = () => {
   return (
     <div
-      className={`z-0 flex  w-56 flex-col justify-between overflow-hidden rounded-xl bg-base-200 text-sm shadow-lg xl:h-72 `}
+      className={`z-0 flex  w-52 flex-col justify-between overflow-hidden rounded-sm bg-base-200 text-sm shadow-lg xl:h-[20rem] `}
     >
       <div className={`justify-center overflow-hidden bg-base-300`}></div>
 

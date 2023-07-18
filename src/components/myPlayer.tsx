@@ -26,70 +26,69 @@ export const MyPlayer = (props: myPlayer) => {
   }, [props.points]);
 
   return (
-    <div className={`rounded-btn flex-col shadow-lg xl:h-[22rem] xl:w-[16rem]`}>
+    <div className={` flex-col shadow-lg xl:h-[20rem] xl:w-[14rem]`}>
       <div
-        className={`rounded-btn relative hidden h-[16.5rem] cursor-auto rounded-b-none bg-base-200 xl:block`}
+        className={` relative hidden h-[20rem] cursor-auto rounded-b-none bg-base-200 xl:block`}
       >
         {props.bonus && (
           <div
-            className={`tooltip absolute top-0 z-10 w-full rounded-t-lg p-1 ${rareity} text-center`}
+            className={`tooltip absolute top-0 z-10 w-full bg-base-100/60 p-1 text-center  `}
             data-tip={props.bonus.description}
           >
-            <button className="text-lg font-bold text-base-200">
+            <button className={` text-lg font-bold  text-base-content`}>
               {props.bonus.name}
             </button>
             {props.bonusEdit && (
               <button
                 onClick={() => props.deleteBonus(props.index)}
-                className="absolute right-0 mr-2 mt-[0.1rem] font-bold text-error"
+                className="absolute right-0 mr-2 mt-[0.1rem]  font-bold text-error"
               >
                 X
               </button>
             )}
           </div>
         )}
-        {props.img && (
-          <Image
-            draggable={false}
-            className="rounded-b-none rounded-t-lg text-center drop-shadow-2xl"
-            alt="player portrait"
-            layout="fill"
-            src={props.img}
-          />
-        )}
-      </div>
-      <div className="flex w-full flex-col">
         <div
-          className={`${rareity} flex h-[6rem] w-full select-none flex-col items-center  justify-center rounded-t-lg p-4 xl:rounded-b-lg xl:rounded-t-none`}
+          className={`absolute bottom-3 z-10 w-full select-none flex-col items-center justify-evenly justify-self-end font-bold  `}
         >
-          <h2 className="pt-3 text-center text-xs font-bold leading-none text-base-200 lg:text-xl xl:text-3xl">
-            {props.name}
-          </h2>
+          <div className="lg:hidden">{props.name}</div>
           <div>
-            <p className="pb-3 text-center text-base-200 xl:text-2xl">
+            <p className={`pb-2 text-center lg:text-3xl ${rareity}`}>
               £{props.price}
             </p>
           </div>
         </div>
-        {props.bonus && (
-          <div
-            className={`tooltip z-10 flex w-full gap-2 rounded-b-lg bg-base-content p-1 text-center xl:hidden`}
-            data-tip={props.bonus.description}
-          >
-            <button className="w-full text-center text-lg font-bold text-base-200">
-              {props.bonus.name}
-            </button>
-            {props.bonusEdit && (
-              <button
-                onClick={() => props.deleteBonus(props.index)}
-                className="right-0 mr-2 mt-[0.1rem] font-bold text-error"
-              >
-                X
-              </button>
-            )}
-          </div>
+        {props.img ? (
+          <Image
+            loading="eager"
+            className="z-0 text-center drop-shadow-2xl"
+            alt="player portrait"
+            src={props.img}
+            layout="fill"
+          />
+        ) : (
+          <div></div>
         )}
       </div>
+
+      {props.bonus && (
+        <div
+          className={`tooltip z-10 flex w-full gap-2 bg-green-500 p-1 text-center xl:hidden`}
+          data-tip={props.bonus.description}
+        >
+          <button className="w-full text-center text-lg font-bold text-base-200">
+            {props.bonus.name}
+          </button>
+          {props.bonusEdit && (
+            <button
+              onClick={() => props.deleteBonus(props.index)}
+              className="right-0 mr-2 mt-[0.1rem] font-bold text-error"
+            >
+              X
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

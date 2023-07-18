@@ -23,7 +23,7 @@ const PlayerGroup = (props: {
         <span className="py-4 text-2xl font-bold">{props.team}</span>
       </div>
 
-      <div className="flex w-[98%] flex-row justify-evenly space-x-1 lg:w-full">
+      <div className="flex w-[98%] flex-row justify-evenly gap-1 lg:w-full">
         {props.children[0] ? props.children[0] : <PlayerSkeleton />}
         {props.children[1] ? props.children[1] : <PlayerSkeleton />}
         {props.children[2] ? props.children[2] : <PlayerSkeleton />}

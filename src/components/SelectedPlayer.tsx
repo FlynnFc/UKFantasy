@@ -41,11 +41,9 @@ const SelectedPlayer = (props: player) => {
 
   return (
     <div
-      className={`relative z-0 flex h-full w-56 flex-col overflow-hidden rounded-xl shadow-none lg:shadow-lg`}
+      className={`relative z-0 flex min-h-full w-52 flex-col overflow-hidden rounded-sm bg-neutral shadow-none lg:h-[20rem] lg:shadow-lg`}
     >
       <div
-        className={`image hidden h-52 cursor-auto justify-center overflow-hidden bg-base-300 xl:block 
-          `}
         onMouseEnter={() => {
           setTimeout(() => setStats(true), 100);
         }}
@@ -53,53 +51,62 @@ const SelectedPlayer = (props: player) => {
           setTimeout(() => setStats(false), 100);
         }}
       >
-        {props.img && (
-          <Image
-            className="text-center drop-shadow-2xl"
-            alt="player portrait"
-            height={500}
-            width={500}
-            src={props.img}
-          />
-        )}
-        {props.stats && (
-          <div
-            className={
-              stats
-                ? "playerstats absolute top-0  h-full w-full p-2 text-white"
-                : "playerstats absolute top-full h-full w-full p-2 text-white"
-            }
-          >
-            <ul className="flex flex-col justify-start gap-1">
-              <li>HLTV: {props.stats.hltv}</li>
-              <li>Faceit Elo: {props.stats.elo} </li>
-              <li>KAST: %</li>
-              <li>ADR: 10</li>
-              <li>HS%: {props.stats.hs}%</li>
-              <li>Entry Rounds: {props.stats.entryRounds}%</li>
-              <li>Clutch Rounds: {props.stats.clutchRounds}%</li>
-            </ul>
+        <div
+          className={`absolute bottom-2 z-10 w-full select-none flex-col items-center justify-evenly justify-self-end rounded-b-lg font-bold `}
+        >
+          <div className="lg:hidden">{props.name}</div>
+          <div>
+            <p className={`pb-2 text-center lg:text-3xl  ${rareity}`}>
+              £{props.price}
+            </p>
           </div>
-        )}
-      </div>
-
-      <div
-        className={`flex ${rareity} z-10 h-[5rem] select-none flex-col items-center justify-evenly rounded-b-lg`}
-      >
-        <h2 className=" pt-2 text-center font-bold leading-none text-neutral lg:text-2xl">
-          {props.name}
-        </h2>
-        <div>
-          <p className="pb-2 text-center text-neutral lg:text-2xl">
-            £{props.price.toLocaleString("en-US")}
-          </p>
         </div>
-      </div>
-      <div
-        onClick={() => props.PlayerRemove(props)}
-        className="absolute right-2 top-1 z-10 cursor-pointer"
-      >
-        <b>X</b>
+        <div
+          className={`z-0 hidden h-[20rem] cursor-auto justify-center lg:block`}
+        >
+          {props.img ? (
+            <Image
+              loading="eager"
+              className="z-0 text-center drop-shadow-2xl"
+              alt="player portrait"
+              src={props.img}
+              layout="fill"
+            />
+          ) : (
+            <div></div>
+          )}
+        </div>
+
+        <div
+          className={
+            stats
+              ? "playerstats absolute top-0 z-20 flex h-full w-full flex-col justify-between p-2 text-white"
+              : "playerstats absolute top-full z-20 flex  h-full w-full  flex-col justify-between p-2 text-white"
+          }
+        >
+          <ul className="grid grid-cols-1 gap-1">
+            <li>HLTV: {props.stats ? props.stats.hltv : "N/A"}</li>
+            <li>Faceit Elo: {props.stats ? props.stats.elo : "N/A"} </li>
+            <li>KAST: {props.stats ? `${props.stats.kast}%` : "N/A"}</li>
+            <li>ADR: {props.stats ? `${props.stats.adr}` : "N/A"}</li>
+            <li>HS%: {props.stats ? `${props.stats.hs}%` : "N/A"}</li>
+            <li>
+              Entry/round%:{" "}
+              {props.stats ? `${props.stats.entryRounds}%` : "N/A"}
+            </li>
+            <li>
+              Clutch %: {props.stats ? `${props.stats.clutchRounds}%` : "N/A"}
+            </li>
+            <li>Clutch %: {props.stats ? `${props.stats.util}%` : "N/A"}</li>
+            <li>Clutch %: {props.stats ? `${props.stats.util}%` : "N/A"}</li>
+          </ul>
+          <button
+            className="btn-error btn w-auto border-none bg-red-500"
+            onClick={() => props.PlayerRemove(props)}
+          >
+            Remove player
+          </button>
+        </div>
       </div>
     </div>
   );
