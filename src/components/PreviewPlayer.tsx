@@ -13,7 +13,7 @@ export type player = {
 const PreviewPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
   return (
-    <div className={` flex-col shadow-lg xl:h-[20rem] xl:w-[14rem]`}>
+    <div className={` flex-col shadow-lg lg:w-[14rem] xl:h-[20rem]`}>
       <div
         className={` relative hidden h-[20rem] cursor-auto rounded-b-none bg-base-200 xl:block`}
       >

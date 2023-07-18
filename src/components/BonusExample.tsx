@@ -176,7 +176,7 @@ const BonusExample = () => {
                     key={el.name}
                     draggable={false}
                     onDragStart={(e) => handleOnDrag(e, el.name, i)}
-                    className={`${`rounded-btn cursor-not-allowed bg-gray-900 p-3 text-gray-700 line-through`}`}
+                    className={`${` rounded-btn cursor-not-allowed bg-gray-900 p-3 text-gray-700 line-through`}`}
                   >
                     {el.name}
                   </span>
@@ -188,7 +188,8 @@ const BonusExample = () => {
                 key={el.name}
                 draggable={true}
                 onDragStart={(e) => handleOnDrag(e, el.name, i)}
-                className="rounded-btn cursor-grab bg-primary/90 p-3 text-primary-content transition-all hover:scale-105"
+                className="tooltip rounded-btn cursor-grab bg-primary/90 p-3 text-primary-content transition-all hover:scale-105"
+                data-tip={el.description}
               >
                 {el.name}
               </span>
