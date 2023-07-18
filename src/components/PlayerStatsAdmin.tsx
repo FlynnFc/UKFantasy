@@ -41,7 +41,7 @@ const PlayerStatsAdmin = () => {
 
   console.log(playerData);
   return (
-    <div className=" ml-2 flex w-full flex-col justify-center">
+    <div className=" ml-2 flex w-full max-w-3xl flex-col justify-center">
       <label className="label">What league is the player in?</label>
       <select
         onChange={(e) => {
