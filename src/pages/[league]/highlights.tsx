@@ -214,7 +214,8 @@ const Post = ({
   src: string;
   likes: number;
 }) => {
-  const localpath = "localhost";
+  const localpath = "esportsfantasy.app";
+
   console.log(src);
   // https://www.twitch.tv/lirik/clip/AdventurousGlamorousBaboonResidentSleeper-8tEMe2_qdEjvgP3H
   const regex = /[a-zA-Z0-9_-]+/gm;
