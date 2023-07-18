@@ -36,16 +36,16 @@ const CreateExample = () => {
     data: [
       {
         id: "clb6rkolq0000j9dwh0qge2ev",
-        teamName: "Into the breach",
+        teamName: "Team 7AM",
         Player: [
           {
             id: "clb6rldmx0002j9dwhvehjk9p",
             name: "Rallen",
             price: 24000,
             image:
-              "https://img-cdn.hltv.org/playerbodyshot/I1ABQFlv-1vKh0QfZqgJ2t.png?ixlib=java-2.1.0&w=400&s=a87f39842f0056664d21ced21c658e08",
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/7AM/7AM_Husky_Card.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzLzdBTS83QU1fSHVza3lfQ2FyZC5qcGciLCJpYXQiOjE2ODk3MTA1OTksImV4cCI6MTcyMTI0NjU5OX0.gD7E-eILojmWm2gM5v_nHsbQXcFxvHzk3ftk70bmFA8&t=2023-07-18T20%3A03%3A26.963Z",
             rareity: "gold",
-            statsId: null,
+            statsId: "",
             teamId: "clb6rkolq0000j9dwh0qge2ev",
           },
           {
@@ -53,7 +53,7 @@ const CreateExample = () => {
             name: "CRUC1AL",
             price: 22000,
             image:
-              "https://img-cdn.hltv.org/playerbodyshot/NQ9EkN_JfInD-s2xphdfy9.png?ixlib=java-2.1.0&w=400&s=83ffe82afd8ab13cc2511c3d61d37a00",
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/7AM/7AM_LVN_Card.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzLzdBTS83QU1fTFZOX0NhcmQuanBnIiwiaWF0IjoxNjg5NzEwNjA4LCJleHAiOjE3MjEyNDY2MDh9.InNlkB11ZS_cuePsUg0iQzyESCcimXSJFvSRmdfK6JU&t=2023-07-18T20%3A03%3A35.745Z",
             rareity: "gold",
             statsId: "clb3wv98b0000j9fgp1eqw0xj",
             teamId: "clb6rkolq0000j9dwh0qge2ev",
@@ -63,7 +63,7 @@ const CreateExample = () => {
             name: "Thomas",
             price: 23500,
             image:
-              "https://img-cdn.hltv.org/playerbodyshot/19lZmEgLlFpQl0FP_89OEr.png?ixlib=java-2.1.0&w=400&s=ce6a66e60feacb2cbe0a6161a77f4ff2",
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/7AM/7AM_Silence.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzLzdBTS83QU1fU2lsZW5jZS5qcGciLCJpYXQiOjE2ODk3MTA2MTYsImV4cCI6MTcyMTI0NjYxNn0.dBtlwJKpIrAf_F7AZKGPess6qSYMvK0IO0RB007P87Q&t=2023-07-18T20%3A03%3A44.184Z",
             rareity: "gold",
             statsId: "clb3wv98b0000j9fgp1eqw0xj",
             teamId: "clb6rkolq0000j9dwh0qge2ev",
@@ -73,7 +73,7 @@ const CreateExample = () => {
             name: "CYPHER",
             price: 23000,
             image:
-              "https://img-cdn.hltv.org/playerbodyshot/2O8iemGgkX6tUOUzaZrRtc.png?ixlib=java-2.1.0&w=400&s=d4568a843a84deae87421c508b5a01b6",
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/7AM/7AM_Vacancy_Card.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzLzdBTS83QU1fVmFjYW5jeV9DYXJkLmpwZyIsImlhdCI6MTY4OTcxMDYyNCwiZXhwIjoxNzIxMjQ2NjI0fQ.FIfSNOt-e0eMGnSypqwhP8qNKGGxsaur_DsnREB3tVU&t=2023-07-18T20%3A03%3A52.177Z",
             rareity: "gold",
             statsId: "clb3wv98b0000j9fgp1eqw0xj",
             teamId: "clb6rkolq0000j9dwh0qge2ev",
@@ -83,7 +83,7 @@ const CreateExample = () => {
             name: "volt",
             price: 22500,
             image:
-              "https://img-cdn.hltv.org/playerbodyshot/UWZQElkD5-inGTM72NGJXU.png?ixlib=java-2.1.0&w=400&s=763997cba47f7fe1c765ded00e2cd181",
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/7AM/7AM_yz0.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzLzdBTS83QU1feXowLmpwZyIsImlhdCI6MTY4OTcxMDYzNSwiZXhwIjoxNzIxMjQ2NjM1fQ.e6MlGpQIVdOlKIjEKwumPloaKaHmTmqI5O1Ea_TCzg8&t=2023-07-18T20%3A04%3A02.854Z",
             rareity: "gold",
             statsId: "clb3wv98b0000j9fgp1eqw0xj",
             teamId: "clb6rkolq0000j9dwh0qge2ev",
@@ -339,9 +339,7 @@ const CreateExample = () => {
                               rareity={els.rareity}
                               name={els.name}
                               price={els.price}
-                              img={
-                                "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/7AM/7AM_Husky_Card.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzLzdBTS83QU1fSHVza3lfQ2FyZC5qcGciLCJpYXQiOjE2ODk2OTIxNzMsImV4cCI6MTcyMTIyODE3M30.lxJFTt2YYwAh8-fQw1DHDsiYFBmM03xN7ONR7g1VE3o&t=2023-07-18T14%3A56%3A21.181Z"
-                              }
+                              img={els.image}
                               team={myTeam}
                               playersTeam={el.teamName}
                             />
