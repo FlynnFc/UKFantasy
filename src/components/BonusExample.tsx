@@ -78,48 +78,59 @@ const BonusExample = () => {
 
   const allBonuses = [
     {
-      name: "1 Tap king",
-      description: "Headshot kills grants bonus points",
+      name: "ADR warrior",
+      description:
+        "+10 points for having 85 ADR. +5 for over 70 but less than 85. -5 for less than 70",
     },
     {
-      name: "ADR Merchant",
-      description: "High ADR grants bonus points",
+      name: "All rounder",
+      description:
+        "+10 points for having a KAST of over 70%. +5 for having over 60% but less than 70%. -5 for anything less than 60",
     },
     {
-      name: "AWPer",
-      description: "AWP kills grant bonus points",
+      name: "awper",
+      description:
+        "+10 points for having 0.2 AWP kills per round or higher. +5 for having more than 0.12 but less than 0.2. -5 for less than 0.12",
     },
     {
-      name: "Entry fragger",
-      description: "Entry kills grant bonus points",
+      name: "Clutcher",
+      description:
+        "+10 points for a Clutch win % higher than 10%. +5 for higher than 1% but less than 10%. -5 for less than 1%",
     },
     {
-      name: "let him cook",
-      description: "Players who perform well late round get bonus points",
+      name: "Entry king",
+      description:
+        "+10 points  for anything over 0.12 entry kills per round. +5 for anything over 0.06 but not over 0.12. -5 points very anything under 0.06",
     },
     {
-      name: "Nart out here demon",
-      description: "Flashs assits, Nade & Mollo dmg grant bonus points",
+      name: "Head Clicker",
+      description:
+        "+10 points for having a headshot percentage over 65%. +5 for being over 40% but less than 65%. -5 for less than 40%",
     },
     {
-      name: "Noob",
-      description: "Rounds with 0% KAST grant bonus points",
+      name: "PTFO",
+      description:
+        "+10 points for averaging 0.09  defuse/plants per round. +5 for over 0.05 but less than 0.09 . -5 for anything under 0.05",
     },
     {
-      name: "SashAFP Cosplay",
-      description: "Teamflashs grant bonus points",
+      name: "Site on lock",
+      description:
+        "+10 points for an entry hold win % higher than 60%. +5 for higher than 40% but less than 60%. -5 for less than 40%",
     },
     {
-      name: "Scream wanna be",
-      description: "High headshot % grants bonus points",
+      name: "Stat padder",
+      description:
+        "+10 points for having a HLTV rating (2.0) higher than 1.35. +5 for higher than 0.85. -5 for less than 0.85",
     },
     {
-      name: "Stevie Wonder",
-      description: "Time flashed grants bonus points",
+      name: "Trade me",
+      description:
+        "+10 points for averaging 0.2 trade deaths per round. +5 for over 0.15 but less than 0.2. -5 for less than 0.15",
     },
     {
-      name: "The Gardener",
-      description: "Bomb plants grant bonus points",
+      name: "Util nerd",
+      description:
+        "+10 points  for averaging 2 grenades thrown a round (excludes decoys). +5 for over 1.5 but less than 2. -5 for anything under 1.5",
     },
   ];
 

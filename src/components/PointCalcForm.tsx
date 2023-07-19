@@ -83,7 +83,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       }
       const val = awpKills / element[Rowmap.get("Rounds")];
       if (val >= 0.2) return 10;
-      else if (val >= 0.14) return 5;
+      else if (val >= 0.12) return 5;
       else return -5;
     };
     const entryKing = (element: any) => {
