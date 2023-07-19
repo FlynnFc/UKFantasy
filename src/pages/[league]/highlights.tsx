@@ -18,7 +18,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
     props: {
       data,
     },
-    revalidate: 30,
+    revalidate: 5,
   };
 }
 
@@ -58,7 +58,7 @@ const Highlights = (props: { data: any }) => {
       if (data?.user && title.length && source.length) {
         const res = await fetch("/api/postHighlight", {
           method: "POST",
-          body: JSON.stringify({
+          body: await JSON.stringify({
             title: title,
             source: source,
             author: data.user.id,
@@ -258,9 +258,10 @@ const Post = ({
         {playerType === "streamable" && (
           <iframe
             src={`https://streamable.com/e/${videoURL}`}
-            height="378"
+            height="350"
             width="620"
             allowFullScreen
+            className="rounded-btn"
           ></iframe>
         )}
 
@@ -268,7 +269,7 @@ const Post = ({
           <iframe
             src={`https://clips.twitch.tv/embed?clip=${videoURL}&parent=${localpath}`}
             allowFullScreen
-            height="378"
+            height="350"
             width="620"
             className="rounded-btn"
           ></iframe>
@@ -281,6 +282,7 @@ const Post = ({
 const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
   const [postLikes, setPostLikes] = useState(likes);
   const [isClicked, setIsClicked] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
 
   // When someone likes start a 2 second timer and everytime they like/unlike restart it, if the 2 second timer finishes add a like to the db
   // When firing like to db log video ids in cookies?
@@ -292,6 +294,30 @@ const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
     }
     setIsClicked(!isClicked);
   };
+
+  useEffect(() => {
+    if (firstRender) {
+      setFirstRender(false);
+      return;
+    }
+    const delayedSubmit = async () => {
+      console.log("Function executed after 5 seconds.", postLikes);
+      const res = await fetch("/api/updatelikes", {
+        method: "POST",
+        body: JSON.stringify({ id: id, likes: postLikes }),
+      });
+      if (!res.ok) {
+        throw new Error("Could not update");
+      } else return res;
+      // Add your desired code to execute here
+    };
+
+    const timer = setTimeout(() => delayedSubmit(), 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isClicked, postLikes]);
 
   return (
     <div className="grid w-[4.2rem] grid-flow-col items-center justify-items-center">
