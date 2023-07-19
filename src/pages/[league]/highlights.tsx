@@ -91,14 +91,17 @@ const Highlights = (props: { data: any }) => {
   };
 
   const posts = useMemo(() => {
-    if (order === "top") {
-      const sorted = props.data.sort((a: any, b: any) => b.likes - a.likes);
-      return sorted;
-    } else {
-      const sorted = props.data.sort(
-        (a: any, b: any) => Date.parse(b.submitDate) - Date.parse(a.submitDate)
-      );
-      return sorted;
+    if (props.data) {
+      if (order === "top") {
+        const sorted = props.data.sort((a: any, b: any) => b.likes - a.likes);
+        return sorted;
+      } else {
+        const sorted = props.data.sort(
+          (a: any, b: any) =>
+            Date.parse(b.submitDate) - Date.parse(a.submitDate)
+        );
+        return sorted;
+      }
     }
   }, [order, props.data]);
   return (
