@@ -13,6 +13,8 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
     title: data.title,
   };
 
+  console.log(post);
+
   switch (method) {
     case "POST":
       try {
@@ -20,7 +22,13 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
           where: { name: data.league },
         });
         const newHighlight = await prisma.highlightpost.create({
-          data: { ...post, leagueId: findLeagueID?.id },
+          data: {
+            likes: 0,
+            source: post.source,
+            title: post.title,
+            userId: post.userId,
+            leagueId: findLeagueID?.id,
+          },
         });
         res.status(200).json(newHighlight);
       } catch (e) {

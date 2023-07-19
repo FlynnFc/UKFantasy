@@ -217,13 +217,26 @@ const Post = ({
   likes: number;
   id: string;
 }) => {
-  const localpath = "esportsfantasy.app";
-
-  console.log(src);
+  const localpath = "localhost";
+  const Y = "/clip/";
+  const [playerType, setPlayerType] = useState("");
   // https://www.twitch.tv/lirik/clip/AdventurousGlamorousBaboonResidentSleeper-8tEMe2_qdEjvgP3H
-  const regex = /[a-zA-Z0-9_-]+/gm;
-  const result = src.match(regex);
+  const videoURL = useMemo(() => {
+    const result = src.match(new RegExp(`${Y}([^/]+)`))?.[1];
+    if (result) {
+      setPlayerType("twitch");
+      return result;
+    }
+    const result2 = src.match(
+      new RegExp(`(?<=https://streamable.com/)[a-zA-Z0-9]+`)
+    );
+    if (result2) {
+      setPlayerType("streamable");
+      return result2[0];
+    }
+  }, [src]);
 
+  console.log(videoURL);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -241,16 +254,25 @@ const Post = ({
           <LikeButton id={id} likes={likes} />
         </div>
       </div>
-      <div className="">
-        <iframe
-          src={`https://clips.twitch.tv/embed?clip=${
-            result && result?.length > 9 && result[10]
-          }&parent=${localpath}`}
-          allowFullScreen
-          height="378"
-          width="620"
-          className="rounded-btn"
-        ></iframe>
+      <div className="min-w-[40rem]">
+        {playerType === "streamable" && (
+          <iframe
+            src={`https://streamable.com/e/${videoURL}`}
+            height="378"
+            width="620"
+            allowFullScreen
+          ></iframe>
+        )}
+
+        {playerType === "twitch" && (
+          <iframe
+            src={`https://clips.twitch.tv/embed?clip=${videoURL}&parent=${localpath}`}
+            allowFullScreen
+            height="378"
+            width="620"
+            className="rounded-btn"
+          ></iframe>
+        )}
       </div>
     </motion.div>
   );
