@@ -58,7 +58,7 @@ li a {
 }
 
 .gold {
-  font-family: lustra !important;
+  font-family: lustra, sans-serif;
   font-weight: bold;
 
   background-image: linear-gradient(135deg, #f7cb6b 45%, #fba980 100%);
@@ -67,6 +67,7 @@ li a {
   -webkit-text-fill-color: transparent;
 }
 .silver {
+  font-family: lustra, sans-serif;
   background: rgb(205, 205, 205);
   background-image: linear-gradient(
     135deg,
