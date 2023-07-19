@@ -12,7 +12,6 @@ export type player = {
 };
 const PreviewPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
-  console.log(props.name, props.image);
   return (
     <div className={` flex-col shadow-lg lg:w-[14rem] xl:h-[20rem]`}>
       <div
