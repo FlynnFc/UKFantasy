@@ -26,9 +26,9 @@ export const MyPlayer = (props: myPlayer) => {
   }, [props.points]);
 
   return (
-    <div className={` flex-col shadow-lg xl:h-[20rem] xl:w-[14rem]`}>
+    <div className={`w-[14rem] flex-col shadow-lg xl:h-[20rem]`}>
       <div
-        className={` relative hidden h-[20rem] cursor-auto rounded-b-none bg-base-200 xl:block`}
+        className={` relative hidden h-[20rem] cursor-auto rounded-b-none bg-base-200 lg:block`}
       >
         {props.bonus && (
           <div
@@ -70,7 +70,12 @@ export const MyPlayer = (props: myPlayer) => {
           <div></div>
         )}
       </div>
-
+      <div
+        className={`rounded-btn flex flex-col items-center justify-center   bg-neutral lg:hidden`}
+      >
+        <h2 className={`${props.rareity}`}>{props.name}</h2>
+        <span className={`${props.rareity}`}>{props.price}</span>
+      </div>
       {props.bonus && (
         <div
           className={`tooltip z-10 flex w-full gap-2 bg-green-500 p-1 text-center xl:hidden`}
