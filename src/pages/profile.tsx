@@ -88,13 +88,13 @@ const Profile = (props: { isAdmin: boolean }) => {
                   <MdQueryStats className="text-3xl md:mr-4" />
                   <span className="hidden md:inline"> Stats</span>
                 </li>
-                <li
+                {/* <li
                   onClick={() => setCurrentPage("posts")}
                   className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105"
                 >
                   <Edit className="text-3xl md:mr-4" />
                   <span className="hidden md:inline"> Posts</span>
-                </li>
+                </li> */}
                 <li
                   onClick={() => setCurrentPage("settings")}
                   className="btn-ghost rounded-btn flex cursor-pointer flex-row items-center p-2 text-2xl transition-all hover:scale-105"
