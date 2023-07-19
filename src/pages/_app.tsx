@@ -17,7 +17,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <meta name="title" content="Play Fantasy esports here!" />
         <meta
           name="description"
-          content="The center for UK esports fantasy. Join leagues, Create your team, win prizes"
+          content="The center for UK esports fantasy. Join leagues, Create your team, compete against others."
         />
         <link rel="icon" href="/favicon.ico" />
 
@@ -33,7 +33,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         />
         <meta
           property="twitter:image"
-          content="https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/public/images/Screenshot_11.png"
+          content="https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/public/images/image.jpg?t=2023-07-19T17%3A18%3A38.302Z"
         ></meta>
       </Head>
       <SessionProvider session={session}>
