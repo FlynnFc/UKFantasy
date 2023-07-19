@@ -46,6 +46,7 @@ type PostType = {
 };
 
 const Highlights = (props: { data: any }) => {
+  console.log(props);
   const [order, setOrder] = useState<"top" | "new">("top");
   const [postModal, setPostModal] = useState(false);
   const { status, data } = useSession();
@@ -56,6 +57,16 @@ const Highlights = (props: { data: any }) => {
   const newPostHandler = async () => {
     try {
       if (data?.user && title.length && source.length) {
+        {
+          const result = source.match(new RegExp(`/clip/([^/]+)`))?.[1];
+          const result2 = source.match(
+            new RegExp(`(?<=https://streamable.com/)[a-zA-Z0-9]+`)
+          );
+          if (!result && !result2) {
+            throw new Error("Please uses a streamable or twitch clip");
+          }
+        }
+
         const res = await fetch("/api/postHighlight", {
           method: "POST",
           body: await JSON.stringify({
@@ -306,7 +317,9 @@ const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
       });
       if (!res.ok) {
         throw new Error("Could not update");
-      } else return res;
+      } else {
+        return res;
+      }
       // Add your desired code to execute here
     };
 

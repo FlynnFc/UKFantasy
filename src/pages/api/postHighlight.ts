@@ -10,6 +10,7 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
     userId: data.author,
     source: data.source,
     title: data.title,
+    league: data.league.toLowerCase(),
   };
 
   try {
@@ -19,6 +20,7 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
         source: post.source,
         title: post.title,
         author: { connect: { id: post.userId } },
+        League: { connect: { name: post.league } },
       },
     });
     res.status(200).json(newHighlight);
