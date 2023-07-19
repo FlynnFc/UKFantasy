@@ -36,22 +36,32 @@ const Navbar = () => {
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
     const bodyEl = document.querySelector("body");
-    const isBrowserSetToDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (localTheme) {
+    const userPrefered = localStorage.getItem("darkmode");
+    if (userPrefered && localTheme) {
       const themes: theme = localTheme.split(",");
       setTheme(themes);
-
-      const selectedTheme: string = themes[darkmode ? 1 : 0] as string;
+      const selectedTheme: string = themes[
+        userPrefered === "true" ? 1 : 0
+      ] as string;
       bodyEl?.setAttribute("data-theme", selectedTheme);
     } else {
-      localStorage.setItem("theme", "myThemeLight,mytheme");
-      bodyEl?.setAttribute(
-        "data-theme",
-        isBrowserSetToDark ? "mytheme" : "myThemeLight"
-      );
+      const isBrowserSetToDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      if (localTheme) {
+        const themes: theme = localTheme.split(",");
+        setTheme(themes);
+
+        const selectedTheme: string = themes[darkmode ? 1 : 0] as string;
+        bodyEl?.setAttribute("data-theme", selectedTheme);
+      } else {
+        localStorage.setItem("theme", "myThemeLight,mytheme");
+        bodyEl?.setAttribute(
+          "data-theme",
+          isBrowserSetToDark ? "mytheme" : "myThemeLight"
+        );
+      }
     }
   }, [darkmode]);
 
@@ -61,6 +71,7 @@ const Navbar = () => {
     const bodyEl = document.querySelector("body");
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const chosenTheme: string = theme[darkmode ? 1 : 0]!;
+    localStorage.setItem("darkmode", darkmode ? "true" : "false");
     bodyEl?.setAttribute("data-theme", chosenTheme);
   };
 
