@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Table from "../../components/Table";
 import InsightsTable from "../../components/InsightsTable";
+import { Pencil } from "lucide-react";
 type bonus = {
   name: string;
   description: string;
@@ -102,9 +103,7 @@ const Myteam = (props: {
   }, [props.data2?.startDate]);
 
   useEffect(() => {
-    setUserNeedsHelp(
-      localStorage.getItem("UserTips") === "false" ? false : true
-    );
+    setUserNeedsHelp(!localStorage.getItem("UserTips"));
   }, []);
 
   useEffect(() => {
@@ -277,6 +276,13 @@ const Myteam = (props: {
               </Link>
               {!isStarted && (
                 <div>
+                  <div className="tooltip" data-tip="Edit players">
+                    <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-info transition">
+                      <label className="cursor-pointer">
+                        <Pencil />
+                      </label>
+                    </button>
+                  </div>
                   <div
                     className="tooltip"
                     data-tip={userNeedsHelp ? null : "Edit player bonuses"}
@@ -340,10 +346,10 @@ const Myteam = (props: {
                 })}
             </div>
           </div>
-          <h2 className="my-5 text-left text-4xl">Insights</h2>
+          {/* <h2 className="my-5 text-left text-4xl">Insights</h2>
           <section className="w-fit rounded-xl border-2 border-base-content ">
             <InsightsTable serverTeam={serverTeam} />
-          </section>
+          </section> */}
         </div>
       ) : (
         <Loading />
