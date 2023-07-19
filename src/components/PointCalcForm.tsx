@@ -82,7 +82,6 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         }
       }
       const val = awpKills / element[Rowmap.get("Rounds")];
-      console.log("AWP Kills per round", val, element[0]);
       if (val >= 0.2) return 10;
       else if (val >= 0.14) return 5;
       else return -5;
