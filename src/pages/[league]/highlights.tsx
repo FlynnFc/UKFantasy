@@ -190,6 +190,7 @@ const Highlights = (props: { data: any }) => {
                   author={el.author.name}
                   likes={el.likes}
                   title={el.title}
+                  id={el.id}
                 />
               );
             }
@@ -208,11 +209,13 @@ const Post = ({
   author,
   src,
   likes,
+  id,
 }: {
   title: string;
   author: string;
   src: string;
   likes: number;
+  id: string;
 }) => {
   const localpath = "esportsfantasy.app";
 
@@ -235,7 +238,7 @@ const Post = ({
           <span className="text-gray-600">{author}</span>
         </div>
         <div className="w-fit">
-          <LikeButton likes={likes} />
+          <LikeButton id={id} likes={likes} />
         </div>
       </div>
       <div className="">
@@ -253,10 +256,12 @@ const Post = ({
   );
 };
 
-const LikeButton = ({ likes }: { likes: number }) => {
+const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
   const [postLikes, setPostLikes] = useState(likes);
   const [isClicked, setIsClicked] = useState(false);
 
+  // When someone likes start a 2 second timer and everytime they like/unlike restart it, if the 2 second timer finishes add a like to the db
+  // When firing like to db log video ids in cookies?
   const handleClick = () => {
     if (isClicked) {
       setPostLikes((prev) => prev - 1);
