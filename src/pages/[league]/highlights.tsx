@@ -6,21 +6,21 @@ import React, { FormEvent, useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { date } from "zod";
 
-export async function getStaticProps(paths: { params: { league: string } }) {
-  // const path = "http://localhost:3000";
-  const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/getPosts`, {
-    method: "GET",
-    headers: { leaguename: paths.params.league },
-  });
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-    revalidate: 5,
-  };
-}
+// export async function getStaticProps(paths: { params: { league: string } }) {
+//   // const path = "http://localhost:3000";
+//   const path = "https://esportsfantasy.app";
+//   const res = await fetch(`${path}/api/getPosts`, {
+//     method: "GET",
+//     headers: { leaguename: paths.params.league },
+//   });
+//   const data = await res.json();
+//   return {
+//     props: {
+//       data,
+//     },
+//     revalidate: 5,
+//   };
+// }
 
 export async function getStaticPaths() {
   // const path = "http://localhost:3000/";
