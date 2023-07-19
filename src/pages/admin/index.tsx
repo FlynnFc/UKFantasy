@@ -53,12 +53,14 @@ const Admin = (props: {
     <div className={`min-w-screen grid min-h-screen w-screen grid-cols-10 `}>
       <div className="rounded-btn col-span-2 my-2 ml-2 w-max bg-neutral p-4 px-6 shadow">
         <ul className="flex flex-col gap-5 text-xl text-neutral-content ">
-          <li
-            onClick={() => setPage("points")}
-            className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
-          >
-            <BsFillCalculatorFill /> Points
-          </li>
+          <Link href={`/admin/points`}>
+            <li
+              onClick={() => setPage("points")}
+              className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
+            >
+              <BsFillCalculatorFill /> Points
+            </li>
+          </Link>
           <Link href={`/admin/bonuses`}>
             <li
               className={` rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3`}

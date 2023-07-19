@@ -159,11 +159,11 @@ const PlayerStatsAdmin = () => {
         <option value="epic39">Epic39</option>
         <option value="demo">Demo</option>
       </select>
-      <section className="mt-2 flex w-full flex-row items-center justify-center gap-4">
+      <section className="mt-2 grid grid-cols-1 gap-4">
         {players.length > 0 && (
-          <div className="rounded-btn w-fit bg-base-300 p-3">
+          <div className="rounded-btn flex w-full justify-center p-3">
             <BarChart
-              width={screenWidth - 500}
+              width={screenWidth * 0.65}
               height={400}
               data={players}
               margin={{
