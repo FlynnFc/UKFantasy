@@ -178,26 +178,27 @@ const Highlights = (props: { data: any }) => {
               <button className="btn">Post</button>
             </motion.form>
           )}
-          {posts.map(
-            (el: {
-              id: string;
-              source: string;
-              author: { name: string };
-              likes: number;
-              title: string;
-            }) => {
-              return (
-                <Post
-                  key={el.id}
-                  src={el.source}
-                  author={el.author.name}
-                  likes={el.likes}
-                  title={el.title}
-                  id={el.id}
-                />
-              );
-            }
-          )}
+          {posts &&
+            posts.map(
+              (el: {
+                id: string;
+                source: string;
+                author: { name: string };
+                likes: number;
+                title: string;
+              }) => {
+                return (
+                  <Post
+                    key={el.id}
+                    src={el.source}
+                    author={el.author.name}
+                    likes={el.likes}
+                    title={el.title}
+                    id={el.id}
+                  />
+                );
+              }
+            )}
         </AnimatePresence>
         {props.data.error && props.data.error}
       </section>
