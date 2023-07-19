@@ -278,8 +278,8 @@ const Myteam = (props: {
                   League page
                 </button>
               </Link>
-              {!isStarted && (
-                <div>
+              {!isStarted ? (
+                <div className="flex flex-row gap-2">
                   <div className="tooltip" data-tip="Edit players">
                     <Link
                       href={{
@@ -287,8 +287,8 @@ const Myteam = (props: {
                         query: { league: leagueName.toLowerCase() },
                       }}
                     >
-                      <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-info transition">
-                        <Pencil />
+                      <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  fill-secondary p-2 text-2xl text-secondary transition">
+                        <Pencil className="fill-secondary" />
                       </button>
                     </Link>
                   </div>
@@ -319,6 +319,37 @@ const Myteam = (props: {
                         setUserNeedsHelp(false);
                       }}
                       className="btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl text-primary transition"
+                    >
+                      <label className="cursor-pointer" htmlFor="bonus">
+                        <ImDice />
+                      </label>
+                    </button>
+                  </div>
+                  <div className="tooltip" data-tip="Delete team">
+                    <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-error transition">
+                      <label className="cursor-pointer" htmlFor="my-modal">
+                        <ImBin />
+                      </label>
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-row gap-2">
+                  <div className="tooltip" data-tip="Edit players">
+                    <button
+                      disabled
+                      className="btn-disabled btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl transition"
+                    >
+                      <Pencil />
+                    </button>
+                  </div>
+                  <div
+                    className="tooltip"
+                    data-tip={"Cannot edit while tourements are live"}
+                  >
+                    <button
+                      disabled
+                      className="btn-disabled btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl transition"
                     >
                       <label className="cursor-pointer" htmlFor="bonus">
                         <ImDice />

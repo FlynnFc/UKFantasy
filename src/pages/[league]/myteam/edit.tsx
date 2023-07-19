@@ -288,24 +288,31 @@ const Edit = (props: {
         <Toaster position="top-center" />
         {introModal && (
           <div className="createModal fixed left-0 top-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
-            <div className="prose mt-32 flex max-w-xl  flex-col gap-2  rounded-lg bg-primary p-10 text-primary-content">
+            <div className="prose mt-10 flex max-w-2xl flex-col gap-2 rounded-lg bg-primary  p-10 text-primary-content prose-h3:my-0 prose-ul:mt-0">
               <h2 className="mb-0 text-3xl font-bold leading-loose text-primary-content">
-                Welcome to team creatation
+                Welcome to team editing
               </h2>
-              <p className="mb-2 py-2 text-base">
+              <p className="prose:p:m-0 mb-2 py-2 text-base">
                 This is where you will decide who will give you the most points,
                 be the most economically efficiant and be the person {`that's`}{" "}
                 too expensive. You will have a budget of a £100,000, with this
-                you will need to select 5 players. There are 2 simple
+                you will need to select 5 players.
               </p>
               <ul className="marker:text-primary-content">
-                <b> limitations:</b>
+                There are 3 simple <b> limitations:</b>
                 <li className="text-primary-content">
                   You cannot select more than 2 players per team.
                 </li>
                 <li>You cannot select the same player twice.</li>
                 <li>You cannot spend more than £100,000</li>
               </ul>
+              <h3 className="text-xl text-primary-content ">Dynamic Pricing</h3>
+              <p>
+                The prices of players is <b>dynamic!</b> They will change as
+                people make and edit their teams. Players picked less with
+                decrease in price and vice versa for players picked the most.
+              </p>
+
               <h2 className="my-0 text-2xl  font-bold leading-loose text-primary-content">
                 How do points work?
               </h2>
