@@ -22,7 +22,7 @@ const PreviewPlayer = (props: player) => {
         >
           <div>
             <p
-              className={`flex flex-col pb-2 text-center shadow-2xl lg:text-3xl ${
+              className={`flex flex-col pb-2 text-center lg:text-3xl ${
                 props.price >= 21500
                   ? "gold"
                   : props.price > 19000
