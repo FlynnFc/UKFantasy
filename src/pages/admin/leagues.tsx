@@ -58,11 +58,11 @@ const Leagues = () => {
     <Adminlayout>
       <div className="grid grid-cols-7 border-l ">
         <div className="col-span-1  rounded-tr-lg bg-neutral">
-          <ul className="my-2 flex flex-col gap-2  px-2 text-lg">
+          <ul className="my-2 flex flex-col gap-2 px-2  text-lg text-neutral-content">
             <li
               onClick={() => setCurrentPage("editplayers")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
-                currentPage === "editplayers" && "bg-base-300"
+                currentPage === "editplayers" && "bg-base-300 text-base-content"
               }`}
             >
               Edit players
@@ -70,7 +70,7 @@ const Leagues = () => {
             <li
               onClick={() => setCurrentPage("playerstats")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
-                currentPage === "playerstats" && "bg-base-300"
+                currentPage === "playerstats" && "bg-base-300 text-base-content"
               }`}
             >
               Player selection stats
@@ -78,7 +78,7 @@ const Leagues = () => {
             <li
               onClick={() => setCurrentPage("create")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
-                currentPage === "create" && "bg-base-300"
+                currentPage === "create" && "bg-base-300 text-base-content"
               }`}
             >
               Create league

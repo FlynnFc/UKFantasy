@@ -13,10 +13,10 @@ const PlayerEditAdmin = () => {
   const [selectedLeague, setSelectedLeague] = useState("epic39");
   const [leagueData, setLeagueData] = useState<LeagueData>();
 
-  const leagueDataHandler = async () => {
+  const leagueDataHandler = async (league: string) => {
     const res = await fetch(`/api/allTeams`, {
       method: "GET",
-      headers: { leaguename: selectedLeague },
+      headers: { leaguename: league },
     });
     if (!res.ok) {
       console.error("error", res);
@@ -73,7 +73,7 @@ const PlayerEditAdmin = () => {
       <select
         onChange={(e) => {
           setSelectedLeague(e.target.value);
-          leagueDataHandler();
+          leagueDataHandler(e.target.value);
         }}
         className="select-bordered select w-full"
       >
