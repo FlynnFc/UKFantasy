@@ -36,7 +36,6 @@ export const Player = (props: player) => {
 
   useEffect(() => {
     const checkIfTwoTeammatesPicked = () => {
-      props.team;
       let totalTeammates = 0;
       for (let i = 0; i < props.team.length; i++) {
         const element = props.team[i];

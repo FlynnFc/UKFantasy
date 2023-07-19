@@ -1,16 +1,19 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useMemo, useState } from "react";
-import Loading from "../../components/Loading";
+import Loading from "../../../components/Loading";
 import { ImBin, ImTwitter, ImDice } from "react-icons/im";
 import { FiArrowDownRight } from "react-icons/fi";
 import { FiShare } from "react-icons/fi";
-import { MyPlayer } from "../../components/myPlayer";
+import { MyPlayer } from "../../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Table from "../../components/Table";
-import InsightsTable from "../../components/InsightsTable";
+import Table from "../../../components/Table";
+import InsightsTable from "../../../components/InsightsTable";
 import { Pencil } from "lucide-react";
+import PlayerGroup from "../../../components/playerGroup";
+import { Player, playerStats } from "../../../components/Player";
+import PreviewPlayer from "../../../components/PreviewPlayer";
 type bonus = {
   name: string;
   description: string;
@@ -225,21 +228,8 @@ const Myteam = (props: {
     }
   };
 
-  //TEAM EDITING
-
-  const allTeams = async () => {
-    const res = await fetch("/api/AllTeams", {
-      method: "GET",
-      headers: { leaguename: query.league as string },
-    });
-    const load = toast.loading("updating...");
-    if (!res.ok) {
-      throw new Error("Couldn't find players");
-    }
-  };
-
   return (
-    <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
+    <main className="min-w-screen container mx-auto flex h-full min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
       {serverTeam ? (
         <div className="flex flex-col items-center justify-center ">
@@ -291,11 +281,16 @@ const Myteam = (props: {
               {!isStarted && (
                 <div>
                   <div className="tooltip" data-tip="Edit players">
-                    <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-info transition">
-                      <label className="cursor-pointer">
+                    <Link
+                      href={{
+                        pathname: "/[league]/myteam/edit",
+                        query: { league: leagueName.toLowerCase() },
+                      }}
+                    >
+                      <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-info transition">
                         <Pencil />
-                      </label>
-                    </button>
+                      </button>
+                    </Link>
                   </div>
                   <div
                     className="tooltip"
@@ -340,7 +335,7 @@ const Myteam = (props: {
                 </div>
               )}
             </div>
-            <div className="flex h-auto flex-col items-stretch justify-between space-y-2 rounded-lg bg-base-300 p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
+            <div className="flex h-auto flex-col items-stretch justify-between space-y-2 rounded-lg bg-primary p-6 sm:max-w-[80vw] sm:flex-row sm:space-x-4 sm:space-y-0">
               {serverTeam &&
                 serverTeam.SelectedPlayer?.map((el) => {
                   return (
@@ -361,9 +356,6 @@ const Myteam = (props: {
             </div>
           </div>
           {/* Team editing  */}
-          <section>
-            <div>test</div>
-          </section>
           {/* <h2 className="my-5 text-left text-4xl">Insights</h2>
           <section className="w-fit rounded-xl border-2 border-base-content ">
             <InsightsTable serverTeam={serverTeam} />
