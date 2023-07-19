@@ -59,13 +59,14 @@ const Admin = (props: {
           >
             <BsFillCalculatorFill /> Points
           </li>
-          <li
-            onClick={() => setPage("bonuses")}
-            className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
-          >
-            <BsFillCollectionFill />
-            Bonuses
-          </li>
+          <Link href={`/admin/bonuses`}>
+            <li
+              className={` rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3`}
+            >
+              <BsFillCollectionFill />
+              Bonuses
+            </li>
+          </Link>
           <Link href={`admin/leagues`}>
             <li className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus">
               <BsReverseListColumnsReverse /> Leagues

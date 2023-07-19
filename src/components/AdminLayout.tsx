@@ -10,13 +10,12 @@ import {
 
 const Adminlayout = ({ children }: any) => {
   const router = useRouter();
-  console.log(router);
+
   const currentPage = useMemo(
     () => router.pathname.split("/")[2],
     [router.pathname]
   );
 
-  console.log(currentPage);
   return (
     <div className={`max-w-screen flex min-h-screen flex-row `}>
       <div className=" w-max bg-neutral p-4 px-3 shadow">
@@ -30,7 +29,7 @@ const Adminlayout = ({ children }: any) => {
               <BsFillCalculatorFill /> Points
             </li>
           </Link>
-          {/* <Link href={`/admin/bonuses`}>
+          <Link href={`/admin/bonuses`}>
             <li
               className={` rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 ${
                 currentPage === "bonuses" && "btn-active"
@@ -39,7 +38,7 @@ const Adminlayout = ({ children }: any) => {
               <BsFillCollectionFill />
               Bonuses
             </li>
-          </Link> */}
+          </Link>
           <Link href={`/admin/leagues`}>
             <li
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${

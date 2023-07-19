@@ -8,13 +8,11 @@ const allTeams = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       try {
         if (!leagueName) {
-          console.log("AGAA");
           const teams = await prisma.team.findMany({
             include: { Player: { include: { stats: true } } },
           });
           res.status(200).json(teams);
         } else {
-          console.log(leagueName);
           const teams = await prisma.league.findUnique({
             where: { name: leagueName },
             include: {

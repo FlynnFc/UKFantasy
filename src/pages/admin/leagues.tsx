@@ -63,7 +63,7 @@ const Leagues = () => {
             <li
               onClick={() => setCurrentPage("editplayers")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
-                currentPage === "editplayers" && "bg-base-300 text-base-content"
+                currentPage === "editplayers" && "btn-active"
               }`}
             >
               Edit players
@@ -71,7 +71,7 @@ const Leagues = () => {
             <li
               onClick={() => setCurrentPage("addteams")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
-                currentPage === "addteams" && "bg-base-300 text-base-content"
+                currentPage === "addteams" && "btn-active"
               }`}
             >
               Add teams
@@ -79,7 +79,7 @@ const Leagues = () => {
             <li
               onClick={() => setCurrentPage("playerstats")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
-                currentPage === "playerstats" && "bg-base-300 text-base-content"
+                currentPage === "playerstats" && "btn-active"
               }`}
             >
               Player selection stats
@@ -87,7 +87,7 @@ const Leagues = () => {
             <li
               onClick={() => setCurrentPage("create")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
-                currentPage === "create" && "bg-base-300 text-base-content"
+                currentPage === "create" && "btn-active"
               }`}
             >
               Create league

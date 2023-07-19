@@ -1,33 +1,32 @@
-
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
 
 const allLeagues = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { method } = req
-  const {headers} = req
-  const name = headers.leaguename as string
+  const { method } = req;
+  const { headers } = req;
+  const name = headers.leaguename as string;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
-        if(!name) {
-          const leagues = await prisma.league.findMany()
-          console.log("all leagues",leagues)
-          res.status(200).json(leagues)
+        if (!name) {
+          const leagues = await prisma.league.findMany();
+          res.status(200).json(leagues);
         } else {
-          const league = await prisma.league.findUnique({where:{name:name}})
-          res.status(200).json(league)
+          const league = await prisma.league.findUnique({
+            where: { name: name },
+          });
+          res.status(200).json(league);
         }
-
       } catch (e) {
-        console.error('Request error', e)
-        res.status(500).json({ error: 'Error fetching players' })
+        console.error("Request error", e);
+        res.status(500).json({ error: "Error fetching players" });
       }
-      break
+      break;
     default:
-      res.setHeader('Allow', ['GET'])
-      res.status(405).end(`Method ${method} Not Allowed`)
-      break
+      res.setHeader("Allow", ["GET"]);
+      res.status(405).end(`Method ${method} Not Allowed`);
+      break;
   }
 };
 

@@ -10,7 +10,6 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   try {
     const data = await JSON.parse(req.body);
-    console.log("Team data!", data);
     const findLeagueId = await prisma.league.findMany({
       where: { name: data.league },
     });
@@ -41,8 +40,6 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
         playersToDelete.push(element);
       }
     }
-    console.log("Players to delete", playersToDelete);
-    console.log("Player data", players);
 
     const prismaDeletePlayers = [];
     for (let i = 0; i < playersToDelete.length; i++) {

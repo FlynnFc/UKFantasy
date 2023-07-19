@@ -22,7 +22,6 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
         const newHighlight = await prisma.highlightpost.create({
           data: { ...post, leagueId: findLeagueID?.id },
         });
-        console.log(newHighlight);
         res.status(200).json(newHighlight);
       } catch (e) {
         console.error("Request error", e);

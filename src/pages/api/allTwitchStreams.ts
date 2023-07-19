@@ -59,7 +59,6 @@ const allAdmins = async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET":
       try {
         const streams = await getStreams();
-        console.log(streams);
         res.status(200).json(streams);
       } catch (e) {
         console.error("Request error", e);

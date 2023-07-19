@@ -25,7 +25,6 @@ const allUserTeams = async (req: NextApiRequest, res: NextApiResponse) => {
             },
             where: { league: { name: league } },
           });
-          console.log("all teams", userTeams);
           res.status(200).json(userTeams);
         }
       } catch (e) {
