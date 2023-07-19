@@ -21,7 +21,7 @@ const allUserTeams = async (req: NextApiRequest, res: NextApiResponse) => {
           const userTeams = await prisma.playerTeam.findMany({
             include: {
               league: true,
-              User: { select: { id: true, name: true } },
+              User: true,
               SelectedPlayer: { include: { points: true, bonusPoint: true } },
             },
             where: { league: { name: league } },
