@@ -23,8 +23,8 @@ type bigPlayer = {
 const PointCalcForm = (props: { data: []; currentRound: number }) => {
   const [file, setFile] = useState<any>();
   const [data, setData] = useState();
-  const [sheet, setSheet] = useState("");
-
+  const [playerSheet, setPlayerSheet] = useState("");
+  const [killsSheet, setKillsSheet] = useState("");
   const submit = (e: any) => {
     toast.promise(handleUpload(e), {
       loading: "processing...",
@@ -38,11 +38,25 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     const f = file[0];
     const data = await f.arrayBuffer();
     const workbook = XLSX.read(data);
-    const worksheet: any = workbook.Sheets[sheet];
+    const worksheet: any = workbook.Sheets[playerSheet];
     const jsonData: any = XLSX.utils.sheet_to_json(worksheet, {
       header: 1,
       defval: "",
     });
+
+    const worksheet2: any = workbook.Sheets[killsSheet];
+    const jsonDatakills: any = XLSX.utils.sheet_to_json(worksheet2, {
+      header: 1,
+      defval: "",
+    });
+
+    const KillsRowMap = new Map();
+    for (let i = 0; i < jsonDatakills[0].length; i++) {
+      const element = jsonDatakills[i];
+      KillsRowMap.set(element, i);
+    }
+
+    console.log(jsonDatakills);
     setData(jsonData);
     const Rowmap = new Map();
     //Index for all rows
@@ -53,6 +67,26 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     const playerPoints = [];
 
     //ALL BONUS CALCULATORS!
+    const awper = (element: any) => {
+      const weaponAWPIndex = 22;
+      const elementSteamIdIndex = 5;
+      const steamid = element[1];
+      let awpKills = 0;
+      for (let i = 1; i < jsonDatakills.length; i++) {
+        const element = jsonDatakills[i];
+        if (element[elementSteamIdIndex] === steamid) {
+          if (element[weaponAWPIndex] === "AWP") {
+            console.log("Found an awp kill");
+            awpKills++;
+          }
+        }
+      }
+      const val = awpKills / element[Rowmap.get("Rounds")];
+      console.log("AWP Kills per round", val, element[0]);
+      if (val >= 0.2) return 10;
+      else if (val >= 0.14) return 5;
+      else return -5;
+    };
     const entryKing = (element: any) => {
       const val =
         element[Rowmap.get("Entry kill win")] / element[Rowmap.get("Rounds")];
@@ -159,6 +193,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         stat_padder: statPadder(element),
         head_clicker: headClicker(element),
         all_rounder: allRounder(element),
+        awper: awper(element),
       });
     }
     return playerPoints;
@@ -246,30 +281,45 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     });
     const finalData = comparer(processedPlayers, allSelectedPlayers);
     console.log(finalData);
-    const res = await fetch("/api/ApplyPoints", {
-      method: "POST",
-      body: JSON.stringify({
-        playerData: finalData,
-        round: props.currentRound,
-      }),
-    });
-    return res;
+    // const res = await fetch("/api/ApplyPoints", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     playerData: finalData,
+    //     round: props.currentRound,
+    //   }),
+    // });
+    return true;
   };
 
   //Point form. Take 62nd col and -1 then * 100 then take 73 cols
 
   return (
     <form
-      className="rounded-btn flex max-w-2xl flex-col gap-3 bg-base-300 p-4 text-xl"
+      className="rounded-btn flex w-full flex-col gap-3 bg-base-300 p-4 text-xl"
       onSubmit={submit}
     >
       <div>
-        <label htmlFor="sheetName" className="label">
+        <label htmlFor="sheetName" className="label flex flex-col">
           What sheet features the players you want to calculate points for?
+          <span className="text-sm">{`This should include columns such as "KAST", "ADR", "Rating 2.0" etc`}</span>
         </label>
         <input
           required
-          onChange={(e) => setSheet(e.target.value)}
+          onChange={(e) => setPlayerSheet(e.target.value)}
+          type="text"
+          name="sheetName"
+          className="input w-full"
+          placeholder="sheet name"
+        />
+      </div>
+      <div>
+        <label htmlFor="sheetName" className="label flex flex-col">
+          What sheet features the kill events?
+          <span className="text-sm">{`This should include columns that detail all kill events. It should have a column called "Weapon"`}</span>
+        </label>
+        <input
+          required
+          onChange={(e) => setKillsSheet(e.target.value)}
           type="text"
           name="sheetName"
           className="input w-full"

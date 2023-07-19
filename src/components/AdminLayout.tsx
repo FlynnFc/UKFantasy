@@ -30,16 +30,16 @@ const Adminlayout = ({ children }: any) => {
               <BsFillCalculatorFill /> Points
             </li>
           </Link>
-          <Link href={`/admin/bonuses`}>
+          {/* <Link href={`/admin/bonuses`}>
             <li
-              className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
+              className={` rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 ${
                 currentPage === "bonuses" && "btn-active"
               }`}
             >
               <BsFillCollectionFill />
               Bonuses
             </li>
-          </Link>
+          </Link> */}
           <Link href={`/admin/leagues`}>
             <li
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
@@ -49,7 +49,7 @@ const Adminlayout = ({ children }: any) => {
               <BsReverseListColumnsReverse /> Leagues
             </li>
           </Link>
-          <Link href={`/admin/diognostics`}>
+          {/* <Link href={`/admin/diognostics`}>
             <li
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "diagnostics" && "btn-active"
@@ -57,7 +57,7 @@ const Adminlayout = ({ children }: any) => {
             >
               <BsGraphUp /> Diognostics
             </li>
-          </Link>
+          </Link> */}
         </ul>
       </div>
       {children}

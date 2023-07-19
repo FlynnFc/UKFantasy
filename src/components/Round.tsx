@@ -28,7 +28,7 @@ const Round = (props: { data: []; selectedRound: number }) => {
             {`Submit stats for round`}
             <span className="text-4xl text-orange-500"> {current}</span>
           </h1>
-          <div className="rounded-btn mt-8 flex w-full max-w-2xl flex-col items-center justify-center bg-base-300">
+          <div className="rounded-btn mt-8 flex w-full max-w-3xl flex-col items-center justify-center bg-base-300">
             <PointCalcForm
               currentRound={props.selectedRound}
               data={props.data}

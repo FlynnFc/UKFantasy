@@ -10,6 +10,7 @@ import { useState } from "react";
 import Adminlayout from "../../components/AdminLayout";
 import { getSession } from "next-auth/react";
 import PlayerStatsAdmin from "../../components/PlayerStatsAdmin";
+import AddTeamsAdmin from "../../components/AddTeamsAdmin";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
@@ -68,6 +69,14 @@ const Leagues = () => {
               Edit players
             </li>
             <li
+              onClick={() => setCurrentPage("addteams")}
+              className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
+                currentPage === "addteams" && "bg-base-300 text-base-content"
+              }`}
+            >
+              Add teams
+            </li>
+            <li
               onClick={() => setCurrentPage("playerstats")}
               className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "playerstats" && "bg-base-300 text-base-content"
@@ -89,6 +98,8 @@ const Leagues = () => {
           <Toaster />
 
           {currentPage === "editplayers" && <PlayerEditAdmin />}
+
+          {currentPage === "addteams" && <AddTeamsAdmin />}
 
           {currentPage === "create" && (
             <form
