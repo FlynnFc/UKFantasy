@@ -4,6 +4,7 @@ import { prisma } from "../../server/db/client";
 const allUserTeams = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const league = req.headers.leaguename as string;
+
   switch (method) {
     case "GET":
       try {
@@ -20,11 +21,12 @@ const allUserTeams = async (req: NextApiRequest, res: NextApiResponse) => {
           const userTeams = await prisma.playerTeam.findMany({
             include: {
               league: true,
-              User: true,
+              User: { select: { id: true, name: true } },
               SelectedPlayer: { include: { points: true, bonusPoint: true } },
             },
             where: { league: { name: league } },
           });
+
           res.status(200).json(userTeams);
         }
       } catch (e) {

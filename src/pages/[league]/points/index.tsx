@@ -23,9 +23,9 @@ export async function getServerSideProps({ req }: any) {
     console.error("error");
   }
   const temp = await res2.json();
-  const admins = new Set(temp.map((el: { email: string }) => el.email));
+  const admins = new Set(temp.map((el: { id: string }) => el.id));
 
-  if (admins.has(session?.user?.email)) {
+  if (admins.has(session?.user?.id)) {
     return {
       props: {
         data,
@@ -60,6 +60,8 @@ const Index = (props: { data: any }) => {
       return mostPlayedplayer;
     } else return [];
   }, [props.data]);
+
+  console.log(props.data);
 
   const [selectedRound, setSelectedRound] = useState(currentRound.length + 1);
   return (

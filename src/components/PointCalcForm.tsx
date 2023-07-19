@@ -244,11 +244,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       let element = userPlayers[index];
       for (let index = 0; index < points.length; index++) {
         const element2: bigPlayer | undefined = points[index];
-        if (
-          element?.name === element2?.name.toLowerCase() &&
-          element &&
-          element2
-        ) {
+        if (element?.steamid === element2?.steamid && element && element2) {
           const bonus = bonusFinder(element2, element.bonusName);
           element = {
             ...element,
@@ -270,16 +266,22 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     currentlySelectedTeams.forEach((el: any) => {
       //Checking if users team has bonuses applied to all players
       el.SelectedPlayer.forEach(
-        (el: { name: string; id: string; bonusName: string }) =>
+        (el: {
+          name: string;
+          id: string;
+          bonusName: string;
+          steamid: string;
+        }) =>
           allSelectedPlayers.push({
             name: el.name.toLowerCase(),
             id: el.id,
             bonusName: el.bonusName,
+            steamid: el.steamid,
           })
       );
     });
+    console.log("processed players", processedPlayers);
     const finalData = comparer(processedPlayers, allSelectedPlayers);
-    console.log(finalData);
     // const res = await fetch("/api/ApplyPoints", {
     //   method: "POST",
     //   body: JSON.stringify({
@@ -287,6 +289,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     //     round: props.currentRound,
     //   }),
     // });
+    console.log("final data", finalData);
     return true;
   };
 
