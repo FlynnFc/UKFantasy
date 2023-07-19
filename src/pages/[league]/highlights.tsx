@@ -16,7 +16,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
   const data = await res.json();
   return {
     props: {
-      test: "test",
+      data: data,
     },
     revalidate: 5,
   };
@@ -78,8 +78,6 @@ const Highlights = (props: { data: any }) => {
       throw error;
     }
   };
-
-  console.log(newPost);
 
   const newPostSubmitter = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -321,7 +319,7 @@ const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [isClicked, postLikes]);
+  }, [id, isClicked, postLikes]);
 
   return (
     <div className="grid w-[4.2rem] grid-flow-col items-center justify-items-center">
