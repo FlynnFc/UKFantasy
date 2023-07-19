@@ -239,7 +239,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
               </span>
             )}
             <Link href={`${query.league}/teams`}>
-              <button className="btn flex flex-row items-center justify-center gap-1 border-0 bg-base-300 text-base-content">
+              <button className="btn flex flex-row items-center justify-center gap-1 border-0 bg-base-300 text-base-content hover:text-white">
                 Competing teams <ExternalLink height={20} />
               </button>
             </Link>
