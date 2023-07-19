@@ -92,7 +92,7 @@ export const Player = (props: player) => {
           </p>
         </div>
       ) : disable ? (
-        <div className="disabledPlayer absolute z-10 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
+        <div className="disabledPlayer absolute z-20 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
           <p className="p-4 text-center text-white">
             You cant afford this player!
           </p>
@@ -114,7 +114,7 @@ export const Player = (props: player) => {
         >
           <div className="lg:hidden">{props.name}</div>
           <div>
-            <p className={`pb-2 text-center lg:text-3xl ${rareity}`}>
+            <p className={`z-0 pb-2 text-center lg:text-3xl ${rareity}`}>
               £{props.price}
             </p>
           </div>
