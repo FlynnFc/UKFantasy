@@ -44,20 +44,13 @@ const Navbar = () => {
       const themes: theme = localTheme.split(",");
       setTheme(themes);
 
-      if (darkmode === undefined) {
-        const selectedTheme: string = themes[
-          isBrowserSetToDark ? 1 : 0
-        ] as string;
-        bodyEl?.setAttribute("data-theme", selectedTheme);
-      } else {
-        const selectedTheme: string = themes[darkmode ? 1 : 0] as string;
-        bodyEl?.setAttribute("data-theme", selectedTheme);
-      }
+      const selectedTheme: string = themes[darkmode ? 1 : 0] as string;
+      bodyEl?.setAttribute("data-theme", selectedTheme);
     } else {
-      localStorage.setItem("theme", "myThemelight,myTheme");
+      localStorage.setItem("theme", "myThemeLight,mytheme");
       bodyEl?.setAttribute(
         "data-theme",
-        isBrowserSetToDark ? "myTheme" : "myThemeLight"
+        isBrowserSetToDark ? "mytheme" : "myThemeLight"
       );
     }
   }, [darkmode]);
