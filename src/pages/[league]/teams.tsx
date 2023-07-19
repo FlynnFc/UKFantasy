@@ -15,6 +15,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
     props: {
       data,
     },
+    revalidate: 500,
   };
 }
 
