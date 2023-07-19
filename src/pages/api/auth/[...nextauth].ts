@@ -11,17 +11,17 @@ export default async function handler(
   return NextAuth(req, res, {
     adapter: PrismaAdapter(prisma),
     providers: [
-      GoogleProvider({
-        clientId: process.env.GOOGLE_ID as string,
-        clientSecret: process.env.GOOGLE_SECRET as string,
-        authorization: {
-          params: {
-            prompt: "consent",
-            access_type: "offline",
-            response_type: "code",
-          },
-        },
-      }),
+      // GoogleProvider({
+      //   clientId: process.env.GOOGLE_ID as string,
+      //   clientSecret: process.env.GOOGLE_SECRET as string,
+      //   authorization: {
+      //     params: {
+      //       prompt: "consent",
+      //       access_type: "offline",
+      //       response_type: "code",
+      //     },
+      //   },
+      // }),
       TwitterProvider({
         clientId: process.env.TWITTER_ID as string,
         clientSecret: process.env.TWITTER_SECRET as string,
@@ -33,9 +33,9 @@ export default async function handler(
       // }),
     ],
     secret: process.env.sercet,
-    // pages: {
-    //   signIn: "/auth/signin",
-    // },
+    pages: {
+      signIn: "/auth/signin",
+    },
     session: {
       maxAge: 30 * 24 * 60 * 60, // 30 days
       updateAge: 24 * 60 * 60, // 24 hours

@@ -225,6 +225,19 @@ const Myteam = (props: {
     }
   };
 
+  //TEAM EDITING
+
+  const allTeams = async () => {
+    const res = await fetch("/api/AllTeams", {
+      method: "GET",
+      headers: { leaguename: query.league as string },
+    });
+    const load = toast.loading("updating...");
+    if (!res.ok) {
+      throw new Error("Couldn't find players");
+    }
+  };
+
   return (
     <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
