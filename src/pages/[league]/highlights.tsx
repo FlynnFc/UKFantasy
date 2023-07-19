@@ -16,7 +16,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
   const data = await res.json();
   return {
     props: {
-      data: data,
+      data,
     },
     revalidate: 5,
   };
