@@ -14,8 +14,8 @@ const Home: NextPage = () => {
   // }, [router, status]);
   return (
     <>
-      <main className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">
-        <section className="container mx-auto flex min-h-screen flex-col items-center justify-start gap-12 p-4">
+      <main className=" mx-auto flex min-h-screen flex-col items-center justify-start p-4">
+        <section className=" mx-auto flex min-h-screen flex-col items-center justify-start gap-12 p-4">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

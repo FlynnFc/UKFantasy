@@ -112,9 +112,23 @@ export const Player = (props: player) => {
         <div
           className={`bottom-3 z-10 w-full select-none flex-col items-center  justify-evenly p-2 font-bold lg:absolute  lg:p-0  `}
         >
-          <div className="text-center lg:hidden">{props.name}</div>
           <div>
-            <p className={`z-0 text-center lg:pb-2 lg:text-3xl ${rareity}`}>
+            <div className="text-center lg:hidden">{props.name}</div>
+            <p
+              className={`z-0 pb-2 text-center lg:text-3xl ${
+                props.price >= 21500
+                  ? "gold"
+                  : props.price > 19000
+                  ? "silver"
+                  : "bronze"
+              }`}
+            >
+              {props.img ===
+                "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwiaWF0IjoxNjg5Nzk5MDQxLCJleHAiOjE3MjEzMzUwNDF9.zGDt3amKB3L7hwOoakyIySWv51yDnSOw7m5jvDh4hUE&t=2023-07-19T20%3A37%3A30.001Z" && (
+                <span className={`hidden text-center lg:block`}>
+                  {props.name}
+                </span>
+              )}
               £{props.price}
             </p>
           </div>
