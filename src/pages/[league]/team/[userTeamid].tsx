@@ -71,8 +71,10 @@ const UserTeam = () => {
                 })}
               </div>
             </div>
-            <h2 className="my-5 text-left text-4xl">Insights</h2>
-            <section className="w-fit rounded-xl border-2 border-base-content">
+            <h2 className="my-5 hidden text-left text-4xl md:block">
+              Insights
+            </h2>
+            <section className="w-fit rounded-xl border-base-content">
               <InsightsTable serverTeam={team} />
             </section>
           </>

@@ -71,17 +71,17 @@ export const MyPlayer = (props: myPlayer) => {
         )}
       </div>
       <div
-        className={`rounded-btn flex flex-col items-center justify-center   bg-neutral lg:hidden`}
+        className={`flex flex-col items-center justify-center bg-neutral   lg:rounded-btn lg:hidden`}
       >
         <h2 className={`${props.rareity}`}>{props.name}</h2>
         <span className={`${props.rareity}`}>{props.price}</span>
       </div>
       {props.bonus && (
         <div
-          className={`tooltip z-10 flex w-full gap-2 bg-green-500 p-1 text-center xl:hidden`}
+          className={`tooltip z-10 flex w-full gap-2 bg-primary p-1 text-center  text-slate-50 lg:hidden`}
           data-tip={props.bonus.description}
         >
-          <button className="w-full text-center text-lg font-bold text-base-200">
+          <button className="w-full text-center text-lg font-bold  text-slate-50">
             {props.bonus.name}
           </button>
           {props.bonusEdit && (

@@ -256,6 +256,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         }
       }
     }
+    console.log(elements);
     return elements;
   };
 
@@ -280,17 +281,16 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
           })
       );
     });
-    console.log("processed players", processedPlayers);
     const finalData = comparer(processedPlayers, allSelectedPlayers);
-    // const res = await fetch("/api/ApplyPoints", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     playerData: finalData,
-    //     round: props.currentRound,
-    //   }),
-    // });
+    const res = await fetch("/api/ApplyPoints", {
+      method: "POST",
+      body: JSON.stringify({
+        playerData: finalData,
+        round: props.currentRound,
+      }),
+    });
     console.log("final data", finalData);
-    return true;
+    return res;
   };
 
   //Point form. Take 62nd col and -1 then * 100 then take 73 cols

@@ -385,10 +385,10 @@ const Myteam = (props: {
             </div>
           </div>
           {/* Team editing  */}
-          {/* <h2 className="my-5 text-left text-4xl">Insights</h2>
+          <h2 className="my-5 text-left text-4xl">Insights</h2>
           <section className="w-fit rounded-xl border-2 border-base-content ">
             <InsightsTable serverTeam={serverTeam} />
-          </section> */}
+          </section>
         </div>
       ) : (
         <Loading />
