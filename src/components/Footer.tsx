@@ -6,9 +6,6 @@ const Footer = () => {
     <footer className="footer bottom-0 flex max-h-min flex-col items-center bg-base-300 p-4 text-base-content sm:grid sm:grid-cols-3">
       <div className="flex grid-flow-col flex-row items-start gap-4">
         <p className="py-1">Copyright © 2022</p>
-        <div className="link rounded-btn relative grid-flow-col px-2 py-1 transition-all hover:bg-base-300">
-          <Link href={`./report`}>Report a bug</Link>
-        </div>
       </div>
       <div className="items-between flex w-full justify-center gap-4">
         <p className="py-1 text-center">Made with &#10084; by Flynn</p>
