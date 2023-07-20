@@ -66,7 +66,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
 }
 
 export async function getStaticPaths() {
-  const path = "https://esportsfantasy.app/";
+  const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
   const data = await res.json();
   const paths = data.map((league: { name: string; id: string }) => {
