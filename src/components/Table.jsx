@@ -146,7 +146,7 @@ const Table = (props) => {
             </tbody>
           </table>
         ) : (
-          <div className="flex min-w-full flex-row rounded-lg bg-base-100 p-4 ">
+          <div className="flex min-w-full flex-row rounded-lg bg-base-200 p-4 ">
             <h3 className="w-full text-center text-base-content text-inherit">
               No teams submitted yet
             </h3>
