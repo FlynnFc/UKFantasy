@@ -39,7 +39,9 @@ export type teamProps = {
   SelectedPlayer: player[];
 };
 
-export async function getStaticProps(paths: { params: { league: string } }) {
+export async function getServerSideProps(paths: {
+  params: { league: string };
+}) {
   // const path = "http://localhost:3000/";
   const path = "https://esportsfantasy.app/";
 
