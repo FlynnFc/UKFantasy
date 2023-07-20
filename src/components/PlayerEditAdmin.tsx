@@ -83,31 +83,34 @@ const PlayerEditAdmin = () => {
         <option value="epic39">Epic39</option>
         <option value="demo">Demo</option>
       </select>
-      <label htmlFor="" className="label">
-        What is the players name?
-      </label>
+
       {leagueData && (
-        <select
-          value={selectedPlayer}
-          onChange={(e) => {
-            setSelectedPlayer(e.target.value);
-            playerDataHandler(e.target.value);
-          }}
-          className="select-bordered select"
-        >
-          {leagueData &&
-            leagueData.Teams.map((team) => {
-              return (
-                <optgroup key={team.teamName} label={team.teamName}>
-                  {team.Player.map((player) => (
-                    <option value={player.id} className="p-1" key={player.id}>
-                      {player.name}
-                    </option>
-                  ))}
-                </optgroup>
-              );
-            })}
-        </select>
+        <>
+          <label htmlFor="" className="label">
+            What is the players name?
+          </label>
+          <select
+            value={selectedPlayer}
+            onChange={(e) => {
+              setSelectedPlayer(e.target.value);
+              playerDataHandler(e.target.value);
+            }}
+            className="select-bordered select"
+          >
+            {leagueData &&
+              leagueData.Teams.map((team) => {
+                return (
+                  <optgroup key={team.teamName} label={team.teamName}>
+                    {team.Player.map((player) => (
+                      <option value={player.id} className="p-1" key={player.id}>
+                        {player.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                );
+              })}
+          </select>
+        </>
       )}
 
       {playerData && (
