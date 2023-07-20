@@ -70,7 +70,10 @@ export async function getServerSideProps(context: {
 const Myteam = (props: {
   data: bonus[];
   leagueId: string;
-  data2: { startDate: string };
+  data2: {
+    openDate: any;
+    startDate: string;
+  };
 }) => {
   const { status, data: session } = useSession();
   const [team, setTeam] = useState<teamProps>();
@@ -91,6 +94,15 @@ const Myteam = (props: {
     if (props.data2?.startDate)
       return new Date(props.data2?.startDate) < new Date();
   }, [props.data2?.startDate]);
+
+  const isOpen = useMemo(() => {
+    if (props.data2?.openDate)
+      return new Date(props.data2?.openDate) < new Date();
+  }, [props.data2?.openDate]);
+
+  useEffect(() => {
+    if (!isOpen) router.push(`/${query.league}`);
+  }, [isOpen, isStarted, query.league, router]);
 
   useEffect(() => {
     setUserNeedsHelp(!localStorage.getItem("UserTips"));
