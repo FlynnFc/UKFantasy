@@ -39,10 +39,13 @@ export type teamProps = {
   SelectedPlayer: player[];
 };
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: {
+  params: { league: string };
+}) {
   // const path = "http://localhost:3000/";
   const path = "https://esportsfantasy.app/";
   const { league } = context.params;
+
   const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
