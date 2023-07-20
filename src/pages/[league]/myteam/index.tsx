@@ -39,12 +39,10 @@ export type teamProps = {
   SelectedPlayer: player[];
 };
 
-export async function getServerSideProps(paths: {
-  params: { league: string };
-}) {
+export async function getServerSideProps(context) {
   // const path = "http://localhost:3000/";
   const path = "https://esportsfantasy.app/";
-
+  const { league } = context.params;
   const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
@@ -54,7 +52,7 @@ export async function getServerSideProps(paths: {
 
   const res2 = await fetch(`${path}/api/getLeague`, {
     method: "GET",
-    headers: { leagueName: paths.params.league },
+    headers: { leagueName: league },
   });
   const data2 = await res2.json();
 
@@ -63,23 +61,6 @@ export async function getServerSideProps(paths: {
       data,
       data2,
     },
-    revalidate: 3,
-  };
-}
-
-export async function getStaticPaths() {
-  const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-  const data = await res.json();
-  const paths = data.map((league: { name: string; id: string }) => {
-    return {
-      params: { league: league.name.toLowerCase() },
-    };
-  });
-
-  return {
-    paths,
-    fallback: false,
   };
 }
 
