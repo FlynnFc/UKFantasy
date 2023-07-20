@@ -3,7 +3,7 @@ import Adminlayout from "../../components/AdminLayout";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
   // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
+  const path = "https://esportsfantasy.app/";
 
   const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
   if (!res.ok) {
