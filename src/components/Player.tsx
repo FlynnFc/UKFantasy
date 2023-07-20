@@ -110,11 +110,11 @@ export const Player = (props: player) => {
         }}
       >
         <div
-          className={`absolute bottom-3 z-10 w-full  select-none flex-col items-center justify-evenly  font-bold  `}
+          className={`bottom-3 z-10 w-full select-none flex-col items-center  justify-evenly p-2 font-bold lg:absolute  lg:p-0  `}
         >
-          <div className="lg:hidden">{props.name}</div>
+          <div className="text-center lg:hidden">{props.name}</div>
           <div>
-            <p className={`z-0 pb-2 text-center lg:text-3xl ${rareity}`}>
+            <p className={`z-0 text-center lg:pb-2 lg:text-3xl ${rareity}`}>
               £{props.price}
             </p>
           </div>
