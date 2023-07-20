@@ -125,7 +125,7 @@ const Edit = (props: {
 
   useEffect(() => {
     if (isStarted) {
-      router.push(`/${query.league}`);
+      router.push(`/${query.league}/myteam`);
     } else if (!isOpen) router.push(`/${query.league}`);
   }, [isOpen, isStarted, query.league, router]);
 
