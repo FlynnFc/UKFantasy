@@ -44,7 +44,10 @@ export default async function handler(
       async session({ session, user }) {
         if (session.user) {
           if (!session.user.email) {
-            session.user.email = `${user.name}@twitter.com`;
+            if (user.name) {
+              const firstName = user.name.split(" ");
+              session.user.email = `${firstName[0] || user.name}@twitter.com`;
+            }
           }
           session.user.id = user.id;
         }
