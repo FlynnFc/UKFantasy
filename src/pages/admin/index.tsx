@@ -7,6 +7,7 @@ import {
   BsGraphUp,
   BsReverseListColumnsReverse,
 } from "react-icons/bs";
+import Adminlayout from "../../components/AdminLayout";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
@@ -49,42 +50,7 @@ const Admin = (props: {
   data: [{ id: string; name: string; offical: boolean }];
 }) => {
   const [page, setPage] = useState("points");
-  return (
-    <div className={`min-w-screen grid min-h-screen w-screen grid-cols-10 `}>
-      <div className="rounded-btn col-span-2 my-2 ml-2 w-max bg-neutral p-4 px-6 shadow">
-        <ul className="flex flex-col gap-5 text-xl text-neutral-content ">
-          <Link href={`/admin/points`}>
-            <li
-              onClick={() => setPage("points")}
-              className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
-            >
-              <BsFillCalculatorFill /> Points
-            </li>
-          </Link>
-          <Link href={`/admin/bonuses`}>
-            <li
-              className={` rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3`}
-            >
-              <BsFillCollectionFill />
-              Bonuses
-            </li>
-          </Link>
-          <Link href={`admin/leagues`}>
-            <li className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus">
-              <BsReverseListColumnsReverse /> Leagues
-            </li>
-          </Link>
-          <li
-            onClick={() => setPage("diognostics")}
-            className="rounded-btn flex cursor-pointer flex-row items-center gap-4 p-2 hover:bg-neutral-focus"
-          >
-            <BsGraphUp /> Diognostics
-          </li>
-        </ul>
-      </div>
-      <div className={` col-span-8  px-4 py-2`}></div>
-    </div>
-  );
+  return <Adminlayout></Adminlayout>;
 };
 
 export default Admin;
