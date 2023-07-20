@@ -92,7 +92,7 @@ const Table = (props) => {
         playerData.length > 0 ? (
           <table
             {...getTableProps()}
-            className="table w-full select-none overflow-auto font-semibold shadow-lg"
+            className="table select-none overflow-auto font-semibold"
           >
             <thead>
               {headerGroups.map((headerGroup) => (
@@ -104,7 +104,7 @@ const Table = (props) => {
                   {headerGroup.headers.map((column) => (
                     <th
                       key={column.Cell}
-                      className="rounded-t-btn sticky -top-1 box-content text-center "
+                      className="rounded-t-btn sticky -top-1 box-content bg-primary text-center text-primary-content "
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
                       {column.render("Header")}
@@ -132,7 +132,7 @@ const Table = (props) => {
                     {row.cells.map((cell) => {
                       return (
                         <td
-                          className="text-center font-normal"
+                          className="bg-base-200  text-center  font-normal"
                           key={"test"}
                           {...cell.getCellProps()}
                         >

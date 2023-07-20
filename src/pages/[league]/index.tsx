@@ -248,9 +248,8 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
             <LiveGames /> */}
           </section>
 
-          <section className="rounded-btn my-2 mt-5 h-max bg-base-300 p-5 text-base-content shadow-lg  2xl:w-[75%]">
+          <section className="rounded-btn my-2 mt-5 h-max text-base-content shadow-lg  2xl:w-[75%]">
             <div className=" flex w-full flex-col gap-3 overflow-x-auto">
-              <h2 className="text-center text-2xl font-bold">Scoreboard</h2>
               {loadingTable ? (
                 <Table data={data} />
               ) : (

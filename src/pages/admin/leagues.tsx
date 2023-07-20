@@ -57,25 +57,25 @@ const Leagues = () => {
   const [currentPage, setCurrentPage] = useState("editplayers");
   return (
     <Adminlayout>
-      <div className="grid grid-cols-7 border-l ">
+      <div className="grid grid-cols-7 border-l border-info ">
         <div className="col-span-1  rounded-tr-lg bg-neutral">
-          <ul className="my-2 flex flex-col text-lg text-neutral-content">
+          <ul className="flex flex-col text-lg text-neutral-content">
             <li
               onClick={() => setCurrentPage("editplayers")}
-              className={`flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
+              className={`flex cursor-pointer flex-row items-center gap-4 rounded-tr-lg p-3 hover:bg-neutral-focus ${
                 currentPage === "editplayers" && "btn-active"
               }`}
             >
               Edit players
             </li>
-            <li
+            {/* <li
               onClick={() => setCurrentPage("addteams")}
               className={`lex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "addteams" && "btn-active"
               }`}
             >
               Add teams
-            </li>
+            </li> */}
             <li
               onClick={() => setCurrentPage("playerstats")}
               className={`flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
@@ -98,8 +98,8 @@ const Leagues = () => {
           <Toaster />
 
           {currentPage === "editplayers" && <PlayerEditAdmin />}
-
-          {currentPage === "addteams" && <AddTeamsAdmin />}
+          {/* 
+          {currentPage === "addteams" && <AddTeamsAdmin />} */}
 
           {currentPage === "create" && (
             <form
