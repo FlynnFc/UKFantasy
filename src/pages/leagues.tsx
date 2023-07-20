@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 import FeaturedLeague from "../components/FeaturedLeague";
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // const path = "http://localhost:3000/";
   const path = "https://esportsfantasy.app/";
   const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
