@@ -59,10 +59,10 @@ const Leagues = () => {
     <Adminlayout>
       <div className="grid grid-cols-7 border-l ">
         <div className="col-span-1  rounded-tr-lg bg-neutral">
-          <ul className="my-2 flex flex-col gap-2 px-2  text-lg text-neutral-content">
+          <ul className="my-2 flex flex-col text-lg text-neutral-content">
             <li
               onClick={() => setCurrentPage("editplayers")}
-              className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
+              className={`flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "editplayers" && "btn-active"
               }`}
             >
@@ -70,7 +70,7 @@ const Leagues = () => {
             </li>
             <li
               onClick={() => setCurrentPage("addteams")}
-              className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
+              className={`lex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "addteams" && "btn-active"
               }`}
             >
@@ -78,7 +78,7 @@ const Leagues = () => {
             </li>
             <li
               onClick={() => setCurrentPage("playerstats")}
-              className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
+              className={`flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "playerstats" && "btn-active"
               }`}
             >
@@ -86,7 +86,7 @@ const Leagues = () => {
             </li>
             <li
               onClick={() => setCurrentPage("create")}
-              className={`rounded-btn flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
+              className={`flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "create" && "btn-active"
               }`}
             >
