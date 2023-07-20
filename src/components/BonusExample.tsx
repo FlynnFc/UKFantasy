@@ -209,7 +209,7 @@ const BonusExample = () => {
         </section>
       </div>
 
-      <div className="flex h-auto w-full flex-col items-stretch justify-between gap-1 rounded-lg p-6 sm:flex-row sm:gap-0 sm:space-x-4 lg:w-fit lg:items-start">
+      <div className="flex h-auto w-full flex-col items-center justify-between gap-1 rounded-lg p-6 sm:flex-row sm:gap-0 sm:space-x-4 lg:w-fit lg:items-start">
         {team &&
           team.Player?.map((el, i) => {
             return (
