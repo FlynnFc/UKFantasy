@@ -321,6 +321,7 @@ const CreateExample = () => {
                         }) => {
                           return (
                             <Player
+                              priceadjust={0}
                               stats={{
                                 hltv: 1.2,
                                 elo: 2,
