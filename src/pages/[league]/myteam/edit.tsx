@@ -19,6 +19,7 @@ import { Info } from "lucide-react";
 import { useRouter } from "next/router";
 import { AnimatePresence } from "framer-motion";
 import Head from "next/head";
+import Loading from "../../../components/Loading";
 export type player = {
   length: number;
   map(
@@ -81,6 +82,7 @@ const Edit = (props: {
 
   ///// MY TEAM FETCHING
   useEffect(() => {
+    setLoading(true);
     const fetcher = async () => {
       console.log("running");
       const res = await fetch(`/api/myTeam`, {
@@ -120,6 +122,7 @@ const Edit = (props: {
           />
         ));
         setMyTeam(players);
+        setLoading(false);
       }
     };
     fetcher();
@@ -369,7 +372,7 @@ const Edit = (props: {
           <div className="fixed left-0 top-0 z-10 flex h-screen w-full items-center justify-center overflow-auto bg-base-100">
             <div className="animate-bounce rounded-lg bg-base-300 p-5 text-base-content">
               <h1 className=" text-3xl font-bold leading-loose">
-                {session.data ? `Loading` : <StandaloneSignIn />}
+                {session.data ? <Loading /> : <StandaloneSignIn />}
               </h1>
             </div>
           </div>
