@@ -35,9 +35,13 @@ export async function getStaticPaths() {
 
 const Teams = (props: { data: { Teams: [] } }) => {
   return (
-    <section className="container mx-auto mb-5 flex min-h-screen flex-col gap-4">
-      <div className="prose">
+    <section className="container mx-auto mb-5 flex min-h-screen flex-col items-center gap-4">
+      <div className="prose flex w-full max-w-full flex-col items-end justify-between prose-h1:mb-0 md:flex-row ">
         <h1 className="">All teams</h1>
+        <span className="text-sm">
+          If a player is £1,000 it means their price has not been calculated
+          yet.
+        </span>
       </div>
 
       {props.data?.Teams.map((el: { teamName: string; Player: player[] }) => {

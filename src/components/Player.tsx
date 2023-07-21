@@ -129,7 +129,7 @@ export const Player = (props: player) => {
                   {props.name}
                 </span>
               )}
-              £{props.price}
+              £{new Intl.NumberFormat("en").format(props.price)}
             </p>
           </div>
         </div>

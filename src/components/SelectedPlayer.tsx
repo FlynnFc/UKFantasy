@@ -57,7 +57,7 @@ const SelectedPlayer = (props: player) => {
           <div className="lg:hidden">{props.name}</div>
           <div>
             <p className={`pb-2 text-center lg:text-3xl  ${rareity}`}>
-              £{props.price}
+              £{new Intl.NumberFormat("en").format(props.price)}
             </p>
           </div>
         </div>
