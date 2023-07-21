@@ -18,59 +18,43 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
       where: { id: { in: [...data.players] } },
     });
 
-    const finalTeam: any = [
-      {
-        bonusName: "",
-        image: findPlayerData[0]?.image,
-        name: findPlayerData[0]?.name,
-        price: findPlayerData[0]?.price,
-        rareity: findPlayerData[0]?.rareity,
-        steamid: findPlayerData[0]?.steamid,
-      },
-      {
-        bonusName: "",
-        image: findPlayerData[1]?.image,
-        name: findPlayerData[1]?.name,
-        price: findPlayerData[1]?.price,
-        rareity: findPlayerData[1]?.rareity,
-        steamid: findPlayerData[1]?.steamid,
-      },
-      {
-        bonusName: "",
-        image: findPlayerData[2]?.image,
-        name: findPlayerData[2]?.name,
-        price: findPlayerData[2]?.price,
-        rareity: findPlayerData[2]?.rareity,
-        steamid: findPlayerData[2]?.steamid,
-      },
-      {
-        bonusName: "",
-        image: findPlayerData[3]?.image,
-        name: findPlayerData[3]?.name,
-        price: findPlayerData[3]?.price,
-        rareity: findPlayerData[3]?.rareity,
-        steamid: findPlayerData[3]?.steamid,
-      },
-      {
-        bonusName: "",
-        image: findPlayerData[4]?.image,
-        name: findPlayerData[4]?.name,
-        price: findPlayerData[4]?.price,
-        rareity: findPlayerData[4]?.rareity,
-        steamid: findPlayerData[4]?.steamid,
-      },
-    ];
-    const examples = await prisma.playerTeam.create({
-      data: {
-        teamName: data.teamName,
-        points: "0",
-        rolePoints: "0",
-        User: { connect: { id: data.userId } },
-        SelectedPlayer: { createMany: { data: [...finalTeam] } },
-        league: { connect: { id: findLeagueId[0]?.id } },
-      },
-    });
-    res.status(200).json(examples);
+    if (
+      findPlayerData[0] &&
+      findPlayerData[1] &&
+      findPlayerData[2] &&
+      findPlayerData[3] &&
+      findPlayerData[4]
+    ) {
+      const finalTeam: any = [];
+      for (let i = 0; i < findPlayerData.length; i++) {
+        const player = findPlayerData[i];
+        if (player) {
+          finalTeam.push({
+            bonusName: "",
+            image: player?.image,
+            name: player?.name,
+            price: player?.price + player?.priceadjust,
+            rareity: player?.rareity,
+            steamid: player?.steamid,
+          });
+        }
+      }
+
+      console.log("YOO THIS RUNNIN");
+      const examples = await prisma.playerTeam.create({
+        data: {
+          teamName: data.teamName,
+          points: "0",
+          rolePoints: "0",
+          User: { connect: { id: data.userId } },
+          SelectedPlayer: { createMany: { data: [...finalTeam] } },
+          league: { connect: { id: findLeagueId[0]?.id } },
+        },
+      });
+      res.status(200).json(examples);
+    } else {
+      res.status(500).json("Team size incorrect");
+    }
   } catch (error) {
     res.status(500).json("Failed to submit");
   }
