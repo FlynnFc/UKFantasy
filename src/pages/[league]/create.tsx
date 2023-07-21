@@ -210,6 +210,7 @@ const Create = (props: {
         body: JSONbody,
       });
       if (response.ok) {
+        setSubmitted(true);
         return response;
       } else throw new Error("Could not submit team!");
     } catch (error) {
@@ -218,7 +219,6 @@ const Create = (props: {
   };
 
   const submitSuccess = () => {
-    setTimeout(() => setSubmitted(true), 200);
     return <b>Team Submitted!</b>;
   };
 
@@ -329,7 +329,7 @@ const Create = (props: {
                 {`You've submitted your team!`}
               </h1>
               <p className="mb-2 py-2">
-                {`Congrats you've submitted your team! Dont like your team? Feel free to delete it and start over.`}
+                {`Congrats you've submitted your team! Dont like your team? Feel free to edit or delete it and start over.`}
               </p>
               <h2 className="text-2xl font-bold leading-loose">What now?</h2>
               <p>
