@@ -418,7 +418,6 @@ const Create = (props: {
               {teamSort ? (
                 <section className="space-y-6">
                   {/* Maps all teams found in DB then inside each team maps all players found in team */}
-
                   {props.data?.Teams.map((el) => {
                     return (
                       <PlayerGroup team={el.teamName} key={el.teamName}>

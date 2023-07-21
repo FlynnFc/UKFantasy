@@ -297,7 +297,7 @@ const CreateExample = () => {
             {teamName}
           </h2>
           <div className="mt-4 flex items-end justify-center lg:mt-0 lg:justify-end"></div>
-          <div id="stickyContainer" className="sticky top-5 z-10 my-4">
+          <div id="" className=" top-5 z-10 my-4">
             <PlayerGroupSkeletonExample setTeamName={setTeamName} money={money}>
               {myTeam}
             </PlayerGroupSkeletonExample>
