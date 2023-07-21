@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { FormEvent, useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { date } from "zod";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
   // const path = "http://localhost:3000";
