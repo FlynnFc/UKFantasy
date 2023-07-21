@@ -25,6 +25,7 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
         name: findPlayerData[0]?.name,
         price: findPlayerData[0]?.price,
         rareity: findPlayerData[0]?.rareity,
+        steamid: findPlayerData[0]?.steamid,
       },
       {
         bonusName: "",
@@ -32,6 +33,7 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
         name: findPlayerData[1]?.name,
         price: findPlayerData[1]?.price,
         rareity: findPlayerData[1]?.rareity,
+        steamid: findPlayerData[1]?.steamid,
       },
       {
         bonusName: "",
@@ -39,6 +41,7 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
         name: findPlayerData[2]?.name,
         price: findPlayerData[2]?.price,
         rareity: findPlayerData[2]?.rareity,
+        steamid: findPlayerData[2]?.steamid,
       },
       {
         bonusName: "",
@@ -46,6 +49,7 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
         name: findPlayerData[3]?.name,
         price: findPlayerData[3]?.price,
         rareity: findPlayerData[3]?.rareity,
+        steamid: findPlayerData[3]?.steamid,
       },
       {
         bonusName: "",
@@ -53,6 +57,7 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
         name: findPlayerData[4]?.name,
         price: findPlayerData[4]?.price,
         rareity: findPlayerData[4]?.rareity,
+        steamid: findPlayerData[4]?.steamid,
       },
     ];
     const examples = await prisma.playerTeam.create({
