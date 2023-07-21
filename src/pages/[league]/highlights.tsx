@@ -114,7 +114,7 @@ const Highlights = (props: { data: any }) => {
     <section className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">
       <Toaster position="top-center" />
       <section className="flex flex-col gap-4 p-4 ">
-        <section className="rounded-btn grid grid-cols-2 items-center gap-4 bg-base-300 p-2">
+        <section className="rounded-btn grid min-w-[35rem] grid-cols-2 items-center gap-4 bg-base-300 p-2">
           <div className="flex flex-row gap-1">
             <button
               onClick={() => setOrder("top")}
@@ -184,25 +184,31 @@ const Highlights = (props: { data: any }) => {
               <button className="btn">Post</button>
             </motion.form>
           )}
-          {posts.map(
-            (el: {
-              id: string;
-              source: string;
-              author: { name: string };
-              likes: number;
-              title: string;
-            }) => {
-              return (
-                <Post
-                  key={el.id}
-                  src={el.source}
-                  author={el.author.name}
-                  likes={el.likes}
-                  title={el.title}
-                  id={el.id}
-                />
-              );
-            }
+          {posts.length > 0 ? (
+            posts.map(
+              (el: {
+                id: string;
+                source: string;
+                author: { name: string };
+                likes: number;
+                title: string;
+              }) => {
+                return (
+                  <Post
+                    key={el.id}
+                    src={el.source}
+                    author={el.author.name}
+                    likes={el.likes}
+                    title={el.title}
+                    id={el.id}
+                  />
+                );
+              }
+            )
+          ) : (
+            <div className="text-center">
+              Be the first to post a highlight for {query.league}!
+            </div>
           )}
         </AnimatePresence>
         {props.data.error && props.data.error}
@@ -263,12 +269,12 @@ const Post = ({
           <LikeButton id={id} likes={likes} />
         </div>
       </div>
-      <div className="min-w-[40rem]">
+      <div className="">
         {playerType === "streamable" && (
           <iframe
             src={`https://streamable.com/e/${videoURL}`}
-            height="350"
-            width="620"
+            height="400"
+            width="710"
             allowFullScreen
             className="rounded-btn"
           ></iframe>
@@ -278,8 +284,8 @@ const Post = ({
           <iframe
             src={`https://clips.twitch.tv/embed?clip=${videoURL}&parent=${localpath}`}
             allowFullScreen
-            height="350"
-            width="620"
+            height="400"
+            width="710"
             className="rounded-btn"
           ></iframe>
         )}
@@ -331,11 +337,11 @@ const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
   }, [id, isClicked, postLikes]);
 
   return (
-    <div className="grid w-[4.2rem] grid-flow-col items-center justify-items-center">
+    <div className="grid grid-flow-col items-center justify-items-center gap-2">
+      <span className="text-end">{postLikes}</span>
       <button className={`active:scale-105`} onClick={handleClick}>
         <Heart className={`text-red-500 ${isClicked && "fill-red-500"}`} />
       </button>
-      <span className="text-end">{postLikes}</span>
     </div>
   );
 };
