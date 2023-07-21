@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ChevronsDown, ChevronsUp } from "lucide-react";
 
 export type playerStats = {
   hltv: number;
@@ -23,6 +24,7 @@ type player = {
   teamFull: boolean;
   team: any[];
   id: string;
+  priceadjust: number;
   playersTeam: any;
 };
 
@@ -129,7 +131,36 @@ export const Player = (props: player) => {
                   {props.name}
                 </span>
               )}
-              £{new Intl.NumberFormat("en").format(props.price)}
+              <span
+                className={`flex items-center justify-center ${
+                  props.price >= 21500
+                    ? "gold"
+                    : props.price > 19000
+                    ? "silver"
+                    : "bronze"
+                }`}
+              >
+                £
+                {new Intl.NumberFormat("en").format(
+                  props.price + props.priceadjust
+                )}
+                {props.priceadjust > 0 && (
+                  <ChevronsUp
+                    size={36}
+                    className="w-fit"
+                    color="rgb(34 197 94)"
+                    strokeWidth={2.75}
+                  />
+                )}
+                {props.priceadjust < 0 && (
+                  <ChevronsDown
+                    size={36}
+                    className="w-fit"
+                    color="rgb(239 68 68)"
+                    strokeWidth={2.75}
+                  />
+                )}
+              </span>
             </p>
           </div>
         </div>

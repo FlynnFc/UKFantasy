@@ -38,6 +38,7 @@ export type player = {
   statsId: string;
   image: string;
   playerTeam: string;
+  priceadjust: number;
 };
 
 const myfilter = new MyFilter();
@@ -103,6 +104,7 @@ const Edit = (props: {
         setOriginalTeam(
           matchedTeam[0].SelectedPlayer.map((el: { id: string }) => el.id)
         );
+        console.log(matchedTeam[0]);
         const players = matchedTeam[0].SelectedPlayer.map((el: any) => (
           <SelectedPlayer
             PlayerRemove={PlayerRemove}
@@ -214,18 +216,20 @@ const Edit = (props: {
     id: string;
     stats: playerStats;
     playersTeam: string;
+    priceadjust: number;
   }) => {
     if (!teamFull) {
       if (myTeam.length === 4) {
         setTeamFull(true);
       }
+      console.log(data);
       setMyTeam((prev) => [
         ...prev,
         <SelectedPlayer
           PlayerRemove={PlayerRemove}
           rareity={data.rareity}
           name={data.name}
-          price={data.price}
+          price={data.price + data.priceadjust}
           img={data.img}
           key={data.name}
           id={data.id}
@@ -442,9 +446,11 @@ const Edit = (props: {
                             price: number;
                             rareity: string;
                             stats: playerStats;
+                            priceadjust: number;
                           }) => {
                             return (
                               <Player
+                                priceadjust={els.priceadjust}
                                 key={els.id}
                                 id={els.id}
                                 teamFull={teamFull}
@@ -470,6 +476,7 @@ const Edit = (props: {
                   {allPlayers?.map((els) => {
                     return (
                       <Player
+                        priceadjust={els.priceadjust}
                         key={els.id}
                         id={els.id}
                         teamFull={teamFull}

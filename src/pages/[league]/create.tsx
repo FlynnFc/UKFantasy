@@ -37,6 +37,7 @@ export type player = {
   teamId: string;
   statsId: string;
   image: string;
+  priceadjust: number;
   playerTeam: string;
 };
 
@@ -168,18 +169,20 @@ const Create = (props: {
     id: string;
     stats: playerStats;
     playersTeam: string;
+    priceadjust: number;
   }) => {
     if (!teamFull) {
       if (myTeam.length === 4) {
         setTeamFull(true);
       }
+      console.log(data);
       setMyTeam((prev) => [
         ...prev,
         <SelectedPlayer
           PlayerRemove={PlayerRemove}
           rareity={data.rareity}
           name={data.name}
-          price={data.price}
+          price={data.price + data.priceadjust}
           img={data.img}
           key={data.name}
           id={data.id}
@@ -429,10 +432,12 @@ const Create = (props: {
                             price: number;
                             rareity: string;
                             stats: playerStats;
+                            priceadjust: number;
                           }) => {
                             return (
                               <Player
                                 key={els.id}
+                                priceadjust={els.priceadjust}
                                 id={els.id}
                                 teamFull={teamFull}
                                 PlayerSelect={PlayerSelect}
@@ -459,6 +464,7 @@ const Create = (props: {
                       <Player
                         key={els.id}
                         id={els.id}
+                        priceadjust={els.priceadjust}
                         teamFull={teamFull}
                         PlayerSelect={PlayerSelect}
                         moneyLeft={money}
