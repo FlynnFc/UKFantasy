@@ -5,18 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import SiteShowcase from "../components/SiteShowcase";
 import { useMemo } from "react";
-import { ArrowUp, ArrowUpFromLine, ChevronsUp, MoveRight } from "lucide-react";
-
-type playerType = {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-  rareity: string;
-  statsId: string;
-  teamId: string;
-  bonus?: { name: string; description: string };
-};
+import { ChevronsDown, ChevronsUp } from "lucide-react";
 
 const Player = {
   id: "clb6rmzhi0003j9dw2xp7vagz",
@@ -63,15 +52,16 @@ const Home: NextPage = () => {
             </Link>
           </section>
           <SiteShowcase />
-          <section className="mx-auto flex min-h-screen w-full flex-col justify-start gap-12 p-4">
-            <h2 className="text-center text-5xl font-bold">
+          <section className="rounded-btn flex min-h-screen w-[94vw] max-w-[85rem] flex-col justify-start gap-12 bg-base-300 p-4">
+            <h2 className="mt-4 text-center text-5xl font-bold">
               Keep an eager eye
             </h2>
 
             <h3 className="text-center text-2xl font-bold">{`Prices change during the team creation phase, make sure you're getting the best deal!`}</h3>
-            <section className=" flex w-full flex-row items-center justify-center gap-5">
+
+            <section className=" mx-auto grid grid-cols-3 items-center justify-center gap-5 justify-self-center">
               <div className="relative h-[20rem]">
-                <div className="absolute bottom-7 left-5 z-20 flex">
+                <div className="absolute bottom-7 left-9 z-20 flex">
                   <p
                     className={`gold flex flex-row pb-2 text-center lg:text-3xl`}
                   >
@@ -88,11 +78,9 @@ const Home: NextPage = () => {
                   height={315}
                 />
               </div>
-              <h3 className="flex flex-row items-center gap-1 text-3xl">
-                high pickrate?
-              </h3>
+              <h3 className="text-3xl">high pickrate?</h3>
               <div className="relative h-[20rem]">
-                <div className="absolute bottom-7 left-5 z-20 flex">
+                <div className="absolute bottom-7 left-9 z-20 flex">
                   <p
                     className={`gold flex flex-row pb-2 text-center lg:text-3xl`}
                   >
@@ -111,6 +99,51 @@ const Home: NextPage = () => {
                   className="z-0 text-center drop-shadow-2xl"
                   alt="player portrait"
                   src={player.image}
+                  width={215}
+                  height={315}
+                />
+              </div>
+            </section>
+            <section className=" mx-auto grid grid-cols-3 items-center justify-center gap-5 justify-self-center">
+              <div className="relative h-[20rem]">
+                <div className="absolute bottom-7 left-9 z-20 flex">
+                  <p
+                    className={`gold flex flex-row pb-2 text-center lg:text-3xl`}
+                  >
+                    £{new Intl.NumberFormat("en").format(player.price)}
+                  </p>
+                </div>
+
+                <Image
+                  loading="eager"
+                  className="z-0 text-center drop-shadow-2xl"
+                  alt="player portrait"
+                  src="https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/The%20Lizards/thelizards_godku.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL1RoZSBMaXphcmRzL3RoZWxpemFyZHNfZ29ka3UuanBnIiwiaWF0IjoxNjg5ODY1MDEzLCJleHAiOjE3MjE0MDEwMTN9.dzq53AtaQGOFYKuZLnKVGkW9o-MLal_mlkZyID7saGg&t=2023-07-20T14%3A57%3A02.403Z"
+                  width={215}
+                  height={315}
+                />
+              </div>
+              <h3 className=" text-center text-3xl">low pickrate?</h3>
+              <div className="relative h-[20rem]">
+                <div className="absolute bottom-7 left-9 z-20 flex">
+                  <p
+                    className={`gold flex flex-row pb-2 text-center lg:text-3xl`}
+                  >
+                    £{new Intl.NumberFormat("en").format(player.price - 2200)}
+                  </p>
+                  <ChevronsDown
+                    size={36}
+                    className="m-0 h-10 w-fit  pb-2"
+                    color="rgb(239 68 68)"
+                    strokeWidth={2.75}
+                  />
+                </div>
+
+                <Image
+                  loading="eager"
+                  className="z-0 text-center drop-shadow-2xl"
+                  alt="player portrait"
+                  src="https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/The%20Lizards/thelizards_godku.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL1RoZSBMaXphcmRzL3RoZWxpemFyZHNfZ29ka3UuanBnIiwiaWF0IjoxNjg5ODY1MDEzLCJleHAiOjE3MjE0MDEwMTN9.dzq53AtaQGOFYKuZLnKVGkW9o-MLal_mlkZyID7saGg&t=2023-07-20T14%3A57%3A02.403Z"
                   width={215}
                   height={315}
                 />
