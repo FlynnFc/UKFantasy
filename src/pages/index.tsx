@@ -75,7 +75,7 @@ const Home: NextPage = () => {
                   <p
                     className={`gold flex flex-row pb-2 text-center lg:text-3xl`}
                   >
-                    £{new Intl.NumberFormat("en").format(player.price + 600)}
+                    £{new Intl.NumberFormat("en").format(player.price)}
                   </p>
                 </div>
 
