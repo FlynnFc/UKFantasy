@@ -20,7 +20,7 @@ const Home: NextPage = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="my-2 w-5/6 text-center text-4xl font-semibold md:text-6xl xl:text-[6rem] xl:leading-tight"
+            className="my-2 w-4/6 text-center text-4xl font-semibold md:text-6xl xl:text-[6rem] xl:leading-tight"
           >
             Welcome to the <b>UK CS</b>
             <span className="font-bold text-emerald-500"> Fantasy League</span>!
