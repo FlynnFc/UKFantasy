@@ -8,7 +8,7 @@ import { Player } from "./Player";
 import PlayerGroup from "./playerGroup";
 import PlayerGroupSkeleton from "./playerGroupSkeleton";
 import SelectedPlayer from "./SelectedPlayer";
-
+import stayxpicturefrom from "../images/c4.png";
 import { AnimatePresence } from "framer-motion";
 import PlayerGroupSkeletonExample from "./playerGroupSkeletonExample";
 
@@ -138,8 +138,7 @@ const CreateExample = () => {
             id: "clb6rrsr9000sj9dw",
             name: "Stayx",
             price: 11000,
-            image:
-              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwiaWF0IjoxNjg5Nzk5MDQxLCJleHAiOjE3MjEzMzUwNDF9.zGDt3amKB3L7hwOoakyIySWv51yDnSOw7m5jvDh4hUE&t=2023-07-19T20%3A37%3A30.001Z",
+            image: stayxpicturefrom,
             rareity: "bronze",
             statsId: "clb3wv98b0000j9fgp1eqw0xj",
             teamId: "clb6rncjx000bj9dwopf23b9z",
@@ -315,7 +314,7 @@ const CreateExample = () => {
                       {el.Player?.map(
                         (els: {
                           id: string;
-                          image: string;
+                          image: any;
                           name: string;
                           price: number;
                           rareity: string;
