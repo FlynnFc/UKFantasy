@@ -39,7 +39,7 @@ const InsightsTable = (props: any) => {
 
       for (let index = 0; index < rounds!; index++) {
         playersPointsRow.push(
-          <td className="bg-base-300 text-center text-slate-50">
+          <td className="bg-base-300 text-center text-base-content">
             {el.points[index]?.value ? el.points[index]?.value : 0}
           </td>
         );
@@ -49,7 +49,7 @@ const InsightsTable = (props: any) => {
 
       for (let index = 0; index < rounds!; index++) {
         playersBonusRow.push(
-          <td className="bg-base-300 text-center text-slate-50">
+          <td className="bg-base-300 text-center text-base-content">
             {el.bonusPoint[index]?.value ? el.bonusPoint[index]?.value : 0}
           </td>
         );
@@ -57,11 +57,11 @@ const InsightsTable = (props: any) => {
 
       rows.push(
         <tr key={el.id}>
-          <td className="bg-base-300 text-slate-50">{el.name}</td>
+          <td className="bg-base-300 text-base-content">{el.name}</td>
           {playersPointsRow}
           {playersBonusRow}
-          <td className="bg-base-300 text-center text-slate-50">{total}</td>
-          <td className="bg-base-300 text-center text-slate-50">
+          <td className="bg-base-300 text-center text-base-content">{total}</td>
+          <td className="bg-base-300 text-center text-base-content">
             {bonusTotal}
           </td>
         </tr>

@@ -386,7 +386,7 @@ const Myteam = (props: {
           </div>
           {/* Team editing  */}
           <h2 className="my-5 text-left text-4xl">Insights</h2>
-          <section className="w-fit rounded-xl border-2 border-base-content ">
+          <section className="w-fit">
             <InsightsTable serverTeam={serverTeam} />
           </section>
         </div>
