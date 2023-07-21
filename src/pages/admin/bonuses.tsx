@@ -41,8 +41,6 @@ const Bonuses = ({ data }: any) => {
     return temp;
   }, [data]);
 
-  console.log("myname", newName);
-  console.log("mydesc", newDescription);
   return (
     <Adminlayout>
       <div className="flex w-full flex-col justify-start gap-2 ">
@@ -74,7 +72,8 @@ const Bonuses = ({ data }: any) => {
               ))}
             </select>
             {selectedBonus && (
-              <div className="grid">
+              <div className="grid gap-2">
+                <h3 className="prose mt-2 text-3xl">Basics</h3>
                 <label htmlFor="" className="label">
                   Bonus name
                 </label>
@@ -88,6 +87,7 @@ const Bonuses = ({ data }: any) => {
                   type="text"
                   className="input"
                 />
+
                 <label htmlFor="" className="label">
                   Bonus Description
                 </label>
@@ -102,13 +102,45 @@ const Bonuses = ({ data }: any) => {
                   }
                   className="input"
                 />
+                <h3 className="prose mt-2 text-3xl">Bonus bounds</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="label" htmlFor="">
+                      Upper limit (value for +10 points)
+                    </label>
+                    <input
+                      type="number"
+                      name=""
+                      className="input w-full"
+                      min={0}
+                      id=""
+                    />
+                  </div>
+                  <div>
+                    <label className="label" htmlFor="">
+                      Mid limit (value for +5 points)
+                    </label>
+                    <input
+                      type="number"
+                      name=""
+                      className="input  w-full"
+                      min={0}
+                      id=""
+                    />
+                  </div>
+                </div>
               </div>
             )}
-            <div className="grid grid-cols-2 gap-1">
+            <div className="grid grid-cols-2 gap-3">
               <button disabled className="btn-success btn">
                 Submit
               </button>
               <button
+                disabled={
+                  newDescription !== undefined || newName !== undefined
+                    ? false
+                    : true
+                }
                 type="button"
                 onClick={() => {
                   setNewDescription(undefined);

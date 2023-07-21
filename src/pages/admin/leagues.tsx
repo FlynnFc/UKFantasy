@@ -53,7 +53,7 @@ const Leagues = () => {
   //TODO
   // Date logic - Check if date has already passed, if start time is before end time and if submit time is before start time
   // Dates need to be converted into prisma supported date format (look up)
-
+  const [subs, setSubs] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState("editplayers");
   return (
     <Adminlayout>
@@ -151,6 +151,7 @@ const Leagues = () => {
                 </section>
               </section>
               <h3 className="text-2xl">Teams & Players competing</h3>
+              {/* This should not submit immediatly. Give the user some info about what the output would be. Litterally a list to preview the teams and players. */}
               <section className="mb-2 grid gap-4">
                 <div className="grid">
                   <label className="label" htmlFor="">
@@ -177,6 +178,43 @@ const Leagues = () => {
                     </label>
                     <input type="text" name="" className="input" id="" />
                   </div>
+                </div>
+              </section>
+              <section className="mb-2 grid gap-4">
+                <h3 className="text-2xl">League options</h3>
+                <div className="grid">
+                  <label className="label flex flex-col items-start" htmlFor="">
+                    Will you allow substitutes?{" "}
+                    <span className="text-sm">
+                      This is advised if you have teams size over 5 and are
+                      unsure which players will player per round.
+                    </span>
+                  </label>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-1">
+                      <label className="label" htmlFor="">
+                        Enable subs
+                      </label>
+                      <input
+                        onChange={(e) => {
+                          console.log(e.target.checked);
+                          setSubs(!!e.target.checked);
+                        }}
+                        required
+                        name="subs"
+                        type="checkbox"
+                        className="checkbox"
+                      />
+                    </div>
+                  </div>
+                  {subs && (
+                    <>
+                      <label className="label" htmlFor="">
+                        How many subs would you like?
+                      </label>
+                      <input className="input" min={1} max={4} type="number" />
+                    </>
+                  )}
                 </div>
               </section>
               <button disabled className="btn">
