@@ -79,11 +79,11 @@ model Player {
   price       Int
   image       String  @db.Text
   rareity     String
+  priceadjust Int?    @default(0)
   stats       Stats?  @relation(fields: [statsId], references: [id])
   statsId     String
   team        Team    @relation(fields: [teamId], references: [id])
   teamId      String
-  priceadjust Int?    @default(0)
 
   @@index([statsId])
   @@index([teamId])
