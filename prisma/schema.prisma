@@ -73,16 +73,17 @@ model VerificationToken {
 }
 
 model Player {
-  id      String  @id @default(cuid())
-  steamid String?
-  name    String
-  price   Int
-  image   String  @db.Text
-  rareity String
-  stats   Stats?  @relation(fields: [statsId], references: [id])
-  statsId String
-  team    Team    @relation(fields: [teamId], references: [id])
-  teamId  String
+  id          String  @id @default(cuid())
+  steamid     String?
+  name        String
+  price       Int
+  image       String  @db.Text
+  rareity     String
+  stats       Stats?  @relation(fields: [statsId], references: [id])
+  statsId     String
+  team        Team    @relation(fields: [teamId], references: [id])
+  teamId      String
+  priceadjust Int?    @default(0)
 
   @@index([statsId])
   @@index([teamId])
