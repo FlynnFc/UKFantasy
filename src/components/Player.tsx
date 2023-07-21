@@ -75,7 +75,7 @@ export const Player = (props: player) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       layout={true}
-      className={`relative z-0 w-52 overflow-hidden rounded-sm bg-neutral shadow-lg lg:h-[20rem] `}
+      className={`relative z-0 w-52 overflow-hidden rounded-sm bg-base-100 shadow-lg lg:h-[20rem] `}
     >
       {picked ? (
         <div className="pickedPlayer absolute z-30 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
