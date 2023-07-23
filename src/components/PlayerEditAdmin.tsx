@@ -30,6 +30,7 @@ const PlayerEditAdmin = () => {
   const [playerPrice, setPlayerPrice] = useState(0);
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [playerData, setPlayerData] = useState();
+  const [playerAdjustPrice, setPlayerAdjustPrice] = useState(0);
 
   const playerDataHandler = async (player: string) => {
     const res = await fetch(`/api/playerById`, {
@@ -44,10 +45,16 @@ const PlayerEditAdmin = () => {
     setPlayerData(data);
     setPlayerName(data.name);
     setPlayerPrice(data.price);
+    setPlayerAdjustPrice(data.priceadjust);
+    console.log(data);
   };
 
   const submiter = async () => {
-    const playerinfo = JSON.stringify({ name: playerName, price: playerPrice });
+    const playerinfo = JSON.stringify({
+      name: playerName,
+      price: playerPrice,
+      priceadjust: playerAdjustPrice,
+    });
     const res = await fetch(`/api/updatePlayer`, {
       method: "POST",
       headers: { id: selectedPlayer },
@@ -130,16 +137,34 @@ const PlayerEditAdmin = () => {
               type="text"
               placeholder="playername"
             />
-            <label className="label" htmlFor="">
-              Price
-            </label>
-            <input
-              value={playerPrice ? playerPrice : 0}
-              onChange={(e) => setPlayerPrice(parseInt(e.target.value))}
-              className="input-bordered input"
-              type="number"
-              placeholder="price"
-            />
+            <section className="grid w-full grid-cols-2 gap-3">
+              <div>
+                <label className="label" htmlFor="">
+                  Base Price
+                </label>
+                <input
+                  value={playerPrice ? playerPrice : 0}
+                  onChange={(e) => setPlayerPrice(parseInt(e.target.value))}
+                  className="input-bordered input w-full"
+                  type="number"
+                  placeholder="base price"
+                />
+              </div>
+              <div>
+                <label className="label" htmlFor="">
+                  Adjustment Price
+                </label>
+                <input
+                  value={playerAdjustPrice ? playerAdjustPrice : 0}
+                  onChange={(e) =>
+                    setPlayerAdjustPrice(parseInt(e.target.value))
+                  }
+                  className="input-bordered input w-full"
+                  type="number"
+                  placeholder="base price"
+                />
+              </div>
+            </section>
           </div>
           <button className="btn">Update</button>
         </form>
