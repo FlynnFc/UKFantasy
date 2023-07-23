@@ -75,7 +75,7 @@ const PlayerStatsAdmin = () => {
       throw new Error("error");
     }
     const data = await res.json();
-    console.log(data);
+
     const playerstats = new Map<string, any>();
     for (let i = 0; i < data.length; i++) {
       const team = data[i].SelectedPlayer;
@@ -113,14 +113,12 @@ const PlayerStatsAdmin = () => {
           newPlayerstats.set(player.name, { [player.bonusName]: 1 });
         }
       }
-      console.log(newPlayerstats);
     }
     setPlayerData(new Map(newPlayerstats));
   };
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-  console.log(screenWidth);
   // Add event listener to track changes in the window size
   useEffect(() => {
     const handleResize = () => {
