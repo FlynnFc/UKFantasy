@@ -32,20 +32,24 @@ export const MyPlayer = (props: myPlayer) => {
       >
         {props.bonus && (
           <div
-            className={`tooltip absolute top-0 z-10 w-full bg-base-100/60 p-1 text-center  `}
-            data-tip={props.bonus.description}
+            className={`absolute top-0 z-10 flex w-full items-center justify-center  p-1 text-center  `}
           >
-            <button className={` text-lg font-bold  text-base-content`}>
-              {props.bonus.name}
-            </button>
-            {props.bonusEdit && (
+            <div className="rounded-btn flex flex-row gap-2 border border-white bg-gray-800 px-1 text-center">
               <button
-                onClick={() => props.deleteBonus(props.index)}
-                className="absolute right-0 mr-2 mt-[0.1rem]  font-bold text-error"
+                data-tip={props.bonus.description}
+                className={` tooltip text-lg  text-white`}
               >
-                X
+                {props.bonus.name}
               </button>
-            )}
+              {props.bonusEdit && (
+                <button
+                  onClick={() => props.deleteBonus(props.index)}
+                  className="mr-2 mt-[0.1rem]  font-bold text-red-500"
+                >
+                  X
+                </button>
+              )}
+            </div>
           </div>
         )}
         <div
@@ -78,7 +82,7 @@ export const MyPlayer = (props: myPlayer) => {
       </div>
       {props.bonus && (
         <div
-          className={`tooltip z-10 flex w-full gap-2 bg-primary p-1 text-center  text-slate-50 lg:hidden`}
+          className={`tooltip z-10 flex w-3/4 gap-2 bg-primary p-1 text-center  text-slate-50 lg:hidden`}
           data-tip={props.bonus.description}
         >
           <button className="w-full text-center text-lg font-bold  text-slate-50">
