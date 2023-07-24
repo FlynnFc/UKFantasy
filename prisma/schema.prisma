@@ -221,7 +221,7 @@ model highlight {
 model highlightLike {
   id          String    @id @unique @default(uuid())
   likedBy     User      @relation(fields: [userId], references: [id])
-  highlight   highlight @relation(fields: [highlightId], references: [id])
+  highlight   highlight @relation(fields: [highlightId], references: [id], onDelete: Cascade)
   highlightId String
   userId      String
 
