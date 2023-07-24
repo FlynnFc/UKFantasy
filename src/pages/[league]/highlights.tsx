@@ -1,3 +1,4 @@
+import { highlightLike } from "@prisma/client";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowBigUp, Heart, Mailbox } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -13,6 +14,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
     headers: { leaguename: paths.params.league },
   });
   const data = await res.json();
+  console.log(data);
   return {
     props: {
       data,
@@ -189,7 +191,7 @@ const Highlights = (props: { data: any }) => {
                 id: string;
                 source: string;
                 author: { name: string };
-                likes: number;
+                highlightLike: highlightLike[];
                 title: string;
               }) => {
                 return (
@@ -197,7 +199,7 @@ const Highlights = (props: { data: any }) => {
                     key={el.id}
                     src={el.source}
                     author={el.author.name}
-                    likes={el.likes}
+                    likes={el.highlightLike}
                     title={el.title}
                     id={el.id}
                   />
@@ -209,6 +211,7 @@ const Highlights = (props: { data: any }) => {
               Be the first to post a highlight for {query.league}!
             </div>
           )}
+          <button className="btn">Load more</button>
         </AnimatePresence>
         {props.data.error && props.data.error}
       </section>
@@ -228,7 +231,7 @@ const Post = ({
   title: string;
   author: string;
   src: string;
-  likes: number;
+  likes: highlightLike[];
   id: string;
 }) => {
   const localpath = "localhost";
@@ -265,7 +268,7 @@ const Post = ({
           <span className="text-gray-600">{author}</span>
         </div>
         <div className="w-fit">
-          <LikeButton id={id} likes={likes} />
+          <LikeButton id={id} vidId={videoURL ? videoURL : ""} likes={likes} />
         </div>
       </div>
       <div className="">
@@ -293,13 +296,22 @@ const Post = ({
   );
 };
 
-const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
-  const [postLikes, setPostLikes] = useState(likes);
+const LikeButton = ({
+  likes,
+  id,
+  vidId,
+}: {
+  likes: highlightLike[];
+  id: string;
+  vidId: string;
+}) => {
+  const [postLikes, setPostLikes] = useState(likes.length);
   const [isClicked, setIsClicked] = useState(false);
   const [firstRender, setFirstRender] = useState(true);
-
+  const { data } = useSession();
   // When someone likes start a 2 second timer and everytime they like/unlike restart it, if the 2 second timer finishes add a like to the db
   // When firing like to db log video ids in cookies?
+
   const handleClick = () => {
     if (isClicked) {
       setPostLikes((prev) => prev - 1);
@@ -315,10 +327,14 @@ const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
       return;
     }
     const delayedSubmit = async () => {
-      console.log("Function executed after 5 seconds.", postLikes);
+      console.log("Function executed after 5 seconds.");
       const res = await fetch("/api/updatelikes", {
         method: "POST",
-        body: JSON.stringify({ id: id, likes: postLikes }),
+        body: JSON.stringify({
+          id: id,
+          likedBy: data?.user?.id,
+          isLiked: await isClicked,
+        }),
       });
       if (!res.ok) {
         throw new Error("Could not update");
@@ -333,7 +349,7 @@ const LikeButton = ({ likes, id }: { likes: number; id: string }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [id, isClicked, postLikes]);
+  }, [id, postLikes]);
 
   return (
     <div className="grid grid-flow-col items-center justify-items-center gap-2">
