@@ -81,7 +81,7 @@ model Player {
   image       String  @db.Text
   rareity     String
   priceadjust Int     @default(0)
-  stats       Stats?  @relation(fields: [statsId], references: [id])
+  stats       Stats[]
   statsId     String
   team        Team    @relation(fields: [teamId], references: [id])
   teamId      String
@@ -92,12 +92,16 @@ model Player {
 
 model Stats {
   id           String   @id @default(cuid())
-  hltv         Float
-  elo          Int      @default(1000)
-  hs           Int
-  entryRounds  Int
-  clutchRounds Int
-  link         String
+  event        String?
+  hltv         Float    @default(0.0)
+  KAST         Int      @default(0)
+  ADR          Int      @default(0)
+  utilThrown   Int      @default(0)
+  hs           Int      @default(0)
+  entryKills   Int      @default(0)
+  clutchRounds Int      @default(0)
+  deathsTraded Int      @default(0)
+  Objectives   Int      @default(0)
   Player       Player[]
 }
 

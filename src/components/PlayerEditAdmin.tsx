@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-
+import * as XLSX from "xlsx";
 type LeagueData = {
   Teams: {
     teamName: string;
     id: string;
-    Player: { id: string; name: string }[];
+    Player: { id: string; name: string; steamid: string }[];
   }[];
 };
 
@@ -26,12 +26,13 @@ const PlayerEditAdmin = () => {
     setLeagueData(data);
   };
 
+  console.log(leagueData);
   const [playerName, setPlayerName] = useState("");
   const [playerPrice, setPlayerPrice] = useState(0);
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [playerData, setPlayerData] = useState();
   const [playerAdjustPrice, setPlayerAdjustPrice] = useState(0);
-
+  const [file, setFile] = useState();
   const playerDataHandler = async (player: string) => {
     const res = await fetch(`/api/playerById`, {
       method: "GET",
@@ -74,6 +75,173 @@ const PlayerEditAdmin = () => {
       error: <b>Could not update.</b>,
     });
   };
+
+  const playerStatsHandler = async (e) => {
+    e.preventDefault();
+    const f = file[0];
+    const data = await f.arrayBuffer();
+    const workbook = XLSX.read(data);
+    const epic39: any = workbook.Sheets["EPIC38"];
+    const s45: any = workbook.Sheets["S45"];
+    const ruby: any = workbook.Sheets["Ruby"];
+    const epic39jsonData: any = XLSX.utils.sheet_to_json(epic39, {
+      header: 1,
+      defval: "",
+    });
+    const s45jsonData: any = XLSX.utils.sheet_to_json(s45, {
+      header: 1,
+      defval: "",
+    });
+    const rubyjsonData: any = XLSX.utils.sheet_to_json(ruby, {
+      header: 1,
+      defval: "",
+    });
+
+    const GlobalRowmap = new Map();
+    //Index for all rows
+    for (let index = 0; index < epic39jsonData[0].length; index++) {
+      const element = epic39jsonData[0][index];
+      GlobalRowmap.set(element, index);
+    }
+    if (!leagueData) return;
+    //Differnt events
+    const epicLan = (player) => {
+      for (let r = 1; r < epic39jsonData.length; r++) {
+        const row = epic39jsonData[r];
+        if (row[1] === player.steamid) {
+          const hltv = row[GlobalRowmap.get("Rating")];
+          const KAST = Math.round(row[GlobalRowmap.get("KAST%")]);
+          const ADR = Math.round(row[GlobalRowmap.get("ADR")]);
+          const hs = Math.round(row[GlobalRowmap.get("HS%")]);
+          const deathsTraded = row[GlobalRowmap.get("% of Deaths Traded")];
+          const utilThrown = row[GlobalRowmap.get("Util thrown / Round")];
+          const entryKills = row[GlobalRowmap.get("Entry Kills / Round")];
+          const clutchRounds = Math.round(
+            row[GlobalRowmap.get("Clutch won %")]
+          );
+
+          const Objectives =
+            (row[GlobalRowmap.get("Bomb planted")] +
+              row[GlobalRowmap.get("Bomb defused")]) /
+            row[GlobalRowmap.get("Rounds")];
+          //,Objectives
+          return {
+            event: "epic39",
+            steamid: player?.steamid,
+            hltv,
+            KAST,
+            ADR,
+            hs,
+            entryKills,
+            deathsTraded,
+            utilThrown,
+
+            clutchRounds,
+            Objectives,
+          };
+        } else continue;
+      }
+    };
+
+    const season45 = (player) => {
+      for (let r = 1; r < s45jsonData.length; r++) {
+        const row = s45jsonData[r];
+        if (row[1] === player.steamid) {
+          const hltv = row[GlobalRowmap.get("Rating")];
+          const KAST = Math.round(row[GlobalRowmap.get("KAST%")]);
+          const ADR = Math.round(row[GlobalRowmap.get("ADR")]);
+          const hs = Math.round(row[GlobalRowmap.get("HS%")]);
+          const deathsTraded = row[GlobalRowmap.get("% of Deaths Traded")];
+          const utilThrown = row[GlobalRowmap.get("Util thrown / Round")];
+          const entryKills = row[GlobalRowmap.get("Entry Kills / Round")];
+          const clutchRounds = Math.round(
+            row[GlobalRowmap.get("Clutch won %")]
+          );
+
+          const Objectives =
+            (row[GlobalRowmap.get("Bomb planted")] +
+              row[GlobalRowmap.get("Bomb defused")]) /
+            row[GlobalRowmap.get("Rounds")];
+          //,Objectives
+          const newStats = {
+            event: "s45",
+            steamid: player?.steamid,
+            hltv,
+            KAST,
+            ADR,
+            hs,
+            entryKills,
+            deathsTraded,
+            utilThrown,
+            clutchRounds,
+            Objectives,
+          };
+          return newStats;
+        }
+      }
+    };
+
+    const rubyLeague = (player) => {
+      for (let r = 1; r < rubyjsonData.length; r++) {
+        const row = rubyjsonData[r];
+        if (row[1] === player.steamid) {
+          const hltv = row[GlobalRowmap.get("Rating")];
+          const KAST = Math.round(row[GlobalRowmap.get("KAST%")]);
+          const ADR = Math.round(row[GlobalRowmap.get("ADR")]);
+          const hs = Math.round(row[GlobalRowmap.get("HS%")]);
+          const deathsTraded = row[GlobalRowmap.get("% of Deaths Traded")];
+          const utilThrown = row[GlobalRowmap.get("Util thrown / Round")];
+          const entryKills = row[GlobalRowmap.get("Entry Kills / Round")];
+          const clutchRounds = Math.round(
+            row[GlobalRowmap.get("Clutch won %")]
+          );
+
+          const Objectives =
+            (row[GlobalRowmap.get("Bomb planted")] +
+              row[GlobalRowmap.get("Bomb defused")]) /
+            row[GlobalRowmap.get("Rounds")];
+          //,Objectives
+          const newStats = {
+            event: "ruby",
+            steamid: player?.steamid,
+            hltv,
+            KAST,
+            ADR,
+            hs,
+            entryKills,
+            deathsTraded,
+            utilThrown,
+            clutchRounds,
+            Objectives,
+          };
+          return newStats;
+        } else continue;
+      }
+    };
+
+    console.log(GlobalRowmap);
+    const allStats = [];
+    for (let i = 0; i < leagueData.Teams.length; i++) {
+      const team = leagueData.Teams[i]?.Player;
+      for (let j = 0; j < team.length; j++) {
+        const player = team[j];
+        const epic = epicLan(player);
+        const seas45 = season45(player);
+        const rubyleg = rubyLeague(player);
+        if (epic !== undefined) allStats.push(epic);
+        if (seas45 !== undefined) allStats.push(seas45);
+        if (rubyleg !== undefined) allStats.push(rubyleg);
+      }
+    }
+
+    const res = await fetch("/api/PlayerStats", {
+      method: "POST",
+      body: JSON.stringify(allStats),
+    });
+    if (!res.ok) throw new Error("failed res");
+    console.log(allStats);
+  };
+
   return (
     <div className="grid w-full max-w-3xl gap-2 ">
       <label className="label">What league is the player in?</label>
@@ -169,6 +337,18 @@ const PlayerEditAdmin = () => {
           <button className="btn">Update</button>
         </form>
       )}
+
+      <h2>Adding player stats</h2>
+      <form onSubmit={playerStatsHandler}>
+        <input
+          onChange={(e) => setFile(e.target.files)}
+          className="file-input bg-base-300"
+          type="file"
+          name=""
+          id=""
+        />
+        <button className="btn">Submit</button>
+      </form>
     </div>
   );
 };

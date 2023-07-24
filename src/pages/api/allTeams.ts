@@ -17,7 +17,7 @@ const allTeams = async (req: NextApiRequest, res: NextApiResponse) => {
           const teams = await prisma.league.findUnique({
             where: { name: leagueName },
             include: {
-              Teams: { include: { Player: { include: { stats: true } } } },
+              Teams: { include: { Player: true } },
             },
           });
           res.status(200).json(teams);
