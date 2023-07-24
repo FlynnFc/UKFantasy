@@ -280,7 +280,7 @@ const Create = (props: {
           <div className="createModal fixed left-0 top-0 z-20 flex h-screen w-full items-start justify-center overflow-auto">
             <div className="prose mt-10 flex max-w-2xl flex-col gap-2 rounded-lg bg-primary  p-10 text-primary-content prose-h3:my-0 prose-ul:mt-0">
               <h2 className="mb-0 text-3xl font-bold leading-loose text-primary-content">
-                Welcome to team creatation
+                Welcome to team creation
               </h2>
               <p className="prose:p:m-0 mb-2 py-2 text-base">
                 This is where you will decide who will give you the most points,
