@@ -382,7 +382,7 @@ const Create = (props: {
                       toast.error("No naughty words please!");
                     } else submit();
                   }}
-                  className="btn-outline btn"
+                  className="btn btn-outline"
                 >
                   Submit Team
                 </button>
@@ -399,7 +399,7 @@ const Create = (props: {
                 onChange={(e) => {
                   sorter(e.target.value);
                 }}
-                className="select-bordered select mb-3 w-full max-w-xs text-lg"
+                className="select select-bordered mb-3 w-full max-w-xs text-lg"
               >
                 <option value={"DEFAULT"} disabled>
                   Sort by

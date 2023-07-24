@@ -4,14 +4,15 @@ import React, { useEffect, useMemo, useState } from "react";
 const Stats = (props: any) => {
   const [event, setEvent] = useState("");
   const [currentStats, setCurrentStats] = useState<Stats>(props.stats[0]);
-
   useEffect(() => {
-    props.stats.forEach((el: any) => {
-      if (el.event === event) {
-        setCurrentStats(el);
-        return;
-      }
-    });
+    if (props.stats) {
+      props.stats.forEach((el: any) => {
+        if (el.event === event) {
+          setCurrentStats(el);
+          return;
+        }
+      });
+    }
   }, [event, props.stats]);
 
   const list = useMemo(() => {
@@ -30,21 +31,22 @@ const Stats = (props: any) => {
           <li>{`Util/Round: ${currentStats.utilThrown}`}</li>
         </ul>
       );
-    } else return;
+    } else return <div className="p-2 text-center">No stats found</div>;
   }, [currentStats]);
   return (
     <div>
-      {props.stats.map((el: { event: string }) => (
-        <button
-          key={el.event}
-          onClick={() => setEvent(el.event)}
-          className={`btn btn-sm rounded-none ${
-            currentStats.event === el.event && "btn-active"
-          }`}
-        >
-          {el.event}
-        </button>
-      ))}
+      {props.stats &&
+        props.stats.map((el: { event: string }) => (
+          <button
+            key={el.event}
+            onClick={() => setEvent(el.event)}
+            className={`btn btn-sm rounded-none ${
+              currentStats.event === el.event && "btn-active"
+            }`}
+          >
+            {el.event}
+          </button>
+        ))}
       {list}
     </div>
   );
