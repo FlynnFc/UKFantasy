@@ -391,6 +391,8 @@ const Edit = (props: {
                       toast.error(
                         "The team name needs to be at least 4 characters"
                       );
+                    } else if (teamName.length > 20) {
+                      toast.error("Your team name is too long!");
                     } else if (myfilter.trickey(teamName) !== null) {
                       toast.error("No naughty words please!");
                     } else submit();
