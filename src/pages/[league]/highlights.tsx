@@ -254,6 +254,7 @@ const Post = ({
       new RegExp(`(?<=https://streamable.com/)[a-zA-Z0-9]+`)
     );
     if (result2) {
+      console.log(result2);
       setPlayerType("streamable");
       return result2[0];
     }
@@ -314,6 +315,7 @@ const LikeButton = ({ likes, id }: { likes: highlightLike[]; id: string }) => {
         setIsClicked(true);
       }
     });
+    if (isClicked === undefined) setIsClicked(false);
   }, [data?.user?.id, likes]);
 
   // When someone likes start a 2 second timer and everytime they like/unlike restart it, if the 2 second timer finishes add a like to the db
