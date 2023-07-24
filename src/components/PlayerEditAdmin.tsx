@@ -76,9 +76,9 @@ const PlayerEditAdmin = () => {
     });
   };
 
-  const playerStatsHandler = async (e) => {
+  const playerStatsHandler = async (e: any) => {
     e.preventDefault();
-    const f = file[0];
+    const f: any = file![0];
     const data = await f.arrayBuffer();
     const workbook = XLSX.read(data);
     const epic39: any = workbook.Sheets["EPIC38"];
@@ -105,7 +105,7 @@ const PlayerEditAdmin = () => {
     }
     if (!leagueData) return;
     //Differnt events
-    const epicLan = (player) => {
+    const epicLan = (player: any) => {
       for (let r = 1; r < epic39jsonData.length; r++) {
         const row = epic39jsonData[r];
         if (row[1] === player.steamid) {
@@ -143,7 +143,7 @@ const PlayerEditAdmin = () => {
       }
     };
 
-    const season45 = (player) => {
+    const season45 = (player: any) => {
       for (let r = 1; r < s45jsonData.length; r++) {
         const row = s45jsonData[r];
         if (row[1] === player.steamid) {
@@ -181,7 +181,7 @@ const PlayerEditAdmin = () => {
       }
     };
 
-    const rubyLeague = (player) => {
+    const rubyLeague = (player: any) => {
       for (let r = 1; r < rubyjsonData.length; r++) {
         const row = rubyjsonData[r];
         if (row[1] === player.steamid) {
@@ -223,8 +223,8 @@ const PlayerEditAdmin = () => {
     const allStats = [];
     for (let i = 0; i < leagueData.Teams.length; i++) {
       const team = leagueData.Teams[i]?.Player;
-      for (let j = 0; j < team.length; j++) {
-        const player = team[j];
+      for (let j = 0; j < team!.length; j++) {
+        const player = team![j];
         const epic = epicLan(player);
         const seas45 = season45(player);
         const rubyleg = rubyLeague(player);
@@ -341,7 +341,7 @@ const PlayerEditAdmin = () => {
       <h2>Adding player stats</h2>
       <form onSubmit={playerStatsHandler}>
         <input
-          onChange={(e) => setFile(e.target.files)}
+          onChange={(e: any) => setFile(e.target.files)}
           className="file-input bg-base-300"
           type="file"
           name=""
