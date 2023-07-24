@@ -57,7 +57,15 @@ const SelectedPlayer = (props: player) => {
         >
           <div className="lg:hidden">{props.name}</div>
           <div>
-            <p className={`pb-2 text-center lg:text-3xl  ${rareity}`}>
+            <p
+              className={`pb-2 text-center lg:text-3xl  ${
+                props.price >= 21500
+                  ? "gold"
+                  : props.price > 19000
+                  ? "silver"
+                  : "bronze"
+              }`}
+            >
               £{new Intl.NumberFormat("en").format(props.price)}
             </p>
           </div>
@@ -85,9 +93,9 @@ const SelectedPlayer = (props: player) => {
               : "playerstats absolute top-full z-20 flex  h-full w-full flex-col justify-between text-white"
           }
         >
-          {props.stats ? <Stats stats={props.stats}/> : <div></div>}
+          {props.stats ? <Stats stats={props.stats} /> : <div></div>}
           <button
-            className="btn-error btn w-auto rounded-none border-none bg-red-500"
+            className="btn btn-error w-auto rounded-none border-none bg-red-500"
             onClick={() => props.PlayerRemove(props)}
           >
             Remove player
