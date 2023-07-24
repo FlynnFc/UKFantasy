@@ -22,7 +22,15 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
           });
           res.status(200).json(addHighLightLike);
         } else {
-          res.status(500).json({ error: "Post isnt liked" });
+          const highlight = await prisma.highlightLike.findMany({
+            where: {
+              AND: [{ highlightId: post.id }, { userId: post.likedBy }],
+            },
+          });
+          const addHighLightLike = await prisma.highlightLike.delete({
+            where: { id: highlight[0]?.id },
+          });
+          res.status(200).json(addHighLightLike);
         }
       } catch (e) {
         console.error("Request error", e);

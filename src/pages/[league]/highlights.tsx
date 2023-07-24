@@ -3,7 +3,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowBigUp, Heart, Mailbox } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { FormEvent, useEffect, useMemo, useState } from "react";
+import React, {
+  FormEvent,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
@@ -211,8 +217,8 @@ const Highlights = (props: { data: any }) => {
               Be the first to post a highlight for {query.league}!
             </div>
           )}
-          <button className="btn">Load more</button>
         </AnimatePresence>
+        <button className="btn">Load more</button>
         {props.data.error && props.data.error}
       </section>
     </section>
@@ -305,10 +311,19 @@ const LikeButton = ({
   id: string;
   vidId: string;
 }) => {
-  const [postLikes, setPostLikes] = useState(likes.length);
-  const [isClicked, setIsClicked] = useState(false);
-  const [firstRender, setFirstRender] = useState(true);
   const { data } = useSession();
+  const [postLikes, setPostLikes] = useState(likes.length);
+  const [isClicked, setIsClicked] = useState<boolean>();
+  const [firstRender, setFirstRender] = useState(true);
+
+  useEffect(() => {
+    likes.forEach((el) => {
+      if (el.userId === data?.user?.id) {
+        setIsClicked(true);
+      }
+    });
+  });
+
   // When someone likes start a 2 second timer and everytime they like/unlike restart it, if the 2 second timer finishes add a like to the db
   // When firing like to db log video ids in cookies?
 
@@ -318,7 +333,7 @@ const LikeButton = ({
     } else {
       setPostLikes((prev) => prev + 1);
     }
-    setIsClicked(!isClicked);
+    setIsClicked((prev) => !prev);
   };
 
   useEffect(() => {
