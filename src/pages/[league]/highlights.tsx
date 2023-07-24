@@ -368,10 +368,14 @@ const LikeButton = ({
 
   return (
     <div className="grid grid-flow-col items-center justify-items-center gap-2">
-      <span className="text-end">{postLikes}</span>
-      <button className={`active:scale-105`} onClick={handleClick}>
-        <Heart className={`text-red-500 ${isClicked && "fill-red-500"}`} />
-      </button>
+      {isClicked !== undefined && (
+        <>
+          <span className="text-end">{postLikes}</span>
+          <button className={`active:scale-105`} onClick={handleClick}>
+            <Heart className={`text-red-500 ${isClicked && "fill-red-500"}`} />
+          </button>
+        </>
+      )}
     </div>
   );
 };
