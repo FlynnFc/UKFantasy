@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronsDown, ChevronsUp } from "lucide-react";
-import Stats from "./stats";
+import Stats from "./Stats";
 
 export type playerStats = {
   hltv: number;
