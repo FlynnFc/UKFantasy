@@ -188,7 +188,7 @@ export const Player = (props: player) => {
               <Stats stats={props.stats} />
 
               <button
-                className="btn-success btn w-auto border-none bg-green-500"
+                className="btn-success btn w-auto rounded-none border-none bg-green-500"
                 onClick={() => {
                   //Check if team is full already
                   if (!disable && !picked) {

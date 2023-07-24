@@ -6,25 +6,28 @@ const Stats = (props: any) => {
   const [currentStats, setCurrentStats] = useState<Stats>(props.stats[0]);
 
   useEffect(() => {
-    console.log(props.stats);
-    if (event) {
-      console.log(event);
-    }
+    props.stats.forEach((el: any) => {
+      if (el.event === event) {
+        setCurrentStats(el);
+        return;
+      }
+    });
   }, [event, props.stats]);
 
   const list = useMemo(() => {
     if (currentStats) {
       return (
-        <ul className="p-2">
+        <ul className="p-2 text-lg">
           <li>{`ADR: ${currentStats.ADR}`}</li>
           <li>{`KAST: ${currentStats.KAST}`}</li>
           <li>{`HLTV: ${currentStats.hltv}`}</li>
-          <li>{`Objectives: ${currentStats.Objectives}`}</li>
-          <li>{`KAST: ${currentStats.KAST}`}</li>
-          <li>{`KAST: ${currentStats.KAST}`}</li>
-          <li>{`KAST: ${currentStats.KAST}`}</li>
-          <li>{`KAST: ${currentStats.KAST}`}</li>
-          <li>{`KAST: ${currentStats.KAST}`}</li>
+          <li>{`Objectives: ${currentStats.Objectives.toPrecision(1)}`}</li>
+          <li>{`Clutch win: ${currentStats.clutchRounds}%`}</li>
+          <li>{`Trade death: ${(currentStats.deathsTraded * 100).toPrecision(
+            3
+          )}%`}</li>
+          <li>{`Entrys/Round: ${currentStats.entryKills.toPrecision(1)}`}</li>
+          <li>{`Util/Round: ${currentStats.utilThrown}`}</li>
         </ul>
       );
     } else return;

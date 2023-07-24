@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { playerStats } from "./Player";
+import Stats from "./Stats";
 
 type player = {
   name: string;
@@ -80,28 +81,13 @@ const SelectedPlayer = (props: player) => {
         <div
           className={
             stats
-              ? "playerstats absolute top-0 z-20 flex h-full w-full flex-col justify-between p-2 text-white"
-              : "playerstats absolute top-full z-20 flex  h-full w-full  flex-col justify-between p-2 text-white"
+              ? "playerstats absolute top-0 z-20 flex h-full w-full flex-col justify-between text-white"
+              : "playerstats absolute top-full z-20 flex  h-full w-full  flex-col justify-between text-white"
           }
         >
-          <ul className="grid grid-cols-1 gap-1">
-            <li>HLTV: {props.stats ? props.stats.hltv : "N/A"}</li>
-            <li>Faceit Elo: {props.stats ? props.stats.elo : "N/A"} </li>
-            <li>KAST: {props.stats ? `${props.stats.kast}%` : "N/A"}</li>
-            <li>ADR: {props.stats ? `${props.stats.adr}` : "N/A"}</li>
-            <li>HS%: {props.stats ? `${props.stats.hs}%` : "N/A"}</li>
-            <li>
-              Entry/round%:{" "}
-              {props.stats ? `${props.stats.entryRounds}%` : "N/A"}
-            </li>
-            <li>
-              Clutch %: {props.stats ? `${props.stats.clutchRounds}%` : "N/A"}
-            </li>
-            <li>Clutch %: {props.stats ? `${props.stats.util}%` : "N/A"}</li>
-            <li>Clutch %: {props.stats ? `${props.stats.util}%` : "N/A"}</li>
-          </ul>
+          {/* <Stats stats={props.stats}/> */}
           <button
-            className="btn-error btn w-auto border-none bg-red-500"
+            className="btn-error btn w-auto rounded-none border-none bg-red-500"
             onClick={() => props.PlayerRemove(props)}
           >
             Remove player

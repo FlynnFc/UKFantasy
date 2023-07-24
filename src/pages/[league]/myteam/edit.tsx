@@ -508,8 +508,8 @@ export default Edit;
 export async function getServerSideProps(paths: {
   params: { league: string };
 }) {
-  const path = "http://localhost:3000/";
-  // const path = "https://esportsfantasy.app";
+  // const path = "http://localhost:3000/";
+  const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/allTeams`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
