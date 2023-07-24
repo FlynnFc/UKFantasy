@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ChevronsDown, ChevronsUp } from "lucide-react";
+import Stats from "./stats";
 
 export type playerStats = {
   hltv: number;
@@ -184,17 +185,8 @@ export const Player = (props: player) => {
                   : "playerstats absolute top-full z-20 flex  h-full w-full  flex-col justify-between p-2 text-white"
               }
             >
-              <ul className="grid grid-cols-1 gap-1">
-                <li>HLTV: {props.stats.hltv}</li>
-                <li>Faceit Elo: {props.stats.elo} </li>
-                <li>KAST: 50%</li>
-                <li>ADR: 10</li>
-                <li>HS%: {props.stats.hs}%</li>
-                <li>Entry Kill win%: {props.stats.entryRounds}%</li>
-                <li>Clutch Rounds: {props.stats.clutchRounds}%</li>
-                <li>Util thrown: {props.stats.clutchRounds}</li>
-                <li>Util thrown: {props.stats.clutchRounds}</li>
-              </ul>
+              <Stats stats={stats} />
+
               <button
                 className="btn-success btn w-auto border-none bg-green-500"
                 onClick={() => {
