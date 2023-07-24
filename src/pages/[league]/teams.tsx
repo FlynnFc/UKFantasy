@@ -48,8 +48,10 @@ const Teams = (props: { data: { Teams: [] } }) => {
         return (
           <PlayerGroup team={el.teamName} key={el.teamName}>
             {el.Player?.map((els) => {
+              console.log(els);
               return (
                 <PreviewPlayer
+                  priceadjust={els.priceadjust}
                   key={els.id}
                   id={els.id}
                   rareity={els.rareity}

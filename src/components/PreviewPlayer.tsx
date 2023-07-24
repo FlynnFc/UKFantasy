@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { playerStats } from "./Player";
+import { ChevronsDown, ChevronsUp } from "lucide-react";
 export type player = {
   key: string;
   name: string;
@@ -9,8 +10,10 @@ export type player = {
   image?: string;
   stats?: playerStats;
   id: string;
+  priceadjust: number;
 };
 const PreviewPlayer = (props: player) => {
+  console.log(props.priceadjust);
   const [stats, setStats] = useState(false);
   return (
     <div className={` flex-col lg:h-[20rem] lg:w-[14rem] lg:shadow-lg`}>
@@ -36,7 +39,36 @@ const PreviewPlayer = (props: player) => {
                   {props.name}
                 </span>
               )}
-              £{new Intl.NumberFormat("en").format(props.price)}
+              <span
+                className={`flex items-center justify-center ${
+                  props.price >= 21500
+                    ? "gold"
+                    : props.price > 19000
+                    ? "silver"
+                    : "bronze"
+                }`}
+              >
+                £
+                {new Intl.NumberFormat("en").format(
+                  props.price + props.priceadjust
+                )}
+                {props.priceadjust > 0 && (
+                  <ChevronsUp
+                    size={36}
+                    className="w-fit"
+                    color="rgb(34 197 94)"
+                    strokeWidth={2.75}
+                  />
+                )}
+                {props.priceadjust < 0 && (
+                  <ChevronsDown
+                    size={36}
+                    className="w-fit"
+                    color="rgb(239 68 68)"
+                    strokeWidth={2.75}
+                  />
+                )}
+              </span>
             </p>
           </div>
         </div>
