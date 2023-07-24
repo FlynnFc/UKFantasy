@@ -36,6 +36,7 @@ export type player = {
   rareity: string;
   teamId: string;
   statsId: string;
+  stats: any;
   image: string;
   priceadjust: number;
   playerTeam: string;
@@ -471,6 +472,7 @@ const Create = (props: {
                         price={els.price}
                         img={els.image}
                         team={myTeam}
+                        stats={els.stats}
                         playersTeam={els.playerTeam}
                       />
                     );
