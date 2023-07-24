@@ -245,6 +245,10 @@ const Post = ({
   const [playerType, setPlayerType] = useState("");
   // https://www.twitch.tv/lirik/clip/AdventurousGlamorousBaboonResidentSleeper-8tEMe2_qdEjvgP3H
   const videoURL = useMemo(() => {
+    console.log(
+      src.match(new RegExp(/(?:https:\/\/)?clips\.twitch\.tv\/(\S+)/i))
+    );
+
     const result = src.match(new RegExp(`${Y}([^/]+)`))?.[1];
     if (result) {
       setPlayerType("twitch");
@@ -253,14 +257,20 @@ const Post = ({
     const result2 = src.match(
       new RegExp(`(?<=https://streamable.com/)[a-zA-Z0-9]+`)
     );
+    const resultTwitchALT = src.match(
+      new RegExp(/(?:https:\/\/)?clips\.twitch\.tv\/(\S+)/i)
+    );
+    if (resultTwitchALT) {
+      setPlayerType("twitch");
+      return resultTwitchALT[1];
+    }
+
     if (result2) {
-      console.log(result2);
       setPlayerType("streamable");
       return result2[0];
     }
   }, [src]);
 
-  console.log(videoURL);
   return (
     <motion.div
       initial={{ opacity: 0 }}
