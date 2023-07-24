@@ -22,7 +22,7 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
           });
           res.status(200).json(addHighLightLike);
         } else {
-          res.status(500).json({ error: "Error posting highlight" });
+          res.status(500).json({ error: "Post isnt liked" });
         }
       } catch (e) {
         console.error("Request error", e);
