@@ -75,7 +75,7 @@ model VerificationToken {
 
 model Player {
   id          String  @id @default(cuid())
-  steamid     String?
+  steamid     String? @unique
   name        String
   price       Int
   image       String  @db.Text
