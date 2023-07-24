@@ -63,6 +63,7 @@ const Highlights = (props: { data: any }) => {
   const { query } = useRouter();
   const newPostHandler = async () => {
     try {
+      if (!linkedValidator(source)) throw new Error("Invalid video url");
       if (data?.user && title.length && source.length) {
         {
           const result = source.match(new RegExp(`/clip/([^/]+)`))?.[1];
@@ -97,13 +98,37 @@ const Highlights = (props: { data: any }) => {
     }
   };
 
+  const linkedValidator = (src: string) => {
+    const result = src.match(new RegExp(`/clip/([^/]+)`))?.[1];
+    if (result) {
+      return true;
+    }
+    const result2 = src.match(
+      new RegExp(`(?<=https://streamable.com/)[a-zA-Z0-9]+`)
+    );
+    const resultTwitchALT = src.match(
+      new RegExp(/(?:https:\/\/)?clips\.twitch\.tv\/(\S+)/i)
+    );
+    if (resultTwitchALT) {
+      return true;
+    }
+
+    if (result2) {
+      return true;
+    }
+  };
+
   const newPostSubmitter = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     toast.promise(newPostHandler(), {
       loading: "Posting...",
       success: <b>Your post is up!</b>,
-      error: <b>Could not post.</b>,
+      error: errorHandler,
     });
+  };
+
+  const errorHandler = (e: { message: string }) => {
+    return <b>{e.message}</b>;
   };
 
   const posts = useMemo(() => {
@@ -245,10 +270,6 @@ const Post = ({
   const [playerType, setPlayerType] = useState("");
   // https://www.twitch.tv/lirik/clip/AdventurousGlamorousBaboonResidentSleeper-8tEMe2_qdEjvgP3H
   const videoURL = useMemo(() => {
-    console.log(
-      src.match(new RegExp(/(?:https:\/\/)?clips\.twitch\.tv\/(\S+)/i))
-    );
-
     const result = src.match(new RegExp(`${Y}([^/]+)`))?.[1];
     if (result) {
       setPlayerType("twitch");
