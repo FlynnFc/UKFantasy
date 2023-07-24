@@ -5,7 +5,7 @@ const Stats = (props: any) => {
   const [event, setEvent] = useState("");
   const [currentStats, setCurrentStats] = useState<Stats>(props.stats[0]);
   useEffect(() => {
-    if (props.stats) {
+    if (props.stats.length > 0) {
       props.stats.forEach((el: any) => {
         if (el.event === event) {
           setCurrentStats(el);
@@ -35,7 +35,7 @@ const Stats = (props: any) => {
   }, [currentStats]);
   return (
     <div>
-      {props.stats &&
+      {props.stats.length > 0 &&
         props.stats.map((el: { event: string }) => (
           <button
             key={el.event}
