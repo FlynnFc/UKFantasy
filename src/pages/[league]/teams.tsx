@@ -44,7 +44,7 @@ const Teams = (props: { data: { Teams: [] } }) => {
         </span>
       </div>
 
-      {props.data?.Teams.map((el: { teamName: string; Player: player[] }) => {
+      {/* {props.data?.Teams.map((el: { teamName: string; Player: player[] }) => {
         return (
           <PlayerGroup team={el.teamName} key={el.teamName}>
             {el.Player?.map((els) => {
@@ -62,7 +62,7 @@ const Teams = (props: { data: { Teams: [] } }) => {
             })}
           </PlayerGroup>
         );
-      })}
+      })} */}
     </section>
   );
 };
