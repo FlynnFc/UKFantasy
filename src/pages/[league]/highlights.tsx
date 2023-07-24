@@ -17,7 +17,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
   const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/getPosts`, {
     method: "GET",
-    headers: { leaguename: paths.params.league },
+    headers: { leaguename: paths.params.league, skip: "0" },
   });
   const data = await res.json();
   console.log(data);
@@ -130,8 +130,7 @@ const Highlights = (props: { data: any }) => {
   const errorHandler = (e: { message: string }) => {
     return <b>{e.message}</b>;
   };
-
-  const posts = useMemo(() => {
+  const initialPosts = useMemo(() => {
     if (order === "top") {
       const sorted = props.data.sort((a: any, b: any) => b.likes - a.likes);
       return sorted;
@@ -142,6 +141,24 @@ const Highlights = (props: { data: any }) => {
       return sorted;
     }
   }, [order, props.data]);
+  const [posts, setPosts] = useState(initialPosts);
+  const [skip, setSkip] = useState(0);
+  const loadMorePosts = async () => {
+    const skipAmount = (await skip) + 10;
+    const res = await fetch(`/api/getPosts`, {
+      method: "GET",
+      headers: {
+        leaguename: query.league as string,
+        skip: skipAmount.toString(),
+      },
+    });
+    if (!res.ok) {
+      throw new Error("Could not find 10 more posts");
+    }
+    setSkip((prev) => prev + 10);
+    const data = res.json();
+    setPosts((prev: any) => [...prev, data]);
+  };
   return (
     <section className="container mx-auto flex min-h-screen flex-col items-center justify-start p-4">
       <Toaster position="top-center" />
@@ -243,7 +260,9 @@ const Highlights = (props: { data: any }) => {
             </div>
           )}
         </AnimatePresence>
-        <button className="btn">Load more</button>
+        <button onClick={loadMorePosts} className="btn">
+          Load more
+        </button>
         {props.data.error && props.data.error}
       </section>
     </section>

@@ -4,6 +4,7 @@ import { prisma } from "../../server/db/client";
 const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const leagueName = req.headers.leaguename as string;
+  const skip = parseInt(req.headers.skip as string);
   switch (method) {
     case "GET":
       try {
@@ -20,6 +21,8 @@ const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
               author: true,
               highlightLike: true,
             },
+            take: 10,
+            skip: skip,
           });
           res.status(200).json(posts);
         }
