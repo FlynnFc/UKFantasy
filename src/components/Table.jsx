@@ -87,12 +87,12 @@ const Table = (props) => {
     useTable({ columns: columns, data: submissiondata }, useSortBy);
 
   return (
-    <>
+    <div className="max-h-[35rem] w-full">
       {!loading ? (
         playerData.length > 0 ? (
           <table
             {...getTableProps()}
-            className="table select-none overflow-auto font-semibold"
+            className="table w-full select-none overflow-scroll font-semibold"
           >
             <thead>
               {headerGroups.map((headerGroup) => (
@@ -104,7 +104,7 @@ const Table = (props) => {
                   {headerGroup.headers.map((column) => (
                     <th
                       key={column.Cell}
-                      className="rounded-t-btn sticky -top-1 box-content bg-primary text-center text-primary-content "
+                      className="rounded-t-btn sticky top-0 box-content rounded-r-none bg-primary text-center text-primary-content "
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
                       {column.render("Header")}
@@ -155,7 +155,7 @@ const Table = (props) => {
       ) : (
         <LocalLoading />
       )}
-    </>
+    </div>
   );
 };
 
