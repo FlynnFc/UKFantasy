@@ -322,7 +322,7 @@ const LikeButton = ({
         setIsClicked(true);
       }
     });
-  });
+  }, []);
 
   // When someone likes start a 2 second timer and everytime they like/unlike restart it, if the 2 second timer finishes add a like to the db
   // When firing like to db log video ids in cookies?
