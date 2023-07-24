@@ -176,7 +176,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
 
         <div className="rounded-btn mt-5 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg md:px-8">
           <h1 className="text-4xl font-bold">
-            {league && league.name} tournement center
+            {league && league.name} tournament centre
           </h1>
           <p className="text-base">{league?.description}</p>
           {isOpen && !isStarted && !isEnded && (
@@ -184,7 +184,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
               {status !== "authenticated" ? (
                 <div className="">
                   <button
-                    className={`${"btn mt-4 w-max"} btn-sm btn mr-2 text-sm sm:btn-md`}
+                    className={`${"btn mt-4 w-max"} btn btn-sm mr-2 text-sm sm:btn-md`}
                     onClick={() => signIn()}
                   >
                     Sign in to create team
