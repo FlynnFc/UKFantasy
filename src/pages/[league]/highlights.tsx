@@ -282,7 +282,7 @@ const Post = ({
   likes: highlightLike[];
   id: string;
 }) => {
-  const localpath = "localhost";
+  const localpath = "esportsfantasy.app";
   const Y = "/clip/";
   const [playerType, setPlayerType] = useState("");
   // https://www.twitch.tv/lirik/clip/AdventurousGlamorousBaboonResidentSleeper-8tEMe2_qdEjvgP3H
