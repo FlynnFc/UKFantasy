@@ -135,7 +135,6 @@ const PlayerEditAdmin = () => {
             entryKills,
             deathsTraded,
             utilThrown,
-
             clutchRounds,
             Objectives,
           };
@@ -192,14 +191,9 @@ const PlayerEditAdmin = () => {
           const deathsTraded = row[GlobalRowmap.get("% of Deaths Traded")];
           const utilThrown = row[GlobalRowmap.get("Util thrown / Round")];
           const entryKills = row[GlobalRowmap.get("Entry Kills / Round")];
-          const clutchRounds = Math.round(
-            row[GlobalRowmap.get("Clutch won %")]
-          );
+          const clutchRounds = 0;
 
-          const Objectives =
-            (row[GlobalRowmap.get("Bomb planted")] +
-              row[GlobalRowmap.get("Bomb defused")]) /
-            row[GlobalRowmap.get("Rounds")];
+          const Objectives = 0;
           //,Objectives
           const newStats = {
             event: "ruby",
@@ -250,7 +244,7 @@ const PlayerEditAdmin = () => {
           setSelectedLeague(e.target.value);
           leagueDataHandler(e.target.value);
         }}
-        className="select-bordered select w-full"
+        className="select select-bordered w-full"
       >
         <option selected disabled value="">
           League
@@ -270,7 +264,7 @@ const PlayerEditAdmin = () => {
               setSelectedPlayer(e.target.value);
               playerDataHandler(e.target.value);
             }}
-            className="select-bordered select"
+            className="select select-bordered"
           >
             {leagueData &&
               leagueData.Teams.map((team) => {
@@ -301,7 +295,7 @@ const PlayerEditAdmin = () => {
             <input
               value={playerName ? playerName : ""}
               onChange={(e) => setPlayerName(e.target.value)}
-              className="input-bordered input"
+              className="input input-bordered"
               type="text"
               placeholder="playername"
             />
@@ -313,7 +307,7 @@ const PlayerEditAdmin = () => {
                 <input
                   value={playerPrice ? playerPrice : 0}
                   onChange={(e) => setPlayerPrice(parseInt(e.target.value))}
-                  className="input-bordered input w-full"
+                  className="input input-bordered w-full"
                   type="number"
                   placeholder="base price"
                 />
@@ -327,7 +321,7 @@ const PlayerEditAdmin = () => {
                   onChange={(e) =>
                     setPlayerAdjustPrice(parseInt(e.target.value))
                   }
-                  className="input-bordered input w-full"
+                  className="input input-bordered w-full"
                   type="number"
                   placeholder="base price"
                 />
@@ -338,7 +332,7 @@ const PlayerEditAdmin = () => {
         </form>
       )}
 
-      <h2>Adding player stats</h2>
+      {/* <h2>Adding player stats</h2>
       <form onSubmit={playerStatsHandler}>
         <input
           onChange={(e: any) => setFile(e.target.files)}
@@ -348,7 +342,7 @@ const PlayerEditAdmin = () => {
           id=""
         />
         <button className="btn">Submit</button>
-      </form>
+      </form> */}
     </div>
   );
 };
