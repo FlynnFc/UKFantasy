@@ -20,7 +20,6 @@ export async function getStaticProps(paths: { params: { league: string } }) {
     headers: { leaguename: paths.params.league, skip: "0" },
   });
   const data = await res.json();
-  console.log(data);
   return {
     props: {
       data,
@@ -53,7 +52,6 @@ type PostType = {
 };
 
 const Highlights = (props: { data: any }) => {
-  console.log(props);
   const [order, setOrder] = useState<"top" | "new">("top");
   const [postModal, setPostModal] = useState(false);
   const { status, data } = useSession();
@@ -260,9 +258,9 @@ const Highlights = (props: { data: any }) => {
             </div>
           )}
         </AnimatePresence>
-        <button onClick={loadMorePosts} className="btn">
+        {/* <button onClick={loadMorePosts} className="btn">
           Load more
-        </button>
+        </button> */}
         {props.data.error && props.data.error}
       </section>
     </section>
@@ -386,7 +384,6 @@ const LikeButton = ({ likes, id }: { likes: highlightLike[]; id: string }) => {
       return;
     }
     const delayedSubmit = async () => {
-      console.log("Function executed after 5 seconds.");
       const res = await fetch("/api/updatelikes", {
         method: "POST",
         body: JSON.stringify({
