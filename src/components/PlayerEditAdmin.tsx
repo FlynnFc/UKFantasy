@@ -234,6 +234,53 @@ const PlayerEditAdmin = () => {
     console.log(allStats);
   };
 
+  const playerPriceHandler = async (e: any) => {
+    e.preventDefault();
+    const f: any = file![0];
+    const data = await f.arrayBuffer();
+    const workbook = XLSX.read(data);
+    const prices: any = workbook.Sheets["Copy of Team Profiles"];
+
+    const jsonData: any = XLSX.utils.sheet_to_json(prices, {
+      header: 1,
+      defval: "",
+    });
+
+    const GlobalRowmap = new Map();
+    //Index for all rows
+    for (let index = 0; index < jsonData[0].length; index++) {
+      const element = jsonData[0][index];
+      GlobalRowmap.set(element, index);
+    }
+    const playerPrices = [];
+    if (leagueData) {
+      for (let i = 0; i < leagueData.Teams.length; i++) {
+        const team = leagueData.Teams[i]?.Player;
+        for (let j = 0; j < team!.length; j++) {
+          const player = team![j];
+          for (let r = 1; r < jsonData.length; r++) {
+            const row = jsonData[r];
+            if (player?.steamid === row[GlobalRowmap.get("SteamID64")]) {
+              playerPrices.push({
+                steamid: player?.steamid,
+                price: row[GlobalRowmap.get("Price")],
+              });
+            }
+          }
+        }
+      }
+    }
+
+    // const res = await fetch(`/api/updatePlayer`, {
+    //   method: "POST",
+    //   body: JSON.stringify(playerPrices),
+    // });
+    // if (!res.ok) {
+    //   console.error("error", res);
+    //   throw new Error("error");
+    // }
+    console.log(playerPrices);
+  };
   return (
     <div className="grid w-full max-w-3xl gap-2 ">
       <label className="label">What league is the player in?</label>
@@ -331,7 +378,7 @@ const PlayerEditAdmin = () => {
       )}
 
       {/* <h2>Adding player stats</h2>
-      <form onSubmit={playerStatsHandler}>
+      <form onSubmit={playerPriceHandler}>
         <input
           onChange={(e: any) => setFile(e.target.files)}
           className="file-input bg-base-300"
