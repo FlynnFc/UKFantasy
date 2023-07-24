@@ -82,11 +82,9 @@ model Player {
   rareity     String
   priceadjust Int     @default(0)
   stats       Stats[]
-  statsId     String
   team        Team    @relation(fields: [teamId], references: [id])
   teamId      String
 
-  @@index([statsId])
   @@index([teamId])
 }
 
