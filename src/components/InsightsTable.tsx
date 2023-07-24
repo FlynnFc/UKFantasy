@@ -10,7 +10,6 @@ const InsightsTable = (props: any) => {
       if (players[index]?.points.length > round) {
         round = players[index]?.points.length;
       }
-      console.log(round, players[index].points.length);
     }
     return round;
   }, [props.serverTeam.SelectedPlayer]);
@@ -19,8 +18,7 @@ const InsightsTable = (props: any) => {
   //     props.serverTeam.SelectedPlayer[0]?.points.length ?? 0
   //   );
 
-  console.log("Rounds", rounds);
-  console.log(props);
+
   const [maxRounds, setMaxRounds] = useState<any>([]);
   const [maxBonusRounds, setMaxBonusRounds] = useState<any>([]);
   const [playerRows, setPlayerRows] = useState<any>([]);

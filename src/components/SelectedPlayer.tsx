@@ -82,10 +82,10 @@ const SelectedPlayer = (props: player) => {
           className={
             stats
               ? "playerstats absolute top-0 z-20 flex h-full w-full flex-col justify-between text-white"
-              : "playerstats absolute top-full z-20 flex  h-full w-full  flex-col justify-between text-white"
+              : "playerstats absolute top-full z-20 flex  h-full w-full flex-col justify-between text-white"
           }
         >
-          {/* <Stats stats={props.stats}/> */}
+          {props.stats ? <Stats stats={props.stats}/> : <div></div>}
           <button
             className="btn-error btn w-auto rounded-none border-none bg-red-500"
             onClick={() => props.PlayerRemove(props)}

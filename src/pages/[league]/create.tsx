@@ -55,7 +55,6 @@ const Create = (props: {
   };
   data2: { startDate: string; openDate: string; endDate: string };
 }) => {
-  console.log(props);
   const [introModal, setIntroModal] = useState(true);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);
@@ -175,7 +174,6 @@ const Create = (props: {
       if (myTeam.length === 4) {
         setTeamFull(true);
       }
-      console.log(data);
       setMyTeam((prev) => [
         ...prev,
         <SelectedPlayer
@@ -490,7 +488,7 @@ export default Create;
 
 export async function getStaticProps(paths: { params: { league: string } }) {
   // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app";
+  const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/allTeams`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
