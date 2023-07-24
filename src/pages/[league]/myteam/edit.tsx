@@ -385,7 +385,6 @@ const Edit = (props: {
             <div className="mt-4 flex items-end justify-center lg:mt-0 lg:justify-end">
               {!submitted && (
                 <button
-                  disabled={!teamFull}
                   onClick={() => {
                     if (teamName === "Your Team") {
                       toast.error("Please enter a team name");
