@@ -274,7 +274,7 @@ const Post = ({
           <span className="text-gray-600">{author}</span>
         </div>
         <div className="w-fit">
-          <LikeButton id={id} vidId={videoURL ? videoURL : ""} likes={likes} />
+          <LikeButton id={id} likes={likes} />
         </div>
       </div>
       <div className="">
@@ -302,15 +302,7 @@ const Post = ({
   );
 };
 
-const LikeButton = ({
-  likes,
-  id,
-  vidId,
-}: {
-  likes: highlightLike[];
-  id: string;
-  vidId: string;
-}) => {
+const LikeButton = ({ likes, id }: { likes: highlightLike[]; id: string }) => {
   const { data } = useSession();
   const [postLikes, setPostLikes] = useState(likes.length);
   const [isClicked, setIsClicked] = useState<boolean>();
@@ -322,7 +314,7 @@ const LikeButton = ({
         setIsClicked(true);
       }
     });
-  }, []);
+  }, [data?.user?.id, likes]);
 
   // When someone likes start a 2 second timer and everytime they like/unlike restart it, if the 2 second timer finishes add a like to the db
   // When firing like to db log video ids in cookies?
