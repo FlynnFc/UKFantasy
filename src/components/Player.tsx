@@ -181,11 +181,11 @@ export const Player = (props: player) => {
             <div
               className={
                 stats
-                  ? "playerstats absolute top-0 z-20 flex h-full w-full flex-col justify-between p-2 text-white"
-                  : "playerstats absolute top-full z-20 flex  h-full w-full  flex-col justify-between p-2 text-white"
+                  ? "playerstats absolute top-0 z-20 flex h-full w-full flex-col justify-between text-white"
+                  : "playerstats absolute top-full z-20 flex  h-full w-full  flex-col justify-between text-white"
               }
             >
-              <Stats stats={stats} />
+              <Stats stats={props.stats} />
 
               <button
                 className="btn-success btn w-auto border-none bg-green-500"

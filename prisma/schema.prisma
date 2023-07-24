@@ -96,10 +96,10 @@ model Stats {
   ADR          Int      @default(0)
   utilThrown   Int      @default(0)
   hs           Int      @default(0)
-  entryKills   Int      @default(0)
-  clutchRounds Int      @default(0)
-  deathsTraded Int      @default(0)
-  Objectives   Int      @default(0)
+  entryKills   Float    @default(0.0)
+  clutchRounds Float    @default(0.0)
+  deathsTraded Float    @default(0.0)
+  Objectives   Float    @default(0.0)
   Player       Player[]
 }
 

@@ -398,7 +398,7 @@ const Edit = (props: {
                       toast.error("No naughty words please!");
                     } else submit();
                   }}
-                  className="btn-outline btn"
+                  className="btn btn-outline"
                 >
                   Edit Team
                 </button>
@@ -415,7 +415,7 @@ const Edit = (props: {
                 onChange={(e) => {
                   sorter(e.target.value);
                 }}
-                className="select-bordered select mb-3 w-full max-w-xs text-lg"
+                className="select select-bordered mb-3 w-full max-w-xs text-lg"
               >
                 <option value={"DEFAULT"} disabled>
                   Sort by
@@ -508,8 +508,8 @@ export default Edit;
 export async function getServerSideProps(paths: {
   params: { league: string };
 }) {
-  // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app";
+  const path = "http://localhost:3000/";
+  // const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/allTeams`, {
     method: "GET",
     headers: { leaguename: paths.params.league },

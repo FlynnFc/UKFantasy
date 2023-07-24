@@ -184,15 +184,14 @@ const PlayerEditAdmin = () => {
       for (let r = 1; r < rubyjsonData.length; r++) {
         const row = rubyjsonData[r];
         if (row[1] === player.steamid) {
-          const hltv = row[GlobalRowmap.get("Rating")];
-          const KAST = Math.round(row[GlobalRowmap.get("KAST%")]);
-          const ADR = Math.round(row[GlobalRowmap.get("ADR")]);
-          const hs = Math.round(row[GlobalRowmap.get("HS%")]);
-          const deathsTraded = row[GlobalRowmap.get("% of Deaths Traded")];
-          const utilThrown = row[GlobalRowmap.get("Util thrown / Round")];
-          const entryKills = row[GlobalRowmap.get("Entry Kills / Round")];
+          const hltv = row[GlobalRowmap.get("Rating") - 1];
+          const KAST = Math.round(row[GlobalRowmap.get("KAST%") - 1]);
+          const ADR = Math.round(row[GlobalRowmap.get("ADR") - 1]);
+          const hs = Math.round(row[GlobalRowmap.get("HS%") - 1]);
+          const deathsTraded = row[GlobalRowmap.get("% of Deaths Traded") - 1];
+          const utilThrown = row[GlobalRowmap.get("Util thrown / Round") - 1];
+          const entryKills = row[GlobalRowmap.get("Entry Kills / Round") - 1];
           const clutchRounds = 0;
-
           const Objectives = 0;
           //,Objectives
           const newStats = {
@@ -213,7 +212,6 @@ const PlayerEditAdmin = () => {
       }
     };
 
-    console.log(GlobalRowmap);
     const allStats = [];
     for (let i = 0; i < leagueData.Teams.length; i++) {
       const team = leagueData.Teams[i]?.Player;
@@ -228,11 +226,11 @@ const PlayerEditAdmin = () => {
       }
     }
 
-    const res = await fetch("/api/PlayerStats", {
-      method: "POST",
-      body: JSON.stringify(allStats),
-    });
-    if (!res.ok) throw new Error("failed res");
+    // const res = await fetch("/api/PlayerStats", {
+    //   method: "POST",
+    //   body: JSON.stringify(allStats),
+    // });
+    // if (!res.ok) throw new Error("failed res");
     console.log(allStats);
   };
 

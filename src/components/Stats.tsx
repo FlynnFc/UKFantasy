@@ -1,18 +1,49 @@
-import React from "react";
+import { Stats } from "@prisma/client";
+import React, { useEffect, useMemo, useState } from "react";
 
 const Stats = (props: any) => {
+  const [event, setEvent] = useState("");
+  const [currentStats, setCurrentStats] = useState<Stats>(props.stats[0]);
+
+  useEffect(() => {
+    console.log(props.stats);
+    if (event) {
+      console.log(event);
+    }
+  }, [event, props.stats]);
+
+  const list = useMemo(() => {
+    if (currentStats) {
+      return (
+        <ul className="p-2">
+          <li>{`ADR: ${currentStats.ADR}`}</li>
+          <li>{`KAST: ${currentStats.KAST}`}</li>
+          <li>{`HLTV: ${currentStats.hltv}`}</li>
+          <li>{`Objectives: ${currentStats.Objectives}`}</li>
+          <li>{`KAST: ${currentStats.KAST}`}</li>
+          <li>{`KAST: ${currentStats.KAST}`}</li>
+          <li>{`KAST: ${currentStats.KAST}`}</li>
+          <li>{`KAST: ${currentStats.KAST}`}</li>
+          <li>{`KAST: ${currentStats.KAST}`}</li>
+        </ul>
+      );
+    } else return;
+  }, [currentStats]);
   return (
-    <ul className="grid grid-cols-1 gap-1">
-      <li>HLTV: {props.stats.hltv}</li>
-      <li>Faceit Elo: {props.stats.elo} </li>
-      <li>KAST: 50%</li>
-      <li>ADR: 10</li>
-      <li>HS%: {props.stats.hs}%</li>
-      <li>Entry Kill win%: {props.stats.entryRounds}%</li>
-      <li>Clutch Rounds: {props.stats.clutchRounds}%</li>
-      <li>Util thrown: {props.stats.clutchRounds}</li>
-      <li>Util thrown: {props.stats.clutchRounds}</li>
-    </ul>
+    <div>
+      {props.stats.map((el: { event: string }) => (
+        <button
+          key={el.event}
+          onClick={() => setEvent(el.event)}
+          className={`btn btn-sm rounded-none ${
+            currentStats.event === el.event && "btn-active"
+          }`}
+        >
+          {el.event}
+        </button>
+      ))}
+      {list}
+    </div>
   );
 };
 
