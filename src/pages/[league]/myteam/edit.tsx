@@ -84,7 +84,6 @@ const Edit = (props: {
   useEffect(() => {
     setLoading(true);
     const fetcher = async () => {
-      console.log("running");
       const res = await fetch(`/api/myTeam`, {
         method: "GET",
         headers: { id: session?.data?.user?.id as string },
@@ -106,7 +105,7 @@ const Edit = (props: {
         setOriginalTeam(
           matchedTeam[0].SelectedPlayer.map((el: { id: string }) => el.id)
         );
-        console.log(matchedTeam[0]);
+
         const players = matchedTeam[0].SelectedPlayer.map((el: any) => (
           <SelectedPlayer
             PlayerRemove={PlayerRemove}
@@ -283,8 +282,6 @@ const Edit = (props: {
       error: <b>We could not add your team</b>,
     });
   };
-
-  console.log(teamName);
 
   return (
     <>
