@@ -225,7 +225,6 @@ const Edit = (props: {
       if (myTeam.length === 4) {
         setTeamFull(true);
       }
-      console.log(data);
       setMyTeam((prev) => [
         ...prev,
         <SelectedPlayer
@@ -284,6 +283,8 @@ const Edit = (props: {
       error: <b>We could not add your team</b>,
     });
   };
+
+  console.log(teamName);
 
   return (
     <>

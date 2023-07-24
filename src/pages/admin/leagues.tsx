@@ -1,11 +1,5 @@
 import { Toaster } from "react-hot-toast";
 import PlayerEditAdmin from "../../components/PlayerEditAdmin";
-import {
-  BsFillCalculatorFill,
-  BsFillCollectionFill,
-  BsGraphUp,
-  BsReverseListColumnsReverse,
-} from "react-icons/bs";
 import { useState } from "react";
 import Adminlayout from "../../components/AdminLayout";
 import { getSession } from "next-auth/react";

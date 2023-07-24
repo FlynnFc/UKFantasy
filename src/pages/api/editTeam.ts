@@ -10,6 +10,10 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   try {
     const data = await JSON.parse(req.body);
+    const teamName = prisma.playerTeam.update({
+      where: { id: data.id },
+      data: { teamName: data.teamName },
+    });
     const findLeagueId = await prisma.league.findMany({
       where: { name: data.league },
     });
@@ -24,6 +28,7 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
     const players = await prisma.$transaction([
       findCurrentPlayers,
       findnewPlayer,
+      teamName,
     ]);
 
     const playersToDelete = [];
