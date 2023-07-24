@@ -57,7 +57,15 @@ export const MyPlayer = (props: myPlayer) => {
         >
           <div className="lg:hidden">{props.name}</div>
           <div>
-            <p className={`pb-2 text-center lg:text-3xl ${rareity}`}>
+            <p
+              className={`pb-2 text-center lg:text-3xl ${
+                props.price >= 21500
+                  ? "gold"
+                  : props.price > 19000
+                  ? "silver"
+                  : "bronze"
+              }`}
+            >
               £{new Intl.NumberFormat("en").format(props.price)}
             </p>
           </div>
