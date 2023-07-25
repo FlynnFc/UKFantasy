@@ -186,7 +186,7 @@ const Stats = () => {
       <div className=" ml-2 flex  w-full max-w-3xl flex-col justify-center ">
         {!players.length && (
           <button className="btn" onClick={() => playerDataHandler()}>
-            Generage stats
+            Generate stats
           </button>
         )}
         {players.length > 0 && (
