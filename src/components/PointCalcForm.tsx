@@ -18,6 +18,8 @@ type bigPlayer = {
   stat_padder: number;
   head_clicker: number;
   all_rounder: number;
+  awper: number;
+  knife: number;
 };
 
 const PointCalcForm = (props: { data: []; currentRound: number }) => {
@@ -67,6 +69,25 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     const playerPoints = [];
 
     //ALL BONUS CALCULATORS!
+    const knife = (element: any) => {
+      const weaponIndex = 22;
+      const elementSteamIdIndex = 5;
+      const steamid = element[1];
+      let knifeKills = 0;
+      for (let i = 1; i < jsonDatakills.length; i++) {
+        const element = jsonDatakills[i];
+        if (element[elementSteamIdIndex] === steamid) {
+          if (element[weaponIndex] === "Knife") {
+            console.log("Found a knife kill");
+            knifeKills++;
+          }
+        }
+      }
+      const val = knifeKills;
+      if (val >= 2) return 10;
+      else if (val >= 1) return 5;
+      else return -5;
+    };
     const awper = (element: any) => {
       const weaponAWPIndex = 22;
       const elementSteamIdIndex = 5;
@@ -193,6 +214,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         head_clicker: headClicker(element),
         all_rounder: allRounder(element),
         awper: awper(element),
+        knife: knife(element),
       });
     }
     return playerPoints;
@@ -203,6 +225,12 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     switch (bonusName) {
       case "ADR warrior":
         bonus = element.ADR_warrior;
+        break;
+      case "Awper":
+        bonus = element.awper;
+        break;
+      case "The K0nfig":
+        bonus = element.knife;
         break;
       case "All rounder":
         bonus = element.all_rounder;
@@ -354,7 +382,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
           id="roundFile"
         />
       </div>
-      <button className="btn-primary btn w-full" type="submit">
+      <button className="btn btn-primary w-full" type="submit">
         submit
       </button>
     </form>
