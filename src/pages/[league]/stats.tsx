@@ -65,35 +65,62 @@ const allBonuses = [
   },
 ];
 
-const Stats = () => {
+export async function getStaticProps(paths: { params: { league: string } }) {
+  // const path = "http://localhost:3000";
+  const path = "https://esportsfantasy.app";
+  const res = await fetch(`${path}/api/allUserTeams`, {
+    method: "GET",
+    headers: { leaguename: paths.params.league },
+  });
+  if (!res.ok) {
+    console.error("error", res);
+    throw new Error("error");
+  }
+  const data = await res.json();
+
+  const res2 = await fetch(`${path}/api/allTeams`, {
+    method: "GET",
+    headers: { leaguename: paths.params.league },
+  });
+  if (!res.ok) {
+    console.error("error", res);
+    throw new Error("error");
+  }
+  const data2 = await res2.json();
+  return {
+    props: {
+      data,
+      data2,
+    },
+    revalidate: 120,
+  };
+}
+
+export async function getStaticPaths() {
+  // const path = "http://localhost:3000/";
+  const path = "https://esportsfantasy.app";
+  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+  const data = await res.json();
+
+  const paths = data.map((league: { name: string }) => ({
+    params: { league: league.name.toLowerCase() },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+const Stats = (props: { data: any; data2: any }) => {
   const [playerData, setPlayerData] = useState(new Map());
   const [emptyPlayer, setEmptyPlayer] = useState(new Map());
   const { query } = useRouter();
 
   const playerDataHandler = async () => {
-    const res = await fetch(`/api/allUserTeams`, {
-      method: "GET",
-      headers: { leaguename: query.league as string },
-    });
-    if (!res.ok) {
-      console.error("error", res);
-      throw new Error("error");
-    }
-    const data = await res.json();
-
-    const res2 = await fetch(`/api/allTeams`, {
-      method: "GET",
-      headers: { leaguename: query.league as string },
-    });
-    if (!res.ok) {
-      console.error("error", res);
-      throw new Error("error");
-    }
-    const data2 = await res2.json();
-
     const newPlayerstats = new Map<string, any>();
-    for (let i = 0; i < data.length; i++) {
-      const team = data[i].SelectedPlayer;
+    for (let i = 0; i < props.data.length; i++) {
+      const team = props.data[i].SelectedPlayer;
       for (let j = 0; j < team.length; j++) {
         const player = team[j];
         if (newPlayerstats.has(player.name)) {
@@ -117,16 +144,16 @@ const Stats = () => {
 
     //General player frequency
     const players = [];
-    for (let i = 0; i < data.length; i++) {
-      const team = data[i].SelectedPlayer;
+    for (let i = 0; i < props.data.length; i++) {
+      const team = props.data[i].SelectedPlayer;
       for (let j = 0; j < team.length; j++) {
         const player = team[j];
         players.push(player);
       }
     }
     const pickFreq = new Map<string, number>();
-    for (let i = 0; i < data2.Teams.length; i++) {
-      const team = data2.Teams[i];
+    for (let i = 0; i < props.data2.Teams.length; i++) {
+      const team = props.data2.Teams[i];
 
       for (let j = 0; j < team.Player.length; j++) {
         const player = team.Player[j];
