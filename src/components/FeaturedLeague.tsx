@@ -6,7 +6,7 @@ const FeaturedLeague = () => {
     <div>
       <h1 className="text-5xl font-bold text-base-content">Featured League</h1>
       <div className="rounded-btn mt-14 flex w-full flex-col gap-4 bg-primary px-5 py-7 text-primary-content shadow-lg">
-        <h1 className="text-4xl font-bold">Epic 39 Tournement center</h1>
+        <h1 className="text-4xl font-bold">Epic 39 Tournament center</h1>
         <p className="text-lg">
           EPIC39 is a LAN based gaming event in the UK. It features a mixture of
           casual gaming, stage content and esports tournaments so whether you
