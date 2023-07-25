@@ -65,12 +65,12 @@ export const Player = (props: player) => {
   const rareity = useMemo(() => props.rareity, [props.rareity]);
 
   useEffect(() => {
-    if (props.moneyLeft < props.price) {
+    if (props.moneyLeft < props.price + props.priceadjust) {
       setDisabled(true);
-    } else if (props.moneyLeft >= props.price) {
+    } else if (props.moneyLeft >= props.price + props.priceadjust) {
       setDisabled(false);
     } else return;
-  }, [props.moneyLeft, props.price]);
+  }, [props.moneyLeft, props.price, props.priceadjust]);
 
   return (
     <motion.div
