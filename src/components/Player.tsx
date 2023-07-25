@@ -119,9 +119,9 @@ export const Player = (props: player) => {
             <div className="text-center lg:hidden">{props.name}</div>
             <p
               className={`z-0 pb-2 text-center lg:text-3xl ${
-                props.price >= 21500
+                props.price + props.priceadjust >= 21500
                   ? "gold"
-                  : props.price > 19000
+                  : props.price + props.priceadjust > 19000
                   ? "silver"
                   : "bronze"
               }`}
@@ -188,7 +188,7 @@ export const Player = (props: player) => {
               <Stats stats={props.stats} />
 
               <button
-                className="btn-success btn w-auto rounded-none border-none bg-green-500"
+                className="btn btn-success w-auto rounded-none border-none bg-green-500"
                 onClick={() => {
                   //Check if team is full already
                   if (!disable && !picked) {
