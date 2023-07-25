@@ -65,6 +65,7 @@ const allBonuses = [
 ];
 const PlayerStatsAdmin = () => {
   const [playerData, setPlayerData] = useState(new Map());
+  const [emptyPlayer, setEmptyPlayer] = useState(new Map());
   const playerDataHandler = async (league: string) => {
     const res = await fetch(`/api/allUserTeams`, {
       method: "GET",
@@ -76,26 +77,21 @@ const PlayerStatsAdmin = () => {
     }
     const data = await res.json();
 
-    const playerstats = new Map<string, any>();
-    for (let i = 0; i < data.length; i++) {
-      const team = data[i].SelectedPlayer;
-      for (let j = 0; j < team.length; j++) {
-        const player: { name: string } = team[j];
-        let newVal = 1;
-        if (playerstats.has(player.name)) {
-          newVal = playerstats.get(player.name).freq + 1;
-        }
-        playerstats.set(player.name.toLowerCase(), {
-          freq: newVal,
-        });
-      }
+    const res2 = await fetch(`/api/allTeams`, {
+      method: "GET",
+      headers: { leaguename: league.toLowerCase() },
+    });
+    if (!res.ok) {
+      console.error("error", res);
+      throw new Error("error");
     }
+    const data2 = await res2.json();
+
     const newPlayerstats = new Map<string, any>();
     for (let i = 0; i < data.length; i++) {
       const team = data[i].SelectedPlayer;
       for (let j = 0; j < team.length; j++) {
         const player = team[j];
-
         if (newPlayerstats.has(player.name)) {
           const valss = newPlayerstats.get(player.name);
           const bonus = player.bonusName;
@@ -114,6 +110,36 @@ const PlayerStatsAdmin = () => {
         }
       }
     }
+
+    //General player frequency
+    const players = [];
+    for (let i = 0; i < data.length; i++) {
+      const team = data[i].SelectedPlayer;
+      for (let j = 0; j < team.length; j++) {
+        const player = team[j];
+        players.push(player);
+      }
+    }
+    const pickFreq = new Map<string, number>();
+    for (let i = 0; i < data2.Teams.length; i++) {
+      const team = data2.Teams[i];
+
+      for (let j = 0; j < team.Player.length; j++) {
+        const player = team.Player[j];
+
+        pickFreq.set(player.name, 0);
+      }
+    }
+
+    for (let i = 0; i < players.length; i++) {
+      const element = players[i].name;
+      if (pickFreq.has(element)) {
+        const newVal = pickFreq.get(element)! + 1;
+        pickFreq.set(element, newVal);
+      }
+    }
+
+    setEmptyPlayer(new Map(pickFreq));
     setPlayerData(new Map(newPlayerstats));
   };
 
@@ -142,6 +168,15 @@ const PlayerStatsAdmin = () => {
     return elements;
   }, [playerData]);
 
+  const playerfreq = useMemo(() => {
+    const elements: any[] = [];
+    emptyPlayer.forEach((val, key) => {
+      elements.push({ name: key, freq: val });
+    });
+
+    return elements;
+  }, [emptyPlayer]);
+
   return (
     <div className=" ml-2 flex w-full max-w-3xl flex-col justify-center">
       <label className="label">What league is the player in?</label>
@@ -149,7 +184,7 @@ const PlayerStatsAdmin = () => {
         onChange={(e) => {
           playerDataHandler(e.target.value);
         }}
-        className="select-bordered select min-w-max"
+        className="select select-bordered min-w-max"
       >
         <option selected disabled value="">
           League
@@ -157,37 +192,70 @@ const PlayerStatsAdmin = () => {
         <option value="epic39">Epic39</option>
         <option value="demo">Demo</option>
       </select>
-      <section className="mt-2 grid grid-cols-1 gap-4">
-        {players.length > 0 && (
-          <div className="rounded-btn flex w-full justify-center p-3">
-            <BarChart
-              width={screenWidth * 0.65}
-              height={400}
-              data={players}
-              margin={{
-                top: 20,
-                right: 20,
-                left: 0,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="5 5" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              {allBonuses.map((el) => (
-                <Bar
-                  dataKey={el.name}
-                  stackId="a"
-                  key={el.name}
-                  fill={el.color}
-                />
-              ))}
-              <Legend />
-            </BarChart>
-          </div>
-        )}
-      </section>
+      {players.length > 0 && (
+        <section className="mt-2 grid grid-cols-1 gap-4">
+          <h3 className="text-center text-3xl">Selected player bonus picks</h3>
+          {players.length > 0 && (
+            <div className="rounded-btn flex w-full justify-center p-3">
+              <BarChart
+                width={screenWidth * 0.65}
+                height={400}
+                data={players}
+                margin={{
+                  top: 20,
+                  right: 20,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="5 5" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey={"freq"} stackId="a" />
+                {allBonuses.map((el) => {
+                  return (
+                    <Bar
+                      dataKey={el.name}
+                      stackId="a"
+                      key={el.name}
+                      fill={el.color}
+                    />
+                  );
+                })}
+                <Legend />
+              </BarChart>
+            </div>
+          )}
+        </section>
+      )}
+      {players.length > 0 && (
+        <section className="mt-2 grid grid-cols-1 gap-4">
+          <h3 className="text-center text-3xl">Player picks</h3>
+          {players.length > 0 && (
+            <div className="rounded-btn flex w-full justify-center p-3">
+              <BarChart
+                width={screenWidth * 0.65}
+                height={400}
+                data={playerfreq}
+                margin={{
+                  top: 20,
+                  right: 20,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="5 5" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey={"freq"} stackId="a" />
+                <Legend />
+              </BarChart>
+            </div>
+          )}
+        </section>
+      )}
     </div>
   );
 };
