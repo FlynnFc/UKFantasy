@@ -27,6 +27,12 @@ async function getStreams() {
     "gizmyy",
     "esl_csgo",
     "esl_csgo_nc",
+    "dweg",
+    "daemonicinferno",
+    "penguin5",
+    "nazzery_",
+    "godkucs",
+    "ghilcs",
   ];
   const token = await getAccessToken();
   let path = "https://api.twitch.tv/helix/streams?";
