@@ -249,7 +249,6 @@ const PlayerStatsAdmin = () => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey={"freq"} stackId="a" />
                 <Legend />
               </BarChart>
             </div>

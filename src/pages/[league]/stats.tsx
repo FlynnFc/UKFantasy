@@ -235,7 +235,7 @@ const Stats = (props: { data: any; data2: any }) => {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey={"freq"} stackId="a" />
+                  <Bar fill="#3457d4" dataKey={"freq"} stackId="a" />
                   <Legend />
                 </BarChart>
               </div>
