@@ -217,46 +217,6 @@ const Stats = (props: { data: any; data2: any }) => {
       <div className=" ml-2 flex  w-full max-w-3xl flex-col justify-center ">
         {players.length > 0 && (
           <section className="mt-2 grid grid-cols-1 gap-4">
-            <h3 className="text-center text-3xl">
-              Selected player bonus picks
-            </h3>
-
-            {players.length > 0 && (
-              <div className="rounded-btn flex w-full justify-center p-3">
-                <BarChart
-                  width={screenWidth * 0.65}
-                  height={400}
-                  data={players}
-                  margin={{
-                    top: 20,
-                    right: 20,
-                    left: 0,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="5 5" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey={"freq"} stackId="a" />
-                  {allBonuses.map((el) => {
-                    return (
-                      <Bar
-                        dataKey={el.name}
-                        stackId="a"
-                        key={el.name}
-                        fill={el.color}
-                      />
-                    );
-                  })}
-                  <Legend />
-                </BarChart>
-              </div>
-            )}
-          </section>
-        )}
-        {players.length > 0 && (
-          <section className="mt-2 grid grid-cols-1 gap-4">
             <h3 className="text-center text-3xl">Player picks</h3>
             {players.length > 0 && (
               <div className="rounded-btn flex w-full justify-center p-3">
