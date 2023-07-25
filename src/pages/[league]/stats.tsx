@@ -210,13 +210,17 @@ const Stats = (props: { data: any; data2: any }) => {
   }, [emptyPlayer]);
 
   return (
-    <section className="flex min-h-screen w-full items-start justify-center">
+    <section className="flex min-h-screen w-full flex-col items-center justify-center">
+      <span className="w-2/3 text-right">
+        *Stats will regenerate every 5 mins
+      </span>
       <div className=" ml-2 flex  w-full max-w-3xl flex-col justify-center ">
         {players.length > 0 && (
           <section className="mt-2 grid grid-cols-1 gap-4">
             <h3 className="text-center text-3xl">
               Selected player bonus picks
             </h3>
+
             {players.length > 0 && (
               <div className="rounded-btn flex w-full justify-center p-3">
                 <BarChart
