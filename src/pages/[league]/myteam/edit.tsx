@@ -100,26 +100,38 @@ const Edit = (props: {
             }
           }
         );
-        setTeamName(matchedTeam[0].teamName);
-        setMyTeamId(matchedTeam[0].id);
-        setOriginalTeam(
-          matchedTeam[0].SelectedPlayer.map((el: { id: string }) => el.id)
+        console.log(matchedTeam);
+        if (matchedTeam[0] !== undefined) {
+          console.log("first");
+          setTeamName(matchedTeam[0].teamName);
+          setMyTeamId(matchedTeam[0].id);
+          setOriginalTeam(
+            matchedTeam[0].SelectedPlayer.map((el: { id: string }) => el.id)
+          );
+        } else {
+          setTeamName(matchedTeam[1].teamName);
+          setMyTeamId(matchedTeam[1].id);
+          setOriginalTeam(
+            matchedTeam[1].SelectedPlayer.map((el: { id: string }) => el.id)
+          );
+        }
+        const players = matchedTeam[matchedTeam[0] ? 0 : 1].SelectedPlayer.map(
+          (el: any) => (
+            <SelectedPlayer
+              PlayerRemove={PlayerRemove}
+              rareity={el.rareity}
+              name={el.name}
+              price={el.price}
+              img={el.image}
+              key={el.name}
+              id={el.id}
+              team={myTeam}
+              stats={el.stats}
+              playersTeam={el.playersTeam}
+            />
+          )
         );
 
-        const players = matchedTeam[0].SelectedPlayer.map((el: any) => (
-          <SelectedPlayer
-            PlayerRemove={PlayerRemove}
-            rareity={el.rareity}
-            name={el.name}
-            price={el.price}
-            img={el.image}
-            key={el.name}
-            id={el.id}
-            team={myTeam}
-            stats={el.stats}
-            playersTeam={el.playersTeam}
-          />
-        ));
         setMyTeam(players);
         setLoading(false);
       }

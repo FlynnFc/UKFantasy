@@ -64,7 +64,7 @@ const submitTeam = async (req: NextApiRequest, res: NextApiResponse) => {
             data: {
               playerTeamId: data.id,
               name: player.name,
-              price: player.price,
+              price: player.price + player.priceadjust,
               rareity: player.rareity,
               image: player.image,
               steamid: player.steamid,
