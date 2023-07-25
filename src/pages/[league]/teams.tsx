@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PlayerGroup from "../../components/playerGroup";
 import { playerStats } from "../../components/Player";
 import PreviewPlayer, { player } from "../../components/PreviewPlayer";
@@ -34,8 +34,16 @@ export async function getStaticPaths() {
 }
 
 const Teams = (props: { data: { Teams: [] } }) => {
+  const allPlayers = useMemo(() => {
+    const players: player[] = [];
+    props.data.Teams.forEach((el: { teamName: string; Player: player[] }) => {
+      players.push(...el.Player);
+    });
+    return players;
+  }, [props.data.Teams]);
+
   return (
-    <section className="container mx-auto mb-5 flex min-h-screen flex-col items-center gap-4">
+    <section className="mx-5 ml-8 min-h-screen">
       <div className="prose flex w-full max-w-full flex-col items-end justify-between prose-h1:mb-0 md:flex-row ">
         <h1 className="">All teams</h1>
         <span className="text-sm">
@@ -43,28 +51,57 @@ const Teams = (props: { data: { Teams: [] } }) => {
           yet.
         </span>
       </div>
-
-      {props.data?.Teams.map((el: { teamName: string; Player: player[] }) => {
-        return (
-          <PlayerGroup team={el.teamName} key={el.teamName}>
-            {el.Player?.map((els) => {
-              console.log(els);
+      <div className="flex w-full flex-col items-center gap-2 lg:flex-row lg:items-start lg:justify-between">
+        <div className=" flex w-full flex-col gap-2">
+          {props.data?.Teams.map(
+            (el: { teamName: string; Player: player[] }) => {
               return (
-                <PreviewPlayer
-                  priceadjust={els.priceadjust}
-                  key={els.id}
-                  id={els.id}
-                  rareity={els.rareity}
-                  name={els.name}
-                  price={els.price}
-                  image={els.image}
-                  stats={els.stats}
-                />
+                <PlayerGroup team={el.teamName} key={el.teamName}>
+                  {el.Player?.map((els) => {
+                    return (
+                      <PreviewPlayer
+                        priceadjust={els.priceadjust}
+                        key={els.id}
+                        id={els.id}
+                        rareity={els.rareity}
+                        name={els.name}
+                        price={els.price}
+                        image={els.image}
+                        stats={els.stats}
+                      />
+                    );
+                  })}
+                </PlayerGroup>
               );
-            })}
-          </PlayerGroup>
-        );
-      })}
+            }
+          )}
+        </div>
+
+        <ul className="rounded-btn w-full bg-base-300 p-4 lg:w-52">
+          <h3 className="font-bold">Price adjustments</h3>
+          {allPlayers.map((el) => {
+            return (
+              <li
+                className="flex flex-row justify-between text-base-content"
+                key={el.id}
+              >
+                {el.name}{" "}
+                <span
+                  className={`${
+                    el.priceadjust > 0
+                      ? "text-green-500"
+                      : el.priceadjust < 0
+                      ? "text-red-500"
+                      : "text-base-content"
+                  }`}
+                >
+                  {el.priceadjust}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </section>
   );
 };

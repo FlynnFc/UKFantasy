@@ -13,7 +13,6 @@ export type player = {
   priceadjust: number;
 };
 const PreviewPlayer = (props: player) => {
-  console.log(props.priceadjust);
   const [stats, setStats] = useState(false);
   return (
     <div className={` flex-col lg:h-[20rem] lg:w-[14rem] lg:shadow-lg`}>
