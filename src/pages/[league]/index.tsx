@@ -163,6 +163,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
     }
   }, [data, session.data?.user?.id]);
 
+  console.log(data);
   return (
     <>
       <Head>
@@ -248,7 +249,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
             <LiveGames /> */}
           </section>
 
-          <section className="rounded-btn my-2 mt-5 h-max text-base-content shadow-lg  2xl:w-[75%]">
+          <section className="rounded-btn my-2 mt-5 h-max text-base-content  2xl:w-[75%]">
             <div className=" flex w-full flex-col gap-3 overflow-x-auto">
               {loadingTable ? (
                 <Table data={data} />
@@ -293,6 +294,10 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
                 </div>
               )}
             </div>
+            <h3 className="mt-2 text-base-content">
+              Number of Fantasy teams:{" "}
+              <span className=" font-bold "> {data.length}</span>
+            </h3>
           </section>
         </div>
       </main>
