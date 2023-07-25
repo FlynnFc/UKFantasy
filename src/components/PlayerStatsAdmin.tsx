@@ -98,7 +98,7 @@ const PlayerStatsAdmin = () => {
           let newval = 1;
           for (const [key, value] of Object.entries(valss)) {
             if (key === bonus) {
-              newval++;
+              newval = (value as number) + 1;
             }
           }
           newPlayerstats.set(player.name, {
