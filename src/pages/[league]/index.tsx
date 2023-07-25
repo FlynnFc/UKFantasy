@@ -163,7 +163,6 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
     }
   }, [data, session.data?.user?.id]);
 
-  console.log(data);
   return (
     <>
       <Head>
@@ -240,8 +239,13 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
               </span>
             )}
             <Link href={`${query.league}/teams`}>
-              <button className="btn flex flex-row items-center justify-center gap-1 border-0 bg-base-300 text-base-content hover:text-white">
+              <button className="btn btn-primary flex flex-row items-center justify-center gap-1 border-0">
                 Competing teams <ExternalLink height={20} />
+              </button>
+            </Link>
+            <Link href={`${query.league}/stats`}>
+              <button className="btn btn-info flex flex-row items-center justify-center gap-1 border-0 hover:bg-info/75">
+                Player Pick Stats <ExternalLink height={20} />
               </button>
             </Link>
             <AllLiveChannels streams={props.streams} />
