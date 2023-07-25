@@ -167,7 +167,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
     <>
       <Head>
         <title>
-          {league?.name ? `${league.name} tournement center` : "League"}
+          {league?.name ? `${league.name} tournament center` : "League"}
         </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
