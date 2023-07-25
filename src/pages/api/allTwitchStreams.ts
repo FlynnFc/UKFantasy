@@ -35,6 +35,9 @@ async function getStreams() {
     "ghilcs",
     "lorthehero",
     "jackyesports",
+    "kica_cs",
+    "k10_tree",
+    "otyl3r",
   ];
   const token = await getAccessToken();
   let path = "https://api.twitch.tv/helix/streams?";
