@@ -132,7 +132,7 @@ const Table = (props) => {
                     {row.cells.map((cell) => {
                       return (
                         <td
-                          className="bg-base-200  text-center  font-normal"
+                          className="max-w-sm  overflow-hidden text-ellipsis whitespace-nowrap bg-base-200  text-center  font-normal"
                           key={"test"}
                           {...cell.getCellProps()}
                         >

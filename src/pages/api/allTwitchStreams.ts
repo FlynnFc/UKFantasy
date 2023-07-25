@@ -33,6 +33,7 @@ async function getStreams() {
     "nazzery_",
     "godkucs",
     "ghilcs",
+    "lorthehero",
   ];
   const token = await getAccessToken();
   let path = "https://api.twitch.tv/helix/streams?";

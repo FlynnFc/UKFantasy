@@ -9,7 +9,7 @@ const TeamButtonTable = (props: {
   return (
     <>
       <Link href={`${props.league}/team/${props.id}`}>
-        <button className="rounded p-2 transition-none hover:bg-base-300">
+        <button className="max-w-sm overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 transition-none hover:bg-base-300">
           {props.name}
         </button>
       </Link>
