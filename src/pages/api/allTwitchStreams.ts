@@ -38,6 +38,8 @@ async function getStreams() {
     "kica_cs",
     "k10_tree",
     "otyl3r",
+    "daemonicinferno",
+    "epiclan1",
   ];
   const token = await getAccessToken();
   let path = "https://api.twitch.tv/helix/streams?";
