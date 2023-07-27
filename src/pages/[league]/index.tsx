@@ -173,7 +173,18 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
       </Head>
       <main className="container mx-auto flex min-h-screen flex-col items-start justify-start p-4">
         {loading && <Loading />}
-
+        <div className="mt-4 flex w-full">
+          {isStarted && !isEnded && (
+            <span className="rounded-btn w-full select-none bg-green-500 p-3 text-center font-semibold uppercase text-base-content">
+              Tournament live
+            </span>
+          )}
+          {isEnded && (
+            <span className="rounded-btn w-full select-none bg-red-500 p-3 text-center font-semibold uppercase text-base-content">
+              Tournament ended
+            </span>
+          )}
+        </div>
         <div className="rounded-btn mt-5 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg md:px-8">
           <h1 className="text-4xl font-bold">
             {league && league.name} tournament centre
@@ -228,16 +239,6 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
 
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
           <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
-            {isStarted && !isEnded && (
-              <span className="rounded-btn w-full select-none bg-success p-3 text-center font-semibold uppercase text-base-content">
-                Tournement live
-              </span>
-            )}
-            {isEnded && (
-              <span className="rounded-btn w-full select-none bg-error p-3 text-center font-semibold uppercase text-base-content">
-                Tournement ended
-              </span>
-            )}
             <Link href={`${query.league}/teams`}>
               <button className="btn btn-primary flex flex-row items-center justify-center gap-1 border-0">
                 Competing teams <ExternalLink height={20} />

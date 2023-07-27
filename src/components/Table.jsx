@@ -101,10 +101,15 @@ const Table = (props) => {
                   key={headerGroup}
                   {...headerGroup.getHeaderGroupProps()}
                 >
-                  {headerGroup.headers.map((column) => (
+                  {headerGroup.headers.map((column, idx) => (
                     <th
                       key={column.Cell}
-                      className="rounded-t-btn sticky top-0 box-content rounded-r-none bg-primary text-center text-primary-content "
+                      className={`sticky top-0 box-content bg-primary text-center text-primary-content ${
+                        idx === 0 && "rounded-tl-lg"
+                      } ${
+                        idx === headerGroup.headers.length - 1 &&
+                        "rounded-tr-lg"
+                      }`}
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
                       {column.render("Header")}

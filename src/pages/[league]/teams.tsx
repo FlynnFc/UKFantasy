@@ -46,12 +46,8 @@ const Teams = (props: { data: { Teams: [] } }) => {
     <section className="mx-5 ml-8 min-h-screen">
       <div className="prose flex w-full max-w-full flex-col items-end justify-between prose-h1:mb-0 md:flex-row ">
         <h1 className="">All teams</h1>
-        <span className="text-sm">
-          If a player is £1,000 it means their price has not been calculated
-          yet.
-        </span>
       </div>
-      <div className="flex w-full flex-col items-center gap-2 lg:flex-row lg:items-start lg:justify-between">
+      <div className="mb-2 flex w-full flex-col items-center gap-2 lg:flex-row lg:items-start lg:justify-between">
         <div className=" flex w-full flex-col gap-2">
           {props.data?.Teams.map(
             (el: { teamName: string; Player: player[] }) => {
