@@ -90,10 +90,10 @@ export const MyPlayer = (props: myPlayer) => {
       </div>
       {props.bonus && (
         <div
-          className={`tooltip z-10 flex w-3/4 gap-2 bg-primary p-1 text-center  text-slate-50 lg:hidden`}
+          className={`tooltip z-10 flex w-full gap-2 bg-base-100 p-1 text-center  text-base-content lg:hidden`}
           data-tip={props.bonus.description}
         >
-          <button className="w-full text-center text-lg font-bold  text-slate-50">
+          <button className="w-full text-center text-lg font-bold  text-base-content">
             {props.bonus.name}
           </button>
           {props.bonusEdit && (
