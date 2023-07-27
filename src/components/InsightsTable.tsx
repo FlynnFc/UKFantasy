@@ -18,7 +18,6 @@ const InsightsTable = (props: any) => {
   //     props.serverTeam.SelectedPlayer[0]?.points.length ?? 0
   //   );
 
-
   const [maxRounds, setMaxRounds] = useState<any>([]);
   const [maxBonusRounds, setMaxBonusRounds] = useState<any>([]);
   const [playerRows, setPlayerRows] = useState<any>([]);

@@ -74,7 +74,7 @@ const UserTeam = () => {
             <h2 className="my-5 hidden text-left text-4xl md:block">
               Insights
             </h2>
-            <section className="w-fit rounded-xl border-base-content">
+            <section className="w-fit">
               <InsightsTable serverTeam={team} />
             </section>
           </>
