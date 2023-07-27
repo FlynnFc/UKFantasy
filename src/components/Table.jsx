@@ -105,10 +105,11 @@ const Table = (props) => {
                     <th
                       key={column.Cell}
                       className={`sticky top-0 box-content bg-primary text-center text-primary-content ${
-                        idx === 0 && "rounded-tl-lg"
+                        idx === 0 &&
+                        "rounded-btn rounded-r-none rounded-bl-none"
                       } ${
                         idx === headerGroup.headers.length - 1 &&
-                        "rounded-tr-lg"
+                        "rounded-btn rounded-l-none rounded-br-none"
                       }`}
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
