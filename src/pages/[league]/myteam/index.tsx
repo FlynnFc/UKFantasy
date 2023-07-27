@@ -67,6 +67,219 @@ export async function getServerSideProps(context: {
   };
 }
 
+const demoData = {
+  id: "clki640jh0000908cdpkko03j",
+  teamName: "boshi",
+  points: "0",
+  rolePoints: "0",
+  leagueId: "clitgzx1y000090fwza6i632y",
+  userId: "clcpjbp1t0000ml083c75yjmd",
+  ready: false,
+  league: {
+    id: "clitgzx1y000090fwza6i632y",
+    name: "epic39",
+    description:
+      "EPIC39 is a LAN based gaming event in the UK. It features a mixture of casual gaming, stage content and esports tournaments so whether you enjoy playing games for fun or want to be the next esports professional, there will be something for you.",
+    offical: true,
+    openDate: "2023-07-23T23:13:16.822Z",
+    startDate: "2023-07-27T23:59:59.822Z",
+    endDate: "2023-07-31T23:13:16.822Z",
+    leagueRoundsId: "clith0ai3000290fwr1w8qw24",
+  },
+  SelectedPlayer: [
+    {
+      id: "clki640jl0001908cgic7ikij",
+      name: "vacancy",
+      price: 23000,
+      steamid: "76561198190928622",
+      image:
+        "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/7AM/7AM_Vacancy_Card.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzLzdBTS83QU1fVmFjYW5jeV9DYXJkLmpwZyIsImlhdCI6MTY4OTgwMDY4MywiZXhwIjoxNzIxMzM2NjgzfQ.heX8Iq7milB1r_83FffChxviP8lVi4zvLsEJr79hh9I&t=2023-07-19T21%3A04%3A52.053Z",
+      rareity: "gold",
+      playerTeamId: "clki640jh0000908cdpkko03j",
+      bonusName: "ADR warrior",
+      bonus: {
+        name: "ADR warrior",
+        description:
+          "+10 points for having 85 ADR. +5 for over 70 but less than 85. -5 for less than 70",
+      },
+      points: [
+        { value: 200, roundNumber: 1 },
+        { value: 230, roundNumber: 2 },
+        { value: 230, roundNumber: 3 },
+        { value: 230, roundNumber: 4 },
+        { value: 210, roundNumber: 5 },
+        { value: 205, roundNumber: 6 },
+        { value: 205, roundNumber: 7 },
+        { value: 205, roundNumber: 8 },
+        { value: 205, roundNumber: 9 },
+      ],
+      bonusPoint: [
+        { value: 10, roundNumber: 1 },
+        { value: 5, roundNumber: 2 },
+        { value: -5, roundNumber: 3 },
+        { value: -5, roundNumber: 4 },
+        { value: 10, roundNumber: 5 },
+        { value: -5, roundNumber: 6 },
+        { value: -5, roundNumber: 7 },
+        { value: 10, roundNumber: 8 },
+        { value: -5, roundNumber: 9 },
+      ],
+    },
+    {
+      id: "clki640jl0002908c1366kxsc",
+      name: "frazehh",
+      price: 22000,
+      steamid: "76561198048229390",
+      image:
+        "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/Verdant/Verdant_Frazehh.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL1ZlcmRhbnQvVmVyZGFudF9GcmF6ZWhoLmpwZyIsImlhdCI6MTY4OTgwMDc1MSwiZXhwIjoxNzIxMzM2NzUxfQ.korpM8SaNT22vxTtXEYtmTqZrJ2bDQRU3NSNymD2hCM&t=2023-07-19T21%3A05%3A59.453Z",
+      rareity: "gold",
+      playerTeamId: "clki640jh0000908cdpkko03j",
+      bonusName: "Clutcher",
+      bonus: {
+        name: "Clutcher",
+        description:
+          "+10 points for a Clutch win % higher than 10%. +5 for higher than 1% but less than 10%. -5 for less than 1%",
+      },
+      points: [
+        { value: 200, roundNumber: 1 },
+        { value: 230, roundNumber: 2 },
+        { value: 230, roundNumber: 3 },
+        { value: 230, roundNumber: 4 },
+        { value: 210, roundNumber: 5 },
+        { value: 205, roundNumber: 6 },
+        { value: 205, roundNumber: 7 },
+        { value: 205, roundNumber: 8 },
+        { value: 205, roundNumber: 9 },
+      ],
+      bonusPoint: [
+        { value: 10, roundNumber: 1 },
+        { value: 5, roundNumber: 2 },
+        { value: -5, roundNumber: 3 },
+        { value: -5, roundNumber: 4 },
+        { value: 10, roundNumber: 5 },
+        { value: -5, roundNumber: 6 },
+        { value: -5, roundNumber: 7 },
+        { value: 10, roundNumber: 8 },
+        { value: -5, roundNumber: 9 },
+      ],
+    },
+    {
+      id: "clki640jl0004908ctx2munmd",
+      name: "Retr00",
+      price: 17500,
+      steamid: "76561198117338404",
+      image:
+        "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/Bin%20Chilling/binchilling_retr00.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL0JpbiBDaGlsbGluZy9iaW5jaGlsbGluZ19yZXRyMDAuanBnIiwiaWF0IjoxNjg5ODA4OTY2LCJleHAiOjE3MjEzNDQ5NjZ9.Z1d4RtHQEUrbmVyz2R0tMdBIHppwTS6BxXHoCTW8e6o&t=2023-07-19T23%3A22%3A55.048Z",
+      rareity: "silver",
+      playerTeamId: "clki640jh0000908cdpkko03j",
+      bonusName: "Awper",
+      bonus: {
+        name: "Awper",
+        description:
+          "+10 points for having 0.2 AWP kills per round or higher. +5 for having more than 0.12 but less than 0.2. -5 for less than 0.12",
+      },
+      points: [
+        { value: 200, roundNumber: 1 },
+        { value: 230, roundNumber: 2 },
+        { value: 230, roundNumber: 3 },
+        { value: 230, roundNumber: 4 },
+        { value: 210, roundNumber: 5 },
+        { value: 205, roundNumber: 6 },
+        { value: 205, roundNumber: 7 },
+        { value: 205, roundNumber: 8 },
+        { value: 205, roundNumber: 9 },
+      ],
+      bonusPoint: [
+        { value: 10, roundNumber: 1 },
+        { value: 5, roundNumber: 2 },
+        { value: -5, roundNumber: 3 },
+        { value: -5, roundNumber: 4 },
+        { value: 10, roundNumber: 5 },
+        { value: -5, roundNumber: 6 },
+        { value: -5, roundNumber: 7 },
+        { value: 10, roundNumber: 8 },
+        { value: -5, roundNumber: 9 },
+      ],
+    },
+    {
+      id: "clki640jl0005908crefqit6j",
+      name: "walkeRR",
+      price: 16500,
+      steamid: "76561198056320387",
+      image:
+        "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/de_lads/de_lads_walker.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2RlX2xhZHMvZGVfbGFkc193YWxrZXIuanBnIiwiaWF0IjoxNjkwMjAzMzM1LCJleHAiOjE3MjE3MzkzMzV9.ak7H7ihqVN-drb1-zBgoLVS4qiKjuZXygbcsgxv-6ag&t=2023-07-24T12%3A55%3A36.703Z",
+      rareity: "silver",
+      playerTeamId: "clki640jh0000908cdpkko03j",
+      bonusName: "The K0nfig",
+      bonus: {
+        name: "The K0nfig",
+        description:
+          "+10 points for having 2 Knifes in a match. +5 for 1 Knife. -5 for none",
+      },
+      points: [
+        { value: 200, roundNumber: 1 },
+        { value: 230, roundNumber: 2 },
+        { value: 230, roundNumber: 3 },
+        { value: 230, roundNumber: 4 },
+        { value: 210, roundNumber: 5 },
+        { value: 205, roundNumber: 6 },
+        { value: 205, roundNumber: 7 },
+        { value: 205, roundNumber: 8 },
+        { value: 205, roundNumber: 9 },
+      ],
+      bonusPoint: [
+        { value: 10, roundNumber: 1 },
+        { value: 5, roundNumber: 2 },
+        { value: -5, roundNumber: 3 },
+        { value: -5, roundNumber: 4 },
+        { value: 10, roundNumber: 5 },
+        { value: -5, roundNumber: 6 },
+        { value: -5, roundNumber: 7 },
+        { value: 10, roundNumber: 8 },
+        { value: -5, roundNumber: 9 },
+      ],
+    },
+    {
+      id: "clki6cr840009908c52svwywi",
+      name: "Whskyyyy",
+      price: 18000,
+      steamid: "76561198356623290",
+      image:
+        "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/Binmen%20International/binmeninternational_whsky_updated.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL0Jpbm1lbiBJbnRlcm5hdGlvbmFsL2Jpbm1lbmludGVybmF0aW9uYWxfd2hza3lfdXBkYXRlZC5qcGciLCJpYXQiOjE2ODk5NTUxMTksImV4cCI6MTcyMTQ5MTExOX0.LXzR8zA1Q8mnuN8Ex9DzNMqlrDBV7dkX25MEF_VNZ9Y&t=2023-07-21T15%3A58%3A39.968Z",
+      rareity: "silver",
+      playerTeamId: "clki640jh0000908cdpkko03j",
+      bonusName: "Stat padder",
+      bonus: {
+        name: "Stat padder",
+        description:
+          "+10 points for having a HLTV rating (2.0) higher than 1.35. +5 for higher than 0.85. -5 for less than 0.85",
+      },
+      points: [
+        { value: 200, roundNumber: 1 },
+        { value: 230, roundNumber: 2 },
+        { value: 230, roundNumber: 3 },
+        { value: 230, roundNumber: 4 },
+        { value: 210, roundNumber: 5 },
+        { value: 205, roundNumber: 6 },
+        { value: 205, roundNumber: 7 },
+        { value: 205, roundNumber: 8 },
+        { value: 205, roundNumber: 9 },
+      ],
+      bonusPoint: [
+        { value: 10, roundNumber: 1 },
+        { value: 5, roundNumber: 2 },
+        { value: -5, roundNumber: 3 },
+        { value: -5, roundNumber: 4 },
+        { value: 10, roundNumber: 5 },
+        { value: -5, roundNumber: 6 },
+        { value: -5, roundNumber: 7 },
+        { value: 10, roundNumber: 8 },
+        { value: -5, roundNumber: 9 },
+      ],
+    },
+  ],
+};
+
 const Myteam = (props: {
   data: bonus[];
   leagueId: string;
@@ -226,6 +439,8 @@ const Myteam = (props: {
     }
   };
 
+  console.log(serverTeam);
+
   return (
     <main className="min-w-screen container mx-auto flex h-full min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
@@ -258,11 +473,11 @@ const Myteam = (props: {
                 <label
                   htmlFor="my-modal"
                   onClick={teamDeleter}
-                  className="btn-error btn"
+                  className="btn btn-error"
                 >
                   Yes, get rid of it
                 </label>
-                <label htmlFor="my-modal" className="btn-info btn">
+                <label htmlFor="my-modal" className="btn btn-info">
                   {`No I'll keep it`}
                 </label>
               </div>
@@ -302,7 +517,7 @@ const Myteam = (props: {
                             localStorage.setItem("UserTips", "false");
                             setUserNeedsHelp(false);
                           }}
-                          className="btn-sm btn text-white"
+                          className="btn btn-sm text-white"
                         >
                           got it
                         </button>
@@ -466,11 +681,11 @@ const Myteam = (props: {
               {bonusDesc}
             </p>
             <div className="flex items-center justify-end gap-2 pt-2">
-              <button onClick={HandleBonusSubmit} className="btn-success btn">
+              <button onClick={HandleBonusSubmit} className="btn btn-success">
                 Submit
               </button>
               <div className="modal-action m-0">
-                <label htmlFor="bonus" className="btn-error btn ">
+                <label htmlFor="bonus" className="btn btn-error ">
                   Cancel
                 </label>
               </div>
