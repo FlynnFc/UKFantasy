@@ -40,6 +40,12 @@ async function getStreams() {
     "otyl3r",
     "daemonicinferno",
     "epiclan1",
+    "ourob_",
+    "vildacs",
+    "igorekcs2",
+    "themythicaloriginal",
+    "mms_cs",
+    "EU_ReTr00",
   ];
   const token = await getAccessToken();
   let path = "https://api.twitch.tv/helix/streams?";
