@@ -238,7 +238,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       case "Clutcher":
         bonus = element.clutcher;
         break;
-      case "Head clicker":
+      case "Head Clicker":
         bonus = element.head_clicker;
         break;
       case "PTFO":
