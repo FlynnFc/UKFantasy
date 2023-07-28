@@ -46,6 +46,7 @@ async function getStreams() {
     "themythicaloriginal",
     "mms_cs",
     "EU_ReTr00",
+    "alcan1",
   ];
   const token = await getAccessToken();
   let path = "https://api.twitch.tv/helix/streams?";
