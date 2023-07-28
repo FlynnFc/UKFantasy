@@ -12,12 +12,12 @@ const Round = (props: { data: []; selectedRound: number }) => {
 
   useEffect(() => {
     if (
-      session.data?.user?.email &&
-      admins.has(session.data?.user?.email?.toString())
+      session.data?.user?.id &&
+      admins.has(session.data?.user?.id?.toString())
     ) {
       setAuthorised(true);
     } else setAuthorised(false);
-  }, [admins, session.data?.user?.email]);
+  }, [admins, session.data?.user?.id]);
 
   return (
     <div className="mt-5 w-full">
