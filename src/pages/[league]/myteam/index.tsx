@@ -442,10 +442,10 @@ const Myteam = (props: {
   console.log(serverTeam);
 
   return (
-    <main className="min-w-screen container mx-auto flex h-full min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
+    <main className="min-w-screen container mx-auto flex min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
       {serverTeam ? (
-        <div className="flex flex-col items-center justify-center ">
+        <div className="flex h-full flex-col items-center justify-center ">
           <header className="flex flex-col items-center space-x-2">
             <div className="flex flex-row ">
               <h1 className="text-4xl">{serverTeam.teamName}</h1>
@@ -601,7 +601,7 @@ const Myteam = (props: {
           </div>
           {/* Team editing  */}
           <h2 className="my-5 text-left text-4xl">Insights</h2>
-          <section className="w-fit">
+          <section className="h-full w-fit">
             <InsightsTable serverTeam={serverTeam} />
           </section>
         </div>
