@@ -309,6 +309,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
           })
       );
     });
+
     const finalData = comparer(processedPlayers, allSelectedPlayers);
     const res = await fetch("/api/ApplyPoints", {
       method: "POST",
@@ -318,6 +319,9 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       }),
     });
     console.log("final data", finalData);
+    if (!res.ok) {
+      throw new Error();
+    }
     return res;
   };
 
