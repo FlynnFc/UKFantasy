@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import StreamLink from "./StreamLink";
-import { P } from "vitest/dist/types-bae746aa";
 
 export type stream = {
   user_name: string;
@@ -11,7 +10,12 @@ export type stream = {
 
 const AllLiveChannels = (props: { streams: stream[] }) => {
   const [expanded, setExpanded] = useState(false);
-  const streams = useMemo(() => props.streams, [props.streams]);
+  const streams = useMemo(() => {
+    if (expanded) {
+      return props.streams;
+    }
+    return props.streams.slice(0, 5);
+  }, [expanded, props.streams]);
 
   return (
     <div className="rounded-btn bg-base-300 p-5 shadow-lg">
@@ -36,10 +40,10 @@ const AllLiveChannels = (props: { streams: stream[] }) => {
         )}
 
         <p
-          className="link-secondary link mt-2 text-center"
+          className="link link-secondary mt-2 text-center"
           onClick={() => setExpanded((prev) => !prev)}
         >
-          {streams && streams?.length > 5
+          {streams && props.streams?.length > 5
             ? expanded
               ? "Show less"
               : "Show more"
