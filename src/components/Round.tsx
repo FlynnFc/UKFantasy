@@ -7,17 +7,8 @@ import PointCalcForm from "./PointCalcForm";
 const Round = (props: { data: []; selectedRound: number }) => {
   const admins = useMemo(() => new Set(["mastare.flynn@gmail.com"]), []);
   const session = useSession();
-  const [authorised, setAuthorised] = useState(false);
+  const [authorised, setAuthorised] = useState(true);
   const current = useMemo(() => props.selectedRound, [props.selectedRound]);
-
-  useEffect(() => {
-    if (
-      session.data?.user?.id &&
-      admins.has(session.data?.user?.id?.toString())
-    ) {
-      setAuthorised(true);
-    } else setAuthorised(false);
-  }, [admins, session.data?.user?.id]);
 
   return (
     <div className="mt-5 w-full">
