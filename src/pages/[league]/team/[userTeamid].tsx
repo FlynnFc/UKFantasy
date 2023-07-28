@@ -45,7 +45,7 @@ const UserTeam = () => {
         <title>{`${team?.User.name}'s team`}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="min-w-screen container mx-auto flex h-screen min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
+      <main className="min-w-screen container mx-auto flex min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
         {team ? (
           <>
             <div className="flex flex-col">
