@@ -188,7 +188,14 @@ const InsightsTable = (props: any) => {
       <div className="rounded-btn grid w-fit grid-cols-2 bg-base-300 p-4 text-2xl">
         <h2>
           Points:{" "}
-          <span className="font-bold text-green-500"> {totals.total}</span>
+          <span
+            className={`font-bold ${
+              totals.total > 0 ? "text-green-500" : "text-red-500"
+            } `}
+          >
+            {" "}
+            {totals.total}
+          </span>
         </h2>
         <h2>
           Bonus Total:{" "}
