@@ -5,7 +5,6 @@ import * as XLSX from "xlsx";
 import PointCalcForm from "./PointCalcForm";
 
 const Round = (props: { data: []; selectedRound: number }) => {
-  const admins = useMemo(() => new Set(["mastare.flynn@gmail.com"]), []);
   const session = useSession();
   const [authorised, setAuthorised] = useState(true);
   const current = useMemo(() => props.selectedRound, [props.selectedRound]);
