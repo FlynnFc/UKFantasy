@@ -42,7 +42,7 @@ const InsightsTable = (props: any) => {
 
       if (el.bonusPoint.length > 0) {
         for (let i = 0; i < 5; i++) {
-          const element = el.bonusPoint[i]!.value ?? 0;
+          const element = el.bonusPoint[i]?.value ?? 0;
           bonusTotal += element;
         }
       }
