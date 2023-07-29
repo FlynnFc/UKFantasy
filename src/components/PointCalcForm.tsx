@@ -31,8 +31,12 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     toast.promise(handleUpload(e), {
       loading: "processing...",
       success: <b>File processed</b>,
-      error: <b>Could not process</b>,
+      error: errorCall,
     });
+  };
+
+  const errorCall = (e: { message: string }) => {
+    return <b>Could not process, {e.message}</b>;
   };
 
   const fileProcesMain = async (e: HTMLFormElement) => {
@@ -311,18 +315,86 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     });
 
     const finalData = comparer(processedPlayers, allSelectedPlayers);
-    const res = await fetch("/api/ApplyPoints", {
+
+    const res = await fetch("http://localhost:3000/api/ApplyPoints", {
       method: "POST",
       body: JSON.stringify({
-        playerData: finalData,
+        playerData: finalData.slice(0, 90),
         round: props.currentRound,
       }),
     });
-    console.log("final data", finalData);
+
     if (!res.ok) {
       throw new Error();
     }
-    return res;
+    if (res.ok) {
+      console.log("Running batch 2");
+      const res2 = await fetch("http://localhost:3000/api/ApplyPoints", {
+        method: "POST",
+        body: JSON.stringify({
+          playerData: finalData.slice(90, 180),
+          round: props.currentRound,
+        }),
+      });
+      if (!res2.ok) {
+        throw new Error();
+      }
+
+      if (res2.ok) {
+        console.log("Running batch 3");
+        const res3 = await fetch("http://localhost:3000/api/ApplyPoints", {
+          method: "POST",
+          body: JSON.stringify({
+            playerData: finalData.slice(180, 280),
+            round: props.currentRound,
+          }),
+        });
+        const res4 = await fetch("http://localhost:3000/api/ApplyPoints", {
+          method: "POST",
+          body: JSON.stringify({
+            playerData: finalData.slice(280, 380),
+            round: props.currentRound,
+          }),
+        });
+
+        if (res3.ok && res4.ok) {
+          const res5 = await fetch("http://localhost:3000/api/ApplyPoints", {
+            method: "POST",
+            body: JSON.stringify({
+              playerData: finalData.slice(380, 480),
+              round: props.currentRound,
+            }),
+          });
+          console.log("Final batch");
+          const res6 = await fetch("http://localhost:3000/api/ApplyPoints", {
+            method: "POST",
+            body: JSON.stringify({
+              playerData: finalData.slice(480, 560),
+              round: props.currentRound,
+            }),
+          });
+          const res7 = await fetch("http://localhost:3000/api/ApplyPoints", {
+            method: "POST",
+            body: JSON.stringify({
+              playerData: finalData.slice(560, 660),
+              round: props.currentRound,
+            }),
+          });
+          const res8 = await fetch("http://localhost:3000/api/ApplyPoints", {
+            method: "POST",
+            body: JSON.stringify({
+              playerData: finalData.slice(660, finalData.length),
+              round: props.currentRound,
+            }),
+          });
+
+          if (res6.ok && res7.ok && res5.ok)
+            return [res, res2, res3, res4, res5, res6, res7, res8];
+        }
+
+        throw new Error();
+      }
+    }
   };
 
   //Point form. Take 62nd col and -1 then * 100 then take 73 cols

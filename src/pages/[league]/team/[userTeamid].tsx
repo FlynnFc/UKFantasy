@@ -39,6 +39,8 @@ const UserTeam = () => {
     fetcher();
   }, [query.userTeamid]);
 
+  console.log(team);
+
   return (
     <>
       <Head>
