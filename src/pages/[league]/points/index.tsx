@@ -51,17 +51,19 @@ const Index = (props: { data: any }) => {
 
   const currentRound = useMemo(() => {
     if (props.data[0]?.SelectedPlayer) {
-      const players = props.data[0].SelectedPlayer;
       let mostPlayedplayer: number[] = [];
-      for (let i = 0; i < players.length; i++) {
-        if (players[i].points.length > mostPlayedplayer.length)
-          mostPlayedplayer = [...players[i].points];
+      for (let j = 0; j < props.data.length; j++) {
+        const team = props.data[j].SelectedPlayer;
+        for (let i = 0; i < team.length; i++) {
+          const player = team[i];
+          if (player.points.length > mostPlayedplayer.length)
+            mostPlayedplayer = [...player.points];
+        }
       }
+
       return mostPlayedplayer;
     } else return [];
   }, [props.data]);
-
-  console.log(props.data);
 
   const [selectedRound, setSelectedRound] = useState(currentRound.length + 1);
   return (
