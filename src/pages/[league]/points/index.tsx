@@ -51,21 +51,32 @@ const Index = (props: { data: any }) => {
 
   const currentRound = useMemo(() => {
     if (props.data[0]?.SelectedPlayer) {
+      let highestround = 1;
       let mostPlayedplayer: number[] = [];
       for (let j = 0; j < props.data.length; j++) {
         const team = props.data[j].SelectedPlayer;
         for (let i = 0; i < team.length; i++) {
           const player = team[i];
+          // console.log(player.points[player.points.length - 1]?.roundNumber);
+          if (
+            highestround < player.points[player.points.length - 1]?.roundNumber
+          ) {
+            highestround = player.points[player.points.length - 1]?.roundNumber;
+          }
           if (player.points.length > mostPlayedplayer.length)
             mostPlayedplayer = [...player.points];
         }
       }
-
-      return mostPlayedplayer;
+      console.log(highestround);
+      const arr = [];
+      for (let i = 0; i < highestround; i++) {
+        arr.push(i);
+      }
+      return arr;
     } else return [];
   }, [props.data]);
 
-  const [selectedRound, setSelectedRound] = useState(currentRound.length + 1);
+  const [selectedRound, setSelectedRound] = useState(currentRound.length);
   return (
     <div className="min-w-screen container flex h-full min-h-screen max-w-7xl  select-none flex-col items-center justify-start gap-4 sm:mx-auto">
       <h1 className="mb-5 text-5xl">{`${leagueName} point dashboard`}</h1>
