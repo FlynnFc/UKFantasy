@@ -1,13 +1,14 @@
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer bottom-0 grid-cols-3 items-center bg-neutral p-4 text-neutral-content">
-      <div className="grid-flow-col items-center">
-        <p>Copyright © 2022</p>
+    <footer className="footer bottom-0 flex max-h-min flex-col items-center bg-base-300 p-4 text-base-content sm:grid sm:grid-cols-3">
+      <div className="flex grid-flow-col flex-row items-start gap-4">
+        <p className="py-1">Copyright © 2022</p>
       </div>
-      <div className="flex w-full items-center justify-center">
-        <p className="text-center">Made with &#10084; by Flynn</p>
+      <div className="items-between flex w-full justify-center gap-4">
+        <p className="py-1 text-center">Made with &#10084; by Flynn</p>
       </div>
       <div className="grid-flow-col md:place-self-center md:justify-self-end">
         <a
@@ -15,6 +16,7 @@ const Footer = () => {
           href="https://twitter.com/lutafatootoo"
           rel="noreferrer"
           aria-label="Link to social media"
+          className="py-1"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

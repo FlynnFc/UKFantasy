@@ -1,11 +1,15 @@
 import Link from "next/link";
 import React from "react";
 
-const TeamButtonTable = (props: { name: string; id: string }) => {
+const TeamButtonTable = (props: {
+  name: string;
+  id: string;
+  league: string;
+}) => {
   return (
     <>
-      <Link href={`/team/${props.id}`}>
-        <button className="rounded p-2 transition-none hover:bg-primary hover:text-primary-content">
+      <Link href={`${props.league}/team/${props.id}`}>
+        <button className="max-w-sm overflow-hidden text-ellipsis whitespace-nowrap rounded p-2 transition-none hover:bg-base-300">
           {props.name}
         </button>
       </Link>

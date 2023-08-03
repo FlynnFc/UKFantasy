@@ -2,19 +2,16 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTable, useSortBy } from "react-table";
 import Loading from "./Loading";
 import TeamButtonTable from "./TeamButtonTable";
-
-// type team = {
-//   username: string;
-//   team: string
-//   rolepoints: number;
-//   points: number;
-// totalpoints:number;
-// }
+import { useRouter } from "next/router";
+import LocalLoading from "./LocalLoading";
 
 const Table = (props) => {
+  const { query } = useRouter();
+  //todo
+  //Sort leaderboard by total points on load
+  const [loading, setLoading] = useState(true);
   const [playerData, setPlayerData] = useState([]);
   const [checker, setChecker] = useState(new Set([]));
-
   useEffect(() => {
     const data = [...props.data];
     data.map((el) => {
@@ -22,57 +19,41 @@ const Table = (props) => {
         return;
       } else {
         setChecker((prev) => new Set([...prev, el.id]));
+        const points = 0;
+        const bonusPoints = 0;
+        el.SelectedPlayer.forEach((element) => {
+          element.points.forEach((el) => (points += el.value));
+          element.bonusPoint.forEach((el) => (bonusPoints += el.value));
+        });
+
         setPlayerData((prev) => {
           return [
             ...prev,
             {
-              username: el.User[0].name,
-              team: <TeamButtonTable name={el.teamName} id={el.id} />,
-              points: el.points,
-              rolepoints: el.rolePoints,
-              totalpoints: parseInt(el.points) + parseInt(el.rolePoints),
+              username: el.User.name,
+              team: (
+                <TeamButtonTable
+                  name={el.teamName}
+                  id={el.id}
+                  league={query.league}
+                />
+              ),
+              points: points,
+              rolepoints: bonusPoints,
+              totalpoints: points + bonusPoints,
             },
           ];
         });
       }
     });
-  }, [checker, props.data]);
-  // setTimeout(() => console.log(playerData));
 
-  //Seed Data for testing
-  const data = React.useMemo(
-    () => [
-      {
-        username: "flynn",
-        team: "World Weapons under haznoodle",
-        rolepoints: 5,
-        points: 10,
-        totalpoints: 105,
-      },
-      {
-        username: "flynn",
-        team: "World",
-        rolepoints: 5,
-        points: 20,
-        totalpoints: 105,
-      },
-      {
-        username: "flynn",
-        team: "World",
-        rolepoints: 5,
-        points: 77,
-        totalpoints: 105,
-      },
-      {
-        username: "flynn",
-        team: "World",
-        rolepoints: 5,
-        points: 44,
-        totalpoints: 105,
-      },
-    ],
-    []
-  );
+    setLoading(false);
+  }, [checker, props.data, query.league]);
+
+  const sortedTeams = useMemo(() => {
+    return playerData.sort((a, b) => b.totalpoints - a.totalpoints);
+  }, [playerData]);
+
   const submissiondata = useMemo(() => [...playerData], [playerData]);
 
   const columns = useMemo(
@@ -86,13 +67,14 @@ const Table = (props) => {
         accessor: "team",
       },
       {
-        Header: "role points",
-        accessor: "rolepoints",
-      },
-      {
         Header: "points",
         accessor: "points",
       },
+      {
+        Header: "bonus points",
+        accessor: "rolepoints",
+      },
+
       {
         Header: "Total points",
         accessor: "totalpoints",
@@ -105,63 +87,81 @@ const Table = (props) => {
     useTable({ columns: columns, data: submissiondata }, useSortBy);
 
   return (
-    <>
-      <table
-        {...getTableProps()}
-        className="table w-full font-semibold shadow-lg"
-      >
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr
-              className="transition-all"
-              key={headerGroup}
-              {...headerGroup.getHeaderGroupProps()}
-            >
-              {headerGroup.headers.map((column) => (
-                <th
-                  key={column.Cell}
-                  className="box-content text-center"
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
+    <div className="max-h-[35rem] w-full">
+      {!loading ? (
+        playerData.length > 0 ? (
+          <table
+            {...getTableProps()}
+            className="table w-full select-none overflow-scroll font-semibold"
+          >
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr
+                  className="transition-all"
+                  key={headerGroup}
+                  {...headerGroup.getHeaderGroupProps()}
                 >
-                  {column.render("Header")}
-                  <span className="absolute">
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? " 🔽"
-                        : " 🔼"
-                      : ""}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr
-                className="transition-all"
-                key={row.id}
-                {...row.getRowProps()}
-              >
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      className="text-center font-normal"
-                      key={"test"}
-                      {...cell.getCellProps()}
+                  {headerGroup.headers.map((column, idx) => (
+                    <th
+                      key={column.Cell}
+                      className={`sticky top-0 box-content bg-primary text-center text-primary-content ${
+                        idx === 0 &&
+                        "rounded-btn rounded-r-none rounded-bl-none"
+                      } ${
+                        idx === headerGroup.headers.length - 1 &&
+                        "rounded-btn rounded-l-none rounded-br-none"
+                      }`}
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </>
+                      {column.render("Header")}
+                      <span className="absolute">
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
+                      </span>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()} className="overflow-x-auto">
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr
+                    className="z-10 transition-all"
+                    key={row.id}
+                    {...row.getRowProps()}
+                  >
+                    {row.cells.map((cell) => {
+                      return (
+                        <td
+                          className="max-w-sm  overflow-hidden text-ellipsis whitespace-nowrap bg-base-200  text-center  font-normal"
+                          key={"test"}
+                          {...cell.getCellProps()}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        ) : (
+          <div className="flex min-w-full flex-row rounded-lg bg-base-200 p-4 ">
+            <h3 className="w-full text-center text-base-content text-inherit">
+              No teams submitted yet
+            </h3>
+          </div>
+        )
+      ) : (
+        <LocalLoading />
+      )}
+    </div>
   );
 };
 

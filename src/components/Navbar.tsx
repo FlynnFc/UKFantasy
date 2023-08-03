@@ -1,42 +1,116 @@
+import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import LoginBtn from "./LoginBtn";
-import { themeChange } from "theme-change";
-import { FaMoon, FaSun } from "react-icons/fa";
+import logo from "../images/mininewlogo.png";
+import { useSession } from "next-auth/react";
+
+type theme = string[];
 
 const Navbar = () => {
-  const [, setDarkMode] = useState(true);
+  const [darkmode, setDarkMode] = useState<boolean>();
+  const [theme, setTheme] = useState<theme>(["mythemeLight", "mytheme"]);
+  const { status } = useSession();
+  const [y, setY] = useState(0);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+
+  const handleNavigation = useCallback((e: any) => {
+    const window = e.currentTarget;
+    setY(window.scrollY);
+  }, []);
+
+  useEffect(() => {
+    setY(window.scrollY);
+    window.addEventListener("scroll", handleNavigation);
+
+    return () => {
+      window.removeEventListener("scroll", handleNavigation);
+    };
+  }, [handleNavigation]);
+
+  useEffect(() => {
+    if (y > 50) setScrolled(true);
+    else setScrolled(false);
+  }, [y]);
+
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    const bodyEl = document.querySelector("body");
+    const userPrefered = localStorage.getItem("darkmode");
+    if (userPrefered && localTheme) {
+      const themes: theme = localTheme.split(",");
+      setTheme(themes);
+      const selectedTheme: string = themes[
+        userPrefered === "true" ? 1 : 0
+      ] as string;
+      bodyEl?.setAttribute("data-theme", selectedTheme);
+    } else {
+      const isBrowserSetToDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      if (localTheme) {
+        const themes: theme = localTheme.split(",");
+        setTheme(themes);
+
+        const selectedTheme: string = themes[darkmode ? 1 : 0] as string;
+        bodyEl?.setAttribute("data-theme", selectedTheme);
+      } else {
+        localStorage.setItem("theme", "myThemeLight,mytheme");
+        bodyEl?.setAttribute(
+          "data-theme",
+          isBrowserSetToDark ? "mytheme" : "myThemeLight"
+        );
+      }
+    }
+  }, [darkmode]);
 
   const themeHandler = () => {
     setDarkMode((prev) => !prev);
+
+    const bodyEl = document.querySelector("body");
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const chosenTheme: string = theme[darkmode ? 1 : 0]!;
+    localStorage.setItem("darkmode", darkmode ? "true" : "false");
+    bodyEl?.setAttribute("data-theme", chosenTheme);
   };
 
-  useEffect(() => {
-    themeChange(false);
-  }, []);
-
   return (
-    <div className="navbar static top-0 p-2">
-      <div className="flex w-full justify-evenly sm:justify-between">
-        <div className="flex">
-          <Link href="/">
-            <a className="btn-ghost btn text-xl normal-case">UKFantasy</a>
-          </Link>
-          <Link href="/epic36">
-            <button className="btn bg-primary text-primary-content">
-              Epic36{" "}
-            </button>
+    <nav
+      className={`navbar sticky top-0 z-50 p-2  transition-all ${
+        scrolled && "bg-neutral"
+      }`}
+    >
+      <div className="flex w-full justify-between">
+        <div className="flex space-x-4">
+          <Link href={"/"}>
+            <div className="rounded-btn btn flex cursor-pointer items-center justify-center border-none bg-inherit text-sm font-semibold normal-case text-base-content hover:bg-base-300 md:text-xl">
+              <span
+                className={`mb-3 ${
+                  scrolled ? "text-neutral-content" : "text-base-content"
+                }`}
+              >
+                UKFantasy
+              </span>
+              <Image src={logo} width={60} height={60} alt="logo" />
+            </div>
           </Link>
         </div>
-        <div className="flex space-x-2">
-          <label className="swap-rotate swap">
+        <div className="flex items-center space-x-2">
+          <LoginBtn scrolled={scrolled} primary={true} />
+          <label
+            className={`swap-rotate swap p-1 ${
+              scrolled ? "text-neutral-content" : "text-base-content"
+            }`}
+          >
             <input
               onClick={themeHandler}
-              data-toggle-theme="winter,night"
+              data-toggle-theme="business,corporate"
               type="checkbox"
             />
+
             <svg
-              className="swap-on h-10 w-10 fill-current"
+              className="swap-on h-7 w-7 fill-current md:h-10 md:w-10"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
@@ -44,18 +118,34 @@ const Navbar = () => {
             </svg>
 
             <svg
-              className="swap-off h-10 w-10 fill-current"
+              className="swap-off h-7 w-7 fill-current md:h-10 md:w-10"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
               <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
             </svg>
           </label>
-
-          <LoginBtn primary={true} />
         </div>
       </div>
-    </div>
+      {/* <div className="flex w-full justify-end">
+        <div className="dropdown-end dropdown sm:hidden">
+          <label tabIndex={0} className="btn m-1 p-2 text-3xl">
+            <IoIosArrowDropdown />
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu rounded-box w-52 bg-primary p-2 text-primary-content shadow"
+          >
+            <li>
+              <a>Item 1</a>
+            </li>
+            <li>
+              <a>Item 2</a>
+            </li>
+          </ul>
+        </div>
+      </div> */}
+    </nav>
   );
 };
 

@@ -1,11 +1,16 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 type myPlayer = {
+  bonus?: { name: string; description: string };
+  bonusEdit: boolean;
   name: string;
   price: number;
   rareity: string;
-  img?: string | any;
+  img?: string;
+  index: number;
+  points?: { value: number }[];
+  deleteBonus: (i: number) => void;
 };
 
 export const MyPlayer = (props: myPlayer) => {
@@ -14,34 +19,93 @@ export const MyPlayer = (props: myPlayer) => {
     setRareity(props.rareity);
   }, [props.rareity]);
 
+  const points = useMemo(() => {
+    let value = 0;
+    props.points?.map((el) => (value += el.value));
+    return value;
+  }, [props.points]);
+
   return (
-    <div
-      className={`w-[16rem] flex-col rounded-xl bg-base-200 shadow-lg lg:h-[24rem]`}
-    >
+    <div className={`w-[14rem] flex-col shadow-lg xl:h-[20rem]`}>
       <div
-        className={`relative hidden h-72 cursor-auto justify-center lg:block`}
+        className={` relative hidden h-[20rem] cursor-auto rounded-b-none bg-base-200 lg:block`}
       >
-        {props.img && (
+        {props.bonus && (
+          <div
+            className={`absolute top-0 z-10 flex w-full items-center justify-center  p-1 text-center  `}
+          >
+            <div className="rounded-btn flex flex-row gap-2 border border-white bg-gray-800 px-1 text-center">
+              <button
+                data-tip={props.bonus.description}
+                className={` tooltip text-lg  text-white`}
+              >
+                {props.bonus.name}
+              </button>
+              {props.bonusEdit && (
+                <button
+                  onClick={() => props.deleteBonus(props.index)}
+                  className="mr-2 mt-[0.1rem]  font-bold text-red-500"
+                >
+                  X
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+        <div
+          className={`absolute bottom-3 z-10 w-full select-none flex-col items-center justify-evenly justify-self-end font-bold  `}
+        >
+          <div className="lg:hidden">{props.name}</div>
+          <div>
+            <p
+              className={`pb-2 text-center lg:text-3xl ${
+                props.price >= 21500
+                  ? "gold"
+                  : props.price > 19000
+                  ? "silver"
+                  : "bronze"
+              }`}
+            >
+              £{new Intl.NumberFormat("en").format(props.price)}
+            </p>
+          </div>
+        </div>
+        {props.img ? (
           <Image
-            className="text-center drop-shadow-2xl"
+            loading="eager"
+            className="z-0 text-center drop-shadow-2xl"
             alt="player portrait"
-            layout="fill"
             src={props.img}
+            layout="fill"
           />
+        ) : (
+          <div></div>
         )}
       </div>
       <div
-        className={`${rareity} flex h-[6rem] select-none flex-col items-center justify-evenly rounded-lg lg:rounded-none lg:rounded-b-lg `}
+        className={`flex flex-col items-center justify-center bg-neutral   lg:rounded-btn lg:hidden`}
       >
-        <h2 className="pt-3 text-center font-bold leading-none text-base-200 lg:text-2xl xl:text-4xl">
-          {props.name}
-        </h2>
-        <div>
-          <p className="pb-3 text-center text-base-200 xl:text-3xl">
-            £{props.price}
-          </p>
-        </div>
+        <h2 className={`${props.rareity}`}>{props.name}</h2>
+        <span className={`${props.rareity}`}>{props.price}</span>
       </div>
+      {props.bonus && (
+        <div
+          className={`tooltip z-10 flex w-full gap-2 bg-base-100 p-1 text-center  text-base-content lg:hidden`}
+          data-tip={props.bonus.description}
+        >
+          <button className="w-full text-center text-lg font-bold  text-base-content">
+            {props.bonus.name}
+          </button>
+          {props.bonusEdit && (
+            <button
+              onClick={() => props.deleteBonus(props.index)}
+              className="right-0 mr-2 mt-[0.1rem] font-bold text-error"
+            >
+              X
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

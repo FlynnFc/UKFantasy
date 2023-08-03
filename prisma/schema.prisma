@@ -2,14 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  provider = "prisma-client-js"
 }
 
 model Example {
@@ -20,19 +19,22 @@ model Example {
 
 // Necessary for Next auth
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  oauth_token        String?
+  oauth_token_secret String?
+  session_state      String?
+  steamid            String?
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -49,17 +51,18 @@ model Session {
 }
 
 model User {
-  id            String      @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String?
-  email         String?     @unique
+  email         String?         @unique
   emailVerified DateTime?
   image         String?
+  admin         Boolean         @default(false)
   accounts      Account[]
   sessions      Session[]
-  PlayerTeam    PlayerTeam? @relation(fields: [playerTeamId], references: [id])
-  playerTeamId  String?
-
-  @@index([playerTeamId])
+  PlayerTeam    PlayerTeam[]
+  league        League[]
+  highlight     highlight[]
+  highlightLike highlightLike[]
 }
 
 model VerificationToken {
@@ -71,45 +74,159 @@ model VerificationToken {
 }
 
 model Player {
-  id         String       @id @default(cuid())
-  name       String
-  price      Int
-  Image      String       @db.Text
-  Rareity    String
-  Stats      Stats        @relation(fields: [statsId], references: [id])
-  statsId    String
-  PlayerTeam PlayerTeam[]
+  id          String  @id @default(cuid())
+  steamid     String? @unique
+  name        String
+  price       Int
+  image       String  @db.Text
+  rareity     String
+  priceadjust Int     @default(0)
+  stats       Stats[]
+  team        Team    @relation(fields: [teamId], references: [id])
+  teamId      String
 
-  team   Team   @relation(fields: [teamId], references: [id])
-  teamId String
-
-  @@index([statsId])
   @@index([teamId])
 }
 
 model Stats {
   id           String   @id @default(cuid())
-  hltv         String
-  faceitElo    Int
-  HS           Int
-  EntryRounds  Int
-  ClutchRounds Int
-  link         String
+  event        String?
+  hltv         Float    @default(0.0)
+  KAST         Int      @default(0)
+  ADR          Int      @default(0)
+  utilThrown   Int      @default(0)
+  hs           Int      @default(0)
+  entryKills   Float    @default(0.0)
+  clutchRounds Float    @default(0.0)
+  deathsTraded Float    @default(0.0)
+  Objectives   Float    @default(0.0)
   Player       Player[]
 }
 
 model PlayerTeam {
-  id         String   @id @default(cuid())
-  teamName   String
-  points     String
-  rolePoints String
-  Player     Player[]
+  id             String           @id @default(cuid())
+  teamName       String
+  points         String
+  rolePoints     String
+  league         League?          @relation(fields: [leagueId], references: [id])
+  User           User?            @relation(fields: [userId], references: [id])
+  leagueId       String?
+  userId         String?
+  SelectedPlayer SelectedPlayer[]
+  ready          Boolean          @default(false)
 
-  User User[]
+  @@index([leagueId])
+  @@index([userId])
+}
+
+model SelectedPlayer {
+  id           String       @id @default(cuid())
+  name         String
+  price        Int
+  steamid      String?
+  image        String?      @db.Text
+  rareity      String
+  bonus        bonus?       @relation(fields: [bonusName], references: [name])
+  playerTeamId String?
+  bonusName    String?
+  PlayerTeam   PlayerTeam?  @relation(fields: [playerTeamId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  points       point[]
+  bonusPoint   bonusPoint[]
+
+  @@index([bonusName])
+  @@index([playerTeamId])
+}
+
+model bonusPoint {
+  id               String          @id @default(cuid())
+  value            Int
+  SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  selectedPlayerId String?
+  roundNumber      Int?
+
+  @@index([selectedPlayerId])
+}
+
+//WHY DO THEY NOT SUPPORT ARRAYS OF PRIMITIVES!!!?????
+model point {
+  id               String          @id @default(cuid())
+  value            Int
+  SelectedPlayer   SelectedPlayer? @relation(fields: [selectedPlayerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  selectedPlayerId String?
+  roundNumber      Int?
+
+  @@index([selectedPlayerId])
 }
 
 model Team {
   id       String   @id @default(cuid())
   teamName String
   Player   Player[]
+  league   League[]
+}
+
+model League {
+  id             String        @id @default(cuid())
+  name           String        @unique
+  description    String        @db.Text
+  Teams          Team[]
+  User           User[]
+  offical        Boolean       @default(false)
+  playerTeam     PlayerTeam[]
+  LeagueRounds   LeagueRounds? @relation(fields: [leagueRoundsId], references: [id])
+  openDate       DateTime      @default(now())
+  startDate      DateTime      @default(now())
+  endDate        DateTime      @default(now())
+  leagueRoundsId String?
+  highlight      highlight[]
+
+  @@index([leagueRoundsId])
+}
+
+model LeagueRounds {
+  id           String   @id @default(cuid())
+  roundsPlayed round[]
+  League       League[]
+}
+
+model round {
+  id             String        @id @default(cuid())
+  number         Int           @default(1)
+  LeagueRounds   LeagueRounds? @relation(fields: [leagueRoundsId], references: [id])
+  leagueRoundsId String?
+
+  @@index([leagueRoundsId])
+}
+
+model bonus {
+  name           String           @id @unique
+  description    String           @db.Text
+  SelectedPlayer SelectedPlayer[]
+}
+
+model highlight {
+  id            String          @id @unique @default(cuid())
+  author        User            @relation(fields: [userId], references: [id])
+  likes         Int
+  userId        String
+  source        String
+  title         String
+  League        League?         @relation(fields: [leagueId], references: [id])
+  leagueId      String?
+  submitDate    DateTime        @default(now())
+  highlightLike highlightLike[]
+
+  @@index([userId])
+  @@index([leagueId])
+}
+
+model highlightLike {
+  id          String    @id @unique @default(uuid())
+  likedBy     User      @relation(fields: [userId], references: [id])
+  highlight   highlight @relation(fields: [highlightId], references: [id], onDelete: Cascade)
+  highlightId String
+  userId      String
+
+  @@index([highlightId])
+  @@index([userId])
 }

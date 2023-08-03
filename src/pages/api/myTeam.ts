@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
 
-export default async function assetHandler(req:any, res:any) {
+export default async function assetHandler(req:NextApiRequest, res:NextApiResponse) {
     const { method } = req
     const {headers} = req
     const id = headers.id
@@ -11,10 +11,11 @@ export default async function assetHandler(req:any, res:any) {
         try {
           const myTeam = await prisma?.user.findUnique({
             where: {
-              id: id,
+              id: id?.toString(),
             },
             include: {
-              PlayerTeam:{include:{Player:true}},
+              PlayerTeam:{include:{league:true, SelectedPlayer:{include:{bonus:true,points:true, bonusPoint:true}}}},
+              
             },
           })
           res.status(200).json(myTeam)

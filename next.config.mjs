@@ -26,9 +26,23 @@ export default defineNextConfig({
       {
         protocol: "https",
         hostname: "wosipkxcwhwqrtnbwdxx.supabase.co",
-        port: "",
-        pathname: "/storage/v1/object/sign/players/**",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/a/**",
+      },
+      {
+        protocol: "https",
+        hostname: "pbs.twimg.com",
+        pathname: "/profile_images/**",
+      },
+      {
+        protocol: "https",
+        hostname: "img-cdn.hltv.org",
+        pathname: "/playerbodyshot/**",
+      },
+      { protocol: "https", hostname: "avatars.steamstatic.com" },
     ],
   },
 });

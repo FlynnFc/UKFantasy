@@ -1,50 +1,124 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { IoIosArrowDropdown } from "react-icons/io";
-export default function LoginBtn(props: { primary: boolean }) {
-  const { data: session } = useSession();
-  if (session?.user) {
-    return (
-      <>
-        <div className="dropdown-end dropdown">
+export default function LoginBtn(props: {
+  primary: boolean;
+  scrolled: boolean;
+}) {
+  const { status } = useSession();
+  const { route, query } = useRouter();
+  return (
+    <>
+      <ul
+        className={`menu menu-horizontal hidden flex-row gap-1 bg-none md:flex ${
+          props.scrolled ? "text-neutral-content" : "text-base-content"
+        }`}
+      >
+        <li tabIndex={0} className="p-1">
+          <Link href="/leagues">
+            <a
+              className={`${
+                route === "/leagues"
+                  ? `bg-primary-focus text-primary-content`
+                  : undefined
+              } btn-ghost btn text-inherit hover:bg-primary-focus/40`}
+            >
+              Leagues
+            </a>
+          </Link>
+          <ul className="w-full pr-2">
+            <li className="w-full">
+              <Link href={`/epic39`}>
+                <a
+                  className={` btn bg-neutral text-neutral-content hover:bg-neutral hover:text-neutral-content ${
+                    query.league === "epic39" &&
+                    `bg-primary-focus text-primary-content`
+                  }`}
+                >
+                  Epic39
+                </a>
+              </Link>
+            </li>
+          </ul>
+        </li>
+        {status === "authenticated" && (
+          <li className="p-1">
+            <Link href={"/profile"}>
+              <a
+                className={`${
+                  route === "/profile"
+                    ? `bg-primary-focus text-primary-content`
+                    : undefined
+                } btn-ghost btn hover:bg-primary-focus/40 `}
+              >
+                Profile
+              </a>
+            </Link>
+          </li>
+        )}
+      </ul>
+      {status === "loading" ? (
+        <button
+          disabled
+          className="btn animate-pulse border-none bg-transparent px-2 text-2xl text-base-content sm:text-4xl"
+        >
+          <IoIosArrowDropdown />
+        </button>
+      ) : status === "authenticated" ? (
+        <div className="dropdown-end dropdown hover:text-primary-content md:hidden">
           <label
             tabIndex={0}
-            className="btn m-1 border-none bg-transparent p-1 px-2 text-4xl text-base-content"
+            className="btn border-none bg-transparent px-2 text-2xl text-base-content hover:text-inherit md:text-4xl"
           >
             <IoIosArrowDropdown />
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box w-52 space-y-2 bg-secondary p-2 text-primary-content shadow "
+            className="dropdown-content menu rounded-btn w-[12.7rem] space-y-2 bg-primary p-2 text-primary-content shadow"
           >
             <li>
-              <a>Profile</a>
-            </li>
-            <li>
-              <Link href={"./settings"}>
-                <a>Settings</a>
+              <Link href={"/profile"}>
+                <a
+                  className={`${
+                    route === "/profile" ? `bg-primary-focus` : undefined
+                  } hover:bg-primary-focus/40`}
+                >
+                  Profile
+                </a>
               </Link>
             </li>
+            {status === "authenticated" && (
+              <li className="block md:hidden">
+                <Link href="/leagues">
+                  <a
+                    className={`${
+                      route === "/leagues" ? `bg-primary-focus` : undefined
+                    } hover:bg-primary-focus/40`}
+                  >
+                    Leagues
+                  </a>
+                </Link>
+              </li>
+            )}
+
             <li>
-              <button className="btn text-white" onClick={() => signOut()}>
+              <button className="btn text-white " onClick={() => signOut()}>
                 Sign out
               </button>
             </li>
           </ul>
         </div>
-      </>
-    );
-  }
-  return (
-    <>
-      <button
-        className={`${
-          props.primary ? "btn-primary" : "btn mt-4 w-max"
-        } btn mr-2`}
-        onClick={() => signIn()}
-      >
-        Sign in
-      </button>
+      ) : (
+        <button
+          className={`${
+            props.primary ? "btn-primary" : "btn mt-4 w-max"
+          } btn-sm btn mr-2 text-sm sm:btn-md`}
+          onClick={() => signIn()}
+        >
+          Sign in
+        </button>
+      )}
     </>
   );
 }
