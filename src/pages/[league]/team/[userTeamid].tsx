@@ -25,7 +25,7 @@ const UserTeam = () => {
   useEffect(() => {
     const fetcher = async () => {
       const teamId: string = query.userTeamid as string;
-      const res = await fetch("/api/UserTeamById", {
+      const res = await fetch("/api/userteam", {
         method: "GET",
         headers: { id: teamId },
       });

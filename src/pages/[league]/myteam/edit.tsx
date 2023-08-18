@@ -100,7 +100,7 @@ const Edit = (props: {
             }
           }
         );
-        console.log(matchedTeam);
+
         if (matchedTeam[0] !== undefined) {
           console.log("first");
           setTeamName(matchedTeam[0].teamName);
@@ -268,15 +268,19 @@ const Edit = (props: {
         players: playerIds,
         league: query.league,
       };
-
+      console.log(body);
       const JSONbody = await JSON.stringify(body);
-      const response = await fetch("/api/editTeam", {
-        method: "POST",
+
+      const response = await fetch("/api/userteam", {
+        method: "PUT",
         body: JSONbody,
       });
-      if (response.ok) {
-        return response;
-      } else throw new Error("Could not submit team!");
+      console.log(response);
+      if (!response.ok) {
+        throw new Error("Could not submit team!");
+      }
+
+      return response;
     } catch (error) {
       throw error;
     }
@@ -521,7 +525,7 @@ export async function getServerSideProps(paths: {
 }) {
   // const path = "http://localhost:3000/";
   const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allTeams`, {
+  const res = await fetch(`${path}/api/teams`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
   });

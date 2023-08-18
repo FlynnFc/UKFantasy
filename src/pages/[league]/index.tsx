@@ -17,12 +17,12 @@ import { ExternalLink } from "lucide-react";
 export async function getStaticProps(paths: { params: { league: string } }) {
   // const path = "http://localhost:3000";
   const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allLeagues`, {
+  const res = await fetch(`${path}/api/leagues`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
   });
   const data = await res.json();
-  const streamsRes = await fetch(`${path}/api/allTwitchStreams`);
+  const streamsRes = await fetch(`${path}/api/twitchstreams`);
   const streamData = await streamsRes.json();
   const streams = streamData.data;
   return {
@@ -37,7 +37,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
 export async function getStaticPaths() {
   // const path = "http://localhost:3000/";
   const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   const data = await res.json();
 
   const paths = data.map((league: { name: string }) => ({
@@ -88,7 +88,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
   useEffect(() => {
     setLoading(true);
     const tempData: any = [];
-    fetch("/api/allUserTeams", {
+    fetch("/api/userteam", {
       method: "GET",
       headers: { leagename: JSON.stringify(query.league) },
     })
