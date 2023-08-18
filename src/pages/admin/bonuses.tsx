@@ -7,7 +7,7 @@ export async function getServerSideProps(paths: {
   // const path = "http://localhost:3000/";
   const path = "https://esportsfantasy.app/";
 
-  const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
+  const res = await fetch(`${path}api/bonuses`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;
@@ -46,7 +46,7 @@ const Bonuses = ({ data }: any) => {
     <Adminlayout>
       <div className="flex w-full flex-col justify-start gap-2 ">
         <section className="mx-auto grid w-full max-w-2xl gap-4">
-          <select className="select-bordered select" name="" id="">
+          <select className="select select-bordered" name="" id="">
             <option value="edit">Edit bonuses</option>
             <option disabled value="create">
               Add new bonus
@@ -133,7 +133,7 @@ const Bonuses = ({ data }: any) => {
               </div>
             )}
             <div className="grid grid-cols-2 gap-3">
-              <button disabled className="btn-success btn">
+              <button disabled className="btn btn-success">
                 Submit
               </button>
               <button
@@ -147,7 +147,7 @@ const Bonuses = ({ data }: any) => {
                   setNewDescription(undefined);
                   setNewName(undefined);
                 }}
-                className="btn-secondary btn"
+                className="btn btn-secondary"
               >
                 Reset
               </button>
