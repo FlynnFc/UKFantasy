@@ -13,13 +13,13 @@ export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
   // const path = "http://localhost:3000/";
   const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
+  const res = await fetch(`${path}api/leagues`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;
   }
 
-  const res2 = await fetch(`${path}/api/allAdmins`, {
+  const res2 = await fetch(`${path}/api/admins`, {
     method: "GET",
   });
   if (!res.ok) {
