@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 
 export async function getServerSideProps() {
-  const res = await fetch("https://uk-fantasy.vercel.app/api/allTeams");
+  const res = await fetch("https://uk-fantasy.vercel.app/api/teams");
   const data = await res.json();
   return {
     props: {
