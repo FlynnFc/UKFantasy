@@ -9,7 +9,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const league = req.headers.leaguename as string;
         const teamid = req.headers.id as string;
-        if (!league || !teamid) {
+        if (!league && !teamid) {
           const userTeams = await prisma.playerTeam.findMany({
             include: {
               league: true,
@@ -46,8 +46,9 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ error: "Error fetching players" });
       }
       break;
-    case "UPDATE":
+    case "PUT":
       try {
+        console.log("Run run run");
         const data = await JSON.parse(req.body);
         const teamName = prisma.playerTeam.update({
           where: { id: data.id },
@@ -115,7 +116,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
           ...prismaAddPlayer,
           ...prismaDeletePlayers,
         ]);
-
+        console.log("got to here lmao");
         res.status(200).json(updateTeam);
       } catch (error) {
         res.status(500).json("Failed to submit");
@@ -186,7 +187,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
       }
       break;
     default:
-      res.setHeader("Allow", ["GET", "POST", "DELTE"]);
+      res.setHeader("Allow", ["GET", "POST", "DELTE", "PUT"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       break;
   }
