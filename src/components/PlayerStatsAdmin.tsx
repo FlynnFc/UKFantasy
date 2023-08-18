@@ -67,7 +67,7 @@ const PlayerStatsAdmin = () => {
   const [playerData, setPlayerData] = useState(new Map());
   const [emptyPlayer, setEmptyPlayer] = useState(new Map());
   const playerDataHandler = async (league: string) => {
-    const res = await fetch(`/api/allUserTeams`, {
+    const res = await fetch(`/api/userteam`, {
       method: "GET",
       headers: { leaguename: league.toLowerCase() },
     });
@@ -77,7 +77,7 @@ const PlayerStatsAdmin = () => {
     }
     const data = await res.json();
 
-    const res2 = await fetch(`/api/allTeams`, {
+    const res2 = await fetch(`/api/teams`, {
       method: "GET",
       headers: { leaguename: league.toLowerCase() },
     });

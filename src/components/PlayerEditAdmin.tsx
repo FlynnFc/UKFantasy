@@ -14,7 +14,7 @@ const PlayerEditAdmin = () => {
   const [leagueData, setLeagueData] = useState<LeagueData>();
 
   const leagueDataHandler = async (league: string) => {
-    const res = await fetch(`/api/allTeams`, {
+    const res = await fetch(`/api/teams`, {
       method: "GET",
       headers: { leaguename: league },
     });
@@ -34,7 +34,7 @@ const PlayerEditAdmin = () => {
   const [playerAdjustPrice, setPlayerAdjustPrice] = useState(0);
   const [file, setFile] = useState();
   const playerDataHandler = async (player: string) => {
-    const res = await fetch(`/api/playerById`, {
+    const res = await fetch(`/api/player`, {
       method: "GET",
       headers: { id: player },
     });
@@ -56,8 +56,8 @@ const PlayerEditAdmin = () => {
       price: playerPrice,
       priceadjust: playerAdjustPrice,
     });
-    const res = await fetch(`/api/updatePlayer`, {
-      method: "POST",
+    const res = await fetch(`/api/player`, {
+      method: "PUT",
       headers: { id: selectedPlayer },
       body: playerinfo,
     });

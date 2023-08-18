@@ -7,7 +7,7 @@ const player = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body } = req;
 
   switch (method) {
-    case "UPDATE":
+    case "PUT":
       try {
         const id: string = headers.id as string;
         const data = JSON.parse(body);
@@ -48,7 +48,7 @@ const player = async (req: NextApiRequest, res: NextApiResponse) => {
     case "POST":
       playerStats(req, res);
     default:
-      res.setHeader("Allow", ["UPDATE"]);
+      res.setHeader("Allow", ["PUT", "GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       break;
   }

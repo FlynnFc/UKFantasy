@@ -20,7 +20,7 @@ import { Edit } from "lucide-react";
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
   // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
+  const path = "https://esportsfantasy.app/";
 
   const res = await fetch(`${path}/api/admins`, {
     method: "GET",
