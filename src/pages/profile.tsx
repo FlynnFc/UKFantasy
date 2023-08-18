@@ -22,7 +22,7 @@ export async function getServerSideProps({ req }: any) {
   // const path = "http://localhost:3000/";
   const path = "https://uk-fantasy.vercel.app/";
 
-  const res = await fetch(`${path}/api/allAdmins`, {
+  const res = await fetch(`${path}/api/admins`, {
     method: "GET",
   });
   if (!res.ok) {

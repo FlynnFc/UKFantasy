@@ -46,14 +46,14 @@ export async function getServerSideProps(context: {
   const path = "https://esportsfantasy.app/";
   const { league } = context.params;
 
-  const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
+  const res = await fetch(`${path}api/bonuses`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;
   }
   const data = await res.json();
 
-  const res2 = await fetch(`${path}/api/getLeague`, {
+  const res2 = await fetch(`${path}/api/leagues`, {
     method: "GET",
     headers: { leagueName: league },
   });
@@ -369,7 +369,7 @@ const Myteam = (props: {
 
   const teamDeleter = async () => {
     if (session?.user?.id && team?.id) {
-      const res = await fetch("/api/deleteTeam", {
+      const res = await fetch("/api/userteam", {
         method: "DELETE",
         headers: { id: team.id },
       });
