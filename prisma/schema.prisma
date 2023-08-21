@@ -74,16 +74,17 @@ model VerificationToken {
 }
 
 model Player {
-  id          String  @id @default(cuid())
-  steamid     String? @unique
-  name        String
-  price       Int
-  image       String  @db.Text
-  rareity     String
-  priceadjust Int     @default(0)
-  stats       Stats[]
-  team        Team    @relation(fields: [teamId], references: [id])
-  teamId      String
+  id           String         @id @default(cuid())
+  steamid      String?        @unique
+  name         String
+  price        Int
+  image        String         @db.Text
+  rareity      String
+  priceadjust  Int            @default(0)
+  stats        Stats[]
+  team         Team           @relation(fields: [teamId], references: [id])
+  teamId       String
+  playerPoints playerPoints[]
 
   @@index([teamId])
 }
@@ -202,6 +203,28 @@ model bonus {
   name           String           @id @unique
   description    String           @db.Text
   SelectedPlayer SelectedPlayer[]
+}
+
+model playerPoints {
+  id           String @id @unique @default(cuid())
+  round        Int
+  ADR_warrior  Int?
+  all_rounder  Int?
+  PTFO         Int?
+  awper        Int?
+  clutcher     Int?
+  entry_king   Int?
+  head_clicker Int?
+  knife        Int?
+  points       Int?
+  site_on_lock Int?
+  stat_padder  Int?
+  trade_me     Int?
+  util_nerd    Int?
+  Player       Player @relation(fields: [playerId], references: [id])
+  playerId     String
+
+  @@index([playerId])
 }
 
 model highlight {
