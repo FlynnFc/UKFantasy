@@ -11,6 +11,7 @@ export type stream = {
 const AllLiveChannels = (props: { streams: stream[] }) => {
   const [expanded, setExpanded] = useState(false);
   const streams = useMemo(() => {
+    if (props.streams.length < 1) return [];
     if (expanded) {
       return props.streams;
     }
