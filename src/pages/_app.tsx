@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Analytics } from "@vercel/analytics/react";
+// import { Analytics } from "@vercel/analytics/react";
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -40,7 +40,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <Navbar />
         <Component {...pageProps} />
         <Footer />
-        <Analytics />
+        {/* <Analytics /> */}
       </SessionProvider>
     </>
   );

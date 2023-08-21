@@ -16,18 +16,22 @@ export default async function assetHandler(
         const round = data.round;
         for (let index = 0; index < data.playerData.length; index++) {
           const element = data.playerData[index];
-          const point = prisma.point.create({
+          const point = prisma.player.update({
             data: {
-              value: element.points ?? 0,
-              roundNumber: round,
-              selectedPlayerId: element.id,
+              points: {
+                create: {
+                  value: element.points ?? 0,
+                  roundNumber: round,
+                },
+              },
             },
+            where: { steamid: element.id },
           });
           const bonus = prisma.bonusPoint.create({
             data: {
               value: element.bonusPoint,
               roundNumber: round,
-              selectedPlayerId: element.id,
+              playerId: element.id,
             },
           });
 

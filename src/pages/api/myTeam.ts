@@ -1,32 +1,40 @@
-
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
 
-export default async function assetHandler(req:NextApiRequest, res:NextApiResponse) {
-    const { method } = req
-    const {headers} = req
-    const id = headers.id
-    switch (method) {
-      case 'GET':
-        try {
-          const myTeam = await prisma?.user.findUnique({
-            where: {
-              id: id?.toString(),
+export default async function assetHandler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { method } = req;
+  const { headers } = req;
+  const id = headers.id as string;
+  switch (method) {
+    case "GET":
+      try {
+        const myTeam = await prisma?.user.findUnique({
+          where: {
+            id: id,
+          },
+          include: {
+            PlayerTeam: {
+              include: {
+                league: true,
+                SelectedPlayer: {
+                  include: { bonus: true, points: true, bonusPoint: true },
+                },
+              },
             },
-            include: {
-              PlayerTeam:{include:{league:true, SelectedPlayer:{include:{bonus:true,points:true, bonusPoint:true}}}},
-              
-            },
-          })
-          res.status(200).json(myTeam)
-        } catch (e) {
-          console.error('Request error', e)
-          res.status(500).json({ error: 'Error fetching players' })
-        }
-        break
-      default:
-        res.setHeader('Allow', ['GET'])
-        res.status(405).end(`Method ${method} Not Allowed`)
-        break
-    }
+          },
+        });
+        res.status(200).json(myTeam);
+      } catch (e) {
+        console.error("Request error", e);
+        res.status(500).json({ error: "Error fetching players" });
+      }
+      break;
+    default:
+      res.setHeader("Allow", ["GET"]);
+      res.status(405).end(`Method ${method} Not Allowed`);
+      break;
   }
+}
