@@ -7,12 +7,12 @@ import RoundDeletionForm from "../../../components/RoundDeletionForm";
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
 
-  // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app/";
+  // const path = "http://localhost:3000";
+  const path = "https://esportsfantasy.app";
   const url = req.url;
   const league = url.split("/");
   console.log(league);
-  const res = await fetch(`${path}api/userteam`, {
+  const res = await fetch(`${path}/api/userteam`, {
     method: "GET",
     headers: { leaguename: league[1] },
   });
