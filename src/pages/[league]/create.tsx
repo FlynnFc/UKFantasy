@@ -491,8 +491,8 @@ const Create = (props: {
 export default Create;
 
 export async function getStaticProps(paths: { params: { league: string } }) {
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app";
+  // const path = "http://localhost:3000";
+  const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/teams`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
@@ -508,8 +508,8 @@ export async function getStaticProps(paths: { params: { league: string } }) {
 }
 
 export async function getStaticPaths() {
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app";
+  // const path = "http://localhost:3000";
+  const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   const data = await res.json();
   const paths = data.map((league: { name: string }) => ({
