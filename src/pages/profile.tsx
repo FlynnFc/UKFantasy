@@ -15,12 +15,11 @@ import { CgSpinner } from "react-icons/cg";
 import Settings from "../components/Settings";
 import Head from "next/head";
 import { BiLogOut } from "react-icons/bi";
-import { Edit } from "lucide-react";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
-  // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app/";
+  // const path = "http://localhost:3000";
+  const path = "https://esportsfantasy.app";
 
   const res = await fetch(`${path}/api/admins`, {
     method: "GET",
@@ -30,7 +29,6 @@ export async function getServerSideProps({ req }: any) {
   }
   const temp = await res.json();
   const admins = new Set(temp.map((el: { id: string }) => el.id));
-
   const isAdmin = admins.has(session?.user?.id);
 
   return {
