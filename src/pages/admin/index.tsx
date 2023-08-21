@@ -11,9 +11,9 @@ import Adminlayout from "../../components/AdminLayout";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}api/leagues`, { method: "GET" });
+  const path = "http://localhost:3000";
+  // const path = "https://esportsfantasy.app";
+  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;
@@ -28,7 +28,6 @@ export async function getServerSideProps({ req }: any) {
   const temp = await res2.json();
   const data = await res.json();
   const admins = new Set(temp.map((el: { id: string }) => el.id));
-
   const isAdmin = admins.has(session?.user?.id);
 
   if (isAdmin) {
