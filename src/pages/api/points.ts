@@ -18,27 +18,20 @@ export default async function assetHandler(
           const element = data.playerData[index];
           const point = prisma.player.update({
             data: {
-              points: {
+              playerPoints: {
                 create: {
-                  value: element.points ?? 0,
-                  roundNumber: round,
+                  round: round,
+                  points: element.points ?? 0,
                 },
               },
             },
             where: { steamid: element.id },
           });
-          const bonus = prisma.bonusPoint.create({
-            data: {
-              value: element.bonusPoint,
-              roundNumber: round,
-              playerId: element.id,
-            },
-          });
 
-          allPrismaQueries.push(bonus, point);
+          allPrismaQueries.push(point);
         }
-        const pointsUpdate = await prisma.$transaction(allPrismaQueries);
-        res.status(200).json({ data: pointsUpdate });
+        const pointsUpdated = await prisma.$transaction(allPrismaQueries);
+        res.status(200).json({ data: pointsUpdated });
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error Applying points" });
