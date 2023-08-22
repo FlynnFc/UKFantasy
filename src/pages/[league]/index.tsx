@@ -124,31 +124,6 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
   useEffect(() => {
     setLeague(props.data);
   }, [props.data, query.league]);
-  //Filters teams so it only shows user submitted teams from this league
-  // useEffect(() => {
-  //   const tempData: any = [];
-  //   props.data.forEach((el: { league: { name: string } }) => {
-  //     if (el.league?.name.toLowerCase() === query.league) {
-  //       tempData.push(el);
-  //     } else return;
-  //   });
-  //   return setData(tempData);
-  // }, [props.data, query.league]);
-
-  // const data = useMemo(() => {
-  //   const tempData: any = [];
-  //   props.data.forEach(
-  //     (el: { league: { name: { toLowerCase: () => ParsedUrlQuery } }[] }) => {
-  //       console.log(el.league[0]?.name.toLowerCase());
-  //       console.log(query.league);
-  //       if (el.league[0]?.name.toLowerCase() === query.league) {
-  //         tempData.push(el);
-  //       } else return;
-  //     }
-  //   );
-  //   return tempData;
-  // }, [props.data, query.league]);
-  //Checks is signed in user has already created a team for this league
 
   useEffect(() => {
     if (data) {
