@@ -30,7 +30,6 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
               User: { select: { id: true, name: true } },
             },
           });
-          console.log(userTeams);
           res.status(200).json(userTeams);
         } else if (teamid) {
           const userTeams = await prisma.playerTeam.findUnique({
