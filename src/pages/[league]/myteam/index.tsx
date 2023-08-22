@@ -42,11 +42,11 @@ export type teamProps = {
 export async function getServerSideProps(context: {
   params: { league: string };
 }) {
-  const path = "http://localhost:3000/";
-  // const path = "https://esportsfantasy.app/";
+  // const path = "http://localhost:3000";
+  const path = "https://esportsfantasy.app";
   const { league } = context.params;
 
-  const res = await fetch(`${path}api/bonuses`, { method: "GET" });
+  const res = await fetch(`${path}/api/bonuses`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;
