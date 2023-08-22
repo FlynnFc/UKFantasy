@@ -9,25 +9,28 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const league = req.headers.leaguename as string;
         const teamid = req.headers.id as string;
+        console.log("asdasdasdddd", league);
         if (!league && !teamid) {
           const userTeams = await prisma.playerTeam.findMany({
             include: {
               league: true,
               User: { select: { name: true, id: true } },
-              SelectedPlayer: { include: { points: true, bonusPoint: true } },
+              SelectedPlayer: { include: { bonusPoint: true, points: true } },
             },
           });
           res.status(200).json(userTeams);
         } else if (league && !teamid) {
+          console.log("This should be running");
           const userTeams = await prisma.playerTeam.findMany({
-            include: {
-              league: true,
-              User: { select: { name: true, id: true } },
-              SelectedPlayer: { include: { points: true, bonusPoint: true } },
-            },
             where: { league: { name: league } },
+            select: {
+              teamName: true,
+              league: true,
+              SelectedPlayer: true,
+              User: { select: { id: true, name: true } },
+            },
           });
-
+          console.log(userTeams);
           res.status(200).json(userTeams);
         } else if (teamid) {
           const userTeams = await prisma.playerTeam.findUnique({
