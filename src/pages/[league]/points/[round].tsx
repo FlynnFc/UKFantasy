@@ -9,7 +9,7 @@ export async function getServerSideProps(context: any) {
   const url = context.req.url;
   console.log(url);
   const processed = url.split("/");
-  const res = await fetch("https://esportsfantasy.app/api/userteam", {
+  const res = await fetch("https://uk-fantasy.vercel.app/api/userteam", {
     method: "GET",
     headers: { leaguename: processed[1] },
   });

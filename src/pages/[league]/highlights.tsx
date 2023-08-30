@@ -14,7 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
   // const path = "http://localhost:3000";
-  const path = "https://esportsfantasy.app";
+  const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/getPosts`, {
     method: "GET",
     headers: { leaguename: paths.params.league, skip: "0" },

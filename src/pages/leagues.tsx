@@ -6,9 +6,9 @@ import React from "react";
 import FeaturedLeague from "../components/FeaturedLeague";
 
 export async function getServerSideProps() {
-  // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app/";
-  const res = await fetch(`${path}api/leagues`, { method: "GET" });
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
+  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;

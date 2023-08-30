@@ -15,25 +15,37 @@ import { CgSpinner } from "react-icons/cg";
 import Settings from "../components/Settings";
 import Head from "next/head";
 import { BiLogOut } from "react-icons/bi";
+import user from "./api/user";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
-  // const path = "http://localhost:3000";
-  const path = "https://esportsfantasy.app";
-
+  const path = "http://localhost:3000";
+  // const path = "https://uk-fantasy.vercel.app";
+  let userid = undefined;
+  if (session?.user) {
+    userid = session.user.id;
+  }
   const res = await fetch(`${path}/api/admins`, {
     method: "GET",
+    headers: { id: JSON.stringify(userid) },
   });
   if (!res.ok) {
     console.error("error");
+    return {
+      props: {
+        isAdmin: false,
+      },
+    };
   }
+
   const temp = await res.json();
-  const admins = new Set(temp.map((el: { id: string }) => el.id));
-  const isAdmin = admins.has(session?.user?.id);
+
+  console.log(temp);
+  const isAdmin = temp.admin;
 
   return {
     props: {
-      isAdmin,
+      isAdmin: isAdmin,
     },
   };
 }

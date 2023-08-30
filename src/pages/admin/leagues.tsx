@@ -9,7 +9,7 @@ import AddTeamsAdmin from "../../components/AddTeamsAdmin";
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
   // const path = "http://localhost:3000";
-  const path = "https://esportsfantasy.app";
+  const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);

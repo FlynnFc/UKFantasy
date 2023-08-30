@@ -6,8 +6,17 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const admins = await prisma.user.findMany({ where: { admin: true } });
-        res.status(200).json(admins);
+        const userid = req.headers.id as string;
+        console.log(userid);
+        if (userid) {
+          const admins = await prisma.user.findUnique({
+            where: { id: JSON.parse(userid) },
+          });
+          res.status(200).json(admins);
+        } else {
+          const admins = await prisma.user.findMany({ where: { admin: true } });
+          res.status(200).json(admins);
+        }
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error fetching Admins" });

@@ -36,7 +36,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
 
 export async function getStaticPaths() {
   // const path = "http://localhost:3000";
-  const path = "https://esportsfantasy.app";
+  const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   const data = await res.json();
 
