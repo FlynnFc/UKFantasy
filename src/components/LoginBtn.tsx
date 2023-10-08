@@ -22,21 +22,21 @@ export default function LoginBtn(props: {
                 route === "/leagues"
                   ? `bg-primary-focus text-primary-content`
                   : undefined
-              } btn-ghost btn text-inherit hover:bg-primary-focus/40`}
+              } btn btn-ghost text-inherit hover:bg-primary-focus/40`}
             >
               Leagues
             </a>
           </Link>
           <ul className="w-full pr-2">
             <li className="w-full">
-              <Link href={`/epic39`}>
+              <Link href={`/epic40`}>
                 <a
                   className={` btn bg-neutral text-neutral-content hover:bg-neutral hover:text-neutral-content ${
-                    query.league === "epic39" &&
+                    query.league === "epic40" &&
                     `bg-primary-focus text-primary-content`
                   }`}
                 >
-                  Epic39
+                  Epic40
                 </a>
               </Link>
             </li>
@@ -50,7 +50,7 @@ export default function LoginBtn(props: {
                   route === "/profile"
                     ? `bg-primary-focus text-primary-content`
                     : undefined
-                } btn-ghost btn hover:bg-primary-focus/40 `}
+                } btn btn-ghost hover:bg-primary-focus/40 `}
               >
                 Profile
               </a>
@@ -113,7 +113,7 @@ export default function LoginBtn(props: {
         <button
           className={`${
             props.primary ? "btn-primary" : "btn mt-4 w-max"
-          } btn-sm btn mr-2 text-sm sm:btn-md`}
+          } btn btn-sm mr-2 text-sm sm:btn-md`}
           onClick={() => signIn()}
         >
           Sign in

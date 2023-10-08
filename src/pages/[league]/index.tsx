@@ -138,6 +138,8 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
     }
   }, [data, session.data?.user?.id]);
 
+  console.log(props.streams);
+
   return (
     <>
       <Head>

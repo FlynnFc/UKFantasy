@@ -178,7 +178,7 @@ const PlayerStatsAdmin = () => {
   }, [emptyPlayer]);
 
   return (
-    <div className=" ml-2 flex w-full max-w-3xl flex-col justify-center">
+    <div className="flex w-full max-w-3xl flex-col justify-center gap-2">
       <label className="label">What league is the player in?</label>
       <select
         onChange={(e) => {
@@ -192,7 +192,7 @@ const PlayerStatsAdmin = () => {
         <option value="epic39">Epic39</option>
         <option value="demo">Demo</option>
       </select>
-      {players.length > 0 && (
+      {/* {players.length > 0 && (
         <section className="mt-2 grid grid-cols-1 gap-4">
           <h3 className="text-center text-3xl">Selected player bonus picks</h3>
           {players.length > 0 && (
@@ -228,30 +228,36 @@ const PlayerStatsAdmin = () => {
             </div>
           )}
         </section>
-      )}
+      )} */}
       {players.length > 0 && (
         <section className="mt-2 grid grid-cols-1 gap-4">
           <h3 className="text-center text-3xl">Player picks</h3>
           {players.length > 0 && (
-            <div className="rounded-btn flex w-full justify-center p-3">
-              <BarChart
-                width={screenWidth * 0.65}
-                height={400}
-                data={playerfreq}
-                margin={{
-                  top: 20,
-                  right: 20,
-                  left: 0,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="5 5" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-              </BarChart>
-            </div>
+            <section className="mt-2 grid grid-cols-1 gap-4">
+              <h3 className="text-center text-3xl">Player picks</h3>
+              {players.length > 0 && (
+                <div className="rounded-btn flex w-full justify-center p-3">
+                  <BarChart
+                    width={screenWidth * 0.65}
+                    height={400}
+                    data={playerfreq}
+                    margin={{
+                      top: 20,
+                      right: 20,
+                      left: 0,
+                      bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="5 5" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar fill="#3457d4" dataKey={"freq"} stackId="a" />
+                    <Legend />
+                  </BarChart>
+                </div>
+              )}
+            </section>
           )}
         </section>
       )}

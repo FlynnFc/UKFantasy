@@ -1,3 +1,4 @@
+import { UploadButton } from "@uploadthing/react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
@@ -282,7 +283,7 @@ const PlayerEditAdmin = () => {
     console.log(playerPrices);
   };
   return (
-    <div className="grid w-full max-w-3xl gap-2 ">
+    <div className="grid w-full max-w-3xl gap-2">
       <label className="label">What league is the player in?</label>
       <select
         onChange={(e) => {

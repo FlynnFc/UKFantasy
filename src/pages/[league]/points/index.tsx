@@ -7,14 +7,14 @@ import RoundDeletionForm from "../../../components/RoundDeletionForm";
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
 
-  // const path = "http://localhost:3000";
-  const path = "https://uk-fantasy.vercel.app";
+  const path = "http://localhost:3000";
+  // const path = "https://uk-fantasy.vercel.app";
   const url = req.url;
   const league = url.split("/");
   console.log(league);
   const res = await fetch(`${path}/api/userteam`, {
     method: "GET",
-    headers: { leaguename: league[1] },
+    headers: { leaguename: JSON.stringify(league[1]) },
   });
   const data = await res.json();
 

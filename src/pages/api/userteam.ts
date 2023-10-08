@@ -25,7 +25,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
               User: { select: { name: true, id: true } },
               SelectedPlayer: { include: { points: true, bonusPoint: true } },
             },
-            where: { league: { name: league } },
+            where: { league: { name: JSON.parse(league) } },
           });
           console.log(userTeams);
           res.status(200).json(userTeams);
