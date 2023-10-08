@@ -3,7 +3,9 @@ import PlayerGroup from "../../components/playerGroup";
 import { playerStats } from "../../components/Player";
 import PreviewPlayer, { player } from "../../components/PreviewPlayer";
 
-export async function getStaticProps(paths: { params: { league: string } }) {
+export async function getServerSideProps(paths: {
+  params: { league: string };
+}) {
   // const path = "http://localhost:3000/";
   const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/teams`, {
@@ -15,23 +17,23 @@ export async function getStaticProps(paths: { params: { league: string } }) {
     props: {
       data,
     },
-    revalidate: 500,
+    // revalidate: 500,
   };
 }
 
-export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app";
-  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
-  const data = await res.json();
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
+// export async function getStaticPaths() {
+//   const path = "https://uk-fantasy.vercel.app";
+//   const res = await fetch(`${path}/api/leagues`, { method: "GET" });
+//   const data = await res.json();
+//   const paths = data.map((league: { name: string }) => ({
+//     params: { league: league.name.toLowerCase() },
+//   }));
 
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 const Teams = (props: { data: { Teams: [] } }) => {
   const allPlayers = useMemo(() => {

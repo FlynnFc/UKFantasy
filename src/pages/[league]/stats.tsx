@@ -65,7 +65,9 @@ const allBonuses = [
   },
 ];
 
-export async function getStaticProps(paths: { params: { league: string } }) {
+export async function getServerSideProps(paths: {
+  params: { league: string };
+}) {
   // const path = "http://localhost:3000";
   const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/userteam`, {
@@ -92,25 +94,25 @@ export async function getStaticProps(paths: { params: { league: string } }) {
       data,
       data2,
     },
-    revalidate: 120,
+    // revalidate: 120,
   };
 }
 
-export async function getStaticPaths() {
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
-  const data = await res.json();
+// export async function getStaticPaths() {
+//   // const path = "http://localhost:3000/";
+//   const path = "https://uk-fantasy.vercel.app/";
+//   const res = await fetch(`${path}/api/leagues`, { method: "GET" });
+//   const data = await res.json();
 
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
+//   const paths = data.map((league: { name: string }) => ({
+//     params: { league: league.name.toLowerCase() },
+//   }));
 
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 const Stats = (props: { data: any; data2: any }) => {
   const [playerData, setPlayerData] = useState(new Map());
