@@ -9,6 +9,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const league = req.headers.leaguename as string;
         const teamid = req.headers.id as string;
+
         if (!league && !teamid) {
           const userTeams = await prisma.playerTeam.findMany({
             include: {
@@ -25,7 +26,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
               User: { select: { name: true, id: true } },
               SelectedPlayer: { include: { points: true, bonusPoint: true } },
             },
-            where: { league: { name: JSON.parse(league) } },
+            where: { league: { name: league } },
           });
           console.log(userTeams);
           res.status(200).json(userTeams);
