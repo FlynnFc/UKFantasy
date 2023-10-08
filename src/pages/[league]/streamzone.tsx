@@ -46,7 +46,7 @@ const Gamecenter = (props: { streams: stream[] }) => {
     setCurrentStream(name);
   };
   return (
-    <main className="min-w-screen   flex min-h-[88.3vh] flex-col gap-2 bg-blue-100  p-4">
+    <main className="min-w-screen flex min-h-[100vh] flex-col gap-2  p-4">
       <section className="grid w-full grid-cols-12 gap-3">
         <section className="rounded-btn col-span-2 bg-base-300">
           <ul className="max-h-screen overflow-auto">
@@ -77,8 +77,11 @@ const Gamecenter = (props: { streams: stream[] }) => {
             width="1408"
           ></iframe>
         </section>
-        <section className="rounded-btn col-span-2 w-full bg-base-300">
-          players
+        <section>
+          <iframe
+            className="rounded-btn col-span-2 h-full bg-base-300"
+            src={`https://www.twitch.tv/embed/${currentStream}/chat?parent=localhost`}
+          ></iframe>
         </section>
       </section>
     </main>

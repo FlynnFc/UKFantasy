@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import StreamLink from "./StreamLink";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export type stream = {
   user_name: string;
@@ -18,11 +20,20 @@ const AllLiveChannels = (props: { streams: stream[] }) => {
     return props.streams.slice(0, 5);
   }, [expanded, props.streams]);
 
+  const { query } = useRouter();
+
   return (
     <div className="rounded-btn bg-base-300 p-5 shadow-lg">
-      <h2 className="text-center text-xl font-bold leading-none">
-        Verified streams
-      </h2>
+      <Link
+        href={{
+          pathname: "[league]/streamzone",
+          query: { league: query.league },
+        }}
+      >
+        <h2 className="text-center text-xl font-bold leading-none hover:cursor-pointer hover:underline">
+          Verified streams
+        </h2>
+      </Link>
       <ul className="items-left mt-3 flex w-full flex-col justify-center gap-1 p-1 text-left">
         {streams.length ? (
           streams.map((el) => {

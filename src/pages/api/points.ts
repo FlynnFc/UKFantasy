@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
+import { Prisma } from "@prisma/client";
+import { DefaultArgs } from "@prisma/client/runtime/library";
 
 export default async function assetHandler(
   req: NextApiRequest,
@@ -12,7 +14,20 @@ export default async function assetHandler(
   switch (method) {
     case "POST":
       try {
-        const allPrismaQueries = [];
+        const allPrismaQueries: Prisma.Prisma__PlayerClient<
+          {
+            id: string;
+            steamid: string | null;
+            name: string;
+            price: number;
+            image: string;
+            rareity: string;
+            priceadjust: number;
+            teamId: string;
+          },
+          never,
+          DefaultArgs
+        >[] = [];
         const round = data.round;
         for (let index = 0; index < data.playerData.length; index++) {
           const element = data.playerData[index];
@@ -42,7 +57,16 @@ export default async function assetHandler(
 
           allPrismaQueries.push(point);
         }
-        const pointsUpdated = await prisma.$transaction(allPrismaQueries);
+        const pointsUpdated = await prisma.$transaction(
+          async (tx) => {
+            allPrismaQueries;
+          },
+          {
+            maxWait: 5000, // default: 2000
+            timeout: 10000, // default: 5000
+            isolationLevel: Prisma.TransactionIsolationLevel.Serializable, // optional, default defined by database configuration
+          }
+        );
         res.status(200).json({ data: pointsUpdated });
       } catch (e) {
         console.error("Request error", e);

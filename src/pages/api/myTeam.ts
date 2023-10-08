@@ -11,7 +11,7 @@ export default async function assetHandler(
   switch (method) {
     case "GET":
       try {
-        const myTeam = await prisma?.user.findUnique({
+        const myTeam = await prisma.user.findUnique({
           where: {
             id: id,
           },

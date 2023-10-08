@@ -3,11 +3,11 @@ import { prisma } from "../../server/db/client";
 
 const admins = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
+  const { headers } = req;
   switch (method) {
     case "GET":
       try {
-        const userid = req.headers.id as string;
-        console.log(userid);
+        const userid = headers.id as string;
         if (userid) {
           const admins = await prisma.user.findUnique({
             where: { id: JSON.parse(userid) },
@@ -17,9 +17,9 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
           const admins = await prisma.user.findMany({ where: { admin: true } });
           res.status(200).json(admins);
         }
-      } catch (e) {
+      } catch (e: any) {
         console.error("Request error", e);
-        res.status(500).json({ error: "Error fetching Admins" });
+        res.status(500).json({ error: e.message });
       }
 
     case "POST":
