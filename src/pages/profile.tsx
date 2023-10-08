@@ -19,8 +19,8 @@ import user from "./api/user";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
-  const path = "http://localhost:3000";
-  // const path = "https://uk-fantasy.vercel.app";
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
   let userid = undefined;
   if (session?.user) {
     userid = session.user.id;
