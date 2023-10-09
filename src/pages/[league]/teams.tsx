@@ -75,7 +75,7 @@ const Teams = (props: { data: { Teams: [] } }) => {
           )}
         </div>
 
-        <ul className="rounded-btn w-full bg-base-300 p-4 lg:w-52">
+        <ul className="rounded-btn w-full bg-base-300 p-4 lg:w-56">
           <h3 className="font-bold">Price adjustments</h3>
           {allPlayers.map((el) => {
             return (
