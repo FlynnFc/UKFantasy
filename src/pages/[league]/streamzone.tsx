@@ -50,22 +50,22 @@ const Gamecenter = (props: { streams: stream[] }) => {
       <section className="grid w-full grid-cols-12 gap-3">
         <section className="rounded-btn col-span-2 bg-base-300">
           <ul className="max-h-screen overflow-auto">
-            <CustomStreamLink
-              current={currentStream}
-              selector={streamHandler}
-              user_name={"xqc"}
-              live={true}
-              title={"testing this stream"}
-              viewer_count={2}
-            />
-            <CustomStreamLink
-              current={currentStream}
-              selector={streamHandler}
-              user_name={"lirik"}
-              live={true}
-              title={"Yoo its lirik"}
-              viewer_count={2}
-            />
+            {props.streams.map((el) => {
+              return (
+                <CustomStreamLink
+                  key={el.user_name}
+                  current={currentStream}
+                  selector={streamHandler}
+                  user_name={el.user_name}
+                  live={el.viewer_count > 0}
+                  title={el.title}
+                  viewer_count={el.viewer_count}
+                />
+              );
+            })}
+            {props.streams.length < 1 && (
+              <li className="p-2 text-center">No streams live</li>
+            )}
           </ul>
         </section>
         <section className="col-span-8 flex items-center justify-center ">
