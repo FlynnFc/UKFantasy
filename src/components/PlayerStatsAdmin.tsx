@@ -234,7 +234,6 @@ const PlayerStatsAdmin = () => {
           <h3 className="text-center text-3xl">Player picks</h3>
           {players.length > 0 && (
             <section className="mt-2 grid grid-cols-1 gap-4">
-              <h3 className="text-center text-3xl">Player picks</h3>
               {players.length > 0 && (
                 <div className="rounded-btn flex w-full justify-center p-3">
                   <BarChart
