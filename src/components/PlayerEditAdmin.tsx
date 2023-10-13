@@ -380,7 +380,7 @@ const PlayerEditAdmin = () => {
             </section>
           </div>
           <UploadDropzone<OurFileRouter>
-            className="ut-label:text-lg ut-allowed-content:ut-uploading:text-red-300 ut-allowed-content:text-white w-full bg-base-100"
+            className="ut-label:text-lg ut-allowed-content:ut-uploading:text-red-300 ut-allowed-content:text-white input input-bordered h-auto w-full"
             endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               console.log(`onClientUploadComplete`, res);
