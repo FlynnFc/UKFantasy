@@ -7,12 +7,11 @@ import RoundDeletionForm from "../../../components/RoundDeletionForm";
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
 
-  // const path = "http://localhost:3000";
-  const path = "https://uk-fantasy.vercel.app";
+  const path = "http://localhost:3000";
+  // const path = "https://uk-fantasy.vercel.app";
   const url = req.url;
   const league = url.split("/");
-  console.log(league);
-  const res = await fetch(`${path}/api/userteam`, {
+  const res = await fetch(`${path}/api/teams`, {
     method: "GET",
     headers: { leaguename: JSON.stringify(league[1]) },
   });
@@ -36,7 +35,7 @@ export async function getServerSideProps({ req }: any) {
   } else
     return {
       redirect: {
-        destination: "/epic39",
+        destination: "/",
         permanent: false,
       },
     };
@@ -52,33 +51,31 @@ const Index = (props: { data: any }) => {
   }, [router.query]);
 
   const currentRound = useMemo(() => {
-    if (props.data[0]?.SelectedPlayer) {
+    if (props.data) {
       let highestround = 1;
-      let mostPlayedplayer: number[] = [];
-      for (let j = 0; j < props.data.length; j++) {
-        const team = props.data[j].SelectedPlayer;
-        for (let i = 0; i < team.length; i++) {
-          const player = team[i];
-          // console.log(player.points[player.points.length - 1]?.roundNumber);
-          if (
-            highestround < player.points[player.points.length - 1]?.roundNumber
-          ) {
-            highestround = player.points[player.points.length - 1]?.roundNumber;
+      let mostPlayedplayer: any[] = [];
+      for (let i = 0; i < props.data.length; i++) {
+        const teams = props.data[i];
+        for (let j = 0; j < teams.Player.length; j++) {
+          const player = teams.Player[j];
+          if (mostPlayedplayer.length < player.playerPoints.length) {
+            mostPlayedplayer = player.playerPoints;
           }
-          if (player.points.length > mostPlayedplayer.length)
-            mostPlayedplayer = [...player.points];
         }
       }
-      console.log(highestround);
-      const arr = [];
-      for (let i = 0; i < highestround; i++) {
-        arr.push(i);
+
+      for (let i = 0; i < mostPlayedplayer.length; i++) {
+        const element = mostPlayedplayer[i];
+        if (element.round > highestround) {
+          highestround = element.road;
+        }
       }
-      return arr;
+      return mostPlayedplayer;
     } else return [];
   }, [props.data]);
 
   const [selectedRound, setSelectedRound] = useState(currentRound.length);
+
   return (
     <div className="min-w-screen container flex h-full min-h-screen max-w-7xl  select-none flex-col items-center justify-start gap-4 sm:mx-auto">
       <h1 className="mb-5 text-5xl">{`${leagueName} point dashboard`}</h1>

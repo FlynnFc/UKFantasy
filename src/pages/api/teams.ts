@@ -3,13 +3,15 @@ import { prisma } from "../../server/db/client";
 
 const teams = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
-  const leagueName = req.headers.leaguename as string;
+  const leagueName = req.headers.Leaguename as string;
   switch (method) {
     case "GET":
       try {
         if (!leagueName) {
           const teams = await prisma.team.findMany({
-            include: { Player: { include: { stats: true } } },
+            include: {
+              Player: { include: { stats: true, playerPoints: true } },
+            },
           });
 
           res.status(200).json(teams);
@@ -18,7 +20,11 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
           const teams = await prisma.league.findUnique({
             where: { name: leagueName },
             include: {
-              Teams: { include: { Player: { include: { stats: true } } } },
+              Teams: {
+                include: {
+                  Player: { include: { stats: true, playerPoints: true } },
+                },
+              },
             },
           });
           res.status(200).json(teams);
@@ -29,7 +35,6 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ error: "Error fetching players" });
         return res.end();
       }
-      break;
     case "POST":
       try {
         const { body } = req;

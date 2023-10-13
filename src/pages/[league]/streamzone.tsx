@@ -7,17 +7,12 @@ export async function getServerSideProps(paths: {
 }) {
   // const path = "http://localhost:3000";
   const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/leagues`, {
-    method: "GET",
-    headers: { leaguename: paths.params.league ?? "" },
-  });
+
+  const res = await fetch(`${path}/api/twitchstreams`);
   const data = await res.json();
-  const streamsRes = await fetch(`${path}/api/twitchstreams`);
-  const streamData = await streamsRes.json();
-  const streams = streamData.data;
+  const streams = data.data;
   return {
     props: {
-      data,
       streams,
     },
     // revalidate: 5,

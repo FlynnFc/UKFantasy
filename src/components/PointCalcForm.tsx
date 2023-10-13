@@ -27,6 +27,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
   const [data, setData] = useState();
   const [playerSheet, setPlayerSheet] = useState("");
   const [killsSheet, setKillsSheet] = useState("");
+  const { query } = useRouter();
   const submit = (e: any) => {
     toast.promise(handleUpload(e), {
       loading: "processing...",
@@ -62,7 +63,6 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       KillsRowMap.set(element, i);
     }
 
-    console.log(jsonDatakills);
     setData(jsonData);
     const Rowmap = new Map();
     //Index for all rows
@@ -82,7 +82,6 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         const element = jsonDatakills[i];
         if (element[elementSteamIdIndex] === steamid) {
           if (element[weaponIndex] === "Knife") {
-            console.log("Found a knife kill");
             knifeKills++;
           }
         }
@@ -101,7 +100,6 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         const element = jsonDatakills[i];
         if (element[elementSteamIdIndex] === steamid) {
           if (element[weaponAWPIndex] === "AWP") {
-            console.log("Found an awp kill");
             awpKills++;
           }
         }
@@ -194,6 +192,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       else if (val >= 60) return 5;
       else return -5;
     };
+
     for (let index = 1; index < jsonData.length; index++) {
       const element = jsonData[index];
       //General point calc
@@ -224,12 +223,54 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     return playerPoints;
   };
 
-  const handleUpload = async (e: HTMLFormElement) => {
-    const processedPlayers = await fileProcesMain(e);
-    console.log(processedPlayers);
+  const playerFilter = (playerstats: any[], allplayers: any[]) => {
+    const output = [];
+    //All players competing league
+    const presentPlayers = new Set();
+    for (let i = 0; i < allplayers.length; i++) {
+      const element = allplayers[i];
+      for (let j = 0; j < element.Player.length; j++) {
+        const player = element.Player[j];
+        presentPlayers.add(player.steamid);
+      }
+    }
+
+    for (let i = 0; i < playerstats.length; i++) {
+      const element = playerstats[i];
+      if (presentPlayers.has(element.steamid)) {
+        output.push(element);
+      }
+    }
+
+    return output;
   };
 
-  //Point form. Take 62nd col and -1 then * 100 then take 73 cols
+  const handleUpload = async (e: HTMLFormElement) => {
+    const processedPlayers = await fileProcesMain(e);
+    const playersRes = await fetch("/api/teams", {
+      method: "GET",
+      headers: { leaguename: JSON.stringify(query.league) },
+    });
+
+    if (!playersRes.ok) {
+      throw new Error("couldnt find any players");
+    }
+
+    const allPlayers = await playersRes.json();
+
+    const finalData = playerFilter(processedPlayers, allPlayers);
+    const bodyData = JSON.stringify({
+      playerData: finalData,
+      round: props.currentRound,
+    });
+    const res = await fetch("/api/points", {
+      body: bodyData,
+      method: "POST",
+    });
+    console.log(finalData);
+    if (!res.ok) throw new Error("Failed to upload points");
+    else return res;
+  };
 
   return (
     <form

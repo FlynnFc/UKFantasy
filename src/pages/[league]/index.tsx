@@ -221,14 +221,12 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
                 Competing teams <ExternalLink height={20} />
               </button>
             </Link>
-            <Link href={`${query.league}/stats`}>
+            {/* <Link href={`${query.league}/stats`}>
               <button className="btn btn-info flex flex-row items-center justify-center gap-1 border-0 hover:bg-info/75">
                 Player Pick Stats <ExternalLink height={20} />
               </button>
-            </Link>
+            </Link> */}
             <AllLiveChannels streams={props.streams} />
-            {/* 
-            <LiveGames /> */}
           </section>
 
           <section className="rounded-btn my-2 mt-5 h-max text-base-content  2xl:w-[75%]">

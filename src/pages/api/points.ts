@@ -10,64 +10,41 @@ export default async function assetHandler(
   const { method } = req;
   const { body } = req;
   const data = JSON.parse(body);
-
   switch (method) {
     case "POST":
       try {
-        const allPrismaQueries: Prisma.Prisma__PlayerClient<
-          {
-            id: string;
-            steamid: string | null;
-            name: string;
-            price: number;
-            image: string;
-            rareity: string;
-            priceadjust: number;
-            teamId: string;
-          },
-          never,
-          DefaultArgs
-        >[] = [];
+        const allPrismaQueries: any[] = [];
         const round = data.round;
         for (let index = 0; index < data.playerData.length; index++) {
           const element = data.playerData[index];
-          const point = prisma.player.update({
+          console.log(element.steamid);
+          const point = await prisma.player.update({
             data: {
               playerPoints: {
                 create: {
                   round: round,
                   points: element.points ?? 0,
-                  ADR_warrior: null,
-                  all_rounder: null,
-                  PTFO: null,
-                  awper: null,
-                  clutcher: null,
-                  entry_king: null,
-                  head_clicker: null,
-                  knife: null,
-                  site_on_lock: null,
-                  stat_padder: null,
-                  trade_me: null,
-                  util_nerd: null,
+                  ADR_warrior: element.ADR_warrior ?? 0,
+                  all_rounder: element.allrounder ?? 0,
+                  PTFO: element.PTFO ?? 0,
+                  awper: element.awper ?? 0,
+                  clutcher: element.clutcher ?? 0,
+                  entry_king: element.entry_king ?? 0,
+                  head_clicker: element.head_clicker ?? 0,
+                  knife: element.knife ?? 0,
+                  site_on_lock: element.site_on_lock ?? 0,
+                  stat_padder: element.stat_padder ?? 0,
+                  trade_me: element.trade_me ?? 0,
+                  util_nerd: element.util_nerd ?? 0,
                 },
               },
             },
-            where: { steamid: element.id },
+            where: { steamid: element.steamid },
           });
 
           allPrismaQueries.push(point);
         }
-        const pointsUpdated = await prisma.$transaction(
-          async (tx) => {
-            allPrismaQueries;
-          },
-          {
-            maxWait: 5000, // default: 2000
-            timeout: 10000, // default: 5000
-            isolationLevel: Prisma.TransactionIsolationLevel.Serializable, // optional, default defined by database configuration
-          }
-        );
-        res.status(200).json({ data: pointsUpdated });
+        res.status(200).json({ data: allPrismaQueries });
         return res.end();
       } catch (e) {
         console.error("Request error", e);
