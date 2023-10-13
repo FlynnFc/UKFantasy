@@ -57,10 +57,10 @@ export default async function assetHandler(
       try {
         const round = data.round;
         const league = data.league;
-        const pointsDelete = await prisma.point.deleteMany({
+        const pointsDelete = await prisma.playerPoints.deleteMany({
           where: {
-            roundNumber: round,
-            SelectedPlayer: { PlayerTeam: { league: { name: league } } },
+            round: round,
+            league: league,
           },
         });
         res.status(200).json({ data: pointsDelete });
