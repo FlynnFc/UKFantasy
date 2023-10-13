@@ -369,14 +369,17 @@ const Myteam = (props: {
 
   const teamDeleter = async () => {
     if (session?.user?.id && team?.id) {
+      toast.loading("Deleting team");
       const res = await fetch("/api/userteam", {
         method: "DELETE",
         headers: { id: team.id },
       });
       if (!res.ok) {
         //add error tell user to go back to league page
+        toast.dismiss();
         toast.error("Could not delete");
       } else {
+        toast.dismiss();
         router.push(`/${query.league}`);
       }
     }
@@ -422,8 +425,8 @@ const Myteam = (props: {
     const data = { ...team, id: session?.user?.id, league: query.league };
     if (team) {
       const JSONbody = await JSON.stringify(data);
-      const res = await fetch("/api/updateTeamBonuses", {
-        method: "POST",
+      const res = await fetch("/api/teams", {
+        method: "PUT",
         body: JSONbody,
       });
       const load = toast.loading("updating...");
