@@ -18,6 +18,7 @@ const player = async (req: NextApiRequest, res: NextApiResponse) => {
             data: { ...data },
           });
           res.status(200).json(player);
+          return res.end();
         } else {
           for (let index = 0; index < data.length; index++) {
             const element = data[index];
@@ -29,10 +30,12 @@ const player = async (req: NextApiRequest, res: NextApiResponse) => {
           }
           const player = await prisma.$transaction(querys);
           res.status(200).json(player);
+          return res.end();
         }
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error fetching players" });
+        return res.end();
       }
       break;
     case "GET":
@@ -40,13 +43,15 @@ const player = async (req: NextApiRequest, res: NextApiResponse) => {
         const id: string = headers.id as string;
         const player = await prisma.player.findUnique({ where: { id: id } });
         res.status(200).json(player);
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error fetching players" });
+        return res.end();
       }
       break;
     case "POST":
-      playerStats(req, res);
+      return playerStats(req, res);
     default:
       res.setHeader("Allow", ["PUT", "GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
@@ -101,8 +106,10 @@ const playerStats = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const plzDontCrash = await prisma.$transaction(queries);
     res.status(200).json(plzDontCrash);
+    return res.end();
   } catch (e) {
     console.error("Request error", e);
     res.status(500).json({ error: "Error fetching players" });
+    return res.end();
   }
 };

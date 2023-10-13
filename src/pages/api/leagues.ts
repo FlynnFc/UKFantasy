@@ -12,21 +12,23 @@ const leagues = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!name) {
           const leagues = await prisma.league.findMany();
           res.status(200).json(leagues);
+          return res.end();
         } else {
           const league = await prisma.league.findUnique({
             where: { name: name },
           });
           res.status(200).json(league);
+          return res.end();
         }
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error fetching players" });
+        return res.end();
       }
-      break;
     default:
       res.setHeader("Allow", ["GET"]);
       res.status(405).end(`Method ${method} Not Allowed`);
-      break;
+      return res.end();
   }
 };
 

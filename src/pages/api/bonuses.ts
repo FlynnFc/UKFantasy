@@ -8,15 +8,16 @@ const bonuses = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const bonuses = await prisma.bonus.findMany();
         res.status(200).json(bonuses);
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error fetching Bonuses" });
+        return res.end();
       }
-      break;
     default:
       res.setHeader("Allow", ["GET"]);
       res.status(405).end(`Method ${method} Not Allowed`);
-      break;
+      return res.end();
   }
 };
 

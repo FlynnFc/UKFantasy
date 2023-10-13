@@ -13,6 +13,7 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
           });
 
           res.status(200).json(teams);
+          return res.end();
         } else {
           const teams = await prisma.league.findUnique({
             where: { name: leagueName },
@@ -21,10 +22,12 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
             },
           });
           res.status(200).json(teams);
+          return res.end();
         }
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error fetching players" });
+        return res.end();
       }
       break;
     case "POST":
@@ -45,16 +48,16 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
         }
         const newTeams = await prisma.$transaction(queries);
         res.status(200).json(newTeams);
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error adding team" });
+        return res.end();
       }
-      break;
-
     default:
-      res.setHeader("Allow", ["GET"]);
+      res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
-      break;
+      return res.end();
   }
 };
 

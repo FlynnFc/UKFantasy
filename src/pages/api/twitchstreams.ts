@@ -79,11 +79,12 @@ const twitchstreams = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const streams = await getStreams();
         res.status(200).json(streams);
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
-        res.status(500).json({ error: "Error fetching Admins" });
+        res.status(500).json({ error: "Error fetching Streams" });
+        return res.end();
       }
-      break;
     default:
       res.setHeader("Allow", ["GET"]);
       res.status(405).end(`Method ${method} Not Allowed`);

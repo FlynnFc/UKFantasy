@@ -13,13 +13,16 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
             where: { id: JSON.parse(userid) },
           });
           res.status(200).json(admins);
+          return res.end();
         } else {
           const admins = await prisma.user.findMany({ where: { admin: true } });
           res.status(200).json(admins);
+          return res.end();
         }
       } catch (e: any) {
         console.error("Request error", e);
         res.status(500).json({ error: e.message });
+        return res.end();
       }
 
     case "POST":
@@ -30,16 +33,18 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
           data: { admin: adminBool },
         });
         res.status(200).json(admins);
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: `Error making ${id} Admins` });
+        return res.end();
       }
-      break;
     default:
       res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
-      break;
+      return res.end();
   }
+  return;
 };
 
 export default admins;

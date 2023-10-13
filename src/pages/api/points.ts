@@ -68,11 +68,12 @@ export default async function assetHandler(
           }
         );
         res.status(200).json({ data: pointsUpdated });
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error Applying points" });
+        return res.end();
       }
-      break;
     case "DELETE":
       try {
         const round = data.round;
@@ -84,15 +85,16 @@ export default async function assetHandler(
           },
         });
         res.status(200).json({ data: pointsDelete });
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error Deleting points" });
+        return res.end();
       }
-      break;
 
     default:
       res.setHeader("Allow", ["POST", "DELETE"]);
       res.status(405).end(`Method ${method} Not Allowed`);
-      break;
+      return res.end();
   }
 }

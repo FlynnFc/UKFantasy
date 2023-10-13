@@ -19,12 +19,14 @@ import user from "./api/user";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
-  // const path = "http://localhost:3000";
-  const path = "https://uk-fantasy.vercel.app";
-  let userid = undefined;
+  const path = "http://localhost:3000";
+  // const path = "https://uk-fantasy.vercel.app";
+  let userid = "";
   if (session?.user) {
     userid = session.user.id;
   }
+
+  console.log(session?.user);
   const res = await fetch(`${path}/api/admins`, {
     method: "GET",
     headers: { id: JSON.stringify(userid) },
@@ -42,7 +44,6 @@ export async function getServerSideProps({ req }: any) {
 
   console.log(temp);
   const isAdmin = temp.admin;
-
   return {
     props: {
       isAdmin: isAdmin,

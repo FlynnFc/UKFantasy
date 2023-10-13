@@ -17,6 +17,7 @@ const restricted = async (req: NextApiRequest, res: NextApiResponse) => {
         "You must be signed in to view the protected content on this page.",
     });
   }
+  return res.end();
 };
 
 export default restricted;

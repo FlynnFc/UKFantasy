@@ -19,6 +19,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
             },
           });
           res.status(200).json(userTeams);
+          return res.end();
         } else if (league && !teamid) {
           const userTeams = await prisma.playerTeam.findMany({
             include: {
@@ -30,6 +31,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
           });
           console.log(userTeams);
           res.status(200).json(userTeams);
+          return res.end();
         } else if (teamid) {
           const userTeams = await prisma.playerTeam.findUnique({
             where: { id: teamid },
@@ -41,6 +43,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
             },
           });
           res.status(200).json(userTeams);
+          return res.end();
         }
       } catch (e) {
         console.error("Request error", e);
@@ -119,10 +122,11 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
         ]);
         console.log("got to here lmao");
         res.status(200).json(updateTeam);
+        return res.end();
       } catch (error) {
         res.status(500).json("Failed to submit");
+        return res.end();
       }
-      break;
     case "DELETE":
       try {
         const id = req.headers.id?.toString();
@@ -132,9 +136,11 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
           },
         });
         res.status(200).json(deletedTeam);
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
         res.status(500).json({ error: "Error deleting team" });
+        return res.end();
       }
       break;
     case "POST":
@@ -180,17 +186,19 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
             },
           });
           res.status(200).json(examples);
+          return res.end();
         } else {
           res.status(500).json("Team size incorrect");
+          return res.end();
         }
       } catch (error) {
         res.status(500).json("Failed to submit");
+        return res.end();
       }
-      break;
     default:
       res.setHeader("Allow", ["GET", "POST", "DELTE", "PUT"]);
       res.status(405).end(`Method ${method} Not Allowed`);
-      break;
+      return res.end();
   }
 };
 
