@@ -212,6 +212,7 @@ model bonus {
 model playerPoints {
   id           String @id @unique @default(cuid())
   round        Int
+  league String
   ADR_warrior  Int?
   all_rounder  Int?
   PTFO         Int?

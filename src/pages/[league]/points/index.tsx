@@ -105,7 +105,11 @@ const Index = (props: { data: any }) => {
       </div>
 
       {selectedRound === currentRound.length + 1 && (
-        <Round data={props.data} selectedRound={selectedRound} />
+        <Round
+          data={props.data}
+          selectedRound={selectedRound}
+          league={router.query.league as string}
+        />
       )}
       {selectedRound !== currentRound.length + 1 && (
         <RoundDeletionForm data={props.data} round={selectedRound} />

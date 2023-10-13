@@ -15,6 +15,7 @@ export default async function assetHandler(
       try {
         const allPrismaQueries: any[] = [];
         const round = data.round;
+        const league = data.league;
         for (let index = 0; index < data.playerData.length; index++) {
           const element = data.playerData[index];
           console.log(element.steamid);
@@ -23,6 +24,7 @@ export default async function assetHandler(
               playerPoints: {
                 create: {
                   round: round,
+                  league: league,
                   points: element.points ?? 0,
                   ADR_warrior: element.ADR_warrior ?? 0,
                   all_rounder: element.allrounder ?? 0,

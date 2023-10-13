@@ -22,7 +22,11 @@ type bigPlayer = {
   knife: number;
 };
 
-const PointCalcForm = (props: { data: []; currentRound: number }) => {
+const PointCalcForm = (props: {
+  data: [];
+  currentRound: number;
+  league: string;
+}) => {
   const [file, setFile] = useState<any>();
   const [data, setData] = useState();
   const [playerSheet, setPlayerSheet] = useState("");
@@ -261,6 +265,7 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
     const finalData = playerFilter(processedPlayers, allPlayers);
     const bodyData = JSON.stringify({
       playerData: finalData,
+      league: props.league,
       round: props.currentRound,
     });
     const res = await fetch("/api/points", {
