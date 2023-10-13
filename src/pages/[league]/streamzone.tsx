@@ -68,7 +68,7 @@ const Gamecenter = (props: { streams: stream[] }) => {
         <section className="col-span-8 flex items-center justify-center ">
           <iframe
             className="rounded-btn"
-            src={`https://player.twitch.tv/?channel=${currentStream}&parent=localhost`}
+            src={`https://player.twitch.tv/?channel=${currentStream}&parent=esportsfantasy.app`}
             allowFullScreen
             height="792"
             width="1408"
