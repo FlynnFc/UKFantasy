@@ -7,7 +7,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
   const path = "https://esportsfantasy.app";
   const res = await fetch(`${path}/api/leagues`, {
     method: "GET",
-    headers: { leaguename: paths.params.league },
+    headers: { leaguename: paths.params.league ?? "" },
   });
   const data = await res.json();
   const streamsRes = await fetch(`${path}/api/twitchstreams`);

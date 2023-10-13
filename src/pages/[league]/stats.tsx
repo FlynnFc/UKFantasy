@@ -80,7 +80,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
 
   const res2 = await fetch(`${path}/api/teams`, {
     method: "GET",
-    headers: { leaguename: paths.params.league },
+    headers: { leaguename: paths.params.league ?? "" },
   });
   if (!res.ok) {
     console.error("error", res);
