@@ -5,11 +5,7 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [
-    require("daisyui"),
-    require("@tailwindcss/typography"),
-    require("@tailwindcss/line-clamp"),
-  ],
+  plugins: [require("daisyui"), require("@tailwindcss/typography")],
   daisyui: {
     styled: true,
     themes: [
