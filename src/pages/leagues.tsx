@@ -38,6 +38,7 @@ const leagues = (props: {
         </h2>
         <div className="mt-2 w-full items-end space-y-2 sm:flex sm:flex-wrap">
           {props.data.map((el) => {
+            if (!el.offical) return;
             return (
               <LeagueCard key={el.id} title={el.name} offical={el.offical} />
             );
