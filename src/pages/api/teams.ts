@@ -3,7 +3,9 @@ import { prisma } from "../../server/db/client";
 
 const teams = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
-  const leagueName = req.headers.Leaguename as string;
+  const leagueName = req.headers.leaguename as string;
+  const createPage = req.headers.create as string;
+  console.log("league", req.headers);
   switch (method) {
     case "GET":
       try {
@@ -17,18 +19,29 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
           res.status(200).json(teams);
           return res.end();
         } else {
-          const teams = await prisma.league.findUnique({
-            where: { name: leagueName },
-            include: {
-              Teams: {
-                include: {
-                  Player: { include: { stats: true, playerPoints: true } },
+          if (createPage === "true") {
+            const teams = await prisma.league.findUnique({
+              where: { name: leagueName },
+              include: {
+                Teams: { include: { Player: { include: { stats: true } } } },
+              },
+            });
+            res.status(200).json(teams);
+            return res.end();
+          } else {
+            const teams = await prisma.league.findUnique({
+              where: { name: leagueName },
+              include: {
+                Teams: {
+                  include: {
+                    Player: { include: { stats: true, playerPoints: true } },
+                  },
                 },
               },
-            },
-          });
-          res.status(200).json(teams);
-          return res.end();
+            });
+            res.status(200).json(teams);
+            return res.end();
+          }
         }
       } catch (e) {
         console.error("Request error", e);
