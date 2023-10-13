@@ -71,8 +71,32 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ error: "Error adding team" });
         return res.end();
       }
+    case "PUT":
+      try {
+        const { body } = req;
+        const data = JSON.parse(body);
+        const edits = [];
+        for (let i = 0; i < data.SelectedPlayer.length; i++) {
+          const element = data.SelectedPlayer[i];
+          console.log(element);
+          if (element.bonus) {
+            const editplayer = prisma.selectedPlayer.update({
+              data: { bonus: { connect: { name: element.bonus.name } } },
+              where: { id: element.id },
+            });
+            edits.push(editplayer);
+          }
+        }
+        const playerUpdate = await prisma.$transaction(edits);
+        res.status(200).json({ data: playerUpdate });
+        return res.end();
+      } catch (e) {
+        console.error("Request error", e);
+        res.status(500).json({ error: "Error editing team" });
+        return res.end();
+      }
     default:
-      res.setHeader("Allow", ["GET", "POST"]);
+      res.setHeader("Allow", ["GET", "POST", "PUT"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       return res.end();
   }
