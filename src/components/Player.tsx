@@ -42,6 +42,7 @@ export const Player = (props: player) => {
       let totalTeammates = 0;
       for (let i = 0; i < props.team.length; i++) {
         const element = props.team[i];
+        console.log(element.props);
         if (element.props.playersTeam === props.playersTeam) {
           totalTeammates++;
         }
@@ -50,7 +51,7 @@ export const Player = (props: player) => {
         return setTeamLimit(true);
       } else return setTeamLimit(false);
     };
-    checkIfTwoTeammatesPicked();
+    return checkIfTwoTeammatesPicked();
   }, [props.playersTeam, props.team]);
 
   useEffect(() => {

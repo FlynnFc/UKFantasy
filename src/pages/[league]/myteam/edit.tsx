@@ -527,9 +527,11 @@ export async function getServerSideProps(paths: {
   const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/teams`, {
     method: "GET",
-    headers: { leaguename: paths.params.league },
+    headers: {
+      leaguename: paths.params.league,
+      create: "true",
+    },
   });
-
   const data = await res.json();
 
   return {

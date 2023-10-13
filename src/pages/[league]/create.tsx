@@ -49,13 +49,14 @@ const Create = (props: {
   data: {
     Teams: {
       map(arg0: (el: any) => void): React.ReactNode;
-      player: player[];
+      Player: player[];
     };
     startDate: string;
     openDate: string;
   };
   data2: { startDate: string; openDate: string; endDate: string };
 }) => {
+  console.log(props);
   const [introModal, setIntroModal] = useState(true);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);
@@ -495,7 +496,10 @@ export async function getStaticProps(paths: { params: { league: string } }) {
   const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/teams`, {
     method: "GET",
-    headers: { leaguename: paths.params.league },
+    headers: {
+      leaguename: paths.params.league,
+      create: "true",
+    },
   });
   const data = await res.json();
 

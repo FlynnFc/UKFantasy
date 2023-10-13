@@ -5,7 +5,6 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const leagueName = req.headers.leaguename as string;
   const createPage = req.headers.create as string;
-  console.log("league", req.headers);
   switch (method) {
     case "GET":
       try {
