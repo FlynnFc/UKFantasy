@@ -37,7 +37,9 @@ export async function getServerSideProps(paths: {
 
 const Gamecenter = (props: { streams: stream[] }) => {
   console.log(props);
-  const [currentStream, setCurrentStream] = useState("");
+  const [currentStream, setCurrentStream] = useState(
+    props.streams[0]?.user_name ?? ""
+  );
 
   const streamHandler = (name: string) => {
     setCurrentStream(name);
@@ -77,7 +79,7 @@ const Gamecenter = (props: { streams: stream[] }) => {
         <section>
           <iframe
             className="rounded-btn col-span-2 h-full bg-base-300"
-            src={`https://www.twitch.tv/embed/${currentStream}/chat?parent=localhost`}
+            src={`https://www.twitch.tv/embed/${currentStream}/chat?parent=esportsfantasy.app`}
           ></iframe>
         </section>
       </section>
