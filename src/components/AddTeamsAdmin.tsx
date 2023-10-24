@@ -35,7 +35,6 @@ const AddTeamsAdmin = () => {
           price: price,
           rareity: rareity,
           steamid: steamid,
-          statsId: "clb3wv98b0000j9fgp1eqw0xj",
           image:
             "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwiaWF0IjoxNjg5Nzk5MDQxLCJleHAiOjE3MjEzMzUwNDF9.zGDt3amKB3L7hwOoakyIySWv51yDnSOw7m5jvDh4hUE&t=2023-07-19T20%3A37%3A30.001Z",
         });
@@ -50,15 +49,15 @@ const AddTeamsAdmin = () => {
       index += jump;
     }
     console.log(teams);
-    const res = await fetch("/api/newTeams", {
-      body: JSON.stringify(teams),
-      method: "POST",
-    });
-    if (res.ok) {
-      return res;
-    } else {
-      throw new Error("couldnt submit");
-    }
+    // const res = await fetch("/api/teams", {
+    //   body: JSON.stringify(teams),
+    //   method: "POST",
+    // });
+    // if (res.ok) {
+    //   return res;
+    // } else {
+    //   throw new Error("couldnt submit");
+    // }
   };
   return (
     <form onSubmit={fileProcess} className="rounded-btn bg-base-300 p-4">

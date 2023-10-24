@@ -190,6 +190,7 @@ const PlayerStatsAdmin = () => {
           League
         </option>
         <option value="epic39">Epic39</option>
+        <option value="epic40">Epic40</option>
         <option value="demo">Demo</option>
       </select>
       {/* {players.length > 0 && (
