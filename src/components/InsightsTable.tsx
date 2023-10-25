@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 const InsightsTable = (props: any) => {
   const { query } = useRouter();
+
   const rounds = useMemo(() => {
     let round = 0;
     const players = props.serverTeam.SelectedPlayer;
@@ -13,15 +14,12 @@ const InsightsTable = (props: any) => {
       const filteredRounds = curr.Player.playerPoints.filter(
         (el: any) => el.league === query.league
       );
-      if (filteredRounds.length > round) round = filteredRounds.length;
+      filteredRounds.forEach((el: { round: number }) => {
+        if (el.round > round) round = el.round;
+      });
     }
     return round;
   }, [props.serverTeam.SelectedPlayer, query.league]);
-
-  console.log(rounds);
-  //   const [rounds, setRounds] = useState<number>(
-  //     props.serverTeam.SelectedPlayer[0]?.points.length ?? 0
-  //   );
 
   const [maxRounds, setMaxRounds] = useState<any>([]);
   const [maxBonusRounds, setMaxBonusRounds] = useState<any>([]);
@@ -73,27 +71,27 @@ const InsightsTable = (props: any) => {
       const filteredPoints = el.Player.playerPoints.filter(
         (point: { league: string }) => point.league === query.league
       );
+      const mappedPoints: any = new Map(
+        filteredPoints.map((el: any) => [el.round, el])
+      );
+      console.log(el.name, mappedPoints);
       let total = 0;
       let bonusTotal = 0;
-      for (let i = 0; i < groupStop; i++) {
-        const pointsObj = filteredPoints[i];
+      for (let i = 1; i <= groupStop; i++) {
+        const pointsObj = mappedPoints.get(i);
         if (!pointsObj) {
           playersPointsRow.push(
             <td
               key={Math.random()}
-              className="bg-base-300 text-center text-base-content"
-            >
-              {0}
-            </td>
+              className="bg-base-200 text-center text-base-content"
+            ></td>
           );
 
           playersBonusRow.push(
             <td
               key={Math.random()}
-              className="bg-base-300 text-center text-base-content"
-            >
-              {0}
-            </td>
+              className="bg-base-200 text-center text-base-content"
+            ></td>
           );
         } else if (pointsObj.league === query.league) {
           const element = pointsObj.points;
@@ -135,6 +133,7 @@ const InsightsTable = (props: any) => {
 
     //Playoffs
     props.serverTeam.SelectedPlayer?.map((el: any) => {
+      console.log(el);
       const playersPointsRow: JSX.Element[] = [];
       const playersBonusRow: JSX.Element[] = [];
       let total = 0;
@@ -142,29 +141,24 @@ const InsightsTable = (props: any) => {
       const filteredPoints = el.Player.playerPoints.filter(
         (point: { league: string }) => point.league === query.league
       );
-      for (let i = groupStop; i <= rounds; i++) {
-        const pointsObj = filteredPoints[i];
-        if (!pointsObj) {
-          playersPointsRow.push(
-            <td
-              key={Math.random()}
-              className="bg-base-300 text-center text-base-content"
-            >
-              {0}
-            </td>
-          );
 
-          playersBonusRow.push(
-            <td
-              key={Math.random()}
-              className="bg-base-300 text-center text-base-content"
-            >
-              {0}
-            </td>
+      const mappedPoints = new Map(
+        filteredPoints.map((el: any) => [el.round, el])
+      );
+
+      for (let i = groupStop + 1; i <= rounds; i++) {
+        const pointsObj: any = mappedPoints.get(i);
+
+        if (!pointsObj) {
+          playersPointsRow[i] = (
+            <td className="bg-base-200 text-center text-base-content"></td>
           );
-        } else if (pointsObj.league === query.league) {
-          const element = pointsObj.points ?? 0;
-          playersPointsRow.push(
+          playersBonusRow[i] = (
+            <td className="bg-base-200 text-center text-base-content"></td>
+          );
+        } else {
+          const element = pointsObj.points ?? "n/a";
+          playersPointsRow[i] = (
             <td
               key={pointsObj.id}
               className="bg-base-300 text-center text-base-content"
@@ -175,18 +169,20 @@ const InsightsTable = (props: any) => {
           total += element;
 
           const bonusElement = bonusFinder(el, pointsObj);
-          playersBonusRow.push(
+          playersBonusRow[i] = (
             <td
               key={pointsObj.id + "cheese"}
               className="bg-base-300 text-center text-base-content"
             >
-              {bonusElement ?? 0}
+              {bonusElement}
             </td>
           );
+
           bonusTotal += bonusElement ?? 0;
         }
       }
 
+      for (let i = groupStop; i <= rounds && i < filteredPoints.length; i++) {}
       playoffRows.push(
         <tr key={el.id}>
           <td className="bg-base-300 text-base-content">{el.name}</td>
@@ -201,17 +197,15 @@ const InsightsTable = (props: any) => {
     });
 
     setPlayerRowsPlayoffs(playoffRows);
-    return setPlayerRowsGroups(rows);
+    setPlayerRowsGroups(rows);
+    return;
   }, [props.serverTeam.SelectedPlayer, query.league, rounds]);
 
   useEffect(() => {
     const tempRounds = [];
-
-    for (let index = 0; index <= rounds; index++) {
+    for (let index = 1; index <= rounds; index++) {
       tempRounds.push(
-        <th className="bg-primary text-center text-slate-50">{`R${
-          index + 1
-        }`}</th>
+        <th className="bg-primary text-center text-slate-50">{`R${index}`}</th>
       );
     }
 
@@ -221,11 +215,9 @@ const InsightsTable = (props: any) => {
   useEffect(() => {
     const tempRounds = [];
 
-    for (let index = 0; index <= rounds; index++) {
+    for (let index = 1; index <= rounds; index++) {
       tempRounds.push(
-        <th className="bg-primary text-center text-slate-50">{`Bonus R${
-          index + 1
-        }`}</th>
+        <th className="bg-primary text-center text-slate-50">{`BR${index}`}</th>
       );
     }
 
@@ -295,7 +287,7 @@ const InsightsTable = (props: any) => {
             </table>
           </>
         )}
-        {/* {rounds > 5 && (
+        {rounds > 5 && (
           <>
             <h2 className="text-2xl">Playoff Stage</h2>
             <table className="table w-fit overflow-scroll  rounded-xl">
@@ -315,7 +307,7 @@ const InsightsTable = (props: any) => {
               <tbody className="">{playerRowsPlayoffs}</tbody>
             </table>
           </>
-        )} */}
+        )}
       </section>
     </div>
   );

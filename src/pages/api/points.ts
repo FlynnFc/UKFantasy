@@ -27,7 +27,7 @@ export default async function assetHandler(
                   league: league,
                   points: element.points ?? 0,
                   ADR_warrior: element.ADR_warrior ?? 0,
-                  all_rounder: element.allrounder ?? 0,
+                  all_rounder: element.all_rounder ?? 0,
                   PTFO: element.PTFO ?? 0,
                   awper: element.awper ?? 0,
                   clutcher: element.clutcher ?? 0,
