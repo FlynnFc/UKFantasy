@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
+import crypto from "crypto";
 
 interface player {
   name: string;
@@ -58,46 +59,30 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
     case "POST":
       try {
         const players: player[] = [];
-        const playerTeamMap = new Map<string, string>();
         const { body } = req;
         const teams = JSON.parse(body);
 
-        for (let i = 0; i < teams.length; i++) {
-          const team: player[] = teams[i];
-          team.forEach((el) => players.push(el));
-        }
         const queries = [];
         for (let i = 0; i < teams.length; i++) {
-          const team = teams[i];
+          const team: { players: any[]; teamName: string } = teams[i];
           const teamId = crypto.randomUUID();
-          team.players.forEach((el: { name: string }) =>
-            playerTeamMap.set(el.name, teamId)
-          );
+          team.players.forEach((el) => {
+            players.push({ ...el, teamId: teamId });
+          });
           const newteam = prisma.team.create({
             data: {
               teamName: team.teamName,
               id: teamId,
               league: { connect: { name: "epic40" } },
-              // Player: { connectOrCreate: {where:{steamid:}} data: team.players } },
+              Player: { createMany: { data: players } },
             },
           });
           queries.push(newteam);
         }
 
-        const createPlayers = [];
-        for (let i = 0; i < players.length; i++) {
-          const player = players[i] as player;
-          const query = prisma.player.upsert({
-            where: { steamid: player?.steamid },
-            update: player,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            create: { ...player, teamId: playerTeamMap.get(player.name)! },
-          });
-          createPlayers.push(query);
-        }
-        const newTeams = await prisma.$transaction(queries);
-        const newPlayers = await prisma.$transaction(createPlayers);
-        res.status(200).json({ newTeams, newPlayers });
+        // const newTeams = await prisma.$transaction(queries);
+        console.log(queries);
+        res.status(200).json({ queries });
         return res.end();
       } catch (e) {
         console.error("Request error", e);

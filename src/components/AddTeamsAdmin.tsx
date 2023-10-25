@@ -11,53 +11,58 @@ const AddTeamsAdmin = () => {
     const f = file[0];
     const data = await f.arrayBuffer();
     const workbook = XLSX.read(data);
-    const worksheet: any = workbook.Sheets["Sheet1"];
+    const worksheet: any = workbook.Sheets["Copy of Team Profiles"];
     const jsonData: any = XLSX.utils.sheet_to_json(worksheet, {
       header: 1,
       defval: "",
     });
+
+    console.log(jsonData);
     const teams = [];
     const jump = 9;
-    for (let index = 0; index < jsonData.length; ) {
+    for (let index = 2; index < jsonData.length; ) {
       const element = jsonData[index];
-      const teamName = element[1];
-      const players = [];
-      for (let j = index + 1; j <= index + 5; j++) {
-        const player = jsonData[j];
-        const price = player[4] ? parseInt(player[4]) : 1000;
-        const name = player[1];
-        const steamid = player[2].toString();
-        const rareity =
-          price > 19000 ? "gold" : price >= 16 ? "silver" : "bronze";
-        console.log(name);
-        players.push({
-          name: name,
-          price: price,
-          rareity: rareity,
-          steamid: steamid,
-          image:
-            "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwiaWF0IjoxNjg5Nzk5MDQxLCJleHAiOjE3MjEzMzUwNDF9.zGDt3amKB3L7hwOoakyIySWv51yDnSOw7m5jvDh4hUE&t=2023-07-19T20%3A37%3A30.001Z",
-        });
+      const teamName: string = element[1];
+      if (teamName.length) {
+        const players = [];
+        for (let j = index + 1; j <= index + 5; j++) {
+          const player = jsonData[j];
+          const price = player[4] ? parseInt(player[4]) : 1000;
+          const name = player[1];
+          const steamid = player[2].toString();
+          const rareity =
+            price > 19000 ? "gold" : price >= 16 ? "silver" : "bronze";
+          players.push({
+            name: name,
+            price: price,
+            rareity: rareity,
+            steamid: steamid,
+            image:
+              "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwiaWF0IjoxNjg5Nzk5MDQxLCJleHAiOjE3MjEzMzUwNDF9.zGDt3amKB3L7hwOoakyIySWv51yDnSOw7m5jvDh4hUE&t=2023-07-19T20%3A37%3A30.001Z",
+          });
+        }
+        console.log(players);
+        const team = {
+          teamName: teamName,
+          players: players,
+        };
+        teams.push(team);
+      } else {
+        console.log("Skipped");
       }
-
-      console.log(players);
-      const team = {
-        teamName: teamName,
-        players: players,
-      };
-      teams.push(team);
       index += jump;
     }
     console.log(teams);
-    // const res = await fetch("/api/teams", {
-    //   body: JSON.stringify(teams),
-    //   method: "POST",
-    // });
-    // if (res.ok) {
-    //   return res;
-    // } else {
-    //   throw new Error("couldnt submit");
-    // }
+    const res = await fetch("/api/teams", {
+      body: JSON.stringify(teams),
+      method: "POST",
+    });
+    if (res.ok) {
+      console.log(await res.json);
+      return res;
+    } else {
+      throw new Error("couldnt submit");
+    }
   };
   return (
     <form onSubmit={fileProcess} className="rounded-btn bg-base-300 p-4">

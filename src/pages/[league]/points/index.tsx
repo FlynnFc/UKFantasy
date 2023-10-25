@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import Round from "../../../components/Round";
 import { getSession } from "next-auth/react";
@@ -13,7 +13,7 @@ export async function getServerSideProps({ req }: any) {
   const league = url.split("/");
   const res = await fetch(`${path}/api/teams`, {
     method: "GET",
-    headers: { leaguename: JSON.stringify(league[1]) },
+    headers: { leaguename: league[1] },
   });
   const data = await res.json();
 
@@ -25,7 +25,6 @@ export async function getServerSideProps({ req }: any) {
   }
   const temp = await res2.json();
   const admins = new Set(temp.map((el: { id: string }) => el.id));
-
   if (admins.has(session?.user?.id)) {
     return {
       props: {
@@ -43,6 +42,7 @@ export async function getServerSideProps({ req }: any) {
 
 const Index = (props: { data: any }) => {
   const router = useRouter();
+  console.log(props);
 
   const leagueName = useMemo(() => {
     const word = router.query.league as string;
@@ -52,66 +52,78 @@ const Index = (props: { data: any }) => {
 
   const currentRound = useMemo(() => {
     if (props.data) {
-      let highestround = 1;
+      let highestround = 0;
       let mostPlayedplayer: any[] = [];
-      for (let i = 0; i < props.data.length; i++) {
-        const teams = props.data[i];
+      for (let i = 0; i < props.data.Teams.length; i++) {
+        const teams = props.data.Teams[i];
         for (let j = 0; j < teams.Player.length; j++) {
           const player = teams.Player[j];
-          if (mostPlayedplayer.length < player.playerPoints.length) {
-            mostPlayedplayer = player.playerPoints;
+          const relevantRounds: any[] = [];
+          player.playerPoints.map((el: any) => {
+            if (el.league === (router.query.league as string)) {
+              relevantRounds.push(el);
+            }
+          });
+          if (mostPlayedplayer.length < relevantRounds.length) {
+            mostPlayedplayer = relevantRounds;
           }
         }
       }
 
       for (let i = 0; i < mostPlayedplayer.length; i++) {
+        console.log(mostPlayedplayer);
         const element = mostPlayedplayer[i];
         if (element.round > highestround) {
-          highestround = element.road;
+          highestround = element.round;
         }
       }
-      return mostPlayedplayer;
-    } else return [];
-  }, [props.data]);
+      return highestround;
+    } else return 0;
+  }, [props.data, router.query.league]);
 
-  const [selectedRound, setSelectedRound] = useState(currentRound.length);
+  const [selectedRound, setSelectedRound] = useState(currentRound + 1);
+  const [buttons, setButtons] = useState<any>();
+  useEffect(() => {
+    const btns = [];
+    for (let index = 0; index < currentRound; index++) {
+      btns.push(
+        <button
+          onClick={() => setSelectedRound(index + 1)}
+          key={index}
+          className={`join-item btn rounded-none ${
+            index + 1 === selectedRound && "btn-active"
+          }`}
+        >
+          {`Round ${index + 1}`}
+        </button>
+      );
+    }
+    return setButtons(btns);
+  }, [currentRound, selectedRound]);
 
   return (
     <div className="min-w-screen container flex h-full min-h-screen max-w-7xl  select-none flex-col items-center justify-start gap-4 sm:mx-auto">
       <h1 className="mb-5 text-5xl">{`${leagueName} point dashboard`}</h1>
       <div className="grid grid-cols-6">
-        {currentRound.map((el: number, idx: number) => {
-          return (
-            <button
-              onClick={() => setSelectedRound(idx + 1)}
-              key={idx}
-              className={`join-item btn rounded-none ${
-                idx + 1 === selectedRound && "btn-active"
-              }`}
-            >
-              {`Round ${idx + 1}`}
-            </button>
-          );
-        })}
-
+        {buttons}
         <button
-          onClick={() => setSelectedRound(currentRound.length + 1)}
+          onClick={() => setSelectedRound(currentRound + 1)}
           className={`join-item btn rounded-none ${
-            selectedRound === currentRound.length + 1
+            selectedRound === currentRound + 1
               ? "bg-primary-focus"
               : "bg-primary"
           }`}
-        >{`Round ${currentRound.length + 1}`}</button>
+        >{`Round ${currentRound + 1}`}</button>
       </div>
 
-      {selectedRound === currentRound.length + 1 && (
+      {selectedRound === currentRound + 1 && (
         <Round
           data={props.data}
           selectedRound={selectedRound}
           league={router.query.league as string}
         />
       )}
-      {selectedRound !== currentRound.length + 1 && (
+      {selectedRound !== currentRound + 1 && (
         <RoundDeletionForm data={props.data} round={selectedRound} />
       )}
     </div>

@@ -603,10 +603,10 @@ const Myteam = (props: {
             </div>
           </div>
           {/* Team editing  */}
-          {/* <h2 className="my-5 text-left text-4xl">Insights</h2> */}
-          {/* <section className="h-full w-fit">
+          <h2 className="my-5 text-left text-4xl">Insights</h2>
+          <section className="h-full w-fit">
             <InsightsTable serverTeam={serverTeam} />
-          </section> */}
+          </section>
         </div>
       ) : (
         <Loading />

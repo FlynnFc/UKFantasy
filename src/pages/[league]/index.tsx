@@ -88,9 +88,10 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
   useEffect(() => {
     setLoading(true);
     const tempData: any = [];
+    console.log(query.league);
     fetch("/api/userteam", {
       method: "GET",
-      headers: { leagename: JSON.stringify(query.league) },
+      headers: { leaguename: query.league as string },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -100,6 +101,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
           } else return;
         });
         setLoading(false);
+        console.log(tempData);
         return setData(tempData);
       });
   }, [query.league]);

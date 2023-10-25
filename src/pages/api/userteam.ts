@@ -25,11 +25,12 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
             include: {
               league: true,
               User: { select: { name: true, id: true } },
-              SelectedPlayer: { include: { points: true, bonusPoint: true } },
+              SelectedPlayer: {
+                include: { Player: { include: { playerPoints: true } } },
+              },
             },
             where: { league: { name: league } },
           });
-          console.log(userTeams);
           res.status(200).json(userTeams);
           return res.end();
         } else if (teamid) {
@@ -37,7 +38,12 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
             where: { id: teamid },
             include: {
               SelectedPlayer: {
-                include: { bonus: true, points: true, bonusPoint: true },
+                include: {
+                  bonus: true,
+                  points: true,
+                  bonusPoint: true,
+                  Player: { select: { playerPoints: true } },
+                },
               },
               User: { select: { name: true, id: true } },
             },
@@ -52,7 +58,6 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case "PUT":
       try {
-        console.log("Run run run");
         const data = await JSON.parse(req.body);
         const teamName = prisma.playerTeam.update({
           where: { id: data.id },
@@ -109,6 +114,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
                   rareity: player.rareity,
                   image: player.image,
                   steamid: player.steamid,
+                  playerId: player.id,
                 },
               });
               prismaAddPlayer.push(newplayer);
@@ -146,7 +152,6 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
     case "POST":
       try {
         const data = await JSON.parse(req.body);
-
         const findLeagueId = await prisma.league.findMany({
           where: { name: data.league },
         });
@@ -164,14 +169,16 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
           const finalTeam: any = [];
           for (let i = 0; i < findPlayerData.length; i++) {
             const player = findPlayerData[i];
+            console.log(player);
             if (player) {
               finalTeam.push({
                 bonusName: "",
-                image: player?.image,
-                name: player?.name,
-                price: player?.price + player?.priceadjust,
-                rareity: player?.rareity,
-                steamid: player?.steamid,
+                image: player.image,
+                name: player.name,
+                price: player.price + player.priceadjust,
+                rareity: player.rareity,
+                steamid: player.steamid,
+                playerId: player.id,
               });
             }
           }
@@ -181,8 +188,8 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
               points: "0",
               rolePoints: "0",
               User: { connect: { id: data.userId } },
-              SelectedPlayer: { createMany: { data: [...finalTeam] } },
-              league: { connect: { id: findLeagueId[0]?.id } },
+              SelectedPlayer: { createMany: { data: finalTeam } },
+              league: { connect: { name: data.league } },
             },
           });
           res.status(200).json(examples);
