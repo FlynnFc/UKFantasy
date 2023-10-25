@@ -512,7 +512,7 @@ const Myteam = (props: {
                     className="tooltip"
                     data-tip={userNeedsHelp ? null : "Edit player bonuses"}
                   >
-                    {userNeedsHelp && (
+                    {/* {userNeedsHelp && (
                       <div className="rounded-btn absolute bottom-[2.6rem] right-10 hidden w-48 flex-col bg-info p-2 text-base text-info-content md:flex">
                         <p>Make sure you apply bonuses to your players!</p>
                         <button
@@ -528,8 +528,8 @@ const Myteam = (props: {
                           <FiArrowDownRight />
                         </span>
                       </div>
-                    )}
-                    <button
+                    )} */}
+                    {/* <button
                       onClick={() => {
                         localStorage.setItem("UserTips", "false");
                         setUserNeedsHelp(false);
@@ -539,7 +539,7 @@ const Myteam = (props: {
                       <label className="cursor-pointer" htmlFor="bonus">
                         <ImDice />
                       </label>
-                    </button>
+                    </button> */}
                   </div>
                   <div className="tooltip" data-tip="Delete team">
                     <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-error transition">
@@ -559,7 +559,7 @@ const Myteam = (props: {
                       <Pencil />
                     </button>
                   </div>
-                  <div
+                  {/* <div
                     className="tooltip"
                     data-tip={"Cannot edit while tourements are live"}
                   >
@@ -571,7 +571,7 @@ const Myteam = (props: {
                         <ImDice />
                       </label>
                     </button>
-                  </div>
+                  </div> */}
                   <div className="tooltip" data-tip="Delete team">
                     <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-error transition">
                       <label className="cursor-pointer" htmlFor="my-modal">
