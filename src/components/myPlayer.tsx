@@ -66,6 +66,13 @@ export const MyPlayer = (props: myPlayer) => {
                   : "bronze"
               }`}
             >
+              {" "}
+              {props.img ===
+                "https://wosipkxcwhwqrtnbwdxx.supabase.co/storage/v1/object/sign/players/ghost?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwbGF5ZXJzL2dob3N0IiwiaWF0IjoxNjg5Nzk5MDQxLCJleHAiOjE3MjEzMzUwNDF9.zGDt3amKB3L7hwOoakyIySWv51yDnSOw7m5jvDh4hUE&t=2023-07-19T20%3A37%3A30.001Z" && (
+                <span className={`hidden text-center lg:block`}>
+                  {props.name}
+                </span>
+              )}
               £{new Intl.NumberFormat("en").format(props.price)}
             </p>
           </div>
