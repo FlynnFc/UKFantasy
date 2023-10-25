@@ -75,8 +75,7 @@ const Create = (props: {
       return new Date(props.data?.startDate) < new Date();
   }, [props.data?.startDate]);
   const isOpen = useMemo(() => {
-    if (props.data?.openDate)
-      return new Date(props.data?.openDate) < new Date();
+    if (props.data?.openDate) return true;
   }, [props.data?.openDate]);
 
   useEffect(() => {
