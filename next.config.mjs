@@ -43,6 +43,7 @@ export default defineNextConfig({
         pathname: "/playerbodyshot/**",
       },
       { protocol: "https", hostname: "avatars.steamstatic.com" },
+      { protocol: "https", hostname: "https://utfs.io" },
     ],
   },
 });
