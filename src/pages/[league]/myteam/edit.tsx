@@ -101,6 +101,7 @@ const Edit = (props: {
           }
         );
 
+        console.log(matchedTeam);
         if (matchedTeam[0] !== undefined) {
           console.log("first");
           setTeamName(matchedTeam[0].teamName);
@@ -109,13 +110,13 @@ const Edit = (props: {
             matchedTeam[0].SelectedPlayer.map((el: { id: string }) => el.id)
           );
         } else {
-          setTeamName(matchedTeam[1].teamName);
-          setMyTeamId(matchedTeam[1].id);
+          setTeamName(matchedTeam[2].teamName);
+          setMyTeamId(matchedTeam[2].id);
           setOriginalTeam(
-            matchedTeam[1].SelectedPlayer.map((el: { id: string }) => el.id)
+            matchedTeam[2].SelectedPlayer.map((el: { id: string }) => el.id)
           );
         }
-        const players = matchedTeam[matchedTeam[0] ? 0 : 1].SelectedPlayer.map(
+        const players = matchedTeam[matchedTeam[0] ? 0 : 2].SelectedPlayer.map(
           (el: any) => (
             <SelectedPlayer
               PlayerRemove={PlayerRemove}
