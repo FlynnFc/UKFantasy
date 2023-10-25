@@ -494,7 +494,7 @@ const Myteam = (props: {
                   League page
                 </button>
               </Link>
-              {!isStarted ? (
+              {isStarted ? (
                 <div className="flex flex-row gap-2">
                   <div className="tooltip" data-tip="Edit players">
                     <Link

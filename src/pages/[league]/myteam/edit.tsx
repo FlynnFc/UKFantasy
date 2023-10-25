@@ -86,7 +86,10 @@ const Edit = (props: {
     const fetcher = async () => {
       const res = await fetch(`/api/myTeam`, {
         method: "GET",
-        headers: { id: session?.data?.user?.id as string },
+        headers: {
+          id: session?.data?.user?.id as string,
+          league: query.league as string,
+        },
       });
       if (!res.ok) {
         throw new Error("Could not fetch users team");
@@ -101,9 +104,7 @@ const Edit = (props: {
           }
         );
 
-        console.log(matchedTeam);
         if (matchedTeam[0] !== undefined) {
-          console.log("first");
           setTeamName(matchedTeam[0].teamName);
           setMyTeamId(matchedTeam[0].id);
           setOriginalTeam(
@@ -269,14 +270,14 @@ const Edit = (props: {
         players: playerIds,
         league: query.league,
       };
-      console.log(body);
+
       const JSONbody = await JSON.stringify(body);
 
       const response = await fetch("/api/userteam", {
         method: "PUT",
         body: JSONbody,
       });
-      console.log(response);
+
       if (!response.ok) {
         throw new Error("Could not submit team!");
       }
