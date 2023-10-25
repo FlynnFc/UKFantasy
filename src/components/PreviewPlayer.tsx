@@ -25,9 +25,9 @@ const PreviewPlayer = (props: player) => {
 
             <p
               className={`z-0 pb-2 text-center lg:text-3xl ${
-                props.price >= 21500
+                props.price >= 19999
                   ? "gold"
-                  : props.price > 19000
+                  : props.price > 17499
                   ? "silver"
                   : "bronze"
               }`}
@@ -40,9 +40,9 @@ const PreviewPlayer = (props: player) => {
               )}
               <span
                 className={`flex items-center justify-center ${
-                  props.price >= 21500
+                  props.price >= 20000
                     ? "gold"
-                    : props.price > 19000
+                    : props.price > 17499
                     ? "silver"
                     : "bronze"
                 }`}

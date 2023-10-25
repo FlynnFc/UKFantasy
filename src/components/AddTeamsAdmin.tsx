@@ -11,7 +11,7 @@ const AddTeamsAdmin = () => {
     const f = file[0];
     const data = await f.arrayBuffer();
     const workbook = XLSX.read(data);
-    const worksheet: any = workbook.Sheets["Copy of Team Profiles"];
+    const worksheet: any = workbook.Sheets["Team Profiles"];
     const jsonData: any = XLSX.utils.sheet_to_json(worksheet, {
       header: 1,
       defval: "",
@@ -31,7 +31,7 @@ const AddTeamsAdmin = () => {
           const name = player[1];
           const steamid = player[2].toString();
           const rareity =
-            price > 19000 ? "gold" : price >= 16 ? "silver" : "bronze";
+            price > 19999 ? "gold" : price >= 1500 ? "silver" : "bronze";
           players.push({
             name: name,
             price: price,

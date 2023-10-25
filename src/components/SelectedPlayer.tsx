@@ -59,9 +59,9 @@ const SelectedPlayer = (props: player) => {
           <div>
             <p
               className={`pb-2 text-center lg:text-3xl  ${
-                props.price >= 21500
+                props.price >= 20000
                   ? "gold"
-                  : props.price > 19000
+                  : props.price > 17499
                   ? "silver"
                   : "bronze"
               }`}

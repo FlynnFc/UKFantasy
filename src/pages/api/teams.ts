@@ -8,6 +8,7 @@ interface player {
   rareity: string;
   steamid: string;
   image: string;
+  teamId: string;
 }
 
 const teams = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -74,15 +75,31 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
               teamName: team.teamName,
               id: teamId,
               league: { connect: { name: "epic40" } },
-              Player: { createMany: { data: players } },
             },
           });
           queries.push(newteam);
         }
+        const newplayers = [];
+        for (let i = 0; i < players.length; i++) {
+          const player = players[i] as player;
+          const query = prisma.player.upsert({
+            where: { steamid: player.steamid },
+            update: { teamId: player.teamId, priceadjust: 0 },
+            create: {
+              image: player.image,
+              name: player.name,
+              price: player.price,
+              rareity: player.rareity,
+              steamid: player.steamid,
+              teamId: player.teamId,
+            },
+          });
+          newplayers.push(query);
+        }
 
-        // const newTeams = await prisma.$transaction(queries);
-        console.log(queries);
-        res.status(200).json({ queries });
+        const newTeams = await prisma.$transaction(queries);
+        const playerPrisma = await prisma.$transaction(newplayers);
+        res.status(200).json({ newTeams, playerPrisma });
         return res.end();
       } catch (e) {
         console.error("Request error", e);

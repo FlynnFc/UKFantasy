@@ -120,9 +120,9 @@ export const Player = (props: player) => {
             <div className="text-center lg:hidden">{props.name}</div>
             <p
               className={`z-0 pb-2 text-center lg:text-3xl ${
-                props.price + props.priceadjust >= 21500
+                props.price >= 20000
                   ? "gold"
-                  : props.price + props.priceadjust > 19000
+                  : props.price > 17499
                   ? "silver"
                   : "bronze"
               }`}
@@ -135,9 +135,9 @@ export const Player = (props: player) => {
               )}
               <span
                 className={`flex items-center justify-center ${
-                  props.price >= 21500
+                  props.price >= 20000
                     ? "gold"
-                    : props.price > 19000
+                    : props.price > 17499
                     ? "silver"
                     : "bronze"
                 }`}

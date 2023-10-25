@@ -92,8 +92,8 @@ const Leagues = () => {
           <Toaster />
           <AddTeamsAdmin />
           {currentPage === "editplayers" && <PlayerEditAdmin />}
-          {/* 
-          {currentPage === "addteams" && <AddTeamsAdmin />} */}
+
+          {currentPage === "addteams" && <AddTeamsAdmin />}
 
           {currentPage === "create" && (
             <form
