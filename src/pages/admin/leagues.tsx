@@ -93,7 +93,7 @@ const Leagues = () => {
           <AddTeamsAdmin />
           {currentPage === "editplayers" && <PlayerEditAdmin />}
 
-          {currentPage === "addteams" && <AddTeamsAdmin />}
+          {/* {currentPage === "addteams" && <AddTeamsAdmin />} */}
 
           {currentPage === "create" && (
             <form
