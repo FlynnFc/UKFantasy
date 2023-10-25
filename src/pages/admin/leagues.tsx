@@ -90,7 +90,7 @@ const Leagues = () => {
         </div>
         <div className=" col-span-6 flex items-start justify-center">
           <Toaster />
-          <AddTeamsAdmin />
+          {/* <AddTeamsAdmin /> */}
           {currentPage === "editplayers" && <PlayerEditAdmin />}
 
           {/* {currentPage === "addteams" && <AddTeamsAdmin />} */}
