@@ -83,14 +83,14 @@ const InsightsTable = (props: any) => {
           playersPointsRow.push(
             <td
               key={Math.random()}
-              className="bg-base-200 text-center text-base-content"
+              className="bg-base-300 text-center text-base-content"
             ></td>
           );
 
           playersBonusRow.push(
             <td
               key={Math.random()}
-              className="bg-base-200 text-center text-base-content"
+              className="bg-base-300 text-center text-base-content"
             ></td>
           );
         } else if (pointsObj.league === query.league) {
@@ -151,10 +151,10 @@ const InsightsTable = (props: any) => {
 
         if (!pointsObj) {
           playersPointsRow[i] = (
-            <td className="bg-base-200 text-center text-base-content"></td>
+            <td className="bg-base-300 text-center text-base-content"></td>
           );
           playersBonusRow[i] = (
-            <td className="bg-base-200 text-center text-base-content"></td>
+            <td className="bg-base-300 text-center text-base-content"></td>
           );
         } else {
           const element = pointsObj.points ?? "n/a";
