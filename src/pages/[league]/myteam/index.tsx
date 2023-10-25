@@ -449,6 +449,9 @@ const Myteam = (props: {
       <Toaster position="bottom-left" />
       {serverTeam ? (
         <div className="flex h-full flex-col items-center justify-center ">
+          <span className="rounded-btn mb-2 w-full select-none bg-orange-300 p-3 text-center font-semibold uppercase text-black">
+            Due to the lack cs2 demo support, there will be NO bonuses
+          </span>
           <header className="flex flex-col items-center space-x-2">
             <div className="flex flex-row ">
               <h1 className="text-4xl">{serverTeam.teamName}</h1>

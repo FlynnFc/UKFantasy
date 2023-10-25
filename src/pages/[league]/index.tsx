@@ -163,6 +163,9 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
               Tournament ended
             </span>
           )}
+          <span className="rounded-btn w-full select-none bg-orange-300 p-3 text-center font-semibold uppercase text-black">
+            Prices will dynamically change as players are picked!
+          </span>
         </div>
         <div className="rounded-btn mt-5 flex w-full flex-col gap-6 bg-primary px-5 py-7 text-primary-content shadow-lg md:px-8">
           <h1 className="text-4xl font-bold">
