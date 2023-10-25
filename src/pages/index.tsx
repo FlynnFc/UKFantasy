@@ -38,14 +38,14 @@ const Home: NextPage = () => {
             <span className="font-bold text-emerald-500"> Fantasy League</span>!
           </motion.h1>
           <section className="my-10">
-            <Link href={"/epic39"}>
+            <Link href={"/epic40"}>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 id="getStarted"
                 className="duration-400 rounded-btn bg-primary p-5 text-xl font-bold uppercase text-primary-content shadow-lg   transition-all"
               >
-                Go to Epic 39
+                Go to Epic 40
               </motion.button>
             </Link>
           </section>
