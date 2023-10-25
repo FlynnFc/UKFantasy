@@ -38,7 +38,7 @@ export async function getServerSideProps(paths: {
 const Gamecenter = (props: { streams: stream[] }) => {
   console.log(props);
   const [currentStream, setCurrentStream] = useState(
-    props.streams[0]?.user_name ?? ""
+    props.streams[0]?.user_name ?? "doostynsfishtank"
   );
 
   const streamHandler = (name: string) => {
