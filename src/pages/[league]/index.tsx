@@ -30,7 +30,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
       data,
       streams,
     },
-    revalidate: 5,
+    revalidate: 10,
   };
 }
 
