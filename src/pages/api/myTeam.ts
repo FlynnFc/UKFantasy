@@ -45,7 +45,7 @@ export default async function assetHandler(
                   league: true,
                   SelectedPlayer: {
                     include: {
-                      Player: { select: { playerPoints: true } },
+                      Player: { select: { playerPoints: true, image: true } },
                       bonus: true,
                     },
                   },
