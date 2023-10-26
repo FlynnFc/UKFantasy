@@ -20,6 +20,7 @@ type bonus = {
 };
 
 export type player = {
+  Player: any;
   bonusPoint: { value: number }[];
   id: string;
   name: string;
@@ -442,8 +443,6 @@ const Myteam = (props: {
     }
   };
 
-  console.log(serverTeam);
-
   return (
     <main className="min-w-screen container mx-auto flex min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
       <Toaster position="bottom-left" />
@@ -594,7 +593,7 @@ const Myteam = (props: {
                       name={el.name}
                       price={el.price}
                       rareity={el.rareity}
-                      img={el.image}
+                      img={el.Player.image}
                       bonus={el.bonus}
                       index={0}
                       points={el.points}

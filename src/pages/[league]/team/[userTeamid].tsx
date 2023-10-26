@@ -61,7 +61,7 @@ const UserTeam = () => {
                       name={el.name}
                       price={el.price}
                       rareity={el.rareity}
-                      img={el.image}
+                      img={el.Player.image}
                       bonus={el.bonus}
                       index={0}
                       deleteBonus={function (i: number): void {

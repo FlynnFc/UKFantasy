@@ -56,7 +56,6 @@ const Create = (props: {
   };
   data2: { startDate: string; openDate: string; endDate: string };
 }) => {
-  console.log(props);
   const [introModal, setIntroModal] = useState(true);
   const [myTeam, setMyTeam] = useState<JSX.Element[]>([]);
   const [money, setMoney] = useState(100000);

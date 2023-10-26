@@ -42,7 +42,7 @@ const userteam = async (req: NextApiRequest, res: NextApiResponse) => {
                   bonus: true,
                   points: true,
                   bonusPoint: true,
-                  Player: { select: { playerPoints: true } },
+                  Player: { select: { playerPoints: true, image: true } },
                 },
               },
               User: { select: { name: true, id: true } },
