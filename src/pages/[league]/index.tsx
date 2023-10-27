@@ -140,7 +140,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
     }
   }, [data, session.data?.user?.id]);
 
-  console.log(props.streams);
+  console.log("Started?", isStarted);
 
   return (
     <>
@@ -216,10 +216,10 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
 
           {/* League ended */}
         </div>
-        <span className="rounded-btn mt-4 w-full select-none bg-orange-300 p-3 text-center font-semibold uppercase text-black">
+        {/* <span className="rounded-btn mt-4 w-full select-none bg-orange-300 p-3 text-center font-semibold uppercase text-black">
           Prices will dynamically change as players are picked! Edit your team
           later to get a better deal
-        </span>
+        </span> */}
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
           <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
             <Link href={`${query.league}/teams`}>
