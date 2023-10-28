@@ -61,7 +61,7 @@ const InsightsTable = (props: any) => {
 
   useEffect(() => {
     const rows: JSX.Element[] = [];
-    const groupStop = 5;
+    const groupStop = 1;
     //Group stage
     const playoffRows: JSX.Element[] = [];
     props.serverTeam.SelectedPlayer?.map((el: any) => {
@@ -266,7 +266,7 @@ const InsightsTable = (props: any) => {
           </span>
         </h2>
       </div>
-      {/* <section className="grid gap-4">
+      <section className="grid gap-4">
         {rounds > 0 && (
           <>
             <h2 className="text-2xl">Group Stage</h2>
@@ -308,7 +308,7 @@ const InsightsTable = (props: any) => {
             </table>
           </>
         )}
-      </section> */}
+      </section>
     </div>
   );
 };
