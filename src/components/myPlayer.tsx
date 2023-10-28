@@ -90,7 +90,7 @@ export const MyPlayer = (props: myPlayer) => {
         )}
       </div>
       <div
-        className={`rounded-btn flex flex-col items-center justify-center bg-base-100/75 p-2  lg:rounded-btn lg:hidden`}
+        className={`rounded-btn flex flex-col items-center justify-center bg-neutral/50 p-2  lg:rounded-btn lg:hidden`}
       >
         <h2 className={`${props.rareity}`}>{props.name}</h2>
         <span className={`${props.rareity}`}>{props.price}</span>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import SiteShowcase from "../components/SiteShowcase";
+import LiveGamesExample from "../components/LiveGamesExample";
 
 const Player = {
   id: "clb6rmzhi0003j9dw2xp7vagz",
@@ -49,7 +50,12 @@ const Home: NextPage = () => {
               </motion.button>
             </Link>
           </section>
-          <SiteShowcase />
+          <div className="rounded-btn max-w-[85vw] bg-base-300 p-2 xl:hidden">
+            <LiveGamesExample />
+          </div>
+          <div className="hidden xl:flex">
+            <SiteShowcase />
+          </div>
         </section>
       </main>
     </>

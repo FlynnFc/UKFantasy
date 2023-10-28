@@ -21,19 +21,19 @@ const tabs = [
 ];
 
 export default function SiteShowcase() {
-  const [selectedTab, setSelectedTab] = useState(tabs[1]);
+  const [selectedTab, setSelectedTab] = useState(tabs[0]);
 
   return (
     <motion.div
       transition={{ ease: "easeIn" }}
-      className={`${styles.window} w-[94vw] max-w-[85rem]`}
+      className={`${styles.window} w-[90vw] max-w-[85rem]`}
     >
       <nav className={`${styles.nav}`}>
         <ul className={styles.tabs}>
           {tabs.map((item) => (
             <li
               key={item?.label}
-              className={`transition-all ${styles.item}`}
+              className={`transition-all  ${styles.item}`}
               onClick={() => setSelectedTab(item)}
             >
               {`${item?.icon} ${item?.label}`}
