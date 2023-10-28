@@ -55,7 +55,7 @@ const InsightsTable = (props: any) => {
       case "Util nerd":
         return currentPoints.util_nerd;
       default:
-        return -1;
+        return 0;
     }
   };
 
@@ -266,7 +266,7 @@ const InsightsTable = (props: any) => {
           </span>
         </h2>
       </div>
-      <section className="grid gap-4">
+      {/* <section className="grid gap-4">
         {rounds > 0 && (
           <>
             <h2 className="text-2xl">Group Stage</h2>
@@ -308,7 +308,7 @@ const InsightsTable = (props: any) => {
             </table>
           </>
         )}
-      </section>
+      </section> */}
     </div>
   );
 };
