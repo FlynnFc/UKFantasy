@@ -189,13 +189,14 @@ const PointCalcForm = (props: {
 
     for (let index = 1; index < jsonData.length; index++) {
       const element = jsonData[index];
-      console.log("gets to here");
       //General point calc
-      const points = Math.round(
-        (element[Rowmap.get("Rating 2")] - 1) *
-          100 *
-          element[Rowmap.get("Match")]
-      );
+      // const points = Math.round(
+      //   (element[Rowmap.get("Rating 2")] - 1) *
+      //     100 *
+      //     element[Rowmap.get("Match")]
+      // );
+
+      const points = Math.round(element[Rowmap.get("Points")]);
 
       // playerPoints.push({
       //   name: element[0],
@@ -216,8 +217,8 @@ const PointCalcForm = (props: {
       // });
 
       playerPoints.push({
-        name: element[0],
-        steamid: element[1],
+        name: element[1],
+        steamid: element[0],
         points: points,
         entry_king: 0,
         util_nerd: 0,
@@ -233,7 +234,9 @@ const PointCalcForm = (props: {
         knife: 0,
       });
     }
-    return playerPoints;
+    const filteredArray = playerPoints.filter((item) => item.steamid !== "");
+    console.log(filteredArray);
+    return filteredArray;
   };
 
   const playerFilter = (playerstats: any[], allplayers: any[]) => {
@@ -245,13 +248,22 @@ const PointCalcForm = (props: {
       const element = allplayers[i];
       for (let j = 0; j < element.Player.length; j++) {
         const player = element.Player[j];
+        if (player.steamid === "76561198102745622") {
+          console.log("REEGAN");
+        }
         presentPlayers.add(player.steamid);
       }
     }
 
     for (let i = 0; i < playerstats.length; i++) {
       const element = playerstats[i];
+      const strID = element.steamid.toString().trim();
+      if (strID === "76561198102745622") {
+        console.log("Found reegan in the comparer");
+      }
+      console.log(strID.toString(), presentPlayers.has(strID.toString()));
       if (presentPlayers.has(element.steamid)) {
+        console.log(element.name, element.steamid);
         output.push(element);
       }
     }
@@ -271,7 +283,7 @@ const PointCalcForm = (props: {
     const processedPlayers = await fileProcesMain(e);
     const allPlayers = await playersRes.json();
     console.log(allPlayers);
-
+    console.log(processedPlayers);
     console.log("ttttt", allPlayers);
     const finalData = playerFilter(processedPlayers, allPlayers.Teams);
     console.log(finalData);
@@ -280,13 +292,13 @@ const PointCalcForm = (props: {
       league: props.league,
       round: props.currentRound,
     });
-    // const res = await fetch("/api/points", {
-    //   body: bodyData,
-    //   method: "POST",
-    // });
+    const res = await fetch("/api/points", {
+      body: bodyData,
+      method: "POST",
+    });
 
-    // if (!res.ok) throw new Error("Failed to upload points");
-    // else return res;
+    if (!res.ok) throw new Error("Failed to upload points");
+    else return res;
   };
 
   // const playerAssignLegacy = async () => {

@@ -40,7 +40,7 @@ const Table = (props) => {
       case "Util nerd":
         return currentPoints.util_nerd;
       default:
-        return -1;
+        return 0;
     }
   };
 
