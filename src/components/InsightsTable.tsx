@@ -241,7 +241,7 @@ const InsightsTable = (props: any) => {
     return { total: total, bonusTotal: bonusTotal };
   }, [props.serverTeam.SelectedPlayer, query.league]);
   return (
-    <div className="hidden w-full flex-col items-center gap-2 md:flex ">
+    <div className="flex w-full flex-col items-center gap-2 ">
       <div className="rounded-btn grid w-fit grid-cols-2 bg-base-300 p-4 text-2xl">
         <h2>
           Points:{" "}
@@ -266,7 +266,7 @@ const InsightsTable = (props: any) => {
           </span>
         </h2>
       </div>
-      <section className="grid gap-4">
+      <section className=" hidden gap-4 md:grid">
         {rounds > 0 && (
           <>
             <h2 className="text-2xl">Group Stage</h2>

@@ -73,9 +73,7 @@ const UserTeam = () => {
                 })}
               </div>
             </div>
-            <h2 className="my-5 hidden text-left text-4xl md:block">
-              Insights
-            </h2>
+            <h2 className="my-5 block text-left text-4xl">Insights</h2>
             <section className="w-fit">
               <InsightsTable serverTeam={team} />
             </section>
