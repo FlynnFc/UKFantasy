@@ -266,7 +266,7 @@ const InsightsTable = (props: any) => {
           </span>
         </h2>
       </div>
-      <section className=" hidden gap-4 md:grid">
+      {/* <section className=" hidden gap-4 md:grid">
         {rounds > 0 && (
           <>
             <h2 className="text-2xl">Group Stage</h2>
@@ -308,7 +308,7 @@ const InsightsTable = (props: any) => {
             </table>
           </>
         )}
-      </section>
+      </section> */}
     </div>
   );
 };
