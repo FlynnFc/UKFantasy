@@ -51,19 +51,18 @@ const Table = (props) => {
         return;
       } else {
         setChecker((prev) => new Set([...prev, el.id]));
-        const points = 0;
-        const bonusPoints = 0;
+        let points = 0;
+        let bonusPoints = 0;
+
         el.SelectedPlayer.forEach((element) => {
           const allPoints = element.Player.playerPoints;
-          allPoints.forEach((el) => {
-            if (el.league === query.league) {
-              points += el.points;
-              console.log(el.league);
-              bonusPoints += bonusFinder(element, el);
+          allPoints.forEach((ppoints) => {
+            if (ppoints.league === query.league) {
+              points += ppoints.points;
+              bonusPoints += bonusFinder(element, ppoints);
             }
           });
         });
-
         setPlayerData((prev) => {
           return [
             ...prev,
