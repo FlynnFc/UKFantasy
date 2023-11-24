@@ -449,7 +449,7 @@ const Myteam = (props: {
       {serverTeam ? (
         <div className="flex h-full flex-col items-center justify-center ">
           <span className="rounded-btn mb-2 w-full select-none bg-orange-300 p-3 text-center font-semibold uppercase text-black">
-            Due to the lack cs2 demo support, there will be NO bonuses
+            Due to the lack of cs2 demo support there will be no bonus points
           </span>
           <header className="flex flex-col items-center space-x-2">
             <div className="flex flex-row ">
@@ -506,7 +506,7 @@ const Myteam = (props: {
                       }}
                     >
                       <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  fill-secondary p-2 text-2xl text-secondary transition">
-                        <Pencil className="fill-secondary" />
+                        <Pencil className="fill-primary text-primary" />
                       </button>
                     </Link>
                   </div>
@@ -514,7 +514,7 @@ const Myteam = (props: {
                     className="tooltip"
                     data-tip={userNeedsHelp ? null : "Edit player bonuses"}
                   >
-                    {/* {userNeedsHelp && (
+                    {userNeedsHelp && (
                       <div className="rounded-btn absolute bottom-[2.6rem] right-10 hidden w-48 flex-col bg-info p-2 text-base text-info-content md:flex">
                         <p>Make sure you apply bonuses to your players!</p>
                         <button
@@ -530,8 +530,8 @@ const Myteam = (props: {
                           <FiArrowDownRight />
                         </span>
                       </div>
-                    )} */}
-                    {/* <button
+                    )}
+                    <button
                       onClick={() => {
                         localStorage.setItem("UserTips", "false");
                         setUserNeedsHelp(false);
@@ -541,7 +541,7 @@ const Myteam = (props: {
                       <label className="cursor-pointer" htmlFor="bonus">
                         <ImDice />
                       </label>
-                    </button> */}
+                    </button>
                   </div>
                   <div className="tooltip" data-tip="Delete team">
                     <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-error transition">
@@ -556,12 +556,12 @@ const Myteam = (props: {
                   <div className="tooltip" data-tip="Edit players">
                     <button
                       disabled
-                      className="btn-disabled btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl transition"
+                      className="btn-disabled btn-ghost  rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl transition"
                     >
                       <Pencil />
                     </button>
                   </div>
-                  {/* <div
+                  <div
                     className="tooltip"
                     data-tip={"Cannot edit while tourements are live"}
                   >
@@ -573,7 +573,7 @@ const Myteam = (props: {
                         <ImDice />
                       </label>
                     </button>
-                  </div> */}
+                  </div>
                   <div className="tooltip" data-tip="Delete team">
                     <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  p-2 text-2xl text-error transition">
                       <label className="cursor-pointer" htmlFor="my-modal">
