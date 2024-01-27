@@ -74,7 +74,7 @@ const InsightsTable = (props: any) => {
       const mappedPoints: any = new Map(
         filteredPoints.map((el: any) => [el.round, el])
       );
-      console.log(el.name, mappedPoints);
+
       let total = 0;
       let bonusTotal = 0;
       for (let i = 1; i <= groupStop; i++) {
@@ -133,7 +133,6 @@ const InsightsTable = (props: any) => {
 
     //Playoffs
     props.serverTeam.SelectedPlayer?.map((el: any) => {
-      console.log(el);
       const playersPointsRow: JSX.Element[] = [];
       const playersBonusRow: JSX.Element[] = [];
       let total = 0;

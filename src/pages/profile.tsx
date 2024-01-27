@@ -29,7 +29,7 @@ export async function getServerSideProps({ req }: any) {
   console.log(session?.user);
   const res = await fetch(`${path}/api/admins`, {
     method: "GET",
-    headers: { id: JSON.stringify(userid) },
+    headers: { id: userid },
   });
   if (!res.ok) {
     console.error("error");
@@ -41,7 +41,7 @@ export async function getServerSideProps({ req }: any) {
   }
 
   const temp = await res.json();
-
+  console.log(temp);
   console.log(temp);
   const isAdmin = temp.admin;
   return {
