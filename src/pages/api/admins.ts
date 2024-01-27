@@ -11,6 +11,7 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
         if (userid) {
           const admins = await prisma.user.findUnique({
             where: { id: JSON.parse(userid) },
+            select: { admin: true },
           });
           res.status(200).json(admins);
           return res.end();

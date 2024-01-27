@@ -63,6 +63,7 @@ model User {
   league        League[]
   highlight     highlight[]
   highlightLike highlightLike[]
+  pickem        pickem[]
 }
 
 model VerificationToken {
@@ -168,22 +169,29 @@ model Team {
   teamName String
   Player   Player[]
   league   League[]
+  pickem   pickem[]
+
+  pickemResults   pickemResults? @relation(fields: [pickemResultsId], references: [id])
+  pickemResultsId String?
+
+  @@index([pickemResultsId])
 }
 
 model League {
-  id             String        @id @default(cuid())
-  name           String        @unique
-  description    String        @db.Text
+  id             String          @id @default(cuid())
+  name           String          @unique
+  description    String          @db.Text
   Teams          Team[]
   User           User[]
-  offical        Boolean       @default(false)
+  offical        Boolean         @default(false)
   playerTeam     PlayerTeam[]
-  LeagueRounds   LeagueRounds? @relation(fields: [leagueRoundsId], references: [id])
-  openDate       DateTime      @default(now())
-  startDate      DateTime      @default(now())
-  endDate        DateTime      @default(now())
+  LeagueRounds   LeagueRounds?   @relation(fields: [leagueRoundsId], references: [id])
+  openDate       DateTime        @default(now())
+  startDate      DateTime        @default(now())
+  endDate        DateTime        @default(now())
   leagueRoundsId String?
   highlight      highlight[]
+  pickemResults  pickemResults[]
 
   @@index([leagueRoundsId])
 }
@@ -212,7 +220,7 @@ model bonus {
 model playerPoints {
   id           String @id @unique @default(cuid())
   round        Int
-  league String
+  league       String
   ADR_warrior  Int?
   all_rounder  Int?
   PTFO         Int?
@@ -230,6 +238,32 @@ model playerPoints {
   playerId     String
 
   @@index([playerId])
+}
+
+model pickem {
+  id              String        @id @unique @default(cuid())
+  user            User          @relation(fields: [userId], references: [id])
+  userId          String        @unique
+  playoffs        Team[]
+  lowestRating    String
+  highestRating   String
+  results         pickemResults @relation(fields: [pickemResultsId], references: [id])
+  pickemResultsId String
+
+  @@index([userId])
+  @@index([pickemResultsId])
+}
+
+model pickemResults {
+  id            String   @id @unique @default(cuid())
+  highestRating String
+  lowestRating  String
+  playoffs      Team[]
+  league        League   @relation(fields: [leagueId], references: [id])
+  leagueId      String
+  pickem        pickem[]
+
+  @@index([leagueId])
 }
 
 model highlight {
