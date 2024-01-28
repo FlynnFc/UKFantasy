@@ -188,27 +188,26 @@ const Pickem = (props: any) => {
           <div>
             <h2 className="text-xl font-bold leading-relaxed">Playoffs</h2>
             <div className="mx-auto grid grid-cols-2 gap-2  md:grid-cols-8 md:grid-rows-1">
-              {playoffs.length
-                ? playoffs?.map((el) => {
-                    return (
-                      <div
-                        className="rounded-btn flex h-20 w-auto items-center justify-center bg-primary p-2 text-center font-bold shadow"
-                        key={el.id}
-                      >
-                        {el.name}
+              {playoffs?.map((el) => {
+                return (
+                  <div
+                    className="rounded-btn flex h-20 w-auto items-center justify-center bg-primary p-2 text-center font-bold shadow"
+                    key={el.id}
+                  >
+                    {el.name}
+                    {el.name !== "" && (
+                      <div className="flex h-full items-end justify-end">
+                        <span
+                          onClick={() => playoffDeleter(el.id)}
+                          className="cursor-pointer text-red-500"
+                        >
+                          X
+                        </span>
                       </div>
-                    );
-                  })
-                : temp.map((el) => {
-                    return (
-                      <div
-                        className="rounded-btn flex h-20 w-auto items-center justify-center bg-primary/20 p-2 text-center font-bold"
-                        key={el.id}
-                      >
-                        {el.name}
-                      </div>
-                    );
-                  })}
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -222,7 +221,7 @@ const Pickem = (props: any) => {
               }) => {
                 return (
                   <li
-                    key={el.id}
+                    key={el.teamName}
                     className="flex items-center justify-between gap-1 bg-base-300 p-3"
                   >
                     <span className="max-w-sm  overflow-hidden text-ellipsis whitespace-nowrap  text-center  font-normal">
