@@ -70,7 +70,7 @@ const Settings = () => {
           Submit
         </button>
       </form>
-      <form className="form" action="">
+      {/* <form className="form" action="">
         <label className="label mt-1 text-xl" htmlFor="name">
           Theme
         </label>
@@ -92,7 +92,7 @@ const Settings = () => {
         >
           Submit
         </button>
-      </form>
+      </form> */}
     </section>
   );
 };
