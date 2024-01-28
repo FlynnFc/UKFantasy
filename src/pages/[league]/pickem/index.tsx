@@ -12,6 +12,7 @@ import { randomUUID } from "crypto";
 import { ChevronUp, ChevronUpIcon } from "lucide-react";
 import { BsChevronDoubleDown, BsChevronDoubleUp } from "react-icons/bs";
 import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -68,16 +69,26 @@ type TeamType = {
   players: any[];
 };
 
-const temp = new Array(8).fill({ id: randomUUID, name: "" });
+const temp: TeamType[] = [
+  { id: "79477", name: "", players: [] },
+  { id: "26454", name: "", players: [] },
+  { id: "37068", name: "", players: [] },
+  { id: "70450", name: "", players: [] },
+  { id: "46398", name: "", players: [] },
+  { id: "68995", name: "", players: [] },
+  { id: "51387", name: "", players: [] },
+  { id: "23758", name: "", players: [] },
+];
 
 const Pickem = (props: any) => {
   const { data: session, status } = useSession();
+  const router = useRouter();
+  const { query } = useRouter();
   const [highestRating, setHighestRating] = useState<TeamType>();
   const [lowestRating, setLowestRating] = useState<TeamType>();
-  const [playoffs, setPlayoffs] = useState<TeamType[]>(
-    new Array(8).fill({ id: randomUUID, name: "" })
-  );
+  const [playoffs, setPlayoffs] = useState<TeamType[]>(temp);
   const [playoffFull, setPlayoffFull] = useState(false);
+
   console.log(playoffFull);
 
   function playoffAdder({ name, id, players }: TeamType) {
@@ -103,7 +114,11 @@ const Pickem = (props: any) => {
 
     // If the team is not found, return early
     if (indexToRemove === -1) return;
-    const toAdd: TeamType = { name: "", id: "", players: [] };
+    const toAdd: TeamType = {
+      name: "",
+      id: (Math.random() * 100).toString(),
+      players: [],
+    };
     // Create a new array, removing the specified team and shifting elements
     const newArr = [
       ...playoffs.slice(0, indexToRemove),
@@ -142,6 +157,7 @@ const Pickem = (props: any) => {
       success: <b>Pickems submitted!</b>,
       error: <b>Could not submit your pickems!</b>,
     });
+    router.push(`/${query.league}/pickem/${session?.user?.id}`);
   }
   //When sending data to create pickem. Send array of teamids for playoff selections. And team ids for lowest and highest guesses
   return (
@@ -220,21 +236,19 @@ const Pickem = (props: any) => {
                 Player: (JSX.IntrinsicAttributes & player)[];
               }) => {
                 return (
-                  <li
-                    key={el.teamName}
-                    className="flex items-center justify-between gap-1 bg-base-300 p-3"
-                  >
-                    <span className="max-w-sm  overflow-hidden text-ellipsis whitespace-nowrap  text-center  font-normal">
-                      {el.teamName}
-                    </span>
+                  <>
+                    <label htmlFor={el.id} className={``}>
+                      <div
+                        key={el.teamName}
+                        className="flex cursor-pointer items-center justify-between gap-1 bg-base-300 p-3 hover:bg-base-200"
+                      >
+                        <span className="max-w-sm  overflow-hidden text-ellipsis whitespace-nowrap  text-center  font-normal">
+                          {el.teamName}
+                        </span>
 
-                    <label
-                      htmlFor={el.id}
-                      className={`cursor-pointer p-2 hover:bg-secondary-content`}
-                    >
-                      <IoMdAdd />
+                        <IoMdAdd />
+                      </div>{" "}
                     </label>
-
                     <input
                       type="checkbox"
                       id={el.id}
@@ -313,7 +327,7 @@ const Pickem = (props: any) => {
                         </div>
                       </div>
                     </div>
-                  </li>
+                  </>
                 );
               }
             )}
