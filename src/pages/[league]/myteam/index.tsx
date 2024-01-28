@@ -1,19 +1,17 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useMemo, useState } from "react";
 import Loading from "../../../components/Loading";
-import { ImBin, ImTwitter, ImDice } from "react-icons/im";
+import { ImBin, ImDice } from "react-icons/im";
 import { FiArrowDownRight } from "react-icons/fi";
 import { FiShare } from "react-icons/fi";
 import { MyPlayer } from "../../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Table from "../../../components/Table";
+
 import InsightsTable from "../../../components/InsightsTable";
 import { Pencil } from "lucide-react";
-import PlayerGroup from "../../../components/playerGroup";
-import { Player, playerStats } from "../../../components/Player";
-import PreviewPlayer from "../../../components/PreviewPlayer";
+
 type bonus = {
   name: string;
   description: string;
