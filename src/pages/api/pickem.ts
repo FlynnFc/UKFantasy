@@ -11,21 +11,14 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const pickemTeam = await prisma.pickem.findUniqueOrThrow({
           where: { userId: userId },
+          include: { playoffs: true },
         });
 
         res.status(200).json(pickemTeam);
 
         return res.end;
       } catch (e) {
-        const newTeam = await prisma.pickem.create({
-          data: {
-            highestRating: "",
-            lowestRating: "",
-            userId: userId,
-            pickemResultsId: "clrwinpul0001905kqva17n9u",
-          },
-        });
-        res.status(200).json(newTeam);
+        res.status(200).json("false");
         return res.end();
       }
     case "POST":
@@ -33,15 +26,19 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
         playoffs,
         lowestRating,
         highestRating,
-      }: { playoffs: string[]; lowestRating: string; highestRating: string } =
-        req.body;
+      }: {
+        playoffs: { id: string }[];
+        lowestRating: string;
+        highestRating: string;
+      } = JSON.parse(req.body);
       try {
+        console.log(lowestRating, highestRating, playoffs);
         const pickem = await prisma.pickem.create({
           data: {
             highestRating: highestRating,
             lowestRating: lowestRating,
             playoffs: {
-              connect: [{ id: playoffs[0] }],
+              connect: playoffs,
             },
             pickemResultsId: "clrwinpul0001905kqva17n9u",
             userId: userId,
