@@ -55,16 +55,16 @@ const PointCalcForm = (props: {
       defval: "",
     });
 
-    // const worksheet2: any = workbook.Sheets[killsSheet];
-    // const jsonDatakills: any = XLSX.utils.sheet_to_json(worksheet2, {
-    //   header: 1,
-    //   defval: "",
-    // });
-    // const KillsRowMap = new Map();
-    // for (let i = 0; i < jsonDatakills[0].length; i++) {
-    //   const element = jsonDatakills[i];
-    //   KillsRowMap.set(element, i);
-    // }
+    const worksheet2: any = workbook.Sheets[killsSheet];
+    const jsonDatakills: any = XLSX.utils.sheet_to_json(worksheet2, {
+      header: 1,
+      defval: "",
+    });
+    const KillsRowMap = new Map();
+    for (let i = 0; i < jsonDatakills[0].length; i++) {
+      const element = jsonDatakills[i];
+      KillsRowMap.set(element, i);
+    }
 
     setData(jsonData);
     const Rowmap = new Map();
@@ -76,145 +76,145 @@ const PointCalcForm = (props: {
     const playerPoints = [];
 
     //ALL BONUS CALCULATORS!
-    // const knife = (element: any) => {
-    //   const weaponIndex = 22;
-    //   const elementSteamIdIndex = 5;
-    //   const steamid = element[1];
-    //   let knifeKills = 0;
-    //   for (let i = 1; i < jsonDatakills.length; i++) {
-    //     const element = jsonDatakills[i];
-    //     if (element[elementSteamIdIndex] === steamid) {
-    //       if (element[weaponIndex] === "Knife") {
-    //         knifeKills++;
-    //       }
-    //     }
-    //   }
-    //   const val = knifeKills;
-    //   if (val >= 2) return 10;
-    //   else if (val >= 1) return 5;
-    //   else return -5;
-    // };
-    // const awper = (element: any) => {
-    //   const weaponAWPIndex = 22;
-    //   const elementSteamIdIndex = 5;
-    //   const steamid = element[1];
-    //   let awpKills = 0;
-    //   for (let i = 1; i < jsonDatakills.length; i++) {
-    //     const element = jsonDatakills[i];
-    //     if (element[elementSteamIdIndex] === steamid) {
-    //       if (element[weaponAWPIndex] === "AWP") {
-    //         awpKills++;
-    //       }
-    //     }
-    //   }
-    //   const val = awpKills / element[Rowmap.get("Rounds")];
-    //   if (val >= 0.2) return 10;
-    //   else if (val >= 0.12) return 5;
-    //   else return -5;
-    // };
-    // const entryKing = (element: any) => {
-    //   const val =
-    //     element[Rowmap.get("Entry kill win")] / element[Rowmap.get("Rounds")];
+    const knife = (element: any) => {
+      const weaponIndex = 22;
+      const elementSteamIdIndex = 5;
+      const steamid = element[1];
+      let knifeKills = 0;
+      for (let i = 1; i < jsonDatakills.length; i++) {
+        const element = jsonDatakills[i];
+        if (element[elementSteamIdIndex] === steamid) {
+          if (element[weaponIndex] === "Knife") {
+            knifeKills++;
+          }
+        }
+      }
+      const val = knifeKills;
+      if (val >= 2) return 10;
+      else if (val >= 1) return 5;
+      else return -5;
+    };
+    const awper = (element: any) => {
+      const weaponAWPIndex = 22;
+      const elementSteamIdIndex = 5;
+      const steamid = element[1];
+      let awpKills = 0;
+      for (let i = 1; i < jsonDatakills.length; i++) {
+        const element = jsonDatakills[i];
+        if (element[elementSteamIdIndex] === steamid) {
+          if (element[weaponAWPIndex] === "AWP") {
+            awpKills++;
+          }
+        }
+      }
+      const val = awpKills / element[Rowmap.get("Rounds")];
+      if (val >= 0.2) return 10;
+      else if (val >= 0.12) return 5;
+      else return -5;
+    };
+    const entryKing = (element: any) => {
+      const val =
+        element[Rowmap.get("Entry kill win")] / element[Rowmap.get("Rounds")];
 
-    //   if (val >= 0.12) return 10;
-    //   else if (val >= 0.06) return 5;
-    //   else return -5;
-    // };
-    // const utilNerd = (element: any) => {
-    //   const val =
-    //     (element[Rowmap.get("Flashbang thrown")] +
-    //       element[Rowmap.get("Smoke thrown")] +
-    //       element[Rowmap.get("HE thrown")] +
-    //       element[Rowmap.get("Molotov thrown")] +
-    //       element[Rowmap.get("Incendiary thrown")]) /
-    //     element[Rowmap.get("Rounds")];
-    //   if (val >= 2) return 10;
-    //   else if (val >= 1.5) return 5;
-    //   else return -5;
-    // };
-    // const ptfo = (element: any) => {
-    //   const val =
-    //     (element[Rowmap.get("Bomb planted")] +
-    //       element[Rowmap.get("Bomb defused")]) /
-    //     element[Rowmap.get("Rounds")];
-    //   if (val >= 0.09) return 10;
-    //   else if (val >= 0.05) return 5;
-    //   else return -5;
-    // };
-    // const adrWarrior = (elment: any) => {
-    //   const val = elment[Rowmap.get("ADR")];
-    //   if (val > 85) return 10;
-    //   else if (val > 70) return 5;
-    //   else return -5;
-    // };
-    // const siteOnLock = (element: any) => {
-    //   const val = element[Rowmap.get("Entry hold kill win %")];
-    //   if (val >= 60) return 10;
-    //   else if (val >= 40) return 5;
-    //   else return -5;
-    // };
-    // const clutcher = (element: any) => {
-    //   const val = element[Rowmap.get("Clutch won %")];
-    //   if (val >= 10) return 10;
-    //   else if (val >= 1) return 5;
-    //   else return -5;
-    // };
-    // const tradeMe = (element: any) => {
-    //   // V / F
-    //   const val =
-    //     element[Rowmap.get("Trade Death")] / element[Rowmap.get("Deaths")];
+      if (val >= 0.12) return 10;
+      else if (val >= 0.06) return 5;
+      else return -5;
+    };
+    const utilNerd = (element: any) => {
+      const val =
+        (element[Rowmap.get("Flashbang thrown")] +
+          element[Rowmap.get("Smoke thrown")] +
+          element[Rowmap.get("HE thrown")] +
+          element[Rowmap.get("Molotov thrown")] +
+          element[Rowmap.get("Incendiary thrown")]) /
+        element[Rowmap.get("Rounds")];
+      if (val >= 2) return 10;
+      else if (val >= 1.5) return 5;
+      else return -5;
+    };
+    const ptfo = (element: any) => {
+      const val =
+        (element[Rowmap.get("Bomb planted")] +
+          element[Rowmap.get("Bomb defused")]) /
+        element[Rowmap.get("Rounds")];
+      if (val >= 0.09) return 10;
+      else if (val >= 0.05) return 5;
+      else return -5;
+    };
+    const adrWarrior = (elment: any) => {
+      const val = elment[Rowmap.get("ADR")];
+      if (val > 85) return 10;
+      else if (val > 70) return 5;
+      else return -5;
+    };
+    const siteOnLock = (element: any) => {
+      const val = element[Rowmap.get("Entry hold kill win %")];
+      if (val >= 60) return 10;
+      else if (val >= 40) return 5;
+      else return -5;
+    };
+    const clutcher = (element: any) => {
+      const val = element[Rowmap.get("Clutch won %")];
+      if (val >= 10) return 10;
+      else if (val >= 1) return 5;
+      else return -5;
+    };
+    const tradeMe = (element: any) => {
+      // V / F
+      const val =
+        element[Rowmap.get("Trade Death")] / element[Rowmap.get("Deaths")];
 
-    //   if (val >= 0.2) return 10;
-    //   else if (val >= 0.15) return 5;
-    //   else return -5;
-    // };
-    // const statPadder = (element: any) => {
-    //   const val = element[Rowmap.get("Rating 2")];
-    //   if (val >= 1.35) return 10;
-    //   else if (val >= 0.85) return 5;
-    //   else return -5;
-    // };
-    // const headClicker = (element: any) => {
-    //   const val = element[Rowmap.get("HS%")];
-    //   if (val >= 65) return 10;
-    //   else if (val >= 40) return 5;
-    //   else return -5;
-    // };
-    // const allRounder = (element: any) => {
-    //   const val = element[Rowmap.get("KAST")] / element[Rowmap.get("Match")];
-    //   if (val >= 70) return 10;
-    //   else if (val >= 60) return 5;
-    //   else return -5;
-    // };
+      if (val >= 0.2) return 10;
+      else if (val >= 0.15) return 5;
+      else return -5;
+    };
+    const statPadder = (element: any) => {
+      const val = element[Rowmap.get("Rating 2")];
+      if (val >= 1.35) return 10;
+      else if (val >= 0.85) return 5;
+      else return -5;
+    };
+    const headClicker = (element: any) => {
+      const val = element[Rowmap.get("HS%")];
+      if (val >= 65) return 10;
+      else if (val >= 40) return 5;
+      else return -5;
+    };
+    const allRounder = (element: any) => {
+      const val = element[Rowmap.get("KAST")] / element[Rowmap.get("Match")];
+      if (val >= 70) return 10;
+      else if (val >= 60) return 5;
+      else return -5;
+    };
 
     for (let index = 1; index < jsonData.length; index++) {
       const element = jsonData[index];
       //General point calc
-      // const points = Math.round(
-      //   (element[Rowmap.get("Rating 2")] - 1) *
-      //     100 *
-      //     element[Rowmap.get("Match")]
-      // );
+      const points = Math.round(
+        (element[Rowmap.get("Rating 2")] - 1) *
+          100 *
+          element[Rowmap.get("Match")]
+      );
 
-      const points = Math.round(element[Rowmap.get("Points")]);
+      // const points = Math.round(element[Rowmap.get("Points")]);
 
-      // playerPoints.push({
-      //   name: element[0],
-      //   steamid: element[1],
-      //   points: points,
-      //   entry_king: entryKing(element),
-      //   util_nerd: utilNerd(element),
-      //   PTFO: ptfo(element),
-      //   ADR_warrior: adrWarrior(element),
-      //   site_on_lock: siteOnLock(element),
-      //   clutcher: clutcher(element),
-      //   trade_me: tradeMe(element),
-      //   stat_padder: statPadder(element),
-      //   head_clicker: headClicker(element),
-      //   all_rounder: allRounder(element),
-      //   awper: awper(element),
-      //   knife: knife(element),
-      // });
+      playerPoints.push({
+        name: element[0],
+        steamid: element[1],
+        points: points,
+        entry_king: entryKing(element),
+        util_nerd: utilNerd(element),
+        PTFO: ptfo(element),
+        ADR_warrior: adrWarrior(element),
+        site_on_lock: siteOnLock(element),
+        clutcher: clutcher(element),
+        trade_me: tradeMe(element),
+        stat_padder: statPadder(element),
+        head_clicker: headClicker(element),
+        all_rounder: allRounder(element),
+        awper: awper(element),
+        knife: knife(element),
+      });
 
       playerPoints.push({
         name: element[1],

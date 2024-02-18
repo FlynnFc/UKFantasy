@@ -111,6 +111,7 @@ model PlayerTeam {
   teamName       String
   points         String
   rolePoints     String
+  rank           Int?
   league         League?          @relation(fields: [leagueId], references: [id])
   User           User?            @relation(fields: [userId], references: [id])
   leagueId       String?

@@ -213,17 +213,22 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
 
           {/* League ended */}
         </div>
-        {/* <span className="rounded-btn mt-4 w-full select-none bg-orange-300 p-3 text-center font-semibold uppercase text-black">
-          Prices will dynamically change as players are picked! Edit your team
-          later to get a better deal
-        </span> */}
+
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
           <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
+            {league?.name === "epic41" && status === "authenticated" && (
+              <Link href={`${query.league}/pickem`}>
+                <button className="btn w-full select-none bg-[#f47b20] p-3 text-center font-semibold uppercase hover:bg-[#a35f2b]">
+                  Pickems
+                </button>
+              </Link>
+            )}
             <Link href={`${query.league}/teams`}>
               <button className="btn btn-primary flex flex-row items-center justify-center gap-1 border-0">
                 Competing teams <ExternalLink height={20} />
               </button>
             </Link>
+
             {/* <Link href={`${query.league}/stats`}>
               <button className="btn btn-info flex flex-row items-center justify-center gap-1 border-0 hover:bg-info/75">
                 Player Pick Stats <ExternalLink height={20} />

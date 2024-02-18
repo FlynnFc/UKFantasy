@@ -32,7 +32,7 @@ export async function getServerSideProps({ req }: any) {
     headers: { id: userid },
   });
   if (!res.ok) {
-    console.error("error");
+    console.error(res.statusText);
     return {
       props: {
         isAdmin: false,
@@ -41,8 +41,7 @@ export async function getServerSideProps({ req }: any) {
   }
 
   const temp = await res.json();
-  console.log(temp);
-  console.log(temp);
+  console.log("cheese", temp);
   const isAdmin = temp.admin;
   return {
     props: {

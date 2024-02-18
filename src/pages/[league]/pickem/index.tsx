@@ -46,11 +46,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
+  console.log(context.params?.league);
   const path2 = "https://uk-fantasy.vercel.app";
   const res2 = await fetch(`${path2}/api/teams`, {
     method: "GET",
     headers: {
-      leaguename: "epic40",
+      leaguename: context.params?.league as string,
       create: "true",
     },
   });
@@ -203,16 +204,18 @@ const Pickem = (props: any) => {
           </div>
           <div>
             <h2 className="text-xl font-bold leading-relaxed">Playoffs</h2>
-            <div className="mx-auto grid grid-cols-2 gap-2  md:grid-cols-8 md:grid-rows-1">
+            <div className="mx-4 grid grid-cols-1 gap-2  md:mx-0 md:grid-cols-3 lg:grid-cols-4">
               {playoffs?.map((el) => {
                 return (
                   <div
-                    className="rounded-btn flex h-20 w-auto items-center justify-center bg-primary p-2 text-center font-bold shadow"
+                    className="rounded-btn flex h-12 w-full flex-row items-center justify-between bg-primary p-2 text-center font-bold shadow"
                     key={el.id}
                   >
-                    {el.name}
+                    <h3 className="max-w-lg  overflow-hidden text-ellipsis whitespace-nowrap">
+                      {el.name}
+                    </h3>
                     {el.name !== "" && (
-                      <div className="flex h-full items-end justify-end">
+                      <div className="">
                         <span
                           onClick={() => playoffDeleter(el.id)}
                           className="cursor-pointer text-red-500"
@@ -332,6 +335,7 @@ const Pickem = (props: any) => {
               }
             )}
           </ul>
+          {!props.data.teams.Teams.length && <div>No teams found</div>}
         </section>
       </div>
     </main>

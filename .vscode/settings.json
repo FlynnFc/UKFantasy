@@ -3,5 +3,12 @@
     "editor.defaultFormatter": "Prisma.prisma"
   },
   "editor.formatOnSave": true,
-  "cSpell.words": ["Deleter", "leaguename", "pickem", "teamids", "userpickem"]
+  "cSpell.words": [
+    "Deleter",
+    "leaguename",
+    "pickem",
+    "Pickems",
+    "teamids",
+    "userpickem"
+  ]
 }

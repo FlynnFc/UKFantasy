@@ -9,10 +9,12 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const userid = headers.id as string;
         if (userid) {
+          console.log("Chase", userid);
           const admins = await prisma.user.findUnique({
-            where: { id: JSON.parse(userid) },
+            where: { id: userid },
             select: { admin: true },
           });
+
           res.status(200).json(admins);
           return res.end();
         } else {
