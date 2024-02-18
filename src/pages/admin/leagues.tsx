@@ -62,14 +62,14 @@ const Leagues = () => {
             >
               Edit players
             </li>
-            {/* <li
+            <li
               onClick={() => setCurrentPage("addteams")}
               className={`lex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "addteams" && "btn-active"
               }`}
             >
               Add teams
-            </li> */}
+            </li>
             <li
               onClick={() => setCurrentPage("playerstats")}
               className={`flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
@@ -93,7 +93,7 @@ const Leagues = () => {
           {/* <AddTeamsAdmin /> */}
           {currentPage === "editplayers" && <PlayerEditAdmin />}
 
-          {/* {currentPage === "addteams" && <AddTeamsAdmin />} */}
+          {currentPage === "addteams" && <AddTeamsAdmin />}
 
           {currentPage === "create" && (
             <form

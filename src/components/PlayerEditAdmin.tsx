@@ -300,8 +300,9 @@ const PlayerEditAdmin = () => {
         <option selected disabled value="">
           League
         </option>
-        <option value="epic39">Epic39</option>
+        <option value="epic41">Epic41</option>
         <option value="epic40">Epic40</option>
+        <option value="epic39">Epic39</option>
         <option value="demo">Demo</option>
       </select>
 
