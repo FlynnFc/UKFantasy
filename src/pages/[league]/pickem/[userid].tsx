@@ -17,8 +17,8 @@ export async function getServerSideProps(
 ) {
   const session = await getSession(context);
   console.log("session:", session);
-  // const path = "https://uk-fantasy.vercel.app";
-  const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
+  // const path = "http://localhost:3000";
   if (!session || !session?.user) {
     // Handle the case where the user is not logged in
     return {
@@ -41,7 +41,7 @@ export async function getServerSideProps(
 
   return {
     props: {
-      data: { userpickem: data },
+      data: data,
     },
   };
 }
@@ -54,19 +54,31 @@ type TeamType = {
 
 const temp = new Array(8).fill({ id: randomUUID, name: "" });
 
-const Pickem = (props: any) => {
+const Pickem = ({
+  data,
+}: {
+  data: {
+    highestRating: string;
+    lowestRating: string;
+    playoffs: { teamName: string; id: string }[];
+    userId: string;
+  };
+}) => {
   const linkSetter = () => {
-    const path: string = props.data.userpickem.userId as string;
+    const path: string = data.userId as string;
     const host = `https://esportsfantasy.app/epic41/pickem/`;
     const link = host + path;
     navigator.clipboard.writeText(link);
     toast.success("added link to clipboard");
   };
-  console.log(props);
-  const [highestRating, setHighestRating] = useState<TeamType>();
-  const [lowestRating, setLowestRating] = useState<TeamType>();
-  const [playoffs, setPlayoffs] = useState<TeamType[]>([]);
-  console.log(lowestRating);
+  console.log(data);
+  const [highestRating, setHighestRating] = useState<string>(
+    data.highestRating
+  );
+  const [lowestRating, setLowestRating] = useState<string>(data.lowestRating);
+  const [playoffs, setPlayoffs] = useState<{ teamName: string; id: string }[]>(
+    data.playoffs
+  );
 
   //When sending data to create pickem. Send array of teamids for playoff selections. And team ids for lowest and highest guesses
   return (
@@ -90,8 +102,8 @@ const Pickem = (props: any) => {
               <h3 className=" gap-1 text-center font-bold leading-relaxed">
                 Highest rating
               </h3>
-              <div className="rounded-btn flex w-36 items-center justify-center bg-green-900 p-2 text-center font-bold">
-                {highestRating?.name ?? (
+              <div className="rounded-btn flex h-20 w-36 items-center justify-center bg-green-900 p-2 text-center font-bold">
+                {highestRating ?? (
                   <BsChevronDoubleUp className="text-3xl text-green-500" />
                 )}
               </div>
@@ -101,7 +113,7 @@ const Pickem = (props: any) => {
                 Lowest rating
               </h3>
               <div className="rounded-btn flex h-20 w-36 items-center justify-center bg-red-900 p-2 text-center font-bold">
-                {lowestRating?.name ?? (
+                {lowestRating ?? (
                   <BsChevronDoubleDown className="text-3xl text-red-500" />
                 )}
               </div>
@@ -117,7 +129,7 @@ const Pickem = (props: any) => {
                         className="rounded-btn flex h-20 w-auto items-center justify-center bg-primary p-2 text-center font-bold shadow"
                         key={el.id}
                       >
-                        {el.name}
+                        {el.teamName}
                       </div>
                     );
                   })
