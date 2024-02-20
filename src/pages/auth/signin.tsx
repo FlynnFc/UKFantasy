@@ -17,7 +17,7 @@ export default function SignIn(props: { providers: any }) {
         <div className="flex h-full w-96 flex-col items-stretch justify-center gap-2 rounded-md p-6">
           {props.providers &&
             Object.values(props.providers).map((provider: any) => {
-              if (provider.name === "Twitter") {
+              if (provider.name === "Google") {
                 return (
                   <div
                     className="flex justify-center"
@@ -25,23 +25,7 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-[#1D9BF0] text-xl text-white hover:bg-[#1876b4] `}
-                      onClick={() => signIn(provider.id, { callbackUrl: url })}
-                    >
-                      Sign in with {provider.name}
-                      <SiTwitter className="mx-4 inline" />
-                    </button>
-                  </div>
-                );
-              } else if (provider.name === "Google") {
-                return (
-                  <div
-                    className="flex justify-center"
-                    key={provider.name}
-                    style={{ marginBottom: 0 }}
-                  >
-                    <button
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-slate-100 text-xl text-slate-700 hover:bg-slate-300`}
+                      className={`btn btn-lg flex w-[20rem] justify-center border-none bg-slate-100 text-xl text-slate-700 hover:bg-slate-300`}
                       onClick={() => signIn(provider.id, { callbackUrl: url })}
                     >
                       Sign in with {provider.name}
@@ -57,7 +41,7 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-gray-800 text-xl text-white hover:bg-gray-900  `}
+                      className={`btn btn-lg flex w-[20rem] justify-center border-none bg-gray-800 text-xl text-white hover:bg-gray-900  `}
                       onClick={() => signIn(provider.id, { callbackUrl: url })}
                     >
                       Sign in with {provider.name}
@@ -73,7 +57,7 @@ export default function SignIn(props: { providers: any }) {
                     style={{ marginBottom: 0 }}
                   >
                     <button
-                      className={`btn-lg btn flex w-[20rem] justify-center border-none bg-orange-500 text-xl text-white hover:bg-orange-800  `}
+                      className={`btn btn-lg flex w-[20rem] justify-center border-none bg-orange-500 text-xl text-white hover:bg-orange-800  `}
                       onClick={() => signIn(provider.id, { callbackUrl: url })}
                     >
                       Sign in with {provider.name}
@@ -92,7 +76,7 @@ export default function SignIn(props: { providers: any }) {
             placeholder="Email"
             className="w-full rounded-lg bg-base-100 p-3"
           />
-          <button className="btn-outline btn w-full" disabled>
+          <button className="btn btn-outline w-full" disabled>
             Sign in
           </button>
           <p className="link text-left text-sm">
