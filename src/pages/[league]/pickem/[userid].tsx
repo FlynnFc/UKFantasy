@@ -16,7 +16,6 @@ export async function getServerSideProps(
   context: GetSessionParams | undefined
 ) {
   const session = await getSession(context);
-  console.log("session:", session);
   const path = "https://uk-fantasy.vercel.app";
   // const path = "http://localhost:3000";
   if (!session || !session?.user) {
@@ -62,6 +61,7 @@ const Pickem = ({
     lowestRating: string;
     playoffs: { teamName: string; id: string }[];
     userId: string;
+    user: { name: string };
   };
 }) => {
   const linkSetter = () => {
@@ -71,7 +71,6 @@ const Pickem = ({
     navigator.clipboard.writeText(link);
     toast.success("added link to clipboard");
   };
-  console.log(data);
   const [highestRating, setHighestRating] = useState<string>(
     data.highestRating
   );
@@ -87,7 +86,9 @@ const Pickem = ({
       <div className="flex h-full w-full flex-col items-center justify-center">
         <header className="flex flex-col items-center space-x-2">
           <div className="flex flex-row ">
-            <h1 className="text-4xl">Pickem</h1>
+            <h1 className="text-4xl">
+              {data.user.name ?? "unknown"}&apos;s Pickem
+            </h1>
             <button
               onClick={linkSetter}
               className="btn-ghost rounded-btn mx-2  mb-1 p-2 text-2xl transition-all"
@@ -121,7 +122,7 @@ const Pickem = ({
           </div>
           <div>
             <h2 className="text-xl font-bold leading-relaxed">Playoffs</h2>
-            <div className="mx-auto grid grid-cols-2 gap-2  md:grid-cols-8 md:grid-rows-1">
+            <div className="mx-auto grid grid-cols-2 gap-2  md:grid-cols-4 md:grid-rows-1">
               {playoffs.length
                 ? playoffs?.map((el) => {
                     return (
@@ -136,7 +137,7 @@ const Pickem = ({
                 : temp.map((el) => {
                     return (
                       <div
-                        className="rounded-btn flex h-20 w-auto items-center justify-center bg-base-300 p-2 text-center font-bold"
+                        className="rounded-btn flex h-12 w-auto items-center justify-center bg-base-300 p-2 text-center font-bold"
                         key={el.id}
                       >
                         {el.name}
