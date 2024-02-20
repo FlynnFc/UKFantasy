@@ -218,7 +218,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
           <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
             {league?.name === "epic41" && status === "authenticated" && (
               <Link href={`${query.league}/pickem`}>
-                <button className="btn w-full select-none bg-[#f47b20] p-3 text-center font-semibold uppercase hover:bg-[#a35f2b]">
+                <button className="btn-info w-full select-none p-3 text-center font-semibold uppercase">
                   Pickems
                 </button>
               </Link>
