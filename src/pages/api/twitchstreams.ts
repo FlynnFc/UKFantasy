@@ -46,6 +46,17 @@ async function getStreams() {
     "mms_cs",
     "EU_ReTr00",
     "alcan1",
+    "saltcs",
+    "rhysstumbles",
+    "jjaredddddd",
+    "ByfieldCS2",
+    "bossmankanny",
+    "jaustere_",
+    "ba_birdy",
+    "s0ra_cs",
+    "noel_1k",
+    "sy4_",
+    "dezii96",
   ];
   const token = await getAccessToken();
   let path = "https://api.twitch.tv/helix/streams?";
