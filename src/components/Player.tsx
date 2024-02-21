@@ -122,7 +122,7 @@ export const Player = (props: player) => {
               className={`z-0 pb-2 text-center lg:text-3xl ${
                 props.price >= 20500
                   ? "gold"
-                  : props.price > 19500
+                  : props.price >= 19500
                   ? "silver"
                   : "bronze"
               }`}
@@ -137,7 +137,7 @@ export const Player = (props: player) => {
                 className={`flex items-center justify-center ${
                   props.price >= 20500
                     ? "gold"
-                    : props.price > 19500
+                    : props.price >= 19500
                     ? "silver"
                     : "bronze"
                 }`}

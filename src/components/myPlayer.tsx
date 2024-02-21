@@ -61,7 +61,7 @@ export const MyPlayer = (props: myPlayer) => {
               className={`pb-2 text-center lg:text-3xl ${
                 props.price >= 20500
                   ? "gold"
-                  : props.price > 19500
+                  : props.price >= 19500
                   ? "silver"
                   : "bronze"
               }`}
