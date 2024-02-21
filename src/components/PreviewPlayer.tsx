@@ -49,6 +49,8 @@ const PreviewPlayer = (props: player) => {
               >
                 {props.price === 1000 ? (
                   <>No Price</>
+                ) : props.price > 100000 ? (
+                  <>Not playing</>
                 ) : (
                   <>
                     {" "}
