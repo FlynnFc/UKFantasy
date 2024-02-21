@@ -47,25 +47,32 @@ const PreviewPlayer = (props: player) => {
                     : "bronze"
                 }`}
               >
-                £
-                {new Intl.NumberFormat("en").format(
-                  props.price + props.priceadjust
-                )}
-                {props.priceadjust > 0 && (
-                  <ChevronsUp
-                    size={36}
-                    className="w-fit"
-                    color="rgb(34 197 94)"
-                    strokeWidth={2.75}
-                  />
-                )}
-                {props.priceadjust < 0 && (
-                  <ChevronsDown
-                    size={36}
-                    className="w-fit"
-                    color="rgb(239 68 68)"
-                    strokeWidth={2.75}
-                  />
+                {props.price === 1000 ? (
+                  <>No Price</>
+                ) : (
+                  <>
+                    {" "}
+                    £
+                    {new Intl.NumberFormat("en").format(
+                      props.price + props.priceadjust
+                    )}
+                    {props.priceadjust > 0 && (
+                      <ChevronsUp
+                        size={36}
+                        className="w-fit"
+                        color="rgb(34 197 94)"
+                        strokeWidth={2.75}
+                      />
+                    )}
+                    {props.priceadjust < 0 && (
+                      <ChevronsDown
+                        size={36}
+                        className="w-fit"
+                        color="rgb(239 68 68)"
+                        strokeWidth={2.75}
+                      />
+                    )}
+                  </>
                 )}
               </span>
             </p>
