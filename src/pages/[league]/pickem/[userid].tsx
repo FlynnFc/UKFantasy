@@ -127,7 +127,8 @@ const Pickem = ({
                 ? playoffs?.map((el) => {
                     return (
                       <div
-                        className="rounded-btn flex h-20 w-auto items-center justify-center bg-primary p-2 text-center font-bold shadow"
+                        className="rounded-btn flex h-14
+                         w-auto items-center justify-center bg-primary p-2 text-center font-bold shadow"
                         key={el.id}
                       >
                         {el.teamName}
