@@ -29,14 +29,14 @@ export default function LoginBtn(props: {
           </Link>
           <ul className="w-full pr-2">
             <li className="w-full">
-              <Link href={`/epic40`}>
+              <Link href={`/epic41`}>
                 <a
                   className={` btn bg-neutral text-neutral-content hover:bg-neutral hover:text-neutral-content ${
-                    query.league === "epic40" &&
+                    query.league === "epic41" &&
                     `bg-primary-focus text-primary-content`
                   }`}
                 >
-                  Epic40
+                  Epic41
                 </a>
               </Link>
             </li>
