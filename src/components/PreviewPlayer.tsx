@@ -49,11 +49,10 @@ const PreviewPlayer = (props: player) => {
               >
                 {props.price === 1000 ? (
                   <>No Price</>
-                ) : props.price > 100000 ? (
+                ) : props.price + props.priceadjust > 100000 ? (
                   <>Not playing</>
                 ) : (
                   <>
-                    {" "}
                     £
                     {new Intl.NumberFormat("en").format(
                       props.price + props.priceadjust

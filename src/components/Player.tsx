@@ -142,7 +142,7 @@ export const Player = (props: player) => {
                     : "bronze"
                 }`}
               >
-                {props.price > 100000 ? (
+                {props.price + props.priceadjust > 100000 ? (
                   <>Not Playing</>
                 ) : (
                   <>
