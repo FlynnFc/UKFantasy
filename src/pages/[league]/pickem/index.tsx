@@ -167,7 +167,7 @@ const Pickem = (props: any) => {
       <div className="flex h-full w-full flex-col items-center justify-center">
         <header className="flex w-full flex-col items-center space-x-2">
           <div className="flex flex-row  items-stretch gap-4">
-            <h1 className="mb-6 text-4xl">Choose your Pickems</h1>
+            <h1 className="mb-6 text-4xl">Choose your Group Stage Pickems</h1>
             <button
               disabled={
                 !lowestRating?.name || !highestRating?.name || !playoffFull
@@ -183,7 +183,7 @@ const Pickem = (props: any) => {
           <div className="flex w-full flex-col items-center gap-2  lg:grid lg:grid-cols-8">
             <div className=" lg:col-start-3">
               <h3 className="text-center font-bold leading-relaxed">
-                Highest rating
+                1st Place
               </h3>
               <div className="rounded-btn flex h-20 w-full items-center justify-center bg-green-900 p-2 text-center font-bold">
                 {highestRating?.name ?? (

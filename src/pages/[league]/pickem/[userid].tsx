@@ -87,7 +87,7 @@ const Pickem = ({
         <header className="flex flex-col items-center space-x-2">
           <div className="flex flex-row ">
             <h1 className="text-4xl">
-              {data.user.name ?? "unknown"}&apos;s Pickem
+              {data.user.name ?? "unknown"}&apos;s Group Stage Pickem
             </h1>
             <button
               onClick={linkSetter}
@@ -101,7 +101,7 @@ const Pickem = ({
           <div className="flex w-full flex-col items-center justify-evenly gap-2 md:flex-row">
             <div>
               <h3 className=" gap-1 text-center font-bold leading-relaxed">
-                Highest rating
+                1st Place
               </h3>
               <div className="rounded-btn flex h-20 w-36 items-center justify-center bg-green-900 p-2 text-center font-bold">
                 {highestRating ?? (
