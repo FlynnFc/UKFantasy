@@ -16,8 +16,8 @@ import { useRouter } from "next/router";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
-  //   const path = "https://uk-fantasy.vercel.app";
-  const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
+  // const path = "http://localhost:3000";
   if (!session || !session?.user) {
     // Handle the case where the user is not logged in
     return {
