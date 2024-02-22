@@ -5,19 +5,30 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const { headers } = req;
   const userId = headers.id as string;
+  const leagueId = headers.league as string;
   switch (method) {
     case "GET":
       try {
-        const pickemTeam = await prisma.pickem.findUniqueOrThrow({
-          where: { userId: userId },
-          include: {
-            playoffs: true,
-            user: { select: { name: true } },
-            results: { include: { league: { select: { startDate: true } } } },
-          },
-        });
-
-        res.status(200).json(pickemTeam);
+        if (userId) {
+          const pickemTeam = await prisma.pickem.findUniqueOrThrow({
+            where: { userId: userId },
+            include: {
+              playoffs: true,
+              user: { select: { name: true } },
+              results: { include: { league: { select: { startDate: true } } } },
+            },
+          });
+          res.status(200).json(pickemTeam);
+        } else {
+          console.log(leagueId);
+          const pickemTeams = await prisma.pickem.findMany({
+            where: { results: { league: { name: leagueId } } },
+            include: {
+              playoffs: true,
+            },
+          });
+          res.status(200).json(pickemTeams);
+        }
 
         return res.end;
       } catch (e) {
