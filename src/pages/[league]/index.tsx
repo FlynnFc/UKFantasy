@@ -217,11 +217,18 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
           <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
             {league?.name === "epic41" && status === "authenticated" && (
-              <Link href={`${query.league}/pickem`}>
-                <button className="btn-info w-full select-none p-3 text-center font-semibold uppercase">
-                  Pickems
-                </button>
-              </Link>
+              <div className="grid grid-cols-2 gap-2">
+                <Link href={`${query.league}/pickem`}>
+                  <button className="btn btn-info w-full  select-none p-3 text-center font-semibold uppercase">
+                    My Pickem
+                  </button>
+                </Link>
+                <Link href={`${query.league}/pickem/stats`}>
+                  <button className="btn w-full select-none p-3 text-center font-semibold uppercase">
+                    Pickem stats
+                  </button>
+                </Link>
+              </div>
             )}
             <Link href={`${query.league}/teams`}>
               <button className="btn btn-primary flex flex-row items-center justify-center gap-1 border-0">
