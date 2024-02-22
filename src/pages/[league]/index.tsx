@@ -223,11 +223,11 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
                     My Pickem
                   </button>
                 </Link>
-                {/* <Link href={`${query.league}/pickem/stats`}> */}
-                <button className="btn w-full select-none p-3 text-center font-semibold uppercase">
-                  Pickem stats
-                </button>
-                {/* </Link> */}
+                <Link href={`${query.league}/pickem/stats`}>
+                  <button className="btn w-full select-none p-3 text-center font-semibold uppercase">
+                    Pickem stats
+                  </button>
+                </Link>
               </div>
             )}
             <Link href={`${query.league}/teams`}>
