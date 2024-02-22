@@ -10,7 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticProps(context: GetServerSidePropsContext) {
   //   const path = "http://localhost:3000";
   const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/pickemstats`, {
@@ -30,30 +30,29 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
-      data,
-      pickems,
+      data: { data, pickems },
     },
     revalidate: 300,
   };
 }
 
-// export async function getStaticPaths() {
-//   // const path = "http://localhost:3000";
-//   const path = "https://uk-fantasy.vercel.app";
-//   const res = await fetch(`${path}/api/leagues`, { method: "GET" });
-//   const data = await res.json();
+export async function getStaticPaths() {
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
+  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
+  const data = await res.json();
 
-//   const paths = data.map((league: { name: string }) => ({
-//     params: { league: league.name.toLowerCase() },
-//   }));
+  const paths = data.map((league: { name: string }) => ({
+    params: { league: league.name.toLowerCase() },
+  }));
 
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
+  return {
+    paths,
+    fallback: false,
+  };
+}
 const Stats = (props: any) => {
-  //   console.log(props);
+  console.log(props);
 
   const [screenWidth, setScreenWidth] = useState(1000);
 
@@ -69,16 +68,16 @@ const Stats = (props: any) => {
   }
   const teamFreq = useMemo(() => {
     const elements: any[] = [];
-    props.data.Teams.forEach((el: any) => {
+    props.data.data.Teams.forEach((el: any) => {
       elements.push({ name: el.teamName, freq: el.pickem.length });
     });
     elements.sort(compare);
     return elements;
-  }, [props.data.Teams]);
+  }, [props.data.data.Teams]);
 
   const winFreq = useMemo(() => {
     const elements: any[] = [];
-    props.pickems.forEach((el: any) => {
+    props.data.pickems.forEach((el: any) => {
       elements.push(el.highestRating);
     });
     const frequencyMap = new Map();
@@ -97,7 +96,7 @@ const Stats = (props: any) => {
   }, [props.pickems]);
   const loseFreq = useMemo(() => {
     const elements: any[] = [];
-    props.pickems.forEach((el: any) => {
+    props.data.pickems.forEach((el: any) => {
       elements.push(el.lowestRating);
     });
     const frequencyMap = new Map();
