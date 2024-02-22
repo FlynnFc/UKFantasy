@@ -33,7 +33,7 @@ export async function getStaticProps(context: GetServerSidePropsContext) {
       data,
       pickems,
     },
-    revalidate: 600,
+    revalidate: 300,
   };
 }
 
