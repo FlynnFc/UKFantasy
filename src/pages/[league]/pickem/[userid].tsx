@@ -1,5 +1,5 @@
 import { getSession, useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FiShare } from "react-icons/fi";
 
@@ -71,6 +71,7 @@ const Pickem = ({
     playoffs: { teamName: string; id: string }[];
     userId: string;
     user: { name: string };
+    results: { league: { startDate: string } };
   };
 }) => {
   const linkSetter = () => {
@@ -88,6 +89,11 @@ const Pickem = ({
   const [playoffs, setPlayoffs] = useState<{ teamName: string; id: string }[]>(
     data.playoffs
   );
+
+  const isStarted = useMemo(() => {
+    if (data.results.league.startDate)
+      return new Date(data?.results.league.startDate) < new Date();
+  }, [data.results.league.startDate]);
 
   const session = useSession();
   const { query } = useRouter();
@@ -137,7 +143,10 @@ const Pickem = ({
                     query: { league: query.league },
                   }}
                 >
-                  <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  fill-secondary p-2 text-2xl text-secondary transition">
+                  <button
+                    disabled={isStarted}
+                    className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  fill-secondary p-2 text-2xl text-secondary transition"
+                  >
                     <Pencil className="fill-primary text-primary" />
                   </button>
                 </Link>

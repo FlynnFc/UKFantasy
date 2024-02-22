@@ -1,5 +1,5 @@
 import { getSession, useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 import { IoMdAdd } from "react-icons/io";
@@ -85,8 +85,16 @@ const Pickem = (props: any) => {
   const [lowestRating, setLowestRating] = useState<TeamType>();
   const [playoffs, setPlayoffs] = useState<TeamType[]>(temp);
   const [playoffFull, setPlayoffFull] = useState(false);
+  const isStarted = useMemo(() => {
+    if (props.data?.startDate)
+      return new Date(props.data?.startDate) < new Date();
+  }, [props.data?.startDate]);
 
-  console.log(playoffFull);
+  useEffect(() => {
+    if (isStarted) {
+      router.push(`/${query.league}`);
+    }
+  }, [isStarted, query.league, router]);
 
   function playoffAdder({ name, id, players }: TeamType) {
     // Find the index of the next empty item
