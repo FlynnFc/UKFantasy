@@ -121,7 +121,9 @@ const Stats = (props: any) => {
       </h1>
       <section className="flex flex-col md:flex-row">
         <section>
-          <h2 className="text-3xl">Teams picked to make playoffs</h2>
+          <h2 className="text-center text-3xl">
+            Teams picked to make playoffs
+          </h2>
           <BarChart
             width={screenWidth * 0.65}
             height={400}
@@ -142,7 +144,9 @@ const Stats = (props: any) => {
           </BarChart>
         </section>
         <section>
-          <h2 className="text-3xl">Teams picked to win playoffs</h2>
+          <h2 className="text-center text-3xl ">
+            Teams picked to win playoffs
+          </h2>
           <BarChart
             width={screenWidth * 0.65}
             height={400}
@@ -165,7 +169,9 @@ const Stats = (props: any) => {
       </section>
       <section>
         {" "}
-        <h2 className="text-3xl">Teams picked to be the lowest rated</h2>
+        <h2 className="text-center text-3xl ">
+          Teams picked to be the lowest rated
+        </h2>
         <BarChart
           width={screenWidth * 0.65}
           height={400}
