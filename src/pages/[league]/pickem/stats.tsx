@@ -11,8 +11,8 @@ import {
   YAxis,
 } from "recharts";
 export async function getStaticProps(context: GetServerSidePropsContext) {
-  const path = "http://localhost:3000";
-  //   const path = "https://uk-fantasy.vercel.app";
+  //   const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/pickemstats`, {
     method: "GET",
     headers: {
