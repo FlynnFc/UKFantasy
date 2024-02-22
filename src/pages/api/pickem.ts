@@ -5,7 +5,6 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   const { headers } = req;
   const userId = headers.id as string;
-  console.log(userId);
   switch (method) {
     case "GET":
       try {
@@ -55,8 +54,38 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ error: `Error creating pickem` });
         return res.end();
       }
+    case "PUT":
+      try {
+        const {
+          playoffs,
+          lowestRating,
+          highestRating,
+          id,
+        }: {
+          playoffs: { id: string }[];
+          lowestRating: string;
+          highestRating: string;
+          id: string;
+        } = JSON.parse(req.body);
+        const pickem = await prisma.pickem.update({
+          where: { id: id },
+          data: {
+            highestRating: highestRating,
+            lowestRating: lowestRating,
+            playoffs: {
+              connect: playoffs,
+            },
+          },
+        });
+        res.status(200).json(pickem);
+        return res.end();
+      } catch (e) {
+        console.error("Request error", e);
+        res.status(500).json({ error: `Error creating pickem` });
+        return res.end();
+      }
     default:
-      res.setHeader("Allow", ["GET", "POST"]);
+      res.setHeader("Allow", ["GET", "POST", "PUT"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       return res.end();
   }
