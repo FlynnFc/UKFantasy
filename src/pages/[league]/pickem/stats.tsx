@@ -52,12 +52,12 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
-const Stats = (props) => {
+const Stats = (props: any) => {
   //   console.log(props);
 
   const [screenWidth, setScreenWidth] = useState(1000);
 
-  function compare(a, b) {
+  function compare(a: any, b: any) {
     if (a.freq > b.freq) {
       return -1;
     }
