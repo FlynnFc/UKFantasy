@@ -11,7 +11,11 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const pickemTeam = await prisma.pickem.findUniqueOrThrow({
           where: { userId: userId },
-          include: { playoffs: true, user: { select: { name: true } } },
+          include: {
+            playoffs: true,
+            user: { select: { name: true } },
+            results: { include: { league: { select: { startDate: true } } } },
+          },
         });
 
         res.status(200).json(pickemTeam);
