@@ -144,9 +144,7 @@ const Stats = (props: any) => {
           </BarChart>
         </section>
         <section>
-          <h2 className="text-center text-3xl ">
-            Teams picked to win playoffs
-          </h2>
+          <h2 className="text-center text-3xl ">Teams picked to win groups</h2>
           <BarChart
             width={screenWidth * 0.65}
             height={400}
