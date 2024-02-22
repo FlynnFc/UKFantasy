@@ -57,23 +57,27 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
     case "PUT":
       try {
         const {
-          playoffs,
+          toAdd,
+          toRemove,
           lowestRating,
           highestRating,
           id,
         }: {
-          playoffs: { id: string }[];
+          toAdd: { id: string }[];
+          toRemove: { id: string }[];
           lowestRating: string;
           highestRating: string;
           id: string;
         } = JSON.parse(req.body);
+        // console.log(toadd, toremove);
         const pickem = await prisma.pickem.update({
           where: { id: id },
           data: {
             highestRating: highestRating,
             lowestRating: lowestRating,
             playoffs: {
-              connect: playoffs,
+              disconnect: toRemove,
+              connect: toAdd,
             },
           },
         });
@@ -84,8 +88,20 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(500).json({ error: `Error creating pickem` });
         return res.end();
       }
+    case "DELETE":
+      try {
+        const pickem = await prisma.pickem.delete({
+          where: { id: userId },
+        });
+        res.status(200).json(pickem);
+        return res.end();
+      } catch (e) {
+        console.error("Request error", e);
+        res.status(500).json({ error: `Error creating pickem` });
+        return res.end();
+      }
     default:
-      res.setHeader("Allow", ["GET", "POST", "PUT"]);
+      res.setHeader("Allow", ["GET", "POST", "PUT", "DELETE"]);
       res.status(405).end(`Method ${method} Not Allowed`);
       return res.end();
   }

@@ -1,21 +1,23 @@
-import { getSession, useSession } from "next-auth/react";
-import React, { useState } from "react";
+import { GetSessionParams, getSession, useSession } from "next-auth/react";
+import React, { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-
+import { FiShare } from "react-icons/fi";
+import { FaUser } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
 import { playerStats } from "../../../components/Player";
+import { randomUUID } from "crypto";
+import { ChevronUp, ChevronUpIcon } from "lucide-react";
 import { BsChevronDoubleDown, BsChevronDoubleUp } from "react-icons/bs";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
-  console.log("session:", session);
-  const path = "https://uk-fantasy.vercel.app";
-  // const path = "http://localhost:3000";
+  //   const path = "https://uk-fantasy.vercel.app";
+  const path = "http://localhost:3000";
   if (!session || !session?.user) {
     // Handle the case where the user is not logged in
     return {
@@ -35,7 +37,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return { props: { data: "nothing" } };
   }
   const data = await res.json();
-  if (data !== "false") {
+  if (data === "false") {
+    return {
+      redirect: {
+        destination: `/${context?.params?.league}/pickem`,
+        permanent: false,
+      },
+    };
+  }
+  // League started no more edits
+  if (data.results.league.starDate) {
     return {
       redirect: {
         destination: `/${context?.params?.league}/pickem/${session.user.id}`,
@@ -52,7 +63,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     },
   });
   const teams = await res2.json();
-  console.log("teams:", teams);
   return {
     props: {
       data: { userpickem: data, teams },
@@ -61,36 +71,31 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 type TeamType = {
-  name: string;
+  teamName: string;
   id: string;
   players: any[];
 };
-
-const temp: TeamType[] = [
-  { id: "79477", name: "", players: [] },
-  { id: "26454", name: "", players: [] },
-  { id: "37068", name: "", players: [] },
-  { id: "70450", name: "", players: [] },
-  { id: "46398", name: "", players: [] },
-  { id: "68995", name: "", players: [] },
-  { id: "51387", name: "", players: [] },
-  { id: "23758", name: "", players: [] },
-];
 
 const Pickem = (props: any) => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { query } = useRouter();
-  const [highestRating, setHighestRating] = useState<TeamType>();
-  const [lowestRating, setLowestRating] = useState<TeamType>();
-  const [playoffs, setPlayoffs] = useState<TeamType[]>(temp);
+  const [highestRating, setHighestRating] = useState<string>(
+    props.data.userpickem.highestRating
+  );
+  const [lowestRating, setLowestRating] = useState<string>(
+    props.data.userpickem.lowestRating
+  );
+  const [playoffs, setPlayoffs] = useState<TeamType[]>(
+    props.data.userpickem.playoffs
+  );
   const [playoffFull, setPlayoffFull] = useState(false);
 
-  console.log(playoffFull);
-
-  function playoffAdder({ name, id, players }: TeamType) {
+  function playoffAdder({ teamName, id, players }: TeamType) {
     // Find the index of the next empty item
-    const nextInsertion = playoffs.findIndex((element) => element?.name === "");
+    const nextInsertion = playoffs.findIndex(
+      (element) => element?.teamName === ""
+    );
 
     // If there's no empty spot, set playoff full and return early
     if (nextInsertion === playoffs.length - 1) {
@@ -99,7 +104,7 @@ const Pickem = (props: any) => {
 
     // Create a new array with the updated team
     const newArr = [...playoffs];
-    newArr[nextInsertion] = { name, id, players };
+    newArr[nextInsertion] = { teamName, id, players };
 
     // Update the state with the new array
     setPlayoffs(newArr);
@@ -112,7 +117,7 @@ const Pickem = (props: any) => {
     // If the team is not found, return early
     if (indexToRemove === -1) return;
     const toAdd: TeamType = {
-      name: "",
+      teamName: "",
       id: (Math.random() * 100).toString(),
       players: [],
     };
@@ -129,17 +134,31 @@ const Pickem = (props: any) => {
     setPlayoffFull(false);
   }
   console.log(playoffs);
-
   async function submitPickem() {
     const teamids: { id: string }[] = [];
     playoffs.forEach((el) => teamids.push({ id: el.id }));
+    // Strings to remove are those present in original but not in edited
+    const toRemove = props.data.userpickem.playoffs.filter(
+      (originalItem: { id: string }) =>
+        !teamids.some((editedItem) => editedItem.id === originalItem.id)
+    );
+
+    // Strings (ids) to add are those present in edited but not in original
+    const toAdd = teamids.filter(
+      (editedItem) =>
+        !props.data.userpickem.playoffs.some(
+          (originalItem: { id: string }) => originalItem.id === editedItem.id
+        )
+    );
     const res = await fetch(`/api/pickem`, {
-      method: "POST",
+      method: "PUT",
       headers: { id: session?.user?.id as string },
       body: JSON.stringify({
-        playoffs: teamids,
-        lowestRating: lowestRating?.name,
-        highestRating: highestRating?.name,
+        id: props.data.userpickem.id,
+        toAdd: toAdd,
+        toRemove: toRemove,
+        lowestRating: lowestRating,
+        highestRating: highestRating,
       }),
     });
     if (!res.ok) {
@@ -163,15 +182,13 @@ const Pickem = (props: any) => {
       <div className="flex h-full w-full flex-col items-center justify-center">
         <header className="flex w-full flex-col items-center space-x-2">
           <div className="flex flex-row  items-stretch gap-4">
-            <h1 className="mb-6 text-4xl">Choose your Group Stage Pickems</h1>
+            <h1 className="mb-6 text-4xl">Editing your Group Stage Pickems</h1>
             <button
-              disabled={
-                !lowestRating?.name || !highestRating?.name || !playoffFull
-              }
+              disabled={!lowestRating || !highestRating || !playoffFull}
               onClick={submitHandler}
               className="btn btn-primary"
             >
-              Submit
+              Edit
             </button>
           </div>
         </header>
@@ -182,7 +199,7 @@ const Pickem = (props: any) => {
                 1st Place
               </h3>
               <div className="rounded-btn flex h-20 w-full items-center justify-center bg-green-900 p-2 text-center font-bold">
-                {highestRating?.name ?? (
+                {highestRating ?? (
                   <BsChevronDoubleUp className="text-3xl text-green-500" />
                 )}
               </div>
@@ -192,7 +209,7 @@ const Pickem = (props: any) => {
                 Lowest rating
               </h3>
               <div className="rounded-btn flex h-20 w-full items-center justify-center bg-red-900 p-2 text-center font-bold">
-                {lowestRating?.name ?? (
+                {lowestRating ?? (
                   <BsChevronDoubleDown className="text-3xl text-red-500" />
                 )}
               </div>
@@ -208,9 +225,9 @@ const Pickem = (props: any) => {
                     key={el.id}
                   >
                     <h3 className="max-w-lg  overflow-hidden text-ellipsis whitespace-nowrap">
-                      {el.name}
+                      {el.teamName}
                     </h3>
-                    {el.name !== "" && (
+                    {el.teamName !== "" && (
                       <div className="">
                         <span
                           onClick={() => playoffDeleter(el.id)}
@@ -274,31 +291,19 @@ const Pickem = (props: any) => {
                         </ul>
                         <div className="modal-action flex flex-col gap-1 space-x-0 md:flex-row">
                           <label
-                            onClick={() =>
-                              setLowestRating({
-                                id: el.id,
-                                name: el.teamName,
-                                players: el.Player,
-                              })
-                            }
+                            onClick={() => setLowestRating(el.teamName)}
                             htmlFor={el.id}
                             className={`${
-                              el.id === lowestRating?.id && "btn-disabled"
+                              el.teamName === lowestRating && "btn-disabled"
                             } btn btn-warning`}
                           >
                             Lowest Rating
                           </label>
                           <label
-                            onClick={() =>
-                              setHighestRating({
-                                id: el.id,
-                                name: el.teamName,
-                                players: el.Player,
-                              })
-                            }
+                            onClick={() => setHighestRating(el.teamName)}
                             htmlFor={el.id}
                             className={`${
-                              el.id === highestRating?.id && "btn-disabled"
+                              el.teamName === highestRating && "btn-disabled"
                             } btn btn-success`}
                           >
                             Highest Rating
@@ -313,7 +318,7 @@ const Pickem = (props: any) => {
                             onClick={() =>
                               playoffAdder({
                                 id: el.id,
-                                name: el.teamName,
+                                teamName: el.teamName,
                                 players: el.Player,
                               })
                             }
