@@ -19,7 +19,7 @@ async function getAccessToken() {
 async function getStreams() {
   const streamers: string[] = [
     "edeninho_",
-    "meffew",
+    "meffewcs",
     "esl_csgo",
     "shoobieTV",
     "pieface_CS",
