@@ -30,7 +30,7 @@ const PointCalcForm = (props: {
   const [file, setFile] = useState<any>();
   const [data, setData] = useState();
   const [playerSheet, setPlayerSheet] = useState("");
-  const [killsSheet, setKillsSheet] = useState("");
+  const [killsSheet, setKillsSheet] = useState("Kills");
   const { query } = useRouter();
   const submit = (e: any) => {
     toast.promise(handleUpload(e), {
@@ -292,48 +292,49 @@ const PointCalcForm = (props: {
       league: props.league,
       round: props.currentRound,
     });
-    const res = await fetch("/api/points", {
-      body: bodyData,
-      method: "POST",
-    });
 
-    if (!res.ok) throw new Error("Failed to upload points");
-    else return res;
+    //   const res = await fetch("/api/points", {
+    //     body: bodyData,
+    //     method: "POST",
+    //   });
+
+    //   if (!res.ok) throw new Error("Failed to upload points");
+    //   else return res;
+    // };
+
+    // const playerAssignLegacy = async () => {
+    //   const playersRes = await fetch("/api/userteam", {
+    //     method: "GET",
+    //   });
+    //   if (!playersRes.ok) {
+    //     throw new Error("couldnt find any players");
+    //   }
+    //   console.log("first");
+    //   const teams = await playersRes.json();
+    //   console.log(teams);
+    //   const players: { id: any; steamid: any }[] = [];
+    //   for (let i = 0; i < teams.length; i++) {
+    //     const element = teams[i].SelectedPlayer;
+    //     element.forEach((el: { id: any; steamid: any }) =>
+    //       players.push({ id: el.id, steamid: el.steamid })
+    //     );
+    //   }
+
+    //   const chunkSize = 150;
+    //   for (let i = 0; i < players.length; i += chunkSize) {
+    //     const chunk = players.slice(i, i + chunkSize);
+    //     const updateData = JSON.stringify(chunk);
+    //     const updatePlayers = await fetch("/api/temp", {
+    //       method: "POST",
+    //       body: updateData,
+    //     });
+    //     if (!updatePlayers.ok) {
+    //       console.log("whoops", updatePlayers.statusText);
+    //     } else {
+    //       console.log("yippeee");
+    //     }
+    //   }
   };
-
-  // const playerAssignLegacy = async () => {
-  //   const playersRes = await fetch("/api/userteam", {
-  //     method: "GET",
-  //   });
-  //   if (!playersRes.ok) {
-  //     throw new Error("couldnt find any players");
-  //   }
-  //   console.log("first");
-  //   const teams = await playersRes.json();
-  //   console.log(teams);
-  //   const players: { id: any; steamid: any }[] = [];
-  //   for (let i = 0; i < teams.length; i++) {
-  //     const element = teams[i].SelectedPlayer;
-  //     element.forEach((el: { id: any; steamid: any }) =>
-  //       players.push({ id: el.id, steamid: el.steamid })
-  //     );
-  //   }
-
-  //   const chunkSize = 150;
-  //   for (let i = 0; i < players.length; i += chunkSize) {
-  //     const chunk = players.slice(i, i + chunkSize);
-  //     const updateData = JSON.stringify(chunk);
-  //     const updatePlayers = await fetch("/api/temp", {
-  //       method: "POST",
-  //       body: updateData,
-  //     });
-  //     if (!updatePlayers.ok) {
-  //       console.log("whoops", updatePlayers.statusText);
-  //     } else {
-  //       console.log("yippeee");
-  //     }
-  //   }
-  // };
 
   return (
     <>

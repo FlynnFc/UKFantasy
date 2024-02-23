@@ -1,10 +1,10 @@
 import { getSession, useSession } from "next-auth/react";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FiShare } from "react-icons/fi";
 
 import { randomUUID } from "crypto";
-import { Pencil } from "lucide-react";
+import { CheckCircle, CheckSquare, Pencil, XSquare } from "lucide-react";
 import { BsChevronDoubleDown, BsChevronDoubleUp } from "react-icons/bs";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
@@ -13,8 +13,8 @@ import { ImBin } from "react-icons/im";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
-  const path = "https://uk-fantasy.vercel.app";
-  // const path = "http://localhost:3000";
+  // const path = "https://uk-fantasy.vercel.app";
+  const path = "http://localhost:3000";
   if (!session || !session?.user) {
     // Handle the case where the user is not logged in
     return {
@@ -71,7 +71,12 @@ const Pickem = ({
     playoffs: { teamName: string; id: string }[];
     userId: string;
     user: { name: string };
-    results: { league: { startDate: string } };
+    results: {
+      lowestRating: string;
+      highestRating: string;
+      league: { startDate: string };
+      playoffs: { teamName: string; id: string }[];
+    };
   };
 }) => {
   const linkSetter = () => {
@@ -89,11 +94,50 @@ const Pickem = ({
   const [playoffs, setPlayoffs] = useState<{ teamName: string; id: string }[]>(
     data.playoffs
   );
+  const [playoffSet, setPlayoffSet] = useState(new Set());
+
+  useEffect(() => {
+    const newSet = new Set();
+    data.results.playoffs.forEach((el) => {
+      newSet.add(el.id);
+    });
+    setPlayoffSet(newSet);
+  }, [data.results.playoffs]);
 
   const isStarted = useMemo(() => {
     if (data.results.league.startDate)
       return new Date(data?.results.league.startDate) < new Date();
   }, [data.results.league.startDate]);
+
+  const correct = useMemo(() => {
+    data.playoffs.forEach;
+    let total = 0;
+    for (const team of data.playoffs) {
+      // Check if the item exists in array2
+      for (const team2 of data.results.playoffs) {
+        if (team.id === team2.id) {
+          total++;
+        }
+      }
+    }
+    if (highestRating === data.results.highestRating) {
+      total++;
+    }
+    if (lowestRating === data.results.lowestRating) {
+      total++;
+    }
+    if (total > 10) {
+      return 10;
+    }
+    return total;
+  }, [
+    data.playoffs,
+    data.results.highestRating,
+    data.results.lowestRating,
+    data.results.playoffs,
+    highestRating,
+    lowestRating,
+  ]);
 
   const session = useSession();
   const { query } = useRouter();
@@ -135,7 +179,7 @@ const Pickem = ({
             >
               <FiShare className="" />
             </button>
-            {session.data?.user?.id === query.userid && (
+            {session.data?.user?.id === query.userid && !isStarted && (
               <>
                 <Link
                   href={{
@@ -144,8 +188,8 @@ const Pickem = ({
                   }}
                 >
                   <button
-                    disabled={isStarted}
-                    className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  fill-secondary p-2 text-2xl text-secondary transition"
+                    disabled={true}
+                    className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer fill-secondary p-2 text-2xl text-secondary transition"
                   >
                     <Pencil className="fill-primary text-primary" />
                   </button>
@@ -166,18 +210,54 @@ const Pickem = ({
               <h3 className=" gap-1 text-center font-bold leading-relaxed">
                 1st Place
               </h3>
-              <div className="rounded-btn flex h-20 w-36 items-center justify-center bg-green-900 p-2 text-center font-bold">
-                {highestRating ?? (
+              <div className="rounded-btn flex h-20 w-40 items-center justify-center bg-green-900 p-2 text-center font-bold">
+                {highestRating ? (
+                  <span className="flex flex-row gap-2">
+                    {highestRating}
+                    {data.results.highestRating === highestRating ? (
+                      <CheckSquare />
+                    ) : (
+                      <XSquare />
+                    )}
+                  </span>
+                ) : (
                   <BsChevronDoubleUp className="text-3xl text-green-500" />
                 )}
               </div>
             </div>
+            <section>
+              <div className="rounded-btn mt-5 grid w-fit bg-base-300  p-4 text-2xl">
+                <h2>
+                  <span
+                    className={`font-bold ${
+                      correct > 6
+                        ? "text-green-600"
+                        : correct > 3
+                        ? "text-amber-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {correct}
+                  </span>
+                  <span className="font-bold">/10</span>
+                </h2>
+              </div>
+            </section>
             <div>
               <h3 className="gap-1 text-center font-bold leading-relaxed">
                 Lowest rating
               </h3>
-              <div className="rounded-btn flex h-20 w-36 items-center justify-center bg-red-900 p-2 text-center font-bold">
-                {lowestRating ?? (
+              <div className="rounded-btn flex h-20 w-fit items-center justify-center bg-red-900 p-2 text-center font-bold">
+                {lowestRating ? (
+                  <span className="flex flex-row items-center gap-2 px-2">
+                    {lowestRating}
+                    {data.results.lowestRating === lowestRating ? (
+                      <CheckSquare />
+                    ) : (
+                      <XSquare />
+                    )}
+                  </span>
+                ) : (
                   <BsChevronDoubleDown className="text-3xl text-red-500" />
                 )}
               </div>
@@ -191,10 +271,17 @@ const Pickem = ({
                     return (
                       <div
                         className="rounded-btn flex h-14
-                         w-auto items-center justify-center bg-primary p-2 text-center font-bold shadow"
+                         w-auto items-center justify-between bg-primary p-2 px-4 text-center font-bold shadow"
                         key={el.id}
                       >
-                        {el.teamName}
+                        {el.teamName}{" "}
+                        <span className="text-2xl">
+                          {playoffSet.has(el.id) ? (
+                            <CheckSquare />
+                          ) : (
+                            <XSquare />
+                          )}
+                        </span>
                       </div>
                     );
                   })
@@ -211,6 +298,24 @@ const Pickem = ({
             </div>
           </div>
         </section>
+        {/* <section>
+          <div className="rounded-btn mt-5 grid w-fit bg-base-300  p-4 text-2xl">
+            <h2>
+              <span
+                className={`font-bold ${
+                  correct > 6
+                    ? "text-green-600"
+                    : correct > 3
+                    ? "text-amber-500"
+                    : "text-red-500"
+                }`}
+              >
+                {correct}
+              </span>
+              <span className="font-bold">/10</span>
+            </h2>
+          </div>
+        </section> */}
       </div>
     </main>
   );

@@ -15,7 +15,12 @@ const admins = async (req: NextApiRequest, res: NextApiResponse) => {
             include: {
               playoffs: true,
               user: { select: { name: true } },
-              results: { include: { league: { select: { startDate: true } } } },
+              results: {
+                include: {
+                  league: { select: { startDate: true } },
+                  playoffs: { select: { teamName: true, id: true } },
+                },
+              },
             },
           });
           res.status(200).json(pickemTeam);
