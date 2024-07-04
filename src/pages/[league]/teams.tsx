@@ -3,10 +3,12 @@ import PlayerGroup from "../../components/playerGroup";
 import { playerStats } from "../../components/Player";
 import PreviewPlayer, { player } from "../../components/PreviewPlayer";
 
-export async function getStaticProps(paths: { params: { league: string } }) {
+export async function getServerSideProps(paths: {
+  params: { league: string };
+}) {
   // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allTeams`, {
+  const path = "https://uk-fantasy.vercel.app";
+  const res = await fetch(`${path}/api/teams`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
   });
@@ -15,23 +17,23 @@ export async function getStaticProps(paths: { params: { league: string } }) {
     props: {
       data,
     },
-    revalidate: 500,
+    // revalidate: 500,
   };
 }
 
-export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
-  const data = await res.json();
-  const paths = data.map((league: { name: string }) => ({
-    params: { league: league.name.toLowerCase() },
-  }));
+// export async function getStaticPaths() {
+//   const path = "https://uk-fantasy.vercel.app";
+//   const res = await fetch(`${path}/api/leagues`, { method: "GET" });
+//   const data = await res.json();
+//   const paths = data.map((league: { name: string }) => ({
+//     params: { league: league.name.toLowerCase() },
+//   }));
 
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 const Teams = (props: { data: { Teams: [] } }) => {
   const allPlayers = useMemo(() => {
@@ -45,7 +47,7 @@ const Teams = (props: { data: { Teams: [] } }) => {
   return (
     <section className="mx-5 ml-8 min-h-screen">
       <div className="prose flex w-full max-w-full flex-col items-end justify-between prose-h1:mb-0 md:flex-row ">
-        <h1 className="">All teams</h1>
+        <h1 className="pb-2">All teams</h1>
       </div>
       <div className="mb-2 flex w-full flex-col items-center gap-2 lg:flex-row lg:items-start lg:justify-between">
         <div className=" flex w-full flex-col gap-2">
@@ -73,7 +75,7 @@ const Teams = (props: { data: { Teams: [] } }) => {
           )}
         </div>
 
-        <ul className="rounded-btn w-full bg-base-300 p-4 lg:w-52">
+        <ul className="rounded-btn w-full bg-base-300 p-4 lg:w-56">
           <h3 className="font-bold">Price adjustments</h3>
           {allPlayers.map((el) => {
             return (

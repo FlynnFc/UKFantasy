@@ -17,12 +17,12 @@ import { ExternalLink } from "lucide-react";
 export async function getStaticProps(paths: { params: { league: string } }) {
   // const path = "http://localhost:3000";
   const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allLeagues`, {
+  const res = await fetch(`${path}/api/leagues`, {
     method: "GET",
     headers: { leaguename: paths.params.league },
   });
   const data = await res.json();
-  const streamsRes = await fetch(`${path}/api/allTwitchStreams`);
+  const streamsRes = await fetch(`${path}/api/twitchstreams`);
   const streamData = await streamsRes.json();
   const streams = streamData.data;
   return {
@@ -30,14 +30,14 @@ export async function getStaticProps(paths: { params: { league: string } }) {
       data,
       streams,
     },
-    revalidate: 5,
+    revalidate: 10,
   };
 }
 
 export async function getStaticPaths() {
-  // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
+  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   const data = await res.json();
 
   const paths = data.map((league: { name: string }) => ({
@@ -88,9 +88,9 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
   useEffect(() => {
     setLoading(true);
     const tempData: any = [];
-    fetch("/api/allUserTeams", {
+    fetch("/api/userteam", {
       method: "GET",
-      headers: { leagename: JSON.stringify(query.league) },
+      headers: { leaguename: query.league as string },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -100,6 +100,7 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
           } else return;
         });
         setLoading(false);
+
         return setData(tempData);
       });
   }, [query.league]);
@@ -124,31 +125,6 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
   useEffect(() => {
     setLeague(props.data);
   }, [props.data, query.league]);
-  //Filters teams so it only shows user submitted teams from this league
-  // useEffect(() => {
-  //   const tempData: any = [];
-  //   props.data.forEach((el: { league: { name: string } }) => {
-  //     if (el.league?.name.toLowerCase() === query.league) {
-  //       tempData.push(el);
-  //     } else return;
-  //   });
-  //   return setData(tempData);
-  // }, [props.data, query.league]);
-
-  // const data = useMemo(() => {
-  //   const tempData: any = [];
-  //   props.data.forEach(
-  //     (el: { league: { name: { toLowerCase: () => ParsedUrlQuery } }[] }) => {
-  //       console.log(el.league[0]?.name.toLowerCase());
-  //       console.log(query.league);
-  //       if (el.league[0]?.name.toLowerCase() === query.league) {
-  //         tempData.push(el);
-  //       } else return;
-  //     }
-  //   );
-  //   return tempData;
-  // }, [props.data, query.league]);
-  //Checks is signed in user has already created a team for this league
 
   useEffect(() => {
     if (data) {
@@ -234,24 +210,38 @@ const LeaguePage = (props: { data: league; streams: stream[] }) => {
               </span>
             </div>
           )}
+
           {/* League ended */}
         </div>
 
         <div className="flex w-full flex-col justify-between 2xl:flex-row 2xl:space-x-4">
           <section className="rounded-btn mt-5 flex h-max flex-col gap-3 text-base-content 2xl:w-[25%]">
+            {league?.name === "epic41" && status === "authenticated" && (
+              <div className="grid grid-cols-2 gap-2">
+                <Link href={`${query.league}/pickem`}>
+                  <button className="btn btn-info w-full  select-none p-3 text-center font-semibold uppercase">
+                    My Pickem
+                  </button>
+                </Link>
+                <Link href={`${query.league}/pickem/stats`}>
+                  <button className="btn w-full select-none p-3 text-center font-semibold uppercase">
+                    Pickem stats
+                  </button>
+                </Link>
+              </div>
+            )}
             <Link href={`${query.league}/teams`}>
               <button className="btn btn-primary flex flex-row items-center justify-center gap-1 border-0">
                 Competing teams <ExternalLink height={20} />
               </button>
             </Link>
-            <Link href={`${query.league}/stats`}>
+
+            {/* <Link href={`${query.league}/stats`}>
               <button className="btn btn-info flex flex-row items-center justify-center gap-1 border-0 hover:bg-info/75">
                 Player Pick Stats <ExternalLink height={20} />
               </button>
-            </Link>
+            </Link> */}
             <AllLiveChannels streams={props.streams} />
-            {/* 
-            <LiveGames /> */}
           </section>
 
           <section className="rounded-btn my-2 mt-5 h-max text-base-content  2xl:w-[75%]">

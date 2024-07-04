@@ -21,8 +21,8 @@ const RoundDeletionForm = ({ round, data }: { round: number; data: [] }) => {
   };
 
   const deleter = async () => {
-    const res = await fetch("/api/DeletePointRounds", {
-      method: "POST",
+    const res = await fetch("/api/points", {
+      method: "DELETE",
       body: JSON.stringify({
         round: round,
         league: query.league,
@@ -74,7 +74,7 @@ const RoundDeletionForm = ({ round, data }: { round: number; data: [] }) => {
         <div>
           <button
             onClick={() => setDeleteCheck(true)}
-            className="btn-error btn w-full"
+            className="btn btn-error w-full"
             type="button"
           >
             delete this round
@@ -82,7 +82,14 @@ const RoundDeletionForm = ({ round, data }: { round: number; data: [] }) => {
         </div>
       )}
       {updateDeletePrefrence === "update" && (
-        <PointCalcForm currentRound={round} data={data} />
+        // <PointCalcForm
+        //   currentRound={round}
+        //   data={data}
+        //   league={query.league as string}
+        // />
+        <span>
+          updating is disabled. Please delete the round and re-upload instead
+        </span>
       )}
       {deleteCheck && (
         <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-black/50">
@@ -107,7 +114,7 @@ const RoundDeletionForm = ({ round, data }: { round: number; data: [] }) => {
                   deleteCheckInput !== `delete round ${round} permanently`
                 }
                 onClick={RoundDeleteHandler}
-                className="btn-error btn"
+                className="btn btn-error"
               >
                 Delete
               </button>

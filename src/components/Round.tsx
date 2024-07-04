@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import * as XLSX from "xlsx";
 import PointCalcForm from "./PointCalcForm";
 
-const Round = (props: { data: []; selectedRound: number }) => {
+const Round = (props: { data: []; selectedRound: number; league: string }) => {
   const session = useSession();
   const [authorised, setAuthorised] = useState(true);
   const current = useMemo(() => props.selectedRound, [props.selectedRound]);
@@ -20,6 +20,7 @@ const Round = (props: { data: []; selectedRound: number }) => {
           </h1>
           <div className="rounded-btn mt-8 flex w-full max-w-3xl flex-col items-center justify-center bg-base-300">
             <PointCalcForm
+              league={props.league}
               currentRound={props.selectedRound}
               data={props.data}
             />

@@ -1,25 +1,24 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useMemo, useState } from "react";
 import Loading from "../../../components/Loading";
-import { ImBin, ImTwitter, ImDice } from "react-icons/im";
+import { ImBin, ImDice } from "react-icons/im";
 import { FiArrowDownRight } from "react-icons/fi";
 import { FiShare } from "react-icons/fi";
 import { MyPlayer } from "../../../components/myPlayer";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Table from "../../../components/Table";
+
 import InsightsTable from "../../../components/InsightsTable";
 import { Pencil } from "lucide-react";
-import PlayerGroup from "../../../components/playerGroup";
-import { Player, playerStats } from "../../../components/Player";
-import PreviewPlayer from "../../../components/PreviewPlayer";
+
 type bonus = {
   name: string;
   description: string;
 };
 
 export type player = {
+  Player: any;
   bonusPoint: { value: number }[];
   id: string;
   name: string;
@@ -42,18 +41,18 @@ export type teamProps = {
 export async function getServerSideProps(context: {
   params: { league: string };
 }) {
-  // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app/";
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
   const { league } = context.params;
 
-  const res = await fetch(`${path}api/allBonuses`, { method: "GET" });
+  const res = await fetch(`${path}/api/bonuses`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;
   }
   const data = await res.json();
 
-  const res2 = await fetch(`${path}/api/getLeague`, {
+  const res2 = await fetch(`${path}/api/leagues`, {
     method: "GET",
     headers: { leagueName: league },
   });
@@ -369,14 +368,17 @@ const Myteam = (props: {
 
   const teamDeleter = async () => {
     if (session?.user?.id && team?.id) {
-      const res = await fetch("/api/deleteTeam", {
+      toast.loading("Deleting team");
+      const res = await fetch("/api/userteam", {
         method: "DELETE",
         headers: { id: team.id },
       });
       if (!res.ok) {
         //add error tell user to go back to league page
+        toast.dismiss();
         toast.error("Could not delete");
       } else {
+        toast.dismiss();
         router.push(`/${query.league}`);
       }
     }
@@ -422,8 +424,8 @@ const Myteam = (props: {
     const data = { ...team, id: session?.user?.id, league: query.league };
     if (team) {
       const JSONbody = await JSON.stringify(data);
-      const res = await fetch("/api/updateTeamBonuses", {
-        method: "POST",
+      const res = await fetch("/api/teams", {
+        method: "PUT",
         body: JSONbody,
       });
       const load = toast.loading("updating...");
@@ -438,8 +440,6 @@ const Myteam = (props: {
       }
     }
   };
-
-  console.log(serverTeam);
 
   return (
     <main className="min-w-screen container mx-auto flex min-h-[88.3vh] max-w-7xl flex-col items-center justify-start  p-4">
@@ -501,7 +501,7 @@ const Myteam = (props: {
                       }}
                     >
                       <button className="btn-ghost rounded-btn my-1 h-fit w-fit cursor-pointer  fill-secondary p-2 text-2xl text-secondary transition">
-                        <Pencil className="fill-secondary" />
+                        <Pencil className="fill-primary text-primary" />
                       </button>
                     </Link>
                   </div>
@@ -551,7 +551,7 @@ const Myteam = (props: {
                   <div className="tooltip" data-tip="Edit players">
                     <button
                       disabled
-                      className="btn-disabled btn-ghost rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl transition"
+                      className="btn-disabled btn-ghost  rounded-btn my-1 w-fit cursor-pointer  p-2 text-2xl transition"
                     >
                       <Pencil />
                     </button>
@@ -588,7 +588,7 @@ const Myteam = (props: {
                       name={el.name}
                       price={el.price}
                       rareity={el.rareity}
-                      img={el.image}
+                      img={el.Player.image}
                       bonus={el.bonus}
                       index={0}
                       points={el.points}

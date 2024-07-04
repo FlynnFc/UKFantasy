@@ -1,6 +1,8 @@
+import { UploadButton, UploadDropzone } from "@uploadthing/react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import * as XLSX from "xlsx";
+import { OurFileRouter } from "../server/uploadthing";
 type LeagueData = {
   Teams: {
     teamName: string;
@@ -14,7 +16,7 @@ const PlayerEditAdmin = () => {
   const [leagueData, setLeagueData] = useState<LeagueData>();
 
   const leagueDataHandler = async (league: string) => {
-    const res = await fetch(`/api/allTeams`, {
+    const res = await fetch(`/api/teams`, {
       method: "GET",
       headers: { leaguename: league },
     });
@@ -32,9 +34,10 @@ const PlayerEditAdmin = () => {
   const [selectedPlayer, setSelectedPlayer] = useState("");
   const [playerData, setPlayerData] = useState();
   const [playerAdjustPrice, setPlayerAdjustPrice] = useState(0);
+  const [playerProfURL, setPlayerProfURL] = useState("");
   const [file, setFile] = useState();
   const playerDataHandler = async (player: string) => {
-    const res = await fetch(`/api/playerById`, {
+    const res = await fetch(`/api/player`, {
       method: "GET",
       headers: { id: player },
     });
@@ -43,10 +46,12 @@ const PlayerEditAdmin = () => {
       throw new Error("error");
     }
     const data = await res.json();
+    console.log(data);
     setPlayerData(data);
     setPlayerName(data.name);
     setPlayerPrice(data.price);
     setPlayerAdjustPrice(data.priceadjust);
+    setPlayerProfURL(data.image);
     console.log(data);
   };
 
@@ -55,9 +60,10 @@ const PlayerEditAdmin = () => {
       name: playerName,
       price: playerPrice,
       priceadjust: playerAdjustPrice,
+      image: playerProfURL,
     });
-    const res = await fetch(`/api/updatePlayer`, {
-      method: "POST",
+    const res = await fetch(`/api/player`, {
+      method: "PUT",
       headers: { id: selectedPlayer },
       body: playerinfo,
     });
@@ -282,7 +288,7 @@ const PlayerEditAdmin = () => {
     console.log(playerPrices);
   };
   return (
-    <div className="grid w-full max-w-3xl gap-2 ">
+    <div className="grid w-full max-w-3xl gap-2">
       <label className="label">What league is the player in?</label>
       <select
         onChange={(e) => {
@@ -294,6 +300,8 @@ const PlayerEditAdmin = () => {
         <option selected disabled value="">
           League
         </option>
+        <option value="epic41">Epic41</option>
+        <option value="epic40">Epic40</option>
         <option value="epic39">Epic39</option>
         <option value="demo">Demo</option>
       </select>
@@ -373,6 +381,41 @@ const PlayerEditAdmin = () => {
               </div>
             </section>
           </div>
+          <UploadDropzone<OurFileRouter>
+            className="ut-label:text-lg ut-allowed-content:ut-uploading:text-red-300 ut-allowed-content:text-white input input-bordered h-auto w-full"
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              console.log(`onClientUploadComplete`, res);
+              if (res && res[0]) {
+                setPlayerProfURL(res[0]?.url);
+                toast.dismiss();
+                toast.success("Image uploaded! click update to finalise");
+              }
+            }}
+            onUploadError={(error: Error) => {
+              // Do something with the error.
+              toast.dismiss();
+              toast.error(`ERROR! ${error.message}`);
+            }}
+            onUploadBegin={() => {
+              console.log("upload begin");
+              toast.loading("Uploading image");
+            }}
+          />
+          <span className="text-xs">
+            Need to compress image?{" "}
+            <a
+              className="link"
+              href="https://squoosh.app/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              squoosh
+            </a>
+          </span>
+          <span className="max-w-4xl overflow-hidden text-ellipsis whitespace-nowrap ">
+            {playerProfURL}
+          </span>
           <button className="btn">Update</button>
         </form>
       )}

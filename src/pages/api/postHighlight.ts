@@ -24,9 +24,11 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
     res.status(200).json(newHighlight);
+    return res.end();
   } catch (e) {
     console.error("Request error", e);
     res.status(500).json({ error: "Error posting highlight" });
+    return res.end();
   }
 };
 

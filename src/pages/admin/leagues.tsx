@@ -8,15 +8,15 @@ import AddTeamsAdmin from "../../components/AddTeamsAdmin";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
-  const res = await fetch(`${path}api/allLeagues`, { method: "GET" });
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
+  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   if (!res.ok) {
     console.error("error", res);
     return;
   }
 
-  const res2 = await fetch(`${path}/api/allAdmins`, {
+  const res2 = await fetch(`${path}/api/admins`, {
     method: "GET",
   });
   if (!res.ok) {
@@ -62,14 +62,14 @@ const Leagues = () => {
             >
               Edit players
             </li>
-            {/* <li
+            <li
               onClick={() => setCurrentPage("addteams")}
               className={`lex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
                 currentPage === "addteams" && "btn-active"
               }`}
             >
               Add teams
-            </li> */}
+            </li>
             <li
               onClick={() => setCurrentPage("playerstats")}
               className={`flex cursor-pointer flex-row items-center gap-4 p-3 hover:bg-neutral-focus ${
@@ -90,10 +90,10 @@ const Leagues = () => {
         </div>
         <div className=" col-span-6 flex items-start justify-center">
           <Toaster />
-
+          {/* <AddTeamsAdmin /> */}
           {currentPage === "editplayers" && <PlayerEditAdmin />}
-          {/* 
-          {currentPage === "addteams" && <AddTeamsAdmin />} */}
+
+          {currentPage === "addteams" && <AddTeamsAdmin />}
 
           {currentPage === "create" && (
             <form

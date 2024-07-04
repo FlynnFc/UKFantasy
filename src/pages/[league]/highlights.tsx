@@ -14,7 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export async function getStaticProps(paths: { params: { league: string } }) {
   // const path = "http://localhost:3000";
-  const path = "https://esportsfantasy.app";
+  const path = "https://uk-fantasy.vercel.app";
   const res = await fetch(`${path}/api/getPosts`, {
     method: "GET",
     headers: { leaguename: paths.params.league, skip: "0" },
@@ -31,7 +31,7 @@ export async function getStaticProps(paths: { params: { league: string } }) {
 export async function getStaticPaths() {
   // const path = "http://localhost:3000/";
   const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   const data = await res.json();
 
   const paths = data.map((league: { name: string }) => ({
@@ -191,7 +191,7 @@ const Highlights = (props: { data: any }) => {
             ) : (
               <button
                 onClick={() => setPostModal(false)}
-                className="btn-error btn w-fit justify-self-end"
+                className="btn btn-error w-fit justify-self-end"
               >
                 Close
               </button>

@@ -42,6 +42,7 @@ export const Player = (props: player) => {
       let totalTeammates = 0;
       for (let i = 0; i < props.team.length; i++) {
         const element = props.team[i];
+        console.log(element.props);
         if (element.props.playersTeam === props.playersTeam) {
           totalTeammates++;
         }
@@ -50,7 +51,7 @@ export const Player = (props: player) => {
         return setTeamLimit(true);
       } else return setTeamLimit(false);
     };
-    checkIfTwoTeammatesPicked();
+    return checkIfTwoTeammatesPicked();
   }, [props.playersTeam, props.team]);
 
   useEffect(() => {
@@ -119,9 +120,9 @@ export const Player = (props: player) => {
             <div className="text-center lg:hidden">{props.name}</div>
             <p
               className={`z-0 pb-2 text-center lg:text-3xl ${
-                props.price + props.priceadjust >= 21500
+                props.price >= 20500
                   ? "gold"
-                  : props.price + props.priceadjust > 19000
+                  : props.price >= 19500
                   ? "silver"
                   : "bronze"
               }`}
@@ -134,32 +135,38 @@ export const Player = (props: player) => {
               )}
               <span
                 className={`flex items-center justify-center ${
-                  props.price >= 21500
+                  props.price >= 20500
                     ? "gold"
-                    : props.price > 19000
+                    : props.price >= 19500
                     ? "silver"
                     : "bronze"
                 }`}
               >
-                £
-                {new Intl.NumberFormat("en").format(
-                  props.price + props.priceadjust
-                )}
-                {props.priceadjust > 0 && (
-                  <ChevronsUp
-                    size={36}
-                    className="w-fit"
-                    color="rgb(34 197 94)"
-                    strokeWidth={2.75}
-                  />
-                )}
-                {props.priceadjust < 0 && (
-                  <ChevronsDown
-                    size={36}
-                    className="w-fit"
-                    color="rgb(239 68 68)"
-                    strokeWidth={2.75}
-                  />
+                {props.price + props.priceadjust > 100000 ? (
+                  <>Not Playing</>
+                ) : (
+                  <>
+                    £
+                    {new Intl.NumberFormat("en").format(
+                      props.price + props.priceadjust
+                    )}
+                    {props.priceadjust > 0 && (
+                      <ChevronsUp
+                        size={36}
+                        className="w-fit"
+                        color="rgb(34 197 94)"
+                        strokeWidth={2.75}
+                      />
+                    )}
+                    {props.priceadjust < 0 && (
+                      <ChevronsDown
+                        size={36}
+                        className="w-fit"
+                        color="rgb(239 68 68)"
+                        strokeWidth={2.75}
+                      />
+                    )}
+                  </>
                 )}
               </span>
             </p>

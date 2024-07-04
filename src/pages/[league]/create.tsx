@@ -49,7 +49,7 @@ const Create = (props: {
   data: {
     Teams: {
       map(arg0: (el: any) => void): React.ReactNode;
-      player: player[];
+      Player: player[];
     };
     startDate: string;
     openDate: string;
@@ -74,8 +74,7 @@ const Create = (props: {
       return new Date(props.data?.startDate) < new Date();
   }, [props.data?.startDate]);
   const isOpen = useMemo(() => {
-    if (props.data?.openDate)
-      return new Date(props.data?.openDate) < new Date();
+    if (props.data?.openDate) return true;
   }, [props.data?.openDate]);
 
   useEffect(() => {
@@ -207,7 +206,7 @@ const Create = (props: {
       };
 
       const JSONbody = await JSON.stringify(body);
-      const response = await fetch("/api/submitTeam", {
+      const response = await fetch("/api/userteam", {
         method: "POST",
         body: JSONbody,
       });
@@ -491,11 +490,14 @@ const Create = (props: {
 export default Create;
 
 export async function getStaticProps(paths: { params: { league: string } }) {
-  // const path = "http://localhost:3000/";
+  // const path = "http://localhost:3000";
   const path = "https://uk-fantasy.vercel.app";
-  const res = await fetch(`${path}/api/allTeams`, {
+  const res = await fetch(`${path}/api/teams`, {
     method: "GET",
-    headers: { leaguename: paths.params.league },
+    headers: {
+      leaguename: paths.params.league,
+      create: "true",
+    },
   });
   const data = await res.json();
 
@@ -508,8 +510,9 @@ export async function getStaticProps(paths: { params: { league: string } }) {
 }
 
 export async function getStaticPaths() {
-  const path = "https://uk-fantasy.vercel.app";
-  const res = await fetch(`${path}/api/allLeagues`, { method: "GET" });
+  // const path = "http://localhost:3000";
+  const path = "https://esportsfantasy.app";
+  const res = await fetch(`${path}/api/leagues`, { method: "GET" });
   const data = await res.json();
   const paths = data.map((league: { name: string }) => ({
     params: { league: league.name.toLowerCase() },

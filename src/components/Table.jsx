@@ -12,6 +12,38 @@ const Table = (props) => {
   const [loading, setLoading] = useState(true);
   const [playerData, setPlayerData] = useState([]);
   const [checker, setChecker] = useState(new Set([]));
+
+  const bonusFinder = (player, currentPoints) => {
+    switch (player.bonusName) {
+      case "ADR warrior":
+        return currentPoints.ADR_warrior;
+      case "PTFO":
+        return currentPoints.PTFO;
+      case "All rounder":
+        return currentPoints.all_rounder;
+      case "Awper":
+        return currentPoints.awper;
+      case "Clutcher":
+        return currentPoints.clutcher;
+      case "Entry king":
+        return currentPoints.entry_king;
+      case "Head Clicker":
+        return currentPoints.head_clicker;
+      case "knife":
+        return currentPoints.knife;
+      case "Site on lock":
+        return currentPoints.site_on_lock;
+      case "Stat padder":
+        return currentPoints.stat_padder;
+      case "Trade me":
+        return currentPoints.trade_me;
+      case "Util nerd":
+        return currentPoints.util_nerd;
+      default:
+        return 0;
+    }
+  };
+
   useEffect(() => {
     const data = [...props.data];
     data.map((el) => {
@@ -19,13 +51,18 @@ const Table = (props) => {
         return;
       } else {
         setChecker((prev) => new Set([...prev, el.id]));
-        const points = 0;
-        const bonusPoints = 0;
-        el.SelectedPlayer.forEach((element) => {
-          element.points.forEach((el) => (points += el.value));
-          element.bonusPoint.forEach((el) => (bonusPoints += el.value));
-        });
+        let points = 0;
+        let bonusPoints = 0;
 
+        el.SelectedPlayer.forEach((element) => {
+          const allPoints = element.Player.playerPoints;
+          allPoints.forEach((ppoints) => {
+            if (ppoints.league === query.league) {
+              points += ppoints.points;
+              bonusPoints += bonusFinder(element, ppoints);
+            }
+          });
+        });
         setPlayerData((prev) => {
           return [
             ...prev,

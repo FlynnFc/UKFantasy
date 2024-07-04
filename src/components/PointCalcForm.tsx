@@ -22,11 +22,16 @@ type bigPlayer = {
   knife: number;
 };
 
-const PointCalcForm = (props: { data: []; currentRound: number }) => {
+const PointCalcForm = (props: {
+  data: [];
+  currentRound: number;
+  league: string;
+}) => {
   const [file, setFile] = useState<any>();
   const [data, setData] = useState();
   const [playerSheet, setPlayerSheet] = useState("");
-  const [killsSheet, setKillsSheet] = useState("");
+  const [killsSheet, setKillsSheet] = useState("Kills");
+  const { query } = useRouter();
   const submit = (e: any) => {
     toast.promise(handleUpload(e), {
       loading: "processing...",
@@ -55,14 +60,12 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       header: 1,
       defval: "",
     });
-
     const KillsRowMap = new Map();
     for (let i = 0; i < jsonDatakills[0].length; i++) {
       const element = jsonDatakills[i];
       KillsRowMap.set(element, i);
     }
 
-    console.log(jsonDatakills);
     setData(jsonData);
     const Rowmap = new Map();
     //Index for all rows
@@ -82,7 +85,6 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         const element = jsonDatakills[i];
         if (element[elementSteamIdIndex] === steamid) {
           if (element[weaponIndex] === "Knife") {
-            console.log("Found a knife kill");
             knifeKills++;
           }
         }
@@ -101,7 +103,6 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         const element = jsonDatakills[i];
         if (element[elementSteamIdIndex] === steamid) {
           if (element[weaponAWPIndex] === "AWP") {
-            console.log("Found an awp kill");
             awpKills++;
           }
         }
@@ -119,7 +120,6 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       else if (val >= 0.06) return 5;
       else return -5;
     };
-
     const utilNerd = (element: any) => {
       const val =
         (element[Rowmap.get("Flashbang thrown")] +
@@ -132,7 +132,6 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       else if (val >= 1.5) return 5;
       else return -5;
     };
-
     const ptfo = (element: any) => {
       const val =
         (element[Rowmap.get("Bomb planted")] +
@@ -142,28 +141,24 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       else if (val >= 0.05) return 5;
       else return -5;
     };
-
     const adrWarrior = (elment: any) => {
       const val = elment[Rowmap.get("ADR")];
       if (val > 85) return 10;
       else if (val > 70) return 5;
       else return -5;
     };
-
     const siteOnLock = (element: any) => {
       const val = element[Rowmap.get("Entry hold kill win %")];
       if (val >= 60) return 10;
       else if (val >= 40) return 5;
       else return -5;
     };
-
     const clutcher = (element: any) => {
       const val = element[Rowmap.get("Clutch won %")];
       if (val >= 10) return 10;
       else if (val >= 1) return 5;
       else return -5;
     };
-
     const tradeMe = (element: any) => {
       // V / F
       const val =
@@ -173,27 +168,25 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
       else if (val >= 0.15) return 5;
       else return -5;
     };
-
     const statPadder = (element: any) => {
       const val = element[Rowmap.get("Rating 2")];
       if (val >= 1.35) return 10;
       else if (val >= 0.85) return 5;
       else return -5;
     };
-
     const headClicker = (element: any) => {
       const val = element[Rowmap.get("HS%")];
       if (val >= 65) return 10;
       else if (val >= 40) return 5;
       else return -5;
     };
-
     const allRounder = (element: any) => {
       const val = element[Rowmap.get("KAST")] / element[Rowmap.get("Match")];
       if (val >= 70) return 10;
       else if (val >= 60) return 5;
       else return -5;
     };
+
     for (let index = 1; index < jsonData.length; index++) {
       const element = jsonData[index];
       //General point calc
@@ -202,6 +195,8 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
           100 *
           element[Rowmap.get("Match")]
       );
+
+      // const points = Math.round(element[Rowmap.get("Points")]);
 
       playerPoints.push({
         name: element[0],
@@ -220,248 +215,199 @@ const PointCalcForm = (props: { data: []; currentRound: number }) => {
         awper: awper(element),
         knife: knife(element),
       });
+
+      playerPoints.push({
+        name: element[1],
+        steamid: element[0],
+        points: points,
+        entry_king: 0,
+        util_nerd: 0,
+        PTFO: 0,
+        ADR_warrior: 0,
+        site_on_lock: 0,
+        clutcher: 0,
+        trade_me: 0,
+        stat_padder: 0,
+        head_clicker: 0,
+        all_rounder: 0,
+        awper: 0,
+        knife: 0,
+      });
     }
-    return playerPoints;
+    const filteredArray = playerPoints.filter((item) => item.steamid !== "");
+    console.log(filteredArray);
+    return filteredArray;
   };
 
-  const bonusFinder = (element: bigPlayer, bonusName: string) => {
-    let bonus = 0;
-    switch (bonusName) {
-      case "ADR warrior":
-        bonus = element.ADR_warrior;
-        break;
-      case "Awper":
-        bonus = element.awper;
-        break;
-      case "The K0nfig":
-        bonus = element.knife;
-        break;
-      case "All rounder":
-        bonus = element.all_rounder;
-        break;
-      case "Clutcher":
-        bonus = element.clutcher;
-        break;
-      case "Head Clicker":
-        bonus = element.head_clicker;
-        break;
-      case "PTFO":
-        bonus = element.PTFO;
-        break;
-      case "Site on lock":
-        bonus = element.site_on_lock;
-        break;
-      case "Stat padder":
-        bonus = element.stat_padder;
-        break;
-      case "Trade me":
-        bonus = element.trade_me;
-        break;
-      case "Entry king":
-        bonus = element.entry_king;
-        break;
-      case "Util nerd":
-        bonus = element.util_nerd;
-        break;
-      default:
-        bonus = 0;
-        break;
-    }
-    return bonus;
-  };
-
-  const comparer = (points: bigPlayer[], userPlayers: any[]) => {
-    const elements = [];
-    for (let index = 0; index < userPlayers.length; index++) {
-      let element = userPlayers[index];
-      for (let index = 0; index < points.length; index++) {
-        const element2: bigPlayer | undefined = points[index];
-        if (element?.steamid === element2?.steamid && element && element2) {
-          const bonus = bonusFinder(element2, element.bonusName);
-          element = {
-            ...element,
-            steamid: element2.steamid,
-            points: element2.points,
-            bonusPoint: bonus,
-          };
-          elements.push(element);
+  const playerFilter = (playerstats: any[], allplayers: any[]) => {
+    const output = [];
+    //All players competing league
+    const presentPlayers = new Set();
+    console.log("adadddd", allplayers);
+    for (let i = 0; i < allplayers.length; i++) {
+      const element = allplayers[i];
+      for (let j = 0; j < element.Player.length; j++) {
+        const player = element.Player[j];
+        if (player.steamid === "76561198102745622") {
+          console.log("REEGAN");
         }
+        presentPlayers.add(player.steamid);
       }
     }
-    console.log(elements);
-    return elements;
+
+    for (let i = 0; i < playerstats.length; i++) {
+      const element = playerstats[i];
+      const strID = element.steamid.toString().trim();
+      if (strID === "76561198102745622") {
+        console.log("Found reegan in the comparer");
+      }
+      console.log(strID.toString(), presentPlayers.has(strID.toString()));
+      if (presentPlayers.has(element.steamid)) {
+        console.log(element.name, element.steamid);
+        output.push(element);
+      }
+    }
+    return output;
   };
 
   const handleUpload = async (e: HTMLFormElement) => {
-    const currentlySelectedTeams = props.data;
+    e.preventDefault();
+    const playersRes = await fetch("/api/teams", {
+      method: "GET",
+      headers: { leaguename: query.league as string },
+    });
+
+    if (!playersRes.ok) {
+      throw new Error("couldnt find any players");
+    }
     const processedPlayers = await fileProcesMain(e);
-    const allSelectedPlayers: any[] = [];
-    currentlySelectedTeams.forEach((el: any) => {
-      //Checking if users team has bonuses applied to all players
-      el.SelectedPlayer.forEach(
-        (el: {
-          name: string;
-          id: string;
-          bonusName: string;
-          steamid: string;
-        }) =>
-          allSelectedPlayers.push({
-            name: el.name.toLowerCase(),
-            id: el.id,
-            bonusName: el.bonusName,
-            steamid: el.steamid,
-          })
-      );
+    const allPlayers = await playersRes.json();
+    console.log(allPlayers);
+    console.log(processedPlayers);
+    console.log("ttttt", allPlayers);
+    const finalData = playerFilter(processedPlayers, allPlayers.Teams);
+    console.log(finalData);
+    const bodyData = JSON.stringify({
+      playerData: finalData,
+      league: props.league,
+      round: props.currentRound,
     });
 
-    const finalData = comparer(processedPlayers, allSelectedPlayers);
+    //   const res = await fetch("/api/points", {
+    //     body: bodyData,
+    //     method: "POST",
+    //   });
 
-    const res = await fetch("http://localhost:3000/api/ApplyPoints", {
-      method: "POST",
-      body: JSON.stringify({
-        playerData: finalData.slice(0, 90),
-        round: props.currentRound,
-      }),
-    });
+    //   if (!res.ok) throw new Error("Failed to upload points");
+    //   else return res;
+    // };
 
-    if (!res.ok) {
-      throw new Error();
-    }
-    if (res.ok) {
-      console.log("Running batch 2");
-      const res2 = await fetch("http://localhost:3000/api/ApplyPoints", {
-        method: "POST",
-        body: JSON.stringify({
-          playerData: finalData.slice(90, 180),
-          round: props.currentRound,
-        }),
-      });
-      if (!res2.ok) {
-        throw new Error();
-      }
+    // const playerAssignLegacy = async () => {
+    //   const playersRes = await fetch("/api/userteam", {
+    //     method: "GET",
+    //   });
+    //   if (!playersRes.ok) {
+    //     throw new Error("couldnt find any players");
+    //   }
+    //   console.log("first");
+    //   const teams = await playersRes.json();
+    //   console.log(teams);
+    //   const players: { id: any; steamid: any }[] = [];
+    //   for (let i = 0; i < teams.length; i++) {
+    //     const element = teams[i].SelectedPlayer;
+    //     element.forEach((el: { id: any; steamid: any }) =>
+    //       players.push({ id: el.id, steamid: el.steamid })
+    //     );
+    //   }
 
-      if (res2.ok) {
-        console.log("Running batch 3");
-        const res3 = await fetch("http://localhost:3000/api/ApplyPoints", {
-          method: "POST",
-          body: JSON.stringify({
-            playerData: finalData.slice(180, 280),
-            round: props.currentRound,
-          }),
-        });
-        const res4 = await fetch("http://localhost:3000/api/ApplyPoints", {
-          method: "POST",
-          body: JSON.stringify({
-            playerData: finalData.slice(280, 380),
-            round: props.currentRound,
-          }),
-        });
-
-        if (res3.ok && res4.ok) {
-          const res5 = await fetch("http://localhost:3000/api/ApplyPoints", {
-            method: "POST",
-            body: JSON.stringify({
-              playerData: finalData.slice(380, 480),
-              round: props.currentRound,
-            }),
-          });
-          console.log("Final batch");
-          const res6 = await fetch("http://localhost:3000/api/ApplyPoints", {
-            method: "POST",
-            body: JSON.stringify({
-              playerData: finalData.slice(480, 560),
-              round: props.currentRound,
-            }),
-          });
-          const res7 = await fetch("http://localhost:3000/api/ApplyPoints", {
-            method: "POST",
-            body: JSON.stringify({
-              playerData: finalData.slice(560, 660),
-              round: props.currentRound,
-            }),
-          });
-          const res8 = await fetch("http://localhost:3000/api/ApplyPoints", {
-            method: "POST",
-            body: JSON.stringify({
-              playerData: finalData.slice(660, finalData.length),
-              round: props.currentRound,
-            }),
-          });
-
-          if (res6.ok && res7.ok && res5.ok)
-            return [res, res2, res3, res4, res5, res6, res7, res8];
-        }
-
-        throw new Error();
-      }
-    }
+    //   const chunkSize = 150;
+    //   for (let i = 0; i < players.length; i += chunkSize) {
+    //     const chunk = players.slice(i, i + chunkSize);
+    //     const updateData = JSON.stringify(chunk);
+    //     const updatePlayers = await fetch("/api/temp", {
+    //       method: "POST",
+    //       body: updateData,
+    //     });
+    //     if (!updatePlayers.ok) {
+    //       console.log("whoops", updatePlayers.statusText);
+    //     } else {
+    //       console.log("yippeee");
+    //     }
+    //   }
   };
 
-  //Point form. Take 62nd col and -1 then * 100 then take 73 cols
-
   return (
-    <form
-      className="rounded-btn flex w-full flex-col gap-3 bg-base-300 p-4 text-xl"
-      onSubmit={submit}
-    >
-      <div>
-        <label htmlFor="sheetName" className="label flex flex-col">
-          What sheet features the players you want to calculate points for?
-          <span className="text-sm">{`This should include columns such as "KAST", "ADR", "Rating 2.0" etc`}</span>
-        </label>
-        <input
-          required
-          onChange={(e) => setPlayerSheet(e.target.value)}
-          type="text"
-          name="sheetName"
-          className="input w-full"
-          placeholder="sheet name"
-        />
-      </div>
-      <div>
-        <label htmlFor="sheetName" className="label flex flex-col">
-          What sheet features the kill events?
-          <span className="text-sm">{`This should include columns that detail all kill events. It should have a column called "Weapon"`}</span>
-        </label>
-        <input
-          required
-          onChange={(e) => setKillsSheet(e.target.value)}
-          type="text"
-          name="sheetName"
-          className="input w-full"
-          placeholder="sheet name"
-        />
-      </div>
-      <div>
-        <label htmlFor="firstnumber" className="label">
-          Calcuation options
-        </label>
-        <select className=" select w-full" name="calcOptions" id="calcOptions">
-          <option value="default">default</option>
-          {/* add table to sort through algo options and display here */}
-          <option disabled value="create">
-            create new
-          </option>
-        </select>
-      </div>
-      <div>
-        <label className="label" htmlFor="file">
-          File upload
-        </label>
-        <input
-          required
-          onChange={(e) => setFile(e.target.files)}
-          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-          className="file-input w-full"
-          type="file"
-          name="roundFile"
-          id="roundFile"
-        />
-      </div>
-      <button className="btn btn-primary w-full" type="submit">
-        submit
-      </button>
-    </form>
+    <>
+      {/* <button className="btn" onClick={() => playerAssignLegacy()}>
+        TEMP
+      </button> */}
+      <form
+        className="rounded-btn flex w-full flex-col gap-3 bg-base-300 p-4 text-xl"
+        onSubmit={submit}
+      >
+        <div>
+          <label htmlFor="sheetName" className="label flex flex-col">
+            What sheet features the players you want to calculate points for?
+            <span className="text-sm">{`This should include columns such as "KAST", "ADR", "Rating 2.0" etc`}</span>
+          </label>
+          <input
+            required
+            onChange={(e) => setPlayerSheet(e.target.value)}
+            type="text"
+            name="sheetName"
+            className="input w-full"
+            placeholder="sheet name"
+          />
+        </div>
+        {/* <div>
+          <label htmlFor="sheetName" className="label flex flex-col">
+            What sheet features the kill events?
+            <span className="text-sm">{`This should include columns that detail all kill events. It should have a column called "Weapon"`}</span>
+          </label>
+          <input
+            required
+            onChange={(e) => setKillsSheet(e.target.value)}
+            type="text"
+            name="sheetName"
+            className="input w-full"
+            placeholder="sheet name"
+          />
+        </div> */}
+        <div>
+          <label htmlFor="firstnumber" className="label">
+            Calcuation options
+          </label>
+          <select
+            className=" select w-full"
+            name="calcOptions"
+            id="calcOptions"
+          >
+            <option value="default">default</option>
+            {/* add table to sort through algo options and display here */}
+            <option disabled value="create">
+              create new
+            </option>
+          </select>
+        </div>
+        <div>
+          <label className="label" htmlFor="file">
+            File upload
+          </label>
+          <input
+            required
+            onChange={(e) => setFile(e.target.files)}
+            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+            className="file-input w-full"
+            type="file"
+            name="roundFile"
+            id="roundFile"
+          />
+        </div>
+        <button className="btn btn-primary w-full" type="submit">
+          submit
+        </button>
+      </form>
+    </>
   );
 };
 

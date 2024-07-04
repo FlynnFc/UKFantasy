@@ -86,7 +86,10 @@ const Edit = (props: {
     const fetcher = async () => {
       const res = await fetch(`/api/myTeam`, {
         method: "GET",
-        headers: { id: session?.data?.user?.id as string },
+        headers: {
+          id: session?.data?.user?.id as string,
+          league: query.league as string,
+        },
       });
       if (!res.ok) {
         throw new Error("Could not fetch users team");
@@ -100,29 +103,28 @@ const Edit = (props: {
             }
           }
         );
-        console.log(matchedTeam);
+
         if (matchedTeam[0] !== undefined) {
-          console.log("first");
           setTeamName(matchedTeam[0].teamName);
           setMyTeamId(matchedTeam[0].id);
           setOriginalTeam(
             matchedTeam[0].SelectedPlayer.map((el: { id: string }) => el.id)
           );
         } else {
-          setTeamName(matchedTeam[1].teamName);
-          setMyTeamId(matchedTeam[1].id);
+          setTeamName(matchedTeam[2].teamName);
+          setMyTeamId(matchedTeam[2].id);
           setOriginalTeam(
-            matchedTeam[1].SelectedPlayer.map((el: { id: string }) => el.id)
+            matchedTeam[2].SelectedPlayer.map((el: { id: string }) => el.id)
           );
         }
-        const players = matchedTeam[matchedTeam[0] ? 0 : 1].SelectedPlayer.map(
+        const players = matchedTeam[matchedTeam[0] ? 0 : 2].SelectedPlayer.map(
           (el: any) => (
             <SelectedPlayer
               PlayerRemove={PlayerRemove}
               rareity={el.rareity}
               name={el.name}
               price={el.price}
-              img={el.image}
+              img={el.Player.image}
               key={el.name}
               id={el.id}
               team={myTeam}
@@ -270,13 +272,17 @@ const Edit = (props: {
       };
 
       const JSONbody = await JSON.stringify(body);
-      const response = await fetch("/api/editTeam", {
-        method: "POST",
+
+      const response = await fetch("/api/userteam", {
+        method: "PUT",
         body: JSONbody,
       });
-      if (response.ok) {
-        return response;
-      } else throw new Error("Could not submit team!");
+
+      if (!response.ok) {
+        throw new Error("Could not submit team!");
+      }
+
+      return response;
     } catch (error) {
       throw error;
     }
@@ -519,13 +525,15 @@ export default Edit;
 export async function getServerSideProps(paths: {
   params: { league: string };
 }) {
-  // const path = "http://localhost:3000/";
-  const path = "https://esportsfantasy.app";
-  const res = await fetch(`${path}/api/allTeams`, {
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
+  const res = await fetch(`${path}/api/teams`, {
     method: "GET",
-    headers: { leaguename: paths.params.league },
+    headers: {
+      leaguename: paths.params.league,
+      create: "true",
+    },
   });
-
   const data = await res.json();
 
   return {

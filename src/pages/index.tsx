@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import SiteShowcase from "../components/SiteShowcase";
+import LiveGamesExample from "../components/LiveGamesExample";
 
 const Player = {
   id: "clb6rmzhi0003j9dw2xp7vagz",
@@ -38,18 +39,23 @@ const Home: NextPage = () => {
             <span className="font-bold text-emerald-500"> Fantasy League</span>!
           </motion.h1>
           <section className="my-10">
-            <Link href={"/epic39"}>
+            <Link href={"/epic41"}>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 id="getStarted"
                 className="duration-400 rounded-btn bg-primary p-5 text-xl font-bold uppercase text-primary-content shadow-lg   transition-all"
               >
-                Go to Epic 39
+                Go to Epic 41
               </motion.button>
             </Link>
           </section>
-          <SiteShowcase />
+          <div className="rounded-btn max-w-[85vw] bg-base-300 p-2 xl:hidden">
+            <LiveGamesExample />
+          </div>
+          <div className="hidden xl:flex">
+            <SiteShowcase />
+          </div>
         </section>
       </main>
     </>

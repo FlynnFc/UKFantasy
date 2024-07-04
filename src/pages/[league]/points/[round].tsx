@@ -8,13 +8,11 @@ import * as XLSX from "xlsx";
 export async function getServerSideProps(context: any) {
   const url = context.req.url;
   console.log(url);
-  const res = await fetch(
-    "https://esportsfantasy.app/api/allUserTeamsByLeague",
-    {
-      method: "GET",
-      headers: { url: JSON.stringify(url) },
-    }
-  );
+  const processed = url.split("/");
+  const res = await fetch("https://uk-fantasy.vercel.app/api/userteam", {
+    method: "GET",
+    headers: { leaguename: processed[1] },
+  });
   const data = await res.json();
   return {
     props: {

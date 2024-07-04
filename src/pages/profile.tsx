@@ -15,27 +15,37 @@ import { CgSpinner } from "react-icons/cg";
 import Settings from "../components/Settings";
 import Head from "next/head";
 import { BiLogOut } from "react-icons/bi";
-import { Edit } from "lucide-react";
+import user from "./api/user";
 
 export async function getServerSideProps({ req }: any) {
   const session = await getSession({ req });
-  // const path = "http://localhost:3000/";
-  const path = "https://uk-fantasy.vercel.app/";
+  // const path = "http://localhost:3000";
+  const path = "https://uk-fantasy.vercel.app";
+  let userid = "";
+  if (session?.user) {
+    userid = session.user.id;
+  }
 
-  const res = await fetch(`${path}/api/allAdmins`, {
+  console.log(session?.user);
+  const res = await fetch(`${path}/api/admins`, {
     method: "GET",
+    headers: { id: userid },
   });
   if (!res.ok) {
-    console.error("error");
+    console.error(res.statusText);
+    return {
+      props: {
+        isAdmin: false,
+      },
+    };
   }
+
   const temp = await res.json();
-  const admins = new Set(temp.map((el: { id: string }) => el.id));
-
-  const isAdmin = admins.has(session?.user?.id);
-
+  console.log("cheese", temp);
+  const isAdmin = temp.admin;
   return {
     props: {
-      isAdmin,
+      isAdmin: isAdmin,
     },
   };
 }
@@ -44,7 +54,6 @@ const Profile = (props: { isAdmin: boolean }) => {
   const admin = useMemo(() => props.isAdmin, [props.isAdmin]);
   const { data: session } = useSession();
   const [datateams, setTeams] = useState([]);
-  const teams = useMemo(() => [...datateams], [datateams]);
   const [currentPage, setCurrentPage] = useState("profile");
   useEffect(() => {
     const fetcher = async () => {
@@ -154,8 +163,8 @@ const Profile = (props: { isAdmin: boolean }) => {
               {currentPage === "profile" && (
                 <section className="rounded-btn flex h-fit w-full flex-col justify-start bg-base-300 p-8 md:w-[30rem]">
                   <h2 className="text-3xl">My teams</h2>
-                  {teams ? (
-                    teams.map(
+                  {datateams ? (
+                    datateams.map(
                       (el: {
                         id: string;
                         teamName: string;
@@ -195,7 +204,7 @@ const Profile = (props: { isAdmin: boolean }) => {
                       <CgSpinner className="animate-spin text-4xl" />
                     </div>
                   )}
-                  {teams && teams.length < 1 && <div>No teams</div>}
+                  {datateams && datateams.length < 1 && <div>No teams</div>}
                 </section>
               )}
               {currentPage === "settings" && <Settings />}

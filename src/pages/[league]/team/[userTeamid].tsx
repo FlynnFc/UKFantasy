@@ -25,7 +25,7 @@ const UserTeam = () => {
   useEffect(() => {
     const fetcher = async () => {
       const teamId: string = query.userTeamid as string;
-      const res = await fetch("/api/UserTeamById", {
+      const res = await fetch("/api/userteam", {
         method: "GET",
         headers: { id: teamId },
       });
@@ -61,7 +61,7 @@ const UserTeam = () => {
                       name={el.name}
                       price={el.price}
                       rareity={el.rareity}
-                      img={el.image}
+                      img={el.Player.image}
                       bonus={el.bonus}
                       index={0}
                       deleteBonus={function (i: number): void {
@@ -73,9 +73,7 @@ const UserTeam = () => {
                 })}
               </div>
             </div>
-            <h2 className="my-5 hidden text-left text-4xl md:block">
-              Insights
-            </h2>
+            <h2 className="my-5 block text-left text-4xl">Insights</h2>
             <section className="w-fit">
               <InsightsTable serverTeam={team} />
             </section>

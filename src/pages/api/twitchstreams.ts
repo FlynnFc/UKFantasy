@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { NextApiRequest, NextApiResponse } from "next";
 
 async function getAccessToken() {
@@ -20,7 +19,7 @@ async function getAccessToken() {
 async function getStreams() {
   const streamers: string[] = [
     "edeninho_",
-    "meffew",
+    "meffewcs",
     "esl_csgo",
     "shoobieTV",
     "pieface_CS",
@@ -47,6 +46,17 @@ async function getStreams() {
     "mms_cs",
     "EU_ReTr00",
     "alcan1",
+    "saltcs",
+    "rhysstumbles",
+    "jjaredddddd",
+    "ByfieldCS2",
+    "bossmankanny",
+    "jaustere_",
+    "ba_birdy",
+    "s0ra_cs",
+    "noel_1k",
+    "sy4_",
+    "dezii96",
   ];
   const token = await getAccessToken();
   let path = "https://api.twitch.tv/helix/streams?";
@@ -73,18 +83,19 @@ async function getStreams() {
   }
 }
 
-const allAdmins = async (req: NextApiRequest, res: NextApiResponse) => {
+const twitchstreams = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
   switch (method) {
     case "GET":
       try {
         const streams = await getStreams();
         res.status(200).json(streams);
+        return res.end();
       } catch (e) {
         console.error("Request error", e);
-        res.status(500).json({ error: "Error fetching Admins" });
+        res.status(500).json({ error: "Error fetching Streams" });
+        return res.end();
       }
-      break;
     default:
       res.setHeader("Allow", ["GET"]);
       res.status(405).end(`Method ${method} Not Allowed`);
@@ -92,4 +103,4 @@ const allAdmins = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default allAdmins;
+export default twitchstreams;

@@ -34,7 +34,7 @@ const Settings = () => {
     };
     const JSONbody = await JSON.stringify(reqBody);
     try {
-      const res = await fetch(`./api/userNameUpdate`, {
+      const res = await fetch(`./api/user`, {
         method: "PUT",
         body: JSONbody,
       });
@@ -65,12 +65,12 @@ const Settings = () => {
         <button
           disabled={!name}
           type="submit"
-          className="btn-success btn-sm btn mx-2"
+          className="btn btn-success btn-sm mx-2"
         >
           Submit
         </button>
       </form>
-      <form className="form" action="">
+      {/* <form className="form" action="">
         <label className="label mt-1 text-xl" htmlFor="name">
           Theme
         </label>
@@ -88,11 +88,11 @@ const Settings = () => {
         </select>
         <button
           onClick={themeSubmitter}
-          className="btn-success btn-sm btn mx-2"
+          className="btn btn-success btn-sm mx-2"
         >
           Submit
         </button>
-      </form>
+      </form> */}
     </section>
   );
 };

@@ -21,6 +21,7 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
             data: { highlightLike: { create: { userId: post.likedBy } } },
           });
           res.status(200).json(addHighLightLike);
+          return res.end();
         } else {
           const highlight = await prisma.highlightLike.findMany({
             where: {
@@ -31,10 +32,12 @@ const postHighlights = async (req: NextApiRequest, res: NextApiResponse) => {
             where: { id: highlight[0]?.id },
           });
           res.status(200).json(addHighLightLike);
+          return res.end();
         }
       } catch (e) {
         console.error("Request error", e);
-        res.status(500).json({ error: "Error posting highlight" });
+        res.status(500).json({ error: "Error updating likes" });
+        return res.end();
       }
   }
 };
