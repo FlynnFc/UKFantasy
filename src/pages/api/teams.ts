@@ -74,7 +74,7 @@ const teams = async (req: NextApiRequest, res: NextApiResponse) => {
             data: {
               teamName: team.teamName,
               id: teamId,
-              league: { connect: { name: "epic42" } },
+              league: { connect: { name: "epic41" } },
             },
           });
           queries.push(newteam);
