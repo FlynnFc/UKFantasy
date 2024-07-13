@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PlayerGroup from "../../components/playerGroup";
 import { playerStats } from "../../components/Player";
 import PreviewPlayer, { player } from "../../components/PreviewPlayer";
+import { Team } from "@prisma/client";
 
 export async function getServerSideProps(paths: {
   params: { league: string };
@@ -44,6 +45,29 @@ const Teams = (props: { data: { Teams: [] } }) => {
     return players;
   }, [props.data.Teams]);
 
+  const [sortedTeams, setSortedTeams] =
+    useState<{ teamName: string; Player: player[] }[]>();
+
+  useEffect(() => {
+    if (props.data?.Teams) {
+      const teamsCopy = [...props.data.Teams];
+      teamsCopy.sort((a: any, b: any) => {
+        const totalPriceA = a.Player.reduce(
+          (sum: any, player: { price: any; priceadjust: any }) =>
+            sum + player.price + (player.priceadjust || 0),
+          0
+        );
+        const totalPriceB = b.Player.reduce(
+          (sum: any, player: { price: any; priceadjust: any }) =>
+            sum + player.price + (player.priceadjust || 0),
+          0
+        );
+        return totalPriceB - totalPriceA;
+      });
+      setSortedTeams(teamsCopy);
+    }
+  }, [props.data]);
+
   return (
     <section className="mx-5 ml-8 min-h-screen">
       <div className="prose flex w-full max-w-full flex-col items-end justify-between prose-h1:mb-0 md:flex-row ">
@@ -51,28 +75,26 @@ const Teams = (props: { data: { Teams: [] } }) => {
       </div>
       <div className="mb-2 flex w-full flex-col items-center gap-2 lg:flex-row lg:items-start lg:justify-between">
         <div className=" flex w-full flex-col gap-2">
-          {props.data?.Teams.map(
-            (el: { teamName: string; Player: player[] }) => {
-              return (
-                <PlayerGroup team={el.teamName} key={el.teamName}>
-                  {el.Player?.map((els) => {
-                    return (
-                      <PreviewPlayer
-                        priceadjust={els.priceadjust}
-                        key={els.id}
-                        id={els.id}
-                        rareity={els.rareity}
-                        name={els.name}
-                        price={els.price}
-                        image={els.image}
-                        stats={els.stats}
-                      />
-                    );
-                  })}
-                </PlayerGroup>
-              );
-            }
-          )}
+          {sortedTeams?.map((el: { teamName: string; Player: player[] }) => {
+            return (
+              <PlayerGroup team={el.teamName} key={el.teamName}>
+                {el.Player?.map((els) => {
+                  return (
+                    <PreviewPlayer
+                      priceadjust={els.priceadjust}
+                      key={els.id}
+                      id={els.id}
+                      rareity={els.rareity}
+                      name={els.name}
+                      price={els.price}
+                      image={els.image}
+                      stats={els.stats}
+                    />
+                  );
+                })}
+              </PlayerGroup>
+            );
+          })}
         </div>
 
         <ul className="rounded-btn w-full bg-base-300 p-4 lg:w-56">
