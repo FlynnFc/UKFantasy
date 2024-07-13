@@ -138,7 +138,7 @@ const Stats = (props: any) => {
             <CartesianGrid strokeDasharray="5 5" />
             <XAxis dataKey="name" />
             <YAxis />
-            <Tooltip />
+            <Tooltip content={<CustomTooltipBlue />} />
             <Bar fill="#3457d4" dataKey={"freq"} stackId="a" />
             <Legend />
           </BarChart>
@@ -159,7 +159,7 @@ const Stats = (props: any) => {
             <CartesianGrid strokeDasharray="5 5" />
             <XAxis dataKey="name" />
             <YAxis />
-            <Tooltip />
+            <Tooltip content={<CustomTooltipGreen />} />
             <Bar fill="#34d457" dataKey={"freq"} stackId="a" />
             <Legend />
           </BarChart>
@@ -184,13 +184,82 @@ const Stats = (props: any) => {
           <CartesianGrid strokeDasharray="5 5" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip content={<CustomTooltipRed />} />
           <Bar fill="#d43934" dataKey={"freq"} stackId="a" />
           <Legend />
         </BarChart>
       </section>
     </main>
   );
+};
+
+const CustomTooltipRed = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        className="custom-tooltip"
+        style={{
+          backgroundColor: "#fff",
+          padding: "5px",
+          border: "1px solid #ccc",
+        }}
+      >
+        <p className="label" style={{ color: "#d43934" }}>{`${label}`}</p>
+        <p
+          className="intro"
+          style={{ color: "#333" }}
+        >{`freq : ${payload[0].value}`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
+const CustomTooltipGreen = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        className="custom-tooltip"
+        style={{
+          backgroundColor: "#fff",
+          padding: "5px",
+          border: "1px solid #ccc",
+        }}
+      >
+        <p className="label" style={{ color: "#34d457" }}>{`${label}`}</p>
+        <p
+          className="intro"
+          style={{ color: "#333" }}
+        >{`freq : ${payload[0].value}`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
+const CustomTooltipBlue = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        className="custom-tooltip"
+        style={{
+          backgroundColor: "#fff",
+          padding: "5px",
+          border: "1px solid #ccc",
+        }}
+      >
+        <p className="label" style={{ color: "#3457d4" }}>{`${label}`}</p>
+        <p
+          className="intro"
+          style={{ color: "#333" }}
+        >{`freq : ${payload[0].value}`}</p>
+      </div>
+    );
+  }
+
+  return null;
 };
 
 export default Stats;
