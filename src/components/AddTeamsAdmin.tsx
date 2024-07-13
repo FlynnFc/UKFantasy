@@ -17,7 +17,6 @@ const AddTeamsAdmin = () => {
       defval: "",
     });
 
-    console.log(jsonData);
     const teams = [];
     const jump = 9;
     for (let index = 2; index < jsonData.length; ) {
@@ -52,21 +51,36 @@ const AddTeamsAdmin = () => {
       }
       index += jump;
     }
+
+    const targetIndex = teams.findIndex(
+      (team) => team.teamName === "TYREECESIMPSON"
+    );
+
     console.log(teams);
+    if (targetIndex > -1) {
+      const [targetTeam] = teams.splice(targetIndex, 1);
+      teams.unshift(targetTeam);
+    }
+    console.log(JSON.stringify(teams));
+    console.log("CALLING");
     const res = await fetch("/api/teams", {
-      body: JSON.stringify(teams),
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(teams),
     });
     if (res.ok) {
       console.log(await res.json);
       return res;
     } else {
+      console.log("FAiled to add teams");
       throw new Error("couldnt submit");
     }
   };
   return (
     <form onSubmit={fileProcess} className="rounded-btn bg-base-300 p-4">
-      <h3 className="text-2xl">Teams & Players competing</h3>
+      <h3 className="text-2xl">Teams & Players competing yer</h3>
       <section className="mb-2 grid gap-4">
         <div className="grid">
           <label className="label" htmlFor="">
