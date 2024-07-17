@@ -42,7 +42,7 @@ const SelectedPlayer = (props: player) => {
 
   return (
     <div
-      className={`relative z-0 flex min-h-full w-52 flex-col overflow-hidden rounded-sm bg-neutral shadow-none lg:h-[20rem] lg:shadow-lg`}
+      className={`lg:h-[20rem] relative z-0 flex min-h-full w-52 flex-col overflow-hidden rounded-sm bg-neutral shadow-none lg:shadow-lg`}
     >
       <div
         onMouseEnter={() => {
@@ -59,9 +59,9 @@ const SelectedPlayer = (props: player) => {
           <div>
             <p
               className={`pb-2 text-center lg:text-3xl  ${
-                props.price >= 20500
+                props.price >= 20501
                   ? "gold"
-                  : props.price >= 19500
+                  : props.price >= 17500
                   ? "silver"
                   : "bronze"
               }`}
@@ -77,7 +77,7 @@ const SelectedPlayer = (props: player) => {
           </div>
         </div>
         <div
-          className={`z-0 hidden h-[20rem] cursor-auto justify-center lg:block`}
+          className={`h-[20rem] z-0 hidden cursor-auto justify-center lg:block`}
         >
           {props.img ? (
             <Image

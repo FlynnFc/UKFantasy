@@ -15,8 +15,8 @@ export type player = {
 const PreviewPlayer = (props: player) => {
   const [stats, setStats] = useState(false);
   return (
-    <div className={` mx-2 flex-col lg:h-[20rem] lg:w-[14rem] lg:shadow-lg`}>
-      <div className={` relative cursor-auto rounded bg-base-100 lg:h-[20rem]`}>
+    <div className={` lg:h-[20rem] lg:w-[14rem] mx-2 flex-col lg:shadow-lg`}>
+      <div className={` lg:h-[20rem] relative cursor-auto rounded bg-base-100`}>
         <div
           className={`bottom-3 z-10 w-full select-none flex-col  items-center justify-evenly p-2 font-bold  lg:absolute  `}
         >
@@ -25,9 +25,9 @@ const PreviewPlayer = (props: player) => {
 
             <p
               className={`z-0 pb-2 text-center lg:text-3xl ${
-                props.price >= 20500
+                props.price >= 20501
                   ? "gold"
-                  : props.price >= 19500
+                  : props.price >= 17500
                   ? "silver"
                   : "bronze"
               }`}
@@ -40,9 +40,9 @@ const PreviewPlayer = (props: player) => {
               )}
               <span
                 className={`flex items-center justify-center ${
-                  props.price >= 20500
+                  props.price >= 20501
                     ? "gold"
-                    : props.price >= 19500
+                    : props.price >= 17500
                     ? "silver"
                     : "bronze"
                 }`}

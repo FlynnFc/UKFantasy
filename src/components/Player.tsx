@@ -79,7 +79,7 @@ export const Player = (props: player) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       layout={true}
-      className={`relative z-0 w-52 overflow-hidden rounded-sm bg-base-100 shadow-lg lg:h-[20rem] `}
+      className={`lg:h-[20rem] relative z-0 w-52 overflow-hidden rounded-sm bg-base-100 shadow-lg `}
     >
       {picked ? (
         <div className="pickedPlayer absolute z-30 flex h-full w-full select-none items-center justify-center font-bold lg:text-xl">
@@ -120,9 +120,9 @@ export const Player = (props: player) => {
             <div className="text-center lg:hidden">{props.name}</div>
             <p
               className={`z-0 pb-2 text-center lg:text-3xl ${
-                props.price >= 20500
+                props.price >= 20501
                   ? "gold"
-                  : props.price >= 19500
+                  : props.price >= 17500
                   ? "silver"
                   : "bronze"
               }`}
@@ -135,9 +135,9 @@ export const Player = (props: player) => {
               )}
               <span
                 className={`flex items-center justify-center ${
-                  props.price >= 20500
+                  props.price >= 20501
                     ? "gold"
-                    : props.price >= 19500
+                    : props.price >= 17500
                     ? "silver"
                     : "bronze"
                 }`}

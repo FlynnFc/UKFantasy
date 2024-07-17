@@ -26,9 +26,9 @@ export const MyPlayer = (props: myPlayer) => {
   }, [props.points]);
 
   return (
-    <div className={`w-[14rem] flex-col xl:h-[20rem]`}>
+    <div className={`w-[14rem] xl:h-[20rem] flex-col`}>
       <div
-        className={` relative hidden h-[20rem] cursor-auto rounded-b-none bg-base-200 lg:block`}
+        className={` h-[20rem] relative hidden cursor-auto rounded-b-none bg-base-200 lg:block`}
       >
         {props.bonus && (
           <div
@@ -44,7 +44,7 @@ export const MyPlayer = (props: myPlayer) => {
               {props.bonusEdit && (
                 <button
                   onClick={() => props.deleteBonus(props.index)}
-                  className="mr-2 mt-[0.1rem]  font-bold text-red-500"
+                  className="mt-[0.1rem] mr-2  font-bold text-red-500"
                 >
                   X
                 </button>
@@ -59,9 +59,9 @@ export const MyPlayer = (props: myPlayer) => {
           <div>
             <p
               className={`pb-2 text-center lg:text-3xl ${
-                props.price >= 20500
+                props.price >= 20501
                   ? "gold"
-                  : props.price >= 19500
+                  : props.price >= 17500
                   ? "silver"
                   : "bronze"
               }`}
@@ -106,7 +106,7 @@ export const MyPlayer = (props: myPlayer) => {
           {props.bonusEdit && (
             <button
               onClick={() => props.deleteBonus(props.index)}
-              className="right-0 mr-2 mt-[0.1rem] font-bold text-error"
+              className="mt-[0.1rem] right-0 mr-2 font-bold text-error"
             >
               X
             </button>
