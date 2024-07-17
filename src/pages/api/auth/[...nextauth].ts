@@ -33,9 +33,9 @@ export default async function handler(
       // }),
     ],
     secret: process.env.sercet,
-    pages: {
-      signIn: "/auth/signin",
-    },
+    // pages: {
+    //   signIn: "/auth/signin",
+    // },
     session: {
       maxAge: 30 * 24 * 60 * 60, // 30 days
       updateAge: 24 * 60 * 60, // 24 hours
