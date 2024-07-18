@@ -187,7 +187,7 @@ const Pickem = (props: any) => {
           <div className="flex w-full flex-col items-center gap-2  lg:grid lg:grid-cols-8">
             <div className=" lg:col-start-3">
               <h3 className="text-center font-bold leading-relaxed">
-                1st Place
+                Highest rating
               </h3>
               <div className="rounded-btn flex h-20 w-full items-center justify-center bg-green-900 p-2 text-center font-bold">
                 {highestRating?.name ?? (
